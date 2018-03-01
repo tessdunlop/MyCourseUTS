@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MyCourseDBModelStoreContainer" CdmEntityContainer="MyCourseDBEntities">
+    <EntitySetMapping Name="ChoiceBlockRelationships">
+      <EntityTypeMapping TypeName="MyCourseDBModel.ChoiceBlockRelationships">
+        <MappingFragment StoreEntitySet="ChoiceBlockRelationships">
+          <ScalarProperty Name="ContentGroupID" ColumnName="ContentGroupID" />
+          <ScalarProperty Name="ContentChoiceBlockID" ColumnName="ContentChoiceBlockID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="ChoiceBlockID" ColumnName="ChoiceBlockID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChoiceBlocks">
+      <EntityTypeMapping TypeName="MyCourseDBModel.ChoiceBlocks">
+        <MappingFragment StoreEntitySet="ChoiceBlocks">
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseRelationships">
+      <EntityTypeMapping TypeName="MyCourseDBModel.CourseRelationships">
+        <MappingFragment StoreEntitySet="CourseRelationships">
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Stage" ColumnName="Stage" />
+          <ScalarProperty Name="SubjectTypeID" ColumnName="SubjectTypeID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="ChoiceBlockID" ColumnName="ChoiceBlockID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="MyCourseDBModel.Courses">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="CourseTypeID" ColumnName="CourseTypeID" />
+          <ScalarProperty Name="Stages" ColumnName="Stages" />
+          <ScalarProperty Name="Years" ColumnName="Years" />
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
+          <ScalarProperty Name="CategoryTypeDescription" ColumnName="CategoryTypeDescription" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseTypes">
+      <EntityTypeMapping TypeName="MyCourseDBModel.CourseTypes">
+        <MappingFragment StoreEntitySet="CourseTypes">
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="CourseType" ColumnName="CourseType" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MajorRelationships">
+      <EntityTypeMapping TypeName="MyCourseDBModel.MajorRelationships">
+        <MappingFragment StoreEntitySet="MajorRelationships">
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Stage" ColumnName="Stage" />
+          <ScalarProperty Name="SubjectTypeID" ColumnName="SubjectTypeID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="ChoiceBlockID" ColumnName="ChoiceBlockID" />
+          <ScalarProperty Name="StreamID" ColumnName="StreamID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Majors">
+      <EntityTypeMapping TypeName="MyCourseDBModel.Majors">
+        <MappingFragment StoreEntitySet="Majors">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="Stage" ColumnName="Stage" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StreamRelationships">
+      <EntityTypeMapping TypeName="MyCourseDBModel.StreamRelationships">
+        <MappingFragment StoreEntitySet="StreamRelationships">
+          <ScalarProperty Name="ContentGroupID" ColumnName="ContentGroupID" />
+          <ScalarProperty Name="ContentStreamID" ColumnName="ContentStreamID" />
+          <ScalarProperty Name="ContentChoiceBlockID" ColumnName="ContentChoiceBlockID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="StreamID" ColumnName="StreamID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Streams">
+      <EntityTypeMapping TypeName="MyCourseDBModel.Streams">
+        <MappingFragment StoreEntitySet="Streams">
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubjectGroupings">
+      <EntityTypeMapping TypeName="MyCourseDBModel.SubjectGroupings">
+        <MappingFragment StoreEntitySet="SubjectGroupings">
+          <ScalarProperty Name="SubMajorID" ColumnName="SubMajorID" />
+          <ScalarProperty Name="StreamID" ColumnName="StreamID" />
+          <ScalarProperty Name="ChoiceBlockID" ColumnName="ChoiceBlockID" />
+          <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubjectGroupingsCredit">
+      <EntityTypeMapping TypeName="MyCourseDBModel.SubjectGroupingsCredit">
+        <MappingFragment StoreEntitySet="SubjectGroupingsCredit">
+          <ScalarProperty Name="SubMajorPresent" ColumnName="SubMajorPresent" />
+          <ScalarProperty Name="StreamPresent" ColumnName="StreamPresent" />
+          <ScalarProperty Name="ChoiceBlockPresent" ColumnName="ChoiceBlockPresent" />
+          <ScalarProperty Name="MajorPresent" ColumnName="MajorPresent" />
+          <ScalarProperty Name="SubjectPresent" ColumnName="SubjectPresent" />
+          <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subjects">
+      <EntityTypeMapping TypeName="MyCourseDBModel.Subjects">
+        <MappingFragment StoreEntitySet="Subjects">
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubjectTypes">
+      <EntityTypeMapping TypeName="MyCourseDBModel.SubjectTypes">
+        <MappingFragment StoreEntitySet="SubjectTypes">
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubMajorRelationships">
+      <EntityTypeMapping TypeName="MyCourseDBModel.SubMajorRelationships">
+        <MappingFragment StoreEntitySet="SubMajorRelationships">
+          <ScalarProperty Name="ContentGroupID" ColumnName="ContentGroupID" />
+          <ScalarProperty Name="ContentStreamID" ColumnName="ContentStreamID" />
+          <ScalarProperty Name="ContentChoiceBlockID" ColumnName="ContentChoiceBlockID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubMajorID" ColumnName="SubMajorID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubMajors">
+      <EntityTypeMapping TypeName="MyCourseDBModel.SubMajors">
+        <MappingFragment StoreEntitySet="SubMajors">
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

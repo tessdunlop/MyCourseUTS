@@ -1,0 +1,14 @@
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\bin\Debug\MyCourseUTS.Manager.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\bin\Debug\MyCourseUTS.Manager.pdb
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\bin\Debug\MyCourseUTS.DataModel.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\bin\Debug\MyCourseUTS.Repository.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\bin\Debug\EntityFramework.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\bin\Debug\MyCourseUTS.DataModel.pdb
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\bin\Debug\MyCourseUTS.DataModel.dll.config
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\bin\Debug\MyCourseUTS.Repository.pdb
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\bin\Debug\MyCourseUTS.Repository.dll.config
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\bin\Debug\EntityFramework.xml
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\obj\Debug\MyCourseUTS.Manager.csprojResolveAssemblyReference.cache
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\obj\Debug\MyCourseUTS.Manager.csproj.CoreCompileInputs.cache
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\obj\Debug\MyCourseUTS.Manager.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Manager\obj\Debug\MyCourseUTS.Manager.pdb

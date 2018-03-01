@@ -1,0 +1,65 @@
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\csc.exe
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\System.Collections.Immutable.dll
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\vbc.exe
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\VBCSCompiler.exe
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\roslyn\VBCSCompiler.exe.config
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.dll.config
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.dll
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.pdb
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.csprojResolveAssemblyReference.cache
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.dll
+c:\users\dunlopt7h\documents\visual studio 2015\Projects\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.pdb
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\csc.exe
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\System.Collections.Immutable.dll
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\System.Reflection.Metadata.dll
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\vbc.exe
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\VBCSCompiler.exe
+E:\MyCourseUTS\MyCourseUTS\bin\roslyn\VBCSCompiler.exe.config
+E:\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.dll.config
+E:\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.dll
+E:\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.pdb
+E:\MyCourseUTS\MyCourseUTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\MyCourseUTS\MyCourseUTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.csprojResolveAssemblyReference.cache
+E:\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.csproj.CoreCompileInputs.cache
+E:\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.dll
+E:\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.pdb
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\csc.exe
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\vbc.exe
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\VBCSCompiler.exe
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.dll.config
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.pdb
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.csprojResolveAssemblyReference.cache
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.csproj.CoreCompileInputs.cache
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\obj\Debug\MyCourseUTS.pdb
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\Newtonsoft.Json.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\Newtonsoft.Json.xml

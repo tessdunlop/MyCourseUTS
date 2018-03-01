@@ -41,6 +41,9 @@
     <Reference Include="Carbon.Packaging, Version=1.24.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Carbon.Packaging.1.24.0\lib\netstandard2.0\Carbon.Packaging.dll</HintPath>
     </Reference>
+    <Reference Include="Carbon.Repositories, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Carbon.Repositories.1.2.0\lib\net451\Carbon.Repositories.dll</HintPath>
+    </Reference>
     <Reference Include="Carbon.Storage, Version=1.13.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Carbon.Storage.1.13.0\lib\netstandard2.0\Carbon.Storage.dll</HintPath>
     </Reference>
@@ -62,6 +65,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Text.Encodings.Web, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">

@@ -1,0 +1,8 @@
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\MyCourseUTS.Entity.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\MyCourseUTS.Entity.pdb
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\Newtonsoft.Json.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\Newtonsoft.Json.xml
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.csprojResolveAssemblyReference.cache
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.csproj.CoreCompileInputs.cache
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.pdb
