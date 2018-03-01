@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{416D63FD-0477-49AA-A954-A7C5B95A9B51};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{0AFEBA99-9C57-445E-964D-46EA0984ABB6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyCourseUTS.DataModel</RootNamespace>
+    <AssemblyName>MyCourseUTS.DataModel</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.Analytics.Interfaces" />
+    <Reference Include="Microsoft.Analytics.Types" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChoiceBlockRelationships.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChoiceBlocks.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseRelationships.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Courses.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseTypes.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MajorRelationships.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Majors.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MyCourseDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyCourseDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MyCourseDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MyCourseDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyCourseDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamRelationships.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Streams.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubjectGroupings.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubjectGroupingsCredit.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Subjects.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubjectTypes.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubMajorRelationships.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubMajors.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="MyCourseDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MyCourseDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="MyCourseDataModel.edmx.diagram">
+      <DependentUpon>MyCourseDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MyCourseDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MyCourseDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>MyCourseDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="MyCourseDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyCourseDataModel.edmx</DependentUpon>
+      <LastGenOutput>MyCourseDataModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
