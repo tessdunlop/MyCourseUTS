@@ -392,6 +392,38 @@
         <member name="M:Microsoft.AspNet.Scaffolding.CommonUI.RemoveSubstringExtension.ProvideValue(System.IServiceProvider)">
             <see cref="M:System.Windows.Markup.MarkupExtension.ProvideValue(System.IServiceProvider)"/>
         </member>
+        <member name="T:Microsoft.AspNet.Scaffolding.ExceptionWithHyperLinkMessage">
+            <summary>
+            Exception class that allows a hyperlink to be shown in the error dialog
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ExceptionWithHyperLinkMessage.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Exception class that allows a hyperlink to be shown in the error dialog
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ExceptionWithHyperLinkMessage.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Exception class that allows a hyperlink to be shown in the error dialog
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.ExceptionWithHyperLinkMessage.HyperLinkText">
+            <summary>
+            Text that is displayed for the hyperlink
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.ExceptionWithHyperLinkMessage.HyperLinkUrl">
+            <summary>
+            URL for the hyperlink
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ExceptionWithHyperLinkMessage.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
         <member name="T:Microsoft.AspNet.Scaffolding.ICategoryRegistrationService">
             <summary>
             Service to register localized names for custom category 
@@ -760,6 +792,11 @@
             </summary>
         </member>
         <member name="M:Microsoft.AspNet.Scaffolding.IDialogService.ShowErrorDialog(System.String,System.String)">
+            <summary>
+            Show a dialog with information about error from a code generation operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.IDialogService.ShowErrorDialog(System.String,System.String,System.String,System.String)">
             <summary>
             Show a dialog with information about error from a code generation operation.
             </summary>

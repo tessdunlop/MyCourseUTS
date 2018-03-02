@@ -7,16 +7,16 @@ getAllCourses();
 
 function getAllCourses() {
 
-    $http.post("Search.aspx/GetAllCourses", { data: {} }, config).
-        success(function (data) {
-            var r = eval('(' + data.d + ')');
-            if (r.Success == true) {
-                return r.Data;
-            }
-            else {
-                alert('error');
-            }
-        });
+    //$http.post("Search.aspx/GetAllCourses", { data: {} }, config).
+    //    success(function (data) {
+    //        var r = eval('(' + data.d + ')');
+    //        if (r.Success == true) {
+    //            return r.Data;
+    //        }
+    //        else {
+    //            alert('error');
+    //        }
+    //    });
 
 }
 

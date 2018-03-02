@@ -259,6 +259,16 @@
               Looks up a localized string similar to Could not find template &apos;{0}&apos; in these folders [&apos;{1}&apos;], including sub-folders..
             </summary>
         </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Resources.ConfigSourceNotSupportedError">
+            <summary>
+              Looks up a localized string similar to Scaffolding Controllers or Views using EntityFramework is not supported when using configSource in the Web.config..
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Resources.ConfigSourceNotSupportedHelpUrl">
+            <summary>
+              Looks up a localized string similar to https://go.microsoft.com/fwlink/?linkid=859495.
+            </summary>
+        </member>
         <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Resources.CouldNotGenerateDbContext">
             <summary>
               Looks up a localized string similar to The DB context type &apos;{0}&apos; could not be generated or located. Possible causes include: invalid characters in the class name or the file exists on disk but is not included in the project. .
@@ -272,6 +282,11 @@
         <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Resources.EntityFrameworkDbContextScaffolder_EmptyDbContextTypeName">
             <summary>
               Looks up a localized string similar to DbContext type name cannot be null or empty..
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Resources.LearnMoreLinkText">
+            <summary>
+              Looks up a localized string similar to Learn more..
             </summary>
         </member>
         <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Resources.StringArgument_Empty_ErrorMessage">
