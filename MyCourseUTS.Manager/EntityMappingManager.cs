@@ -11,6 +11,10 @@ namespace MyCourseUTS.Manager
     {
         public static Entity.Course MapCourseContent(DataModel.Courses contentData)
         {
+            if (contentData == null) {
+                return null;
+            }
+
             Entity.Course content = new Entity.Course
             {
                 ID = contentData.ID,
@@ -29,6 +33,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.Major MapMajorContent(DataModel.Majors contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.Major content = new Entity.Major
             {
                 ID = contentData.ID,
@@ -44,6 +52,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.Stream MapStreamContent(DataModel.Streams contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.Stream content = new Entity.Stream
             {
                 ID = contentData.ID,
@@ -58,6 +70,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.SubMajor MapSubMajorContent(DataModel.SubMajors contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.SubMajor content = new Entity.SubMajor
             {
                 ID = contentData.ID,
@@ -71,6 +87,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.ChoiceBlock MapChoiceBlockContent(DataModel.ChoiceBlocks contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.ChoiceBlock content = new Entity.ChoiceBlock
             {
                 ID = contentData.ID,
@@ -85,6 +105,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.SubjectGroup MapSubjectGroupingContent(DataModel.SubjectGroupingsCredit contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.SubjectGroup content = new Entity.SubjectGroup
             {
                 ID = contentData.ID,
@@ -100,6 +124,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.Subject MapSubjectContent(DataModel.Subjects contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.Subject content = new Entity.Subject
             {
                 ID = contentData.ID,
@@ -114,6 +142,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.SubjectTypes MapSubjectTypeContent(DataModel.SubjectTypes contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.SubjectTypes content = new Entity.SubjectTypes
             {
                 ID = contentData.ID,
@@ -125,6 +157,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.CourseRelationship MapCourseRelationshipContent(DataModel.CourseRelationships contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.CourseRelationship content = new Entity.CourseRelationship
             {
                 ID = contentData.ID,
@@ -141,6 +177,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.MajorRelationship MapMajorRelationshipContent(DataModel.MajorRelationships contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.MajorRelationship content = new Entity.MajorRelationship
             {
                 ID = contentData.ID,
@@ -159,6 +199,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.StreamRelationship MapStreamRelationshipContent(DataModel.StreamRelationships contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.StreamRelationship content = new Entity.StreamRelationship
             {
                 ID = contentData.ID,
@@ -173,6 +217,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.SubMajorRelationship MapSubMajorRelationshipContent(DataModel.SubMajorRelationships contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.SubMajorRelationship content = new Entity.SubMajorRelationship
             {
                 ID = contentData.ID,
@@ -187,6 +235,10 @@ namespace MyCourseUTS.Manager
 
         public static Entity.ChoiceBlockRelationship MapChoiceBlockRelationshipContent(DataModel.ChoiceBlockRelationships contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.ChoiceBlockRelationship content = new Entity.ChoiceBlockRelationship
             {
                 ID = contentData.ID,
@@ -199,8 +251,12 @@ namespace MyCourseUTS.Manager
             return content;
         }
 
-        public static Entity.SubjectGroupingRelationship MapSubjectGroupingRelationshipRelationshipContent(DataModel.SubjectGroupings contentData)
+        public static Entity.SubjectGroupingRelationship MapSubjectGroupingRelationshipContent(DataModel.SubjectGroupings contentData)
         {
+            if (contentData == null)
+            {
+                return null;
+            }
             Entity.SubjectGroupingRelationship content = new Entity.SubjectGroupingRelationship
             {
                 ID = contentData.ID,
