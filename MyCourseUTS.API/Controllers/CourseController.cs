@@ -15,7 +15,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class CourseController : ApiController
     {
-        //http://mycourseuts.azurewebsites.net/api/course/allcourses
+        //http://mycourseuts.azurewebsites.net/api/course/getallcourses
         public List<Course> GetAllCourses()
         {
             List<Courses> courses;
@@ -33,7 +33,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourses;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/course/course?courseID=C04273
+        //http://mycourseuts.azurewebsites.net/api/course/getcourse?courseID=C04273
         public Course GetCourse(string courseID)
         {
             Course course;
@@ -45,7 +45,7 @@ namespace MyCourseUTS.API.Controllers
             return course;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/course/courses?courseID=&name=&abbreviation=bsc
+        //http://mycourseuts.azurewebsites.net/api/course/getcourses?courseID=&name=&abbreviation=bsc
         public List<Course> GetCourses(string courseID, string name, string abbreviation)
         {
             List <Courses> courses;
@@ -64,7 +64,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourses;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/course/coursesrelationship?courseID=C10143
+        //http://mycourseuts.azurewebsites.net/api/course/getcourserelationship?courseID=C10143
         public List<CourseRelationship> GetCourseRelationship(string courseID)
         {
             List<DataModel.CourseRelationships> course;

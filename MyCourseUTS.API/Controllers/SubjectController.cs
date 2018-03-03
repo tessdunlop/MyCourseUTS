@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,6 +14,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class SubjectController : ApiController
     {
+        //http://mycourseuts.azurewebsites.net/api/subject/getallsubjects
         public List<Subject> GetAllSubjects()
         {
             List<Subjects> subjects;
@@ -30,24 +32,25 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubjects;
         }
 
-
-        public Subject GetSubject(string subjectID)
+        //http://mycourseuts.azurewebsites.net/api/subject/getsubject?subjectid=13992
+        public Subject GetSubject(int subjectID)
         {
             Subject subject;
             var context = new MyCourseDBEntities();
             var query = from c in context.Subjects
-                        where c.ID.Equals(Convert.ToInt32(subjectID))
+                        where c.ID.Equals(subjectID)
                         select c;
             subject = EntityMappingManager.MapSubjectContent(query.FirstOrDefault());
             return subject;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/subject/getsubjects?subjectid=139&name=&abbreviation=
         public List<Subject> GetSubjects(string subjectID, string name, string abbreviation)
         {
             List<Subjects> subjects;
             var context = new MyCourseDBEntities();
             var query = from c in context.Subjects
-                        where ((c.ID.ToString().Contains(subjectID) && subjectID != "") || (String.IsNullOrEmpty(subjectID)))
+                        where ((SqlFunctions.StringConvert((double)c.ID).Contains(subjectID) && subjectID != "") || (String.IsNullOrEmpty(subjectID)))
                         && ((c.Name.Contains(name) && name != "") || (String.IsNullOrEmpty(name)))
                         && ((c.Abbreviation.Contains(abbreviation) && abbreviation != "") || (String.IsNullOrEmpty(abbreviation)))
                         select c;

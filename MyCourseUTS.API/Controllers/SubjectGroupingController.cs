@@ -13,7 +13,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class SubjectGroupingController : ApiController
     {
-
+        //http://mycourseuts.azurewebsites.net/api/subjectgrouping/getallsubjectgroupings
         public List<SubjectGroup> GetAllSubjectGroupings()
         {
             List<SubjectGroupingsCredit> subjectGroupings;
@@ -30,7 +30,8 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubjectGroupings;
         }
 
-        public SubjectGroup GetSubjectGrouping(string subjectGroupingID)
+        //http://mycourseuts.azurewebsites.net/api/subjectgrouping/GetSubjectGrouping?subjectgroupingID=4
+        public SubjectGroup GetSubjectGrouping(int subjectGroupingID)
         {
             SubjectGroup subjectGroup;
             var context = new MyCourseDBEntities();
@@ -41,7 +42,8 @@ namespace MyCourseUTS.API.Controllers
             return subjectGroup;
         }
 
-        public List<SubjectGroup> GetSubjectGroupingss(string subjectGroupingID)
+        //http://mycourseuts.azurewebsites.net/api/subjectgrouping/GetSubjectGroupings?subjectgroupingID=4
+        public List<SubjectGroup> GetSubjectGroupings(string subjectGroupingID)
         {
             List<SubjectGroupingsCredit> subjectGroupings;
             var context = new MyCourseDBEntities();
@@ -56,14 +58,14 @@ namespace MyCourseUTS.API.Controllers
             }
             return listOfSubjectGroup;
         }
-            
 
+        //http://mycourseuts.azurewebsites.net/api/subjectgrouping/GetSubjectGroupingRelationship?subjectgroupingID=100
         public List<SubjectGroupingRelationship> GetSubjectGroupingRelationship(string subjectGroupingID)
         {
             List<SubjectGroupings> subjectGroup;
             var context = new MyCourseDBEntities();
             var query = from c in context.SubjectGroupings.Include("Subjects").Include("ChoiceBlocks").Include("SubjectGroupingsCredit").Include("Majors").Include("Streams").Include("SubMajors")
-                        where c.ID.ToString().Equals(subjectGroupingID)
+                        where c.GroupID.ToString().Equals(subjectGroupingID)
                         select c;
             subjectGroup = query.ToList();
 

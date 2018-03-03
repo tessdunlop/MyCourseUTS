@@ -13,7 +13,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class ChoiceBlockController : ApiController
     {
-
+        //http://mycourseuts.azurewebsites.net/api/choiceblock/getallchoiceblocks
         public List<ChoiceBlock> GetAllChoiceBlocks()
         {
             List<ChoiceBlocks> cbk;
@@ -31,6 +31,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfCBK;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblock?choiceblockid=CBK90009
         public ChoiceBlock GetChoiceBlock (string choiceBlockID)
         {
             ChoiceBlock choiceBlock;
@@ -42,6 +43,7 @@ namespace MyCourseUTS.API.Controllers
             return choiceBlock;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblocks?choiceblockid=CBK90&name=&abbreviation=
         public List<ChoiceBlock> GetChoiceBlocks(string choiceBlockID, string name, string abbreviation)
         {
             List<ChoiceBlocks> choiceBlocks;
@@ -60,6 +62,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfChoiceBlock;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblockrelationship?choiceblockid=CBK90009
         public List<ChoiceBlockRelationship> GetChoiceBlockRelationship(string choiceBlockID)
         {
             List<ChoiceBlockRelationships> choiceBlock;

@@ -14,7 +14,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class MajorController : ApiController
     {
-
+        //http://mycourseuts.azurewebsites.net/api/major/getallmajors
         public List<Major> GetAllMajors()
         {
             List<Majors> majors;
@@ -32,6 +32,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfMajors;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/major/getmajor?majorID=MAJ03472
         public Major GetMajor(string majorID)
         {
             Major major;
@@ -43,6 +44,7 @@ namespace MyCourseUTS.API.Controllers
             return major;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/major/getmajors?majorID=MAJ03&name=&abbreviation=
         public List<Major> GetMajors(string majorID, string name, string abbreviation)
         {
             List<Majors> majors;
@@ -61,6 +63,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfMajors;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/major/GetMajorRelationship?majorID=MAJ03472
         public List<MajorRelationship> GetMajorRelationship(string majorID)
         {
             List<MajorRelationships> major;

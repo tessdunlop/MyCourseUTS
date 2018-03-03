@@ -13,6 +13,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class SubMajorController : ApiController
     {
+        //http://mycourseuts.azurewebsites.net/api/submajor/getallsubmajors
         public List<SubMajor> GetAllSubMajors()
         {
             List<SubMajors> subMajors;
@@ -30,6 +31,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubMajors;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/submajor/getsubmajor?submajorID=SMJ01010
         public SubMajor GetSubMajor(string subMajorID)
         {
             SubMajor subMajor;
@@ -41,6 +43,7 @@ namespace MyCourseUTS.API.Controllers
             return subMajor;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/submajor/getsubmajors?submajorID=SMJ01&name=&abbreviation=
         public List<SubMajor> GetSubMajors(string subMajorID, string name, string abbreviation)
         {
             List<SubMajors> subMajors;
@@ -59,6 +62,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubMajor;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/submajor/getsubmajorrelationship?submajorID=SMJ02015
         public List<SubMajorRelationship> GetSubMajorRelationship(string subMajorID)
         {
             List<SubMajorRelationships> subMajor;

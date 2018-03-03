@@ -13,6 +13,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class StreamController : ApiController
     {
+        //http://mycourseuts.azurewebsites.net/api/stream/getallstreams
         public List<Stream> GetAllStreams()
         {
             List<Streams> streams;
@@ -30,6 +31,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfStreams;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/stream/getstream?streamID=STM90068
         public Stream GetStream(string streamID)
         {
             Stream stream;
@@ -41,6 +43,7 @@ namespace MyCourseUTS.API.Controllers
             return stream;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/stream/getstreams?streamID=STM903&name=&abbreviation=
         public List<Stream> GetStreams(string streamID, string name, string abbreviation)
         {
             List<Streams> streams;
@@ -59,6 +62,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfStreams;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/stream/getstreamrelationship?streamID=STM90068
         public List<StreamRelationship> GetStreamRelationship(string streamID)
         {
             List<StreamRelationships> stream;
