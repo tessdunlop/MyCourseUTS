@@ -393,12 +393,9 @@ function handleSearch(term) {
     else if (selected == "subject") {
         data = getSubjects(term);
     }
-
-    var id;
         $("#searchBar").autocomplete({
             source: function (request, response) {
                 response($.map(data, function (value, key) {
-                    id = value.ID;
                     return {
                         label: value.Name,
                         value: value.ID
@@ -406,10 +403,10 @@ function handleSearch(term) {
                 }));
             },
             select: function (event, ui) {
-                console.log(id);
+                console.log(ui);
                 document.getElementById('searchDiv').style.display = "none";
                 if (selected == "course") {
-                    var data = getCourse(id);
+                    var data = getCourse(ui.item.value);
                     console.log(data);
                     document.getElementById("courseName").value = data.Name;
                     document.getElementById("courseId").value = data.ID;
@@ -430,7 +427,7 @@ function handleSearch(term) {
                     
                 }
                 else if (selected == "major") {
-                    var data = getMajor(id);
+                    var data = getMajor(ui.item.value);
                     console.log(data);
                     document.getElementById("majorName").value = data.Name;
                     document.getElementById("majorId").value = data.ID;
@@ -450,15 +447,15 @@ function handleSearch(term) {
                     var data;
 
                     if (selected == "submajor") {
-                        data = getSubMajor(id);
+                        data = getSubMajor(ui.item.value);
                         document.getElementById("subMajorOption").checked = true;
                     }
                     else if (selected == "stream") {
-                        data = getStream(id);
+                        data = getStream(ui.item.value);
                         document.getElementById("streamOption").checked = true;
                     }
                     else if (selected == "choiceblock") {
-                        data = getChoiceBlock(id);
+                        data = getChoiceBlock(ui.item.value);
                         document.getElementById("choiceBlockOption").checked = true;
                     }
 
@@ -476,7 +473,7 @@ function handleSearch(term) {
                     document.getElementById('addStreamFormDiv').style.display = "block";                   
                 }
                 else if (selected == "subject") {
-                    var data = getSubject(id);
+                    var data = getSubject(ui.item.value);
                     console.log(data);
                     document.getElementById("subjectName").value = data.Name;
                     document.getElementById("subjectId").value = data.ID;
