@@ -405,6 +405,7 @@ function handleSearch(term) {
             select: function (event, ui) {
                 console.log(ui);
                 document.getElementById('searchDiv').style.display = "none";
+                document.getElementById("btnSave").disabled = true;
                 if (selected == "course") {
                     var data = getCourse(ui.item.value);
                     console.log(data);
@@ -423,6 +424,19 @@ function handleSearch(term) {
                     else {
                         document.getElementById("courseStatusInActive").checked = true;
                     }
+
+                    document.getElementById("courseName").readOnly = true;
+                    document.getElementById("courseId").readOnly = true;
+                    document.getElementById("courseType").disabled = true;
+                    document.getElementById("courseAbb").readOnly = true;
+                    document.getElementById("courseYears").readOnly = true;
+                    document.getElementById("courseStages").readOnly = true;
+                    document.getElementById("courseCredit").readOnly = true;
+                    document.getElementById("courseVersion").readOnly = true;
+                    document.getElementById("courseVersionDescription").readOnly = true;
+                    document.getElementById("courseStatusActive").disabled = true;
+                    document.getElementById("courseStatusInActive").disabled = true;
+
                     document.getElementById('addCourseFormDiv').style.display = "block";
                     
                 }
@@ -441,6 +455,16 @@ function handleSearch(term) {
                     else {
                         document.getElementById("majorStatusInActive").checked = true;
                     }
+
+                    document.getElementById("majorName").readOnly = true;
+                    document.getElementById("majorId").readOnly = true;
+                    document.getElementById("majorAbb").readOnly = true;
+                    document.getElementById("majorVersion").readOnly = true;
+                    document.getElementById("majorStages").readOnly = true;
+                    document.getElementById("majorCredit").readOnly = true;
+                    document.getElementById("majorStatusActive").disabled = true;
+                    document.getElementById("majorStatusInActive").disabled = true;
+
                     document.getElementById('addMajorFormDiv').style.display = "block";
                 }
                 else if (selected == "submajor" || selected == "stream" || selected == "choiceblock") {
@@ -458,8 +482,7 @@ function handleSearch(term) {
                         data = getChoiceBlock(ui.item.value);
                         document.getElementById("choiceBlockOption").checked = true;
                     }
-
-                    console.log(data);
+                   
                     document.getElementById("streamName").value = data.Name;
                     document.getElementById("streamId").value = data.ID;
                     document.getElementById("streamAbb").value = data.Abbreviation;
@@ -470,6 +493,17 @@ function handleSearch(term) {
                     else {
                         document.getElementById("streamStatusInActive").checked = true;
                     }
+
+                    document.getElementById("subMajorOption").disabled = true;
+                    document.getElementById("streamOption").disabled = true;
+                    document.getElementById("choiceBlockOption").disabled = true;
+                    document.getElementById("streamName").readOnly = true;
+                    document.getElementById("streamId").readOnly = true;
+                    document.getElementById("streamAbb").readOnly = true;
+                    document.getElementById("streamVersion").readOnly = true;
+                    document.getElementById("streamStatusActive").disabled = true;
+                    document.getElementById("streamStatusInActive").disabled = true;
+
                     document.getElementById('addStreamFormDiv').style.display = "block";                   
                 }
                 else if (selected == "subject") {
@@ -486,12 +520,22 @@ function handleSearch(term) {
                     else {
                         document.getElementById("subjectInActiveStatus").checked = true;
                     }
+
+                    document.getElementById("subjectName").readOnly = true;
+                    document.getElementById("subjectId").readOnly = true;
+                    document.getElementById("subjectAbb").readOnly = true;
+                    document.getElementById("subjectCredit").readOnly = true;
+                    document.getElementById("subjectVersion").readOnly = true;
+                    document.getElementById("subjectActiveStatus").disabled = true;
+                    document.getElementById("subjectInActiveStatus").disabled = true;
+
                     document.getElementById('addSubjectFormDiv').style.display = "block";
                 }
                 document.getElementById('cancelButtonDiv').style.display = "block";
             }
         });
 }
+
 
 
 function refreshNavColours() {
@@ -815,6 +859,56 @@ function handleCancel() {
     clearMajor();
     clearStream();
     clearSubject();
+}
+
+//this controls the save button, and updates the changes to the database
+function handleSaveChanges() {
+
+}
+
+//this controls the edit button, and allows the user to make edits to the object
+function handleEdit() {
+    document.getElementById("btnSave").disabled = false;
+
+    document.getElementById("courseName").readOnly = false;
+    document.getElementById("courseId").readOnly = false;
+    document.getElementById("courseType").disabled = false;
+    document.getElementById("courseAbb").readOnly = false;
+    document.getElementById("courseYears").readOnly = false;
+    document.getElementById("courseStages").readOnly = false;
+    document.getElementById("courseCredit").readOnly = false;
+    document.getElementById("courseVersion").readOnly = false;
+    document.getElementById("courseVersionDescription").readOnly = false;
+    document.getElementById("courseStatusActive").disabled = false;
+    document.getElementById("courseStatusInActive").disabled = false;
+
+    document.getElementById("majorName").readOnly = false;
+    document.getElementById("majorId").readOnly = false;
+    document.getElementById("majorAbb").readOnly = false;
+    document.getElementById("majorVersion").readOnly = false;
+    document.getElementById("majorStages").readOnly = false;
+    document.getElementById("majorCredit").readOnly = false;
+    document.getElementById("majorStatusActive").disabled = false;
+    document.getElementById("majorStatusInActive").disabled = false;
+
+    document.getElementById("subMajorOption").disabled = false;
+    document.getElementById("streamOption").disabled = false;
+    document.getElementById("choiceBlockOption").disabled = false;
+    document.getElementById("streamName").readOnly = false;
+    document.getElementById("streamId").readOnly = false;
+    document.getElementById("streamAbb").readOnly = false;
+    document.getElementById("streamVersion").readOnly = false;
+    document.getElementById("streamStatusActive").disabled = false;
+    document.getElementById("streamStatusInActive").disabled = false;
+
+    document.getElementById("subjectName").readOnly = false;
+    document.getElementById("subjectId").readOnly = false;
+    document.getElementById("subjectAbb").readOnly = false;
+    document.getElementById("subjectCredit").readOnly = false;
+    document.getElementById("subjectVersion").readOnly = false;
+    document.getElementById("subjectActiveStatus").disabled = false;
+    document.getElementById("subjectInActiveStatus").disabled = false;
+
 }
 
 //this controls the submit button which sends the data via and ajax call to the database

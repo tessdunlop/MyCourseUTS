@@ -616,7 +616,7 @@
         <div class="row" id="cancelButtonDiv" style="display: none">
             <div class="col-md" style="text-align: right">
                 <button id="btnEdit" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button>
-                <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSaveChanges();" style="background-color: #2478fc; color: white">Save</button>
+                <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSaveChanges();" style="background-color: green; color: white">Save</button>
                 <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
             </div>
         </div>
