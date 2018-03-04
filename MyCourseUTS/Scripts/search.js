@@ -137,7 +137,109 @@ function getCourse(id) {
             data = response;
         },
         error: function () {
-            alert("There was an issue retrieving the list of courses");
+            alert("There was an issue retrieving the course");
+        }
+    });
+    return data;
+}
+function getMajor(id) {
+    var url = "http://mycourseuts.azurewebsites.net/api/major/getmajor?majorID=" + id;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the major");
+        }
+    });
+    return data;
+}
+function getSubMajor(id) {
+    var url = "http://mycourseuts.azurewebsites.net/api/submajor/getsubmajor?subMajorID=" + id;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the submajor");
+        }
+    });
+    return data;
+}
+function getStream(id) {
+    var url = "http://mycourseuts.azurewebsites.net/api/stream/getstream?streamID=" + id;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the stream");
+        }
+    });
+    return data;
+}
+function getChoiceBlock(id) {
+    var url = "http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblock?choiceblockID=" + id;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the choice block");
+        }
+    });
+    return data;
+}
+function getSubject(id) {
+    var url = "http://mycourseuts.azurewebsites.net/api/subject/getsubject?subjectID=" + id;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the subject");
+        }
+    });
+    return data;
+}
+function getSubjectGrouping(id) {
+    var url = "http://mycourseuts.azurewebsites.net/api/subjectgrouping/getsubjectgrouping?subjectgroupingID=" + id;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the subject grouping");
         }
     });
     return data;
@@ -304,25 +406,92 @@ function handleSearch(term) {
                 }));
             },
             select: function (event, ui) {
-                var data = getCourse(id);
-                console.log(data);
-                document.getElementById("courseName").value = data.Name;
-                document.getElementById("courseId").value = data.ID;
-                document.getElementById("courseType").selectedIndex = data.CourseType.ID - 1;
-                document.getElementById("courseAbb").value = data.Abbreviation;
-                document.getElementById("courseYears").value = data.Years;
-                document.getElementById("courseStages").value = data.Stages;
-                document.getElementById("courseCredit").value = data.CreditPoints;
-                document.getElementById("courseVersion").value = data.Version;
-                document.getElementById("courseVersionDescription").value = data.VersionDescription;
-                if (data.Active == true) {
-                    document.getElementById("courseStatusActive").checked = true;
+                console.log(id);
+                document.getElementById('searchDiv').style.display = "none";
+                if (selected == "course") {
+                    var data = getCourse(id);
+                    console.log(data);
+                    document.getElementById("courseName").value = data.Name;
+                    document.getElementById("courseId").value = data.ID;
+                    document.getElementById("courseType").selectedIndex = data.CourseType.ID - 1;
+                    document.getElementById("courseAbb").value = data.Abbreviation;
+                    document.getElementById("courseYears").value = data.Years;
+                    document.getElementById("courseStages").value = data.Stages;
+                    document.getElementById("courseCredit").value = data.CreditPoints;
+                    document.getElementById("courseVersion").value = data.Version;
+                    document.getElementById("courseVersionDescription").value = data.VersionDescription;
+                    if (data.Active == 1) {
+                        document.getElementById("courseStatusActive").checked = true;
+                    }
+                    else {
+                        document.getElementById("courseStatusInActive").checked = true;
+                    }
+                    document.getElementById('addCourseFormDiv').style.display = "block";
+                    
                 }
-                else {
-                    document.getElementById("courseStatusInActive").checked = true;
+                else if (selected == "major") {
+                    var data = getMajor(id);
+                    console.log(data);
+                    document.getElementById("majorName").value = data.Name;
+                    document.getElementById("majorId").value = data.ID;
+                    document.getElementById("majorAbb").value = data.Abbreviation;
+                    document.getElementById("majorVersion").value = data.Version;
+                    document.getElementById("majorStages").value = data.Stage;
+                    document.getElementById("majorCredit").value = data.CreditPoints;                  
+                    if (data.Active == 1) {
+                        document.getElementById("majorStatusActive").checked = true;
+                    }
+                    else {
+                        document.getElementById("majorStatusInActive").checked = true;
+                    }
+                    document.getElementById('addMajorFormDiv').style.display = "block";
                 }
+                else if (selected == "submajor" || selected == "stream" || selected == "choiceblock") {
+                    var data;
 
-                document.getElementById('addCourseFormDiv').style.display = "block";
+                    if (selected == "submajor") {
+                        data = getSubMajor(id);
+                        document.getElementById("subMajorOption").checked = true;
+                    }
+                    else if (selected == "stream") {
+                        data = getStream(id);
+                        document.getElementById("streamOption").checked = true;
+                    }
+                    else if (selected == "choiceblock") {
+                        data = getChoiceBlock(id);
+                        document.getElementById("choiceBlockOption").checked = true;
+                    }
+
+                    console.log(data);
+                    document.getElementById("streamName").value = data.Name;
+                    document.getElementById("streamId").value = data.ID;
+                    document.getElementById("streamAbb").value = data.Abbreviation;
+                    document.getElementById("streamVersion").value = data.Version;
+                    if (data.Active == 1) {
+                        document.getElementById("streamStatusActive").checked = true;
+                    }
+                    else {
+                        document.getElementById("streamStatusInActive").checked = true;
+                    }
+                    document.getElementById('addStreamFormDiv').style.display = "block";                   
+                }
+                else if (selected == "subject") {
+                    var data = getSubject(id);
+                    console.log(data);
+                    document.getElementById("subjectName").value = data.Name;
+                    document.getElementById("subjectId").value = data.ID;
+                    document.getElementById("subjectAbb").value = data.Abbreviation;
+                    document.getElementById("subjectCredit").value = data.CreditPoints;
+                    document.getElementById("subjectVersion").value = data.Version;
+                    if (data.Active == 1) {
+                        document.getElementById("subjectActiveStatus").checked = true;
+                    }
+                    else {
+                        document.getElementById("subjectInActiveStatus").checked = true;
+                    }
+                    document.getElementById('addSubjectFormDiv').style.display = "block";
+                }
+                document.getElementById('cancelButtonDiv').style.display = "block";
             }
         });
 }
@@ -630,7 +799,8 @@ function handleNext() {
 function handleCancel() {
     addVisible = false;
     selected = "course";
-    document.getElementsByName('searchBar')[0].placeholder = "Search Courses";
+    document.getElementById('searchBar').value = "";
+    document.getElementsByName('searchBar')[0].placeholder = "Search Courses";    
     refreshNavColours();
     refreshTimetable();
     hide();
@@ -642,6 +812,7 @@ function handleCancel() {
 
     document.getElementById('searchDiv').style.display = "block";
     document.getElementById('addDiv').style.display = "block";
+    document.getElementById('cancelButtonDiv').style.display = "none";
 
     clearCourse();
     clearMajor();

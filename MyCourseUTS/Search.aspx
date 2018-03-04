@@ -43,15 +43,14 @@
         </div>
         <br />
         <br />
+
+
         <div class="row" id="addDiv">
             <div class="col-md" style="text-align: right">
                 <button id="btnAdd" type="button" class="btn btn-lg" onclick="handleAdd();" style="background-color: lightskyblue; color: #2478fc"><span class="glyphicon glyphicon-plus"></span></button>
             </div>
-            <br />
-            <br />
-            <br />
         </div>
-
+         <br />
 
         <div class="row" id="searchDiv">
             <div class="col-md">
@@ -209,20 +208,30 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Course Identification</b></p>
+                    <p><b>Major Abbreviation</b></p>
                 </div>
                 <div class="col-sm">
-                    <input type="text" id="majorCourseId" class="form-control" style="width: 60%;" />
+                    <input type="text" id="majorAbb" class="form-control" style="width: 60%;" />
                 </div>
                 <br />
                 <br />
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Major Abbreviation</b></p>
+                    <p><b>Number of Stages</b></p>
                 </div>
                 <div class="col-sm">
-                    <input type="text" id="majorAbb" class="form-control" style="width: 60%;" />
+                    <input type="number" id="majorStages" class="form-control" style="width: 60%;" />
+                </div>
+                <br />
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-sm" style="text-align: right">
+                    <p><b>Credit Points</b></p>
+                </div>
+                <div class="col-sm">
+                    <input type="number" id="majorCredit" class="form-control" style="width: 60%;" />
                 </div>
                 <br />
                 <br />
@@ -237,25 +246,16 @@
                 <br />
                 <br />
             </div>
-            <div class="row">
-                <div class="col-sm" style="text-align: right">
-                    <p><b>Version Description</b></p>
-                </div>
-                <div class="col-sm">
-                    <textarea class="form-control" id="majorVersionDescription" rows="5" style="width: 60%;"></textarea>
-                </div>
-                <br />
-                <br />
-            </div>
+            
             <div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
                     <p><b>Status</b></p>
                 </div>
                 <div class="col-sm radio">
                     <label class="radio-inline">
-                        <input type="radio" name="majorStatus" id="majorStatus" />Active</label>
+                        <input type="radio" name="majorStatus" id="majorStatusActive" />Active</label>
                     <label class="radio-inline">
-                        <input type="radio" name="majorStatus" />Inactive</label>
+                        <input type="radio" name="majorStatus" id="majorStatusInActive" />Inactive</label>
                 </div>
                 <br />
                 <br />
@@ -313,16 +313,6 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Major Identification</b></p>
-                </div>
-                <div class="col-sm">
-                    <input type="text" id="streamMajorId" class="form-control" style="width: 60%;" />
-                </div>
-                <br />
-                <br />
-            </div>
-            <div class="row">
-                <div class="col-sm" style="text-align: right">
                     <p id="streamAbbreviationTitle"><b>Stream Abbreviation</b></p>
                 </div>
                 <div class="col-sm">
@@ -343,23 +333,13 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Version Description</b></p>
-                </div>
-                <div class="col-sm">
-                    <textarea class="form-control" id="streamVersionDescription" rows="5" style="width: 60%;"></textarea>
-                </div>
-                <br />
-                <br />
-            </div>
-            <div class="row">
-                <div class="col-sm" style="text-align: right">
                     <p><b>Status</b></p>
                 </div>
                 <div class="col-sm radio">
                     <label class="radio-inline">
-                        <input type="radio" name="streamStatus" id="streamStatus" />Active</label>
+                        <input type="radio" name="streamStatus" id="streamStatusActive" />Active</label>
                     <label class="radio-inline">
-                        <input type="radio" name="streamStatus" />Inactive</label>
+                        <input type="radio" name="streamStatus" id="streamStatusInActive"/>Inactive</label>
                 </div>
                 <br />
                 <br />
@@ -408,17 +388,6 @@
                 <br />
                 <br />
             </div>
-            <div class="row">
-                <div class="col-sm" style="text-align: right">
-                    <p><b>Subject Description</b></p>
-                </div>
-                <div class="col-sm">
-                    <textarea class="form-control" id="subjectDescription" rows="5" style="width: 60%;"></textarea>
-                </div>
-                <br />
-                <br />
-
-            </div>
             <div class="row" style="padding-top: 3px;">
                 <div class="col-sm" style="text-align: right">
                     <p><b>Version</b></p>
@@ -431,23 +400,13 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Version Description</b></p>
-                </div>
-                <div class="col-sm">
-                    <textarea class="form-control" id="subjectVersionDescription" rows="5" style="width: 60%;"></textarea>
-                </div>
-                <br />
-                <br />
-            </div>
-            <div class="row">
-                <div class="col-sm" style="text-align: right">
                     <p><b>Status</b></p>
                 </div>
                 <div class="col-sm radio">
                     <label class="radio-inline">
-                        <input type="radio" name="subjectStatus" id="subjectStatus" />Active</label>
+                        <input type="radio" name="subjectStatus" id="subjectActiveStatus" />Active</label>
                     <label class="radio-inline">
-                        <input type="radio" name="subjectStatus" />Inactive</label>
+                        <input type="radio" name="subjectStatus" id="subjectInActiveStatus" />Inactive</label>
                 </div>
             </div>
             <div class="row" style="padding-bottom: 8px">
@@ -654,7 +613,13 @@
 
 
 
-
+        <div class="row" id="cancelButtonDiv" style="display: none">
+            <div class="col-md" style="text-align: right">
+                <button id="btnEdit" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button>
+                <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSaveChanges();" style="background-color: #2478fc; color: white">Save</button>
+                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
+            </div>
+        </div>
 
 
         <div class="row" id="backButtonDiv" style="display: none">

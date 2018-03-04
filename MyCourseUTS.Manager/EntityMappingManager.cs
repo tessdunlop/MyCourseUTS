@@ -150,7 +150,7 @@ namespace MyCourseUTS.Manager
                 Name = contentData.Name,
                 Abbreviation = contentData.Abbreviation,
                 CreditPoints = contentData.CreditPoints,
-                Active = contentData.CreditPoints
+                Active = contentData.Active
             };
             return content;
         }
