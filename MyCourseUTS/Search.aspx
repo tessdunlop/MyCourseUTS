@@ -4,7 +4,7 @@
     <script src="Scripts/search.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container">
+    <div class="container" id="container">
         <br />
         <br />
         <div class="row">
@@ -55,11 +55,12 @@
 
         <div class="row" id="searchDiv">
             <div class="col-md">
-                <input id="searchBar" name="searchBar" type="text" class="form-control" placeholder="Search Courses""/>
+                <input id="searchBar" name="searchBar" type="text" class="form-control typeahead" placeholder="Search Courses" oninput="handleSearch(this.value);"/>
             </div>
         </div>
         <br />
         <br />
+
 
         <div class="row">
             <div class="col-md">

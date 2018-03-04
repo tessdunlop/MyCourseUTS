@@ -8,12 +8,15 @@ using System.Web.Http;
 using MyCourseUTS.DataModel;
 using MyCourseUTS.Entity;
 using MyCourseUTS.Manager;
+using System.Web.Http.Cors;
+using System.Web;
 
 namespace MyCourseUTS.API.Controllers
 {
     public class ChoiceBlockController : ApiController
     {
         //http://mycourseuts.azurewebsites.net/api/choiceblock/getallchoiceblocks
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<ChoiceBlock> GetAllChoiceBlocks()
         {
             List<ChoiceBlocks> cbk;
@@ -32,6 +35,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         //http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblock?choiceblockid=CBK90009
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public ChoiceBlock GetChoiceBlock (string choiceBlockID)
         {
             ChoiceBlock choiceBlock;
@@ -43,15 +47,16 @@ namespace MyCourseUTS.API.Controllers
             return choiceBlock;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblocks?choiceblockid=CBK90&name=&abbreviation=
-        public List<ChoiceBlock> GetChoiceBlocks(string choiceBlockID, string name, string abbreviation)
+        //http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblocks?value=CBK90
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<ChoiceBlock> GetChoiceBlocks(string value)
         {
             List<ChoiceBlocks> choiceBlocks;
             var context = new MyCourseDBEntities();
             var query = from c in context.ChoiceBlocks
-                        where ((c.ID.Contains(choiceBlockID) && choiceBlockID != "") || (String.IsNullOrEmpty(choiceBlockID)))
-                        && ((c.Name.Contains(name) && name != "") || (String.IsNullOrEmpty(name)))
-                        && ((c.Abbreviation.Contains(abbreviation) && abbreviation != "") || (String.IsNullOrEmpty(abbreviation)))
+                        where ((c.ID.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Name.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Abbreviation.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
                         select c;
             choiceBlocks = query.ToList();
             List<ChoiceBlock> listOfChoiceBlock = new List<ChoiceBlock>();
@@ -63,6 +68,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         //http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblockrelationship?choiceblockid=CBK90009
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<ChoiceBlockRelationship> GetChoiceBlockRelationship(string choiceBlockID)
         {
             List<ChoiceBlockRelationships> choiceBlock;
@@ -80,7 +86,7 @@ namespace MyCourseUTS.API.Controllers
             return listofChoiceBlock;
         }
 
-
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostChoiceBlock(ChoiceBlock choiceBlock)
         {
             using (var scope = new TransactionScope())
@@ -101,6 +107,7 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteChoiceBlock(ChoiceBlock choiceBlock)
         {
             var context = new MyCourseDBEntities();

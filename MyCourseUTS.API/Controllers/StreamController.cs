@@ -8,12 +8,15 @@ using System.Web.Http;
 using MyCourseUTS.DataModel;
 using MyCourseUTS.Entity;
 using MyCourseUTS.Manager;
+using System.Web.Http.Cors;
+using System.Web;
 
 namespace MyCourseUTS.API.Controllers
 {
     public class StreamController : ApiController
     {
         //http://mycourseuts.azurewebsites.net/api/stream/getallstreams
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Stream> GetAllStreams()
         {
             List<Streams> streams;
@@ -32,6 +35,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         //http://mycourseuts.azurewebsites.net/api/stream/getstream?streamID=STM90068
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public Stream GetStream(string streamID)
         {
             Stream stream;
@@ -43,15 +47,16 @@ namespace MyCourseUTS.API.Controllers
             return stream;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/stream/getstreams?streamID=STM903&name=&abbreviation=
-        public List<Stream> GetStreams(string streamID, string name, string abbreviation)
+        //http://mycourseuts.azurewebsites.net/api/stream/getstreams?value=STM903
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<Stream> GetStreams(string value)
         {
             List<Streams> streams;
             var context = new MyCourseDBEntities();
             var query = from c in context.Streams
-                        where ((c.ID.Contains(streamID) && streamID != "") || (String.IsNullOrEmpty(streamID)))
-                        && ((c.Name.Contains(name) && name != "") || (String.IsNullOrEmpty(name)))
-                        && ((c.Abbreviation.Contains(abbreviation) && abbreviation != "") || (String.IsNullOrEmpty(abbreviation)))
+                        where ((c.ID.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Name.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Abbreviation.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
                         select c;
             streams = query.ToList();
             List<Stream> listOfStreams = new List<Stream>();
@@ -63,6 +68,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         //http://mycourseuts.azurewebsites.net/api/stream/getstreamrelationship?streamID=STM90068
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<StreamRelationship> GetStreamRelationship(string streamID)
         {
             List<StreamRelationships> stream;
@@ -80,7 +86,7 @@ namespace MyCourseUTS.API.Controllers
             return listofStream;
         }
 
-
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostStream(Stream stream)
         {
             using (var scope = new TransactionScope())
@@ -101,6 +107,7 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteStream(Stream stream)
         {
             var context = new MyCourseDBEntities();

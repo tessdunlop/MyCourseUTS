@@ -3,54 +3,323 @@ var selected = "course";
 var lastSelected;
 var selectedBlue = "#2478fc";
 
+
+
 getAllCourses();
+getAllMajors();
+getAllSubMajors();
+getAllStreams();
+getAllChoiceBlocks();
+getAllSubjects();
 
 function getAllCourses() {
+    var url = "http://mycourseuts.azurewebsites.net/api/course/getallcourses";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of courses");
+        }
+    });
+    return data;
+}
+function getAllMajors() {
+    var url = "http://mycourseuts.azurewebsites.net/api/major/getallmajors";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of majors");
+        }
+    });
+    return data;
+}
+function getAllSubMajors() {
+    var url = "http://mycourseuts.azurewebsites.net/api/submajor/getallsubmajors";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of submajors");
+        }
+    });
+    return data;
+}
+function getAllStreams() {
+    var url = "http://mycourseuts.azurewebsites.net/api/stream/getallstreams";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of streams");
+        }
+    });
+    return data;
+}
+function getAllChoiceBlocks() {
 
-    //$http.post("Search.aspx/GetAllCourses", { data: {} }, config).
-    //    success(function (data) {
-    //        var r = eval('(' + data.d + ')');
-    //        if (r.Success == true) {
-    //            return r.Data;
-    //        }
-    //        else {
-    //            alert('error');
-    //        }
-    //    });
-
+    var url = "http://mycourseuts.azurewebsites.net/api/choiceblock/getallchoiceblocks";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of choice blocks");
+        }
+    });
+    return data;
+}
+function getAllSubjects() {
+    var url = "http://mycourseuts.azurewebsites.net/api/subject/getallsubjects";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of subjects");
+        }
+    });
+    return data;
 }
 
-function getAllMajors() { }
-function getAllSubMajors() { }
-function getAllStreams() { }
-function getAllChoiceBlocks() { }
-function getAllSubjects() { }
+
+function getCourses(term) {
+    var url = "http://mycourseuts.azurewebsites.net/api/course/getcourses?value=" + term;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of courses");
+        }
+    });
+    return data;
+}
+
+
+
+function getMajors(term) {
+    var url = "http://mycourseuts.azurewebsites.net/api/major/getmajors?value=" + term;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of majors");
+        }
+    });
+    return data;
+}
+function getSubMajors(term) {
+    var url = "http://mycourseuts.azurewebsites.net/api/submajor/getsubmajors?value=" + term;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of submajors");
+        }
+    });
+    return data;
+}
+function getStreams(term) {
+    var url = "http://mycourseuts.azurewebsites.net/api/stream/getstreams?value=" + term;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of streams");
+        }
+    });
+    return data;
+}
+function getChoiceBlocks(term) {
+    var url = "http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblocks?value=" + term;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of choice blocks");
+        }
+    });
+    return data;
+}
+function getSubjects(term) {
+    var url = "http://mycourseuts.azurewebsites.net/api/subject/getsubjects?value=" + term;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of subjects");
+        }
+    });
+    return data;
+}
+
+function handleSearch(term) {
+    var data = new Array();
+
+    if (selected == "course") {
+        data = getCourses(term);
+        console.log(data);
+    }
+    else if (selected == "major") {
+        data = getMajors(term)
+    }
+    else if (selected == "submajor") {
+        data = getSubMajors(term);
+    }
+    else if (selected == "choiceblock") {
+        data = getChoiceBlocks(term);
+    }
+    else if (selected == "stream") {
+        data = getStreams(term);
+    }
+    else if (selected == "subject") {
+        data = getSubjects(term);
+    }
+
+
+        $("#searchBar").autocomplete({
+            source: function (request, response) {
+                response($.map(data, function (value, key) {
+                    return {
+                        label: value.Name,
+                        value: value.Name
+                    }
+                }));
+            }
+        });
 
 
 
 
 
-//function handleSearch() {
-//    var searchTerm = document.getElementById("searchBar").value;
-//    if (selected == "course") {
 
-//    }
-//    else if (selected == "major") { }
-//    else if (selected == "submajor") { }
-//    else if (selected == "stream") { }
-//    else if (selected == "choiceblock") { }
-//    else if (selected == "subject") { }
-//}
+    //$("searchBar").autocomplete({
+    //    source: data
+    //});
 
-//$("input.searchBar").typeahead({
-//    hint: true,
-//    highlight: true,
-//    minLength:1
-//},
-//    {
-//        name: 'searchBar',
-//        source:
+
+
+
+    //$("#searchBar").easyAutocomplete(data.Name);
+
+
+    //$("#searchDiv .typeahead").typeahead({
+    //    hint: true,
+    //    highlight: true,
+    //    minLength: 1
+    //}, {
+    //        name: 'data',
+    //        source: data
+    //    });
+}
+
+
+
+
+
+
+
+//THIS WORKS
+//$(function () {
+//    var data = getAllCourses()
+//    $("#searchBar").autocomplete({
+//        source: function (request, response) {
+//            response($.map(data, function (value, key) {
+//                return {
+//                    label: value.Name,
+//                    value: value.ID
+//                }
+//            }));
+//        }
 //    });
+//});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function refreshNavColours() {
@@ -149,6 +418,7 @@ function clearSubject(){
 //Displays the course form
 function handleCourse() {
     selected = "course";
+    document.getElementById('searchBar').value = "";
     refreshNavColours();
     document.getElementById("course").style.backgroundColor = selectedBlue;
     document.getElementsByName('searchBar')[0].placeholder = "Search Courses";
@@ -162,6 +432,7 @@ function handleCourse() {
 //displays the major form
 function handleMajor() {
     selected = "major";
+    document.getElementById('searchBar').value = "";
     refreshNavColours();
     document.getElementById("major").style.backgroundColor = selectedBlue;
     document.getElementsByName('searchBar')[0].placeholder = "Search Majors";
@@ -175,6 +446,7 @@ function handleMajor() {
 //displays the stream form
 function handleStream() {
     selected = "stream";
+    document.getElementById('searchBar').value = "";
     document.getElementById("streamOption").checked = true;
     document.getElementById("streamNameTitle").innerHTML = "<b>Stream Name</b>";
     document.getElementById("streamIDTitle").innerHTML = "<b>Stream Indentification</b>";
@@ -192,6 +464,7 @@ function handleStream() {
 
 function handleSubMajor() {
     selected = "submajor";
+    document.getElementById('searchBar').value = "";
     document.getElementById("subMajorOption").checked = true
     document.getElementById("streamNameTitle").innerHTML = "<b>Sub-Major Name</b>";
     document.getElementById("streamIDTitle").innerHTML = "<b>Sub-Major Identification</b>";
@@ -209,6 +482,7 @@ function handleSubMajor() {
 
 function handleChoiceBlock() {
     selected = "choiceblock";
+    document.getElementById('searchBar').value = "";
     document.getElementById("choiceBlockOption").checked = true
     document.getElementById("streamNameTitle").innerHTML = "<b>Choice Block Name</b>";
     document.getElementById("streamIDTitle").innerHTML = "<b>Choice Block Identification</b>";
@@ -227,6 +501,7 @@ function handleChoiceBlock() {
 //displays the subject form
 function handleSubject() {
     selected = "subject";
+    document.getElementById('searchBar').value = "";
     refreshNavColours();
     document.getElementById("subject").style.backgroundColor = selectedBlue;
     document.getElementsByName('searchBar')[0].placeholder = "Search Subjects";

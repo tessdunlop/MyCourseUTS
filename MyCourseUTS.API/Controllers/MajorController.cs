@@ -9,12 +9,15 @@ using System.Web.Services;
 using MyCourseUTS.DataModel;
 using MyCourseUTS.Entity;
 using MyCourseUTS.Manager;
+using System.Web.Http.Cors;
+using System.Web;
 
 namespace MyCourseUTS.API.Controllers
 {
     public class MajorController : ApiController
     {
         //http://mycourseuts.azurewebsites.net/api/major/getallmajors
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Major> GetAllMajors()
         {
             List<Majors> majors;
@@ -33,6 +36,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         //http://mycourseuts.azurewebsites.net/api/major/getmajor?majorID=MAJ03472
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public Major GetMajor(string majorID)
         {
             Major major;
@@ -44,15 +48,16 @@ namespace MyCourseUTS.API.Controllers
             return major;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/major/getmajors?majorID=MAJ03&name=&abbreviation=
-        public List<Major> GetMajors(string majorID, string name, string abbreviation)
+        //http://mycourseuts.azurewebsites.net/api/major/getmajors?value=MAJ03
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<Major> GetMajors(string value)
         {
             List<Majors> majors;
             var context = new MyCourseDBEntities();
             var query = from c in context.Majors
-                        where ((c.ID.Contains(majorID) && majorID != "") || (String.IsNullOrEmpty(majorID)))
-                        && ((c.Name.Contains(name) && name != "") || (String.IsNullOrEmpty(name)))
-                        && ((c.Abbreviation.Contains(abbreviation) && abbreviation != "") || (String.IsNullOrEmpty(abbreviation)))
+                        where ((c.ID.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Name.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Abbreviation.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
                         select c;
             majors = query.ToList();
             List<Major> listOfMajors = new List<Major>();
@@ -64,6 +69,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         //http://mycourseuts.azurewebsites.net/api/major/GetMajorRelationship?majorID=MAJ03472
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<MajorRelationship> GetMajorRelationship(string majorID)
         {
             List<MajorRelationships> major;
@@ -81,7 +87,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfMajor;
         }
 
-
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostMajor(Major major)
         {
             using (var scope = new TransactionScope())
@@ -103,6 +109,7 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteMajor(Major major)
         {
             var context = new MyCourseDBEntities();

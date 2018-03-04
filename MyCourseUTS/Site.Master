@@ -11,6 +11,14 @@
     <link href="Scripts/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <script src="Scripts/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="Scripts/bootstrap/js/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/twittertypeahead/bloodhound.min.js"></script>
+    <script src="Scripts/twittertypeahead/typeahead.bundle.min.js"></script>
+    <script src="Scripts/twittertypeahead/typeahead.jquery.min.js"></script>
+    <script src="Scripts/bootstraptypeahead/bootstrap3-typeahead.min.js"></script>
+    <script src="Scripts/jquery.easy-autocomplete.min.js"></script>
+    <link href="Scripts/jquery-ui.min.css" rel="stylesheet" />
+    <script src="Scripts/jquery-ui.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

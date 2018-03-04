@@ -123,6 +123,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Scripts\bootstraptypeahead\bootstrap3-typeahead.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-ui.min.css" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.easy-autocomplete.min.js" />
+    <Content Include="Scripts\twittertypeahead\bloodhound.js" />
+    <Content Include="Scripts\twittertypeahead\bloodhound.min.js" />
+    <Content Include="Scripts\twittertypeahead\typeahead.bundle.js" />
+    <Content Include="Scripts\twittertypeahead\typeahead.bundle.min.js" />
+    <Content Include="Scripts\twittertypeahead\typeahead.jquery.js" />
+    <Content Include="Scripts\twittertypeahead\typeahead.jquery.min.js" />
     <Content Include="Site.Master" />
     <Content Include="Scripts\bootstrap\css\bootstrap-grid.min.css.map" />
     <Content Include="Scripts\bootstrap\css\bootstrap-reboot.min.css.map" />

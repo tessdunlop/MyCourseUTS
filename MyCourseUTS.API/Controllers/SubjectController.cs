@@ -44,15 +44,15 @@ namespace MyCourseUTS.API.Controllers
             return subject;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/subject/getsubjects?subjectid=139&name=&abbreviation=
-        public List<Subject> GetSubjects(string subjectID, string name, string abbreviation)
+        //http://mycourseuts.azurewebsites.net/api/subject/getsubjects?value=139
+        public List<Subject> GetSubjects(string value)
         {
             List<Subjects> subjects;
             var context = new MyCourseDBEntities();
             var query = from c in context.Subjects
-                        where ((SqlFunctions.StringConvert((double)c.ID).Contains(subjectID) && subjectID != "") || (String.IsNullOrEmpty(subjectID)))
-                        && ((c.Name.Contains(name) && name != "") || (String.IsNullOrEmpty(name)))
-                        && ((c.Abbreviation.Contains(abbreviation) && abbreviation != "") || (String.IsNullOrEmpty(abbreviation)))
+                        where ((SqlFunctions.StringConvert((double)c.ID).Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Name.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Abbreviation.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
                         select c;
             subjects = query.ToList();
             List<Subject> listOfSubject = new List<Subject>();

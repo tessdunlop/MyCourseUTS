@@ -8,12 +8,15 @@ using System.Web.Http;
 using MyCourseUTS.DataModel;
 using MyCourseUTS.Entity;
 using MyCourseUTS.Manager;
+using System.Web.Http.Cors;
+using System.Web;
 
 namespace MyCourseUTS.API.Controllers
 {
     public class SubMajorController : ApiController
     {
         //http://mycourseuts.azurewebsites.net/api/submajor/getallsubmajors
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubMajor> GetAllSubMajors()
         {
             List<SubMajors> subMajors;
@@ -32,6 +35,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         //http://mycourseuts.azurewebsites.net/api/submajor/getsubmajor?submajorID=SMJ01010
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public SubMajor GetSubMajor(string subMajorID)
         {
             SubMajor subMajor;
@@ -43,15 +47,16 @@ namespace MyCourseUTS.API.Controllers
             return subMajor;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/submajor/getsubmajors?submajorID=SMJ01&name=&abbreviation=
-        public List<SubMajor> GetSubMajors(string subMajorID, string name, string abbreviation)
+        //http://mycourseuts.azurewebsites.net/api/submajor/getsubmajors?value=SMJ01
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<SubMajor> GetSubMajors(string value)
         {
             List<SubMajors> subMajors;
             var context = new MyCourseDBEntities();
             var query = from c in context.SubMajors
-                        where ((c.ID.Contains(subMajorID) && subMajorID != "") || (String.IsNullOrEmpty(subMajorID)))
-                        && ((c.Name.Contains(name) && name != "") || (String.IsNullOrEmpty(name)))
-                        && ((c.Abbreviation.Contains(abbreviation) && abbreviation != "") || (String.IsNullOrEmpty(abbreviation)))
+                        where ((c.ID.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Name.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Abbreviation.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
                         select c;
             subMajors = query.ToList();
             List<SubMajor> listOfSubMajor = new List<SubMajor>();
@@ -63,6 +68,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         //http://mycourseuts.azurewebsites.net/api/submajor/getsubmajorrelationship?submajorID=SMJ02015
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubMajorRelationship> GetSubMajorRelationship(string subMajorID)
         {
             List<SubMajorRelationships> subMajor;
@@ -80,7 +86,7 @@ namespace MyCourseUTS.API.Controllers
             return listofSubMajor;
         }
 
-
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostSubMajor(SubMajor subMajor)
         {
             using (var scope = new TransactionScope())
@@ -100,6 +106,7 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteSubMajor(SubMajor subMajor)
         {
             var context = new MyCourseDBEntities();

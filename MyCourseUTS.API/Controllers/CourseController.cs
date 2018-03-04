@@ -10,12 +10,16 @@ using MyCourseUTS.Entity;
 using MyCourseUTS.Manager;
 using System.Data.Entity;
 using System.Transactions;
+using System.Web.Http.Cors;
+using System.Web;
+
 
 namespace MyCourseUTS.API.Controllers
 {
     public class CourseController : ApiController
     {
         //http://mycourseuts.azurewebsites.net/api/course/getallcourses
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Course> GetAllCourses()
         {
             List<Courses> courses;
@@ -33,6 +37,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourses;
         }
 
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         //http://mycourseuts.azurewebsites.net/api/course/getcourse?courseID=C04273
         public Course GetCourse(string courseID)
         {
@@ -45,15 +50,16 @@ namespace MyCourseUTS.API.Controllers
             return course;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/course/getcourses?courseID=&name=&abbreviation=bsc
-        public List<Course> GetCourses(string courseID, string name, string abbreviation)
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        //http://mycourseuts.azurewebsites.net/api/course/getcourses?value=bsc
+        public List<Course> GetCourses(string value)
         {
             List <Courses> courses;
             var context = new MyCourseDBEntities();
             var query = from c in context.Courses.Include("CourseTypes")
-                        where ((c.ID.Contains(courseID) && courseID != "") || (String.IsNullOrEmpty(courseID)))
-                        && ((c.Name.Contains(name) && name != "") || (String.IsNullOrEmpty(name)))
-                        && ((c.Abbreviation.Contains(abbreviation) && abbreviation != "") || (String.IsNullOrEmpty(abbreviation)))
+                        where ((c.ID.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Name.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
+                        || ((c.Abbreviation.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
                         select c;
             courses = query.ToList();                
             List<Course> listOfCourses = new List<Course>();
@@ -64,6 +70,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourses;
         }
 
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         //http://mycourseuts.azurewebsites.net/api/course/getcourserelationship?courseID=C10143
         public List<CourseRelationship> GetCourseRelationship(string courseID)
         {
@@ -82,7 +89,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourse;
         }
 
-
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostCourse(Course course)
         {
             using (var scope = new TransactionScope())
@@ -107,6 +114,7 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteCourse(Course course)
         {
             var context = new MyCourseDBEntities();
@@ -117,27 +125,5 @@ namespace MyCourseUTS.API.Controllers
             context.Courses.Remove(deleteCourse);
             context.SaveChanges();
         }
-
-
-        //// GET api/values/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST api/values
-        //public void Post([FromBody]string value)
-        //{
-        //}
-
-        //// PUT api/values/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/values/5
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
