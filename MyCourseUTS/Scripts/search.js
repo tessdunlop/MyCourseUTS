@@ -3,15 +3,6 @@ var selected = "course";
 var lastSelected;
 var selectedBlue = "#2478fc";
 
-getAllCourses();
-getAllMajors();
-getAllSubMajors();
-getAllStreams();
-getAllChoiceBlocks();
-getAllSubjects();
-getCourseTypes();
-populateDropdown();
-
 function getAllCourses() {
     var url = "http://mycourseuts.azurewebsites.net/api/course/getallcourses";
     var data;
@@ -261,10 +252,24 @@ function populateDropdown() {
     for (var i = 0; data.length; i++) {
         var option = document.createElement("option");
         option.value = data[i].ID;
-        option.innerHTML = data[i].Abbreviation;
-        select.appendChild(option);
+        option.text = data[i].Abbreviation;
+        select.add(option, null);
     }
 }
+
+window.onload = function () {
+    populateDropdown();
+}
+
+getAllCourses();
+getAllMajors();
+getAllSubMajors();
+getAllStreams();
+getAllChoiceBlocks();
+getAllSubjects();
+getCourseTypes();
+
+
 
 function handleSearch(term) {
     var data = new Array();
@@ -300,9 +305,10 @@ function handleSearch(term) {
             },
             select: function (event, ui) {
                 var data = getCourse(id);
+                console.log(data);
                 document.getElementById("courseName").value = data.Name;
                 document.getElementById("courseId").value = data.ID;
-                //document.getElementById("courseType").value = data.ID;
+                document.getElementById("courseType").selectedIndex = data.CourseType.ID - 1;
                 document.getElementById("courseAbb").value = data.Abbreviation;
                 document.getElementById("courseYears").value = data.Years;
                 document.getElementById("courseStages").value = data.Stages;
@@ -315,48 +321,11 @@ function handleSearch(term) {
                 else {
                     document.getElementById("courseStatusInActive").checked = true;
                 }
+
                 document.getElementById('addCourseFormDiv').style.display = "block";
             }
         });
 }
-
-
-
-
-
-
-
-//THIS WORKS
-//$(function () {
-//    var data = getAllCourses()
-//    $("#searchBar").autocomplete({
-//        source: function (request, response) {
-//            response($.map(data, function (value, key) {
-//                return {
-//                    label: value.Name,
-//                    value: value.ID
-//                }
-//            }));
-//        }
-//    });
-//});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function refreshNavColours() {
