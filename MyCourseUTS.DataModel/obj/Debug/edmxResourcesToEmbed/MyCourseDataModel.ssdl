@@ -42,7 +42,7 @@
     <Property Name="Version" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Active" Type="int" Nullable="false" />
-    <Property Name="CategoryTypeDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="VersionDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="CreditPoints" Type="int" Nullable="false" />
     <Property Name="Abbreviation" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Years" Type="float" Nullable="false" />

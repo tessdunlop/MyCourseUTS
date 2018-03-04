@@ -46,7 +46,7 @@
           <ScalarProperty Name="Years" ColumnName="Years" />
           <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
           <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
-          <ScalarProperty Name="CategoryTypeDescription" ColumnName="CategoryTypeDescription" />
+          <ScalarProperty Name="VersionDescription" ColumnName="VersionDescription" />
           <ScalarProperty Name="Active" ColumnName="Active" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Version" ColumnName="Version" />

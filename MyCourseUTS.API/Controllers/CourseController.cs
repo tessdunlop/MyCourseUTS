@@ -104,7 +104,7 @@ namespace MyCourseUTS.API.Controllers
                         newRow.Years = course.Years;
                         newRow.Stages = course.Stages;
                         newRow.Version = course.Version;
-                        newRow.CategoryTypeDescription = course.CategoryTypeDescription;
+                        newRow.VersionDescription = course.VersionDescription;
                         newRow.CreditPoints = course.CreditPoints;
                         newRow.CourseTypes.ID = course.CourseType.ID;
                         context.Courses.Add(newRow);
@@ -124,6 +124,24 @@ namespace MyCourseUTS.API.Controllers
             var deleteCourse = query.First();
             context.Courses.Remove(deleteCourse);
             context.SaveChanges();
+        }
+
+        //http://mycourseuts.azurewebsites.net/api/course/getcoursetypes
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<Entity.CourseTypes> GetCourseTypes()
+        {
+            List<DataModel.CourseTypes> courseTypes;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.CourseTypes
+                        select c;
+            courseTypes = query.ToList();
+
+            List<Entity.CourseTypes> listOfCourseTypes = new List<Entity.CourseTypes>();
+            foreach (var c in courseTypes)
+            {
+                listOfCourseTypes.Add(EntityMappingManager.MapCourseTypeContent(c));
+            }
+            return listOfCourseTypes;
         }
     }
 }

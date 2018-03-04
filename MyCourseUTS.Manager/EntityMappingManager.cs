@@ -21,13 +21,28 @@ namespace MyCourseUTS.Manager
                 Name = contentData.Name,
                 Abbreviation = contentData.Abbreviation,
                 Active = contentData.Active,
-                CategoryTypeDescription = contentData.CategoryTypeDescription,
+                VersionDescription = contentData.VersionDescription,
                 CreditPoints = contentData.CreditPoints,
                 CourseType = contentData.CourseTypes != null ? new CourseTypes() { ID = contentData.CourseTypes.ID, CourseType = contentData.CourseTypes.CourseType, Abbreviation = contentData.CourseTypes.Abbreviation } : null,
                 Stages = contentData.Stages,
                 Version = contentData.Version,
                 Years = contentData.Years
         };
+            return content;
+        }
+
+        public static Entity.CourseTypes MapCourseTypeContent(DataModel.CourseTypes contentData)
+        {
+            if (contentData == null)
+            {
+                return null;
+            }
+            Entity.CourseTypes content = new Entity.CourseTypes
+            {
+                ID = contentData.ID,
+                CourseType = contentData.CourseType,
+                Abbreviation = contentData.Abbreviation
+            };
             return content;
         }
 

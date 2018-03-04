@@ -207,7 +207,7 @@
     <Property Name="Version" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="Active" Type="Int32" Nullable="false" />
-    <Property Name="CategoryTypeDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VersionDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CreditPoints" Type="Int32" Nullable="false" />
     <Property Name="Abbreviation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Years" Type="Double" Nullable="false" />

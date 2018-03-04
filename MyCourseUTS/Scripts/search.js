@@ -3,14 +3,14 @@ var selected = "course";
 var lastSelected;
 var selectedBlue = "#2478fc";
 
-
-
 getAllCourses();
 getAllMajors();
 getAllSubMajors();
 getAllStreams();
 getAllChoiceBlocks();
 getAllSubjects();
+getCourseTypes();
+populateDropdown();
 
 function getAllCourses() {
     var url = "http://mycourseuts.azurewebsites.net/api/course/getallcourses";
@@ -115,7 +115,42 @@ function getAllSubjects() {
     });
     return data;
 }
+function getCourseTypes() {
+    var url = "http://mycourseuts.azurewebsites.net/api/course/getcoursetypes";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of course types");
+        }
+    });
+    console.log(data);
+    return data;  
+}
 
+function getCourse(id) {
+    var url = "http://mycourseuts.azurewebsites.net/api/course/getcourse?courseID=" + id;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of courses");
+        }
+    });
+    return data;
+}
 
 function getCourses(term) {
     var url = "http://mycourseuts.azurewebsites.net/api/course/getcourses?value=" + term;
@@ -134,9 +169,6 @@ function getCourses(term) {
     });
     return data;
 }
-
-
-
 function getMajors(term) {
     var url = "http://mycourseuts.azurewebsites.net/api/major/getmajors?value=" + term;
     var data;
@@ -223,12 +255,21 @@ function getSubjects(term) {
     return data;
 }
 
+function populateDropdown() {
+    var select = document.getElementById("courseType");
+    var data = getCourseTypes();
+    for (var i = 0; data.length; i++) {
+        var option = document.createElement("option");
+        option.value = data[i].ID;
+        option.innerHTML = data[i].Abbreviation;
+        select.appendChild(option);
+    }
+}
+
 function handleSearch(term) {
     var data = new Array();
-
     if (selected == "course") {
         data = getCourses(term);
-        console.log(data);
     }
     else if (selected == "major") {
         data = getMajors(term)
@@ -246,41 +287,37 @@ function handleSearch(term) {
         data = getSubjects(term);
     }
 
-
+    var id;
         $("#searchBar").autocomplete({
             source: function (request, response) {
                 response($.map(data, function (value, key) {
+                    id = value.ID;
                     return {
                         label: value.Name,
-                        value: value.Name
+                        value: value.ID
                     }
                 }));
+            },
+            select: function (event, ui) {
+                var data = getCourse(id);
+                document.getElementById("courseName").value = data.Name;
+                document.getElementById("courseId").value = data.ID;
+                //document.getElementById("courseType").value = data.ID;
+                document.getElementById("courseAbb").value = data.Abbreviation;
+                document.getElementById("courseYears").value = data.Years;
+                document.getElementById("courseStages").value = data.Stages;
+                document.getElementById("courseCredit").value = data.CreditPoints;
+                document.getElementById("courseVersion").value = data.Version;
+                document.getElementById("courseVersionDescription").value = data.VersionDescription;
+                if (data.Active == true) {
+                    document.getElementById("courseStatusActive").checked = true;
+                }
+                else {
+                    document.getElementById("courseStatusInActive").checked = true;
+                }
+                document.getElementById('addCourseFormDiv').style.display = "block";
             }
         });
-
-
-
-
-
-
-    //$("searchBar").autocomplete({
-    //    source: data
-    //});
-
-
-
-
-    //$("#searchBar").easyAutocomplete(data.Name);
-
-
-    //$("#searchDiv .typeahead").typeahead({
-    //    hint: true,
-    //    highlight: true,
-    //    minLength: 1
-    //}, {
-    //        name: 'data',
-    //        source: data
-    //    });
 }
 
 

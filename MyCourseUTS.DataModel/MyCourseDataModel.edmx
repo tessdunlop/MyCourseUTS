@@ -47,7 +47,7 @@
           <Property Name="Version" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Active" Type="int" Nullable="false" />
-          <Property Name="CategoryTypeDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VersionDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreditPoints" Type="int" Nullable="false" />
           <Property Name="Abbreviation" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Years" Type="float" Nullable="false" />
@@ -931,7 +931,7 @@
           <Property Name="Version" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Int32" Nullable="false" />
-          <Property Name="CategoryTypeDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VersionDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreditPoints" Type="Int32" Nullable="false" />
           <Property Name="Abbreviation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Years" Type="Double" Nullable="false" />
@@ -1556,7 +1556,7 @@
                 <ScalarProperty Name="Years" ColumnName="Years" />
                 <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
                 <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
-                <ScalarProperty Name="CategoryTypeDescription" ColumnName="CategoryTypeDescription" />
+                <ScalarProperty Name="VersionDescription" ColumnName="VersionDescription" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Version" ColumnName="Version" />

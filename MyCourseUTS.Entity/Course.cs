@@ -12,7 +12,7 @@ namespace MyCourseUTS.Entity
         public int Version { get; set; }
         public string Name { get; set; }
         public int Active { get; set; }
-        public string CategoryTypeDescription { get; set; }
+        public string VersionDescription { get; set; }
         public int CreditPoints { get; set; }
         public string Abbreviation { get; set; }
         public double Years { get; set; }

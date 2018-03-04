@@ -165,9 +165,9 @@
                 </div>
                 <div class="col-sm radio">
                     <label class="radio-inline">
-                        <input type="radio" name="courseStatus" id="courseStatus" />Active</label>
+                        <input type="radio" name="courseStatus" id="courseStatusActive" />Active</label>
                     <label class="radio-inline">
-                        <input type="radio" name="courseStatus" />Inactive</label>
+                        <input type="radio" name="courseStatus" id="courseStatusInActive" />Inactive</label>
                 </div>
                 <br />
                 <br />

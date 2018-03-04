@@ -66,7 +66,7 @@ namespace MyCourseUTS.Repository
                         newRow.Years = c.Years;
                         newRow.Stages = c.Stages;
                         newRow.Version = c.Version;
-                        newRow.CategoryTypeDescription = c.CategoryTypeDescription;
+                        newRow.VersionDescription = c.VersionDescription;
                         newRow.CreditPoints = c.CreditPoints;
                         newRow.CourseTypes.ID = c.CourseTypes.ID;//NOT SURE ABOUT THIS ONE???
 

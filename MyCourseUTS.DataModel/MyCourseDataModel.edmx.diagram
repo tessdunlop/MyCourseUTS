@@ -4,22 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="04312053505e4c569e0ed1bac00e180f" Name="Diagram1">
-        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlockRelationships" Width="1.5" PointX="6" PointY="17.375" />
-        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlocks" Width="1.5" PointX="0.75" PointY="13" />
-        <EntityTypeShape EntityType="MyCourseDBModel.CourseRelationships" Width="1.5" PointX="3" PointY="8" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Courses" Width="1.5" PointX="0.75" PointY="21.5" />
-        <EntityTypeShape EntityType="MyCourseDBModel.CourseTypes" Width="1.5" PointX="1.5" PointY="26.375" />
-        <EntityTypeShape EntityType="MyCourseDBModel.MajorRelationships" Width="1.5" PointX="3" PointY="12.625" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Majors" Width="1.5" PointX="0.75" PointY="29.375" />
-        <EntityTypeShape EntityType="MyCourseDBModel.StreamRelationships" Width="1.5" PointX="6" PointY="13.25" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Streams" Width="1.5" PointX="3.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupings" Width="1.5" PointX="3" PointY="18" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupingsCredit" Width="1.5" PointX="0.75" PointY="2.5" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Subjects" Width="1.5" PointX="0.75" PointY="17.5" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubjectTypes" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubMajorRelationships" Width="1.5" PointX="6" PointY="9.25" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubMajors" Width="1.5" PointX="3.75" PointY="4.625" />
+      <Diagram DiagramId="04312053505e4c569e0ed1bac00e180f" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlockRelationships" Width="1.5" PointX="3" PointY="12.75" />
+        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlocks" Width="1.5" PointX="0.75" PointY="12.375" />
+        <EntityTypeShape EntityType="MyCourseDBModel.CourseRelationships" Width="1.5" PointX="6" PointY="17.375" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Courses" Width="1.5" PointX="0.75" PointY="33.125" />
+        <EntityTypeShape EntityType="MyCourseDBModel.CourseTypes" Width="1.5" PointX="1.5" PointY="38" />
+        <EntityTypeShape EntityType="MyCourseDBModel.MajorRelationships" Width="1.5" PointX="3" PointY="6.875" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Majors" Width="1.5" PointX="0.75" PointY="25.5" />
+        <EntityTypeShape EntityType="MyCourseDBModel.StreamRelationships" Width="1.5" PointX="3" PointY="16.5" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Streams" Width="1.5" PointX="0.75" PointY="21.625" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupings" Width="1.5" PointX="6" PointY="12.375" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupingsCredit" Width="1.5" PointX="0.75" PointY="17.375" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Subjects" Width="1.5" PointX="0.75" PointY="29" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubjectTypes" Width="1.5" PointX="0.75" PointY="41.375" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubMajorRelationships" Width="1.5" PointX="6" PointY="7.5" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubMajors" Width="1.5" PointX="3.75" PointY="2.875" />
         <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_ChoiceBlocks" />
         <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_ChoiceBlocks1" />
         <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_SubjectGroupingsCredit" />
