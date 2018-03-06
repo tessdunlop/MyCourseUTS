@@ -20,11 +20,13 @@ namespace MyCourseUTS.DataModel
         public string ContentChoiceBlockID { get; set; }
         public string ContentStreamID { get; set; }
         public Nullable<int> ContentGroupID { get; set; }
+        public string ContentSubMajorID { get; set; }
     
         public virtual ChoiceBlocks ChoiceBlocks { get; set; }
         public virtual Streams Streams { get; set; }
         public virtual Streams Streams1 { get; set; }
-        public virtual SubjectGroupingsCredit SubjectGroupingsCredit { get; set; }
+        public virtual SubjectGroupings SubjectGroupings { get; set; }
         public virtual Subjects Subjects { get; set; }
+        public virtual SubMajors SubMajors { get; set; }
     }
 }

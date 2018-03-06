@@ -86,26 +86,26 @@ namespace MyCourseUTS.API.Controllers
             return listofStream;
         }
 
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostStream(Stream stream)
-        {
-            using (var scope = new TransactionScope())
-            {
-                using (var context = new MyCourseDBEntities())
-                {
-                    Streams newRow = new Streams();
-                    newRow.ID = stream.ID;
-                    newRow.Name = stream.Name;
-                    newRow.Abbreviation = stream.Abbreviation;
-                    newRow.Active = stream.Active;
-                    newRow.Version = stream.Version;
-                    newRow.CreditPoints = stream.CreditPoints;
-                    context.Streams.Add(newRow);
-                    context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void PostStream(Stream stream)
+        //{
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        using (var context = new MyCourseDBEntities())
+        //        {
+        //            Streams newRow = new Streams();
+        //            newRow.ID = stream.ID;
+        //            newRow.Name = stream.Name;
+        //            newRow.Abbreviation = stream.Abbreviation;
+        //            newRow.Active = stream.Active;
+        //            newRow.Version = stream.Version;
+        //            newRow.CreditPoints = stream.CreditPoints;
+        //            context.Streams.Add(newRow);
+        //            context.SaveChanges();
+        //        }
+        //        scope.Complete();
+        //    }
+        //}
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteStream(Stream stream)

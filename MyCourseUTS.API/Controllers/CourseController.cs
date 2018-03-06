@@ -89,30 +89,30 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourse;
         }
 
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostCourse(Course course)
-        {
-            using (var scope = new TransactionScope())
-            {
-                using (var context = new MyCourseDBEntities())
-                {
-                        Courses newRow = new Courses();
-                        newRow.ID = course.ID;
-                        newRow.Name = course.Name;
-                        newRow.Abbreviation = course.Abbreviation;
-                        newRow.Active = course.Active;
-                        newRow.Years = course.Years;
-                        newRow.Stages = course.Stages;
-                        newRow.Version = course.Version;
-                        newRow.VersionDescription = course.VersionDescription;
-                        newRow.CreditPoints = course.CreditPoints;
-                        newRow.CourseTypes.ID = course.CourseType.ID;
-                        context.Courses.Add(newRow);
-                        context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void PostCourse(Course course)
+        //{
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        using (var context = new MyCourseDBEntities())
+        //        {
+        //                Courses newRow = new Courses();
+        //                newRow.ID = course.ID;
+        //                newRow.Name = course.Name;
+        //                newRow.Abbreviation = course.Abbreviation;
+        //                newRow.Active = course.Active;
+        //                newRow.Years = course.Years;
+        //                newRow.Stages = course.Stages;
+        //                newRow.Version = course.Version;
+        //                newRow.VersionDescription = course.VersionDescription;
+        //                newRow.CreditPoints = course.CreditPoints;
+        //                newRow.CourseTypes.ID = course.CourseType.ID;
+        //                context.Courses.Add(newRow);
+        //                context.SaveChanges();
+        //        }
+        //        scope.Complete();
+        //    }
+        //}
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteCourse(Course course)

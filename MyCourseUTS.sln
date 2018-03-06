@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCourseUTS", "MyCourseUTS\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCourseUTS.DataModel", "MyCourseUTS.DataModel\MyCourseUTS.DataModel.csproj", "{0AFEBA99-9C57-445E-964D-46EA0984ABB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCourseUTS.Repository", "MyCourseUTS.Repository\MyCourseUTS.Repository.csproj", "{1B58427D-8207-4F9B-911E-C284FDFACDC4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCourseUTS.Manager", "MyCourseUTS.Manager\MyCourseUTS.Manager.csproj", "{CA4DB6E8-62AD-47ED-9DAC-D27EE5C16373}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCourseUTS.Entity", "MyCourseUTS.Entity\MyCourseUTS.Entity.csproj", "{DA69C258-4108-44F5-93AC-5742E2844CB8}"
@@ -29,10 +27,6 @@ Global
 		{0AFEBA99-9C57-445E-964D-46EA0984ABB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AFEBA99-9C57-445E-964D-46EA0984ABB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AFEBA99-9C57-445E-964D-46EA0984ABB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B58427D-8207-4F9B-911E-C284FDFACDC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B58427D-8207-4F9B-911E-C284FDFACDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B58427D-8207-4F9B-911E-C284FDFACDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B58427D-8207-4F9B-911E-C284FDFACDC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CA4DB6E8-62AD-47ED-9DAC-D27EE5C16373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA4DB6E8-62AD-47ED-9DAC-D27EE5C16373}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA4DB6E8-62AD-47ED-9DAC-D27EE5C16373}.Release|Any CPU.ActiveCfg = Release|Any CPU

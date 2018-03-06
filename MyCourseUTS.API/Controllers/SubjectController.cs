@@ -63,25 +63,25 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubject;
         }
 
-        public void PostSubject(Subject subject)
-        {
-            using (var scope = new TransactionScope())
-            {
-                using (var context = new MyCourseDBEntities())
-                {
-                    Subjects newRow = new Subjects();
-                    newRow.ID = subject.ID;
-                    newRow.Name = subject.Name;
-                    newRow.CreditPoints = subject.CreditPoints;
-                    newRow.Abbreviation = subject.Abbreviation;
-                    newRow.Active = subject.Active;
-                    newRow.Version = subject.Version;
-                    context.Subjects.Add(newRow);
-                    context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
+        //public void PostSubject(Subject subject)
+        //{
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        using (var context = new MyCourseDBEntities())
+        //        {
+        //            Subjects newRow = new Subjects();
+        //            newRow.ID = subject.ID;
+        //            newRow.Name = subject.Name;
+        //            newRow.CreditPoints = subject.CreditPoints;
+        //            newRow.Abbreviation = subject.Abbreviation;
+        //            newRow.Active = subject.Active;
+        //            newRow.Version = subject.Version;
+        //            context.Subjects.Add(newRow);
+        //            context.SaveChanges();
+        //        }
+        //        scope.Complete();
+        //    }
+        //}
 
         public void DeleteSubjects(Subject subject)
         {

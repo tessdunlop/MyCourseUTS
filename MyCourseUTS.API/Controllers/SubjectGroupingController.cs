@@ -17,15 +17,15 @@ namespace MyCourseUTS.API.Controllers
     {
         //http://mycourseuts.azurewebsites.net/api/subjectgrouping/getallsubjectgroupings
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public List<SubjectGroup> GetAllSubjectGroupings()
+        public List<SubjectGrouping> GetAllSubjectGroupings()
         {
-            List<SubjectGroupingsCredit> subjectGroupings;
+            List<SubjectGroupings> subjectGroupings;
             var context = new MyCourseDBEntities();
-            var query = from c in context.SubjectGroupingsCredit
+            var query = from c in context.SubjectGroupings
                         select c;
             subjectGroupings = query.ToList();
 
-            List<SubjectGroup> listOfSubjectGroupings = new List<SubjectGroup>();
+            List<SubjectGrouping> listOfSubjectGroupings = new List<SubjectGrouping>();
             foreach (var c in subjectGroupings)
             {
                 listOfSubjectGroupings.Add(EntityMappingManager.MapSubjectGroupingContent(c));
@@ -35,11 +35,11 @@ namespace MyCourseUTS.API.Controllers
 
         //http://mycourseuts.azurewebsites.net/api/subjectgrouping/GetSubjectGrouping?subjectgroupingID=4
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public SubjectGroup GetSubjectGrouping(int subjectGroupingID)
+        public SubjectGrouping GetSubjectGrouping(int subjectGroupingID)
         {
-            SubjectGroup subjectGroup;
+            SubjectGrouping subjectGroup;
             var context = new MyCourseDBEntities();
-            var query = from c in context.SubjectGroupingsCredit
+            var query = from c in context.SubjectGroupings
                         where c.ID.Equals(subjectGroupingID)
                         select c;
             subjectGroup = EntityMappingManager.MapSubjectGroupingContent(query.FirstOrDefault());
@@ -48,15 +48,15 @@ namespace MyCourseUTS.API.Controllers
 
         //http://mycourseuts.azurewebsites.net/api/subjectgrouping/GetSubjectGroupings?subjectgroupingID=4
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public List<SubjectGroup> GetSubjectGroupings(string subjectGroupingID)
+        public List<SubjectGrouping> GetSubjectGroupings(string subjectGroupingID)
         {
-            List<SubjectGroupingsCredit> subjectGroupings;
+            List<SubjectGroupings> subjectGroupings;
             var context = new MyCourseDBEntities();
-            var query = from c in context.SubjectGroupingsCredit
+            var query = from c in context.SubjectGroupings
                         where ((c.ID.ToString().Contains(subjectGroupingID) && subjectGroupingID != "") || (String.IsNullOrEmpty(subjectGroupingID)))
                         select c;
             subjectGroupings = query.ToList();
-            List<SubjectGroup> listOfSubjectGroup = new List<SubjectGroup>();
+            List<SubjectGrouping> listOfSubjectGroup = new List<SubjectGrouping>();
             foreach (var c in subjectGroupings)
             {
                 listOfSubjectGroup.Add(EntityMappingManager.MapSubjectGroupingContent(c));
@@ -68,9 +68,9 @@ namespace MyCourseUTS.API.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubjectGroupingRelationship> GetSubjectGroupingRelationship(string subjectGroupingID)
         {
-            List<SubjectGroupings> subjectGroup;
+            List<SubjectGroupingRelationships> subjectGroup;
             var context = new MyCourseDBEntities();
-            var query = from c in context.SubjectGroupings.Include("Subjects").Include("ChoiceBlocks").Include("SubjectGroupingsCredit").Include("Majors").Include("Streams").Include("SubMajors")
+            var query = from c in context.SubjectGroupingRelationships.Include("Subjects").Include("ChoiceBlocks").Include("SubjectGroupings").Include("Majors").Include("Streams").Include("SubMajors")
                         where c.GroupID.ToString().Equals(subjectGroupingID)
                         select c;
             subjectGroup = query.ToList();
@@ -83,134 +83,134 @@ namespace MyCourseUTS.API.Controllers
             return listofSubjectGroup;
         }
 
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostSubjectGrouping(List<SubjectGroupings> subjectGrouping, int creditPoints)
-        {
-            int id;
-            using (var scope = new TransactionScope())
-            {
-                using (var context = new MyCourseDBEntities())
-                {
-                    SubjectGroupingsCredit newGroup = new SubjectGroupingsCredit();
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void PostSubjectGrouping(List<SubjectGroupings> subjectGrouping, int creditPoints)
+        //{
+        //    int id;
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        using (var context = new MyCourseDBEntities())
+        //        {
+        //            SubjectGroupings newGroup = new SubjectGroupings();
 
-                    bool hasSubject = false;
-                    bool hasChoiceBlock = false;
-                    bool hasStream = false;
-                    bool hasMajor = false;
-                    bool hasSubMajor = false;
+        //            bool hasSubject = false;
+        //            bool hasChoiceBlock = false;
+        //            bool hasStream = false;
+        //            bool hasMajor = false;
+        //            bool hasSubMajor = false;
 
-                    foreach (var s in subjectGrouping)
-                    {
-                        if (s.Subjects != null)
-                        {
-                            hasSubject = true;
-                        }
-                        else if (s.ChoiceBlocks != null)
-                        {
-                            hasChoiceBlock = true;
-                        }
-                        else if (s.Streams != null)
-                        {
-                            hasStream = true;
-                        }
-                        else if (s.Majors != null)
-                        {
-                            hasMajor = true;
-                        }
-                        else if (s.SubMajors != null)
-                        {
-                            hasSubMajor = true;
-                        }
-                    }
+        //            foreach (var s in subjectGrouping)
+        //            {
+        //                if (s.SubjectPresent != null)
+        //                {
+        //                    hasSubject = true;
+        //                }
+        //                else if (s.ChoiceBlocks != null)
+        //                {
+        //                    hasChoiceBlock = true;
+        //                }
+        //                else if (s.Streams != null)
+        //                {
+        //                    hasStream = true;
+        //                }
+        //                else if (s.Majors != null)
+        //                {
+        //                    hasMajor = true;
+        //                }
+        //                else if (s.SubMajors != null)
+        //                {
+        //                    hasSubMajor = true;
+        //                }
+        //            }
 
-                    if (hasSubject == true)
-                    {
-                        newGroup.SubjectPresent = 1;
-                    }
-                    else
-                    {
-                        newGroup.SubjectPresent = 0;
-                    }
-                    if (hasChoiceBlock == true)
-                    {
-                        newGroup.ChoiceBlockPresent = 1;
-                    }
-                    else
-                    {
-                        newGroup.ChoiceBlockPresent = 0;
-                    }
-                    if (hasStream == true)
-                    {
-                        newGroup.StreamPresent = 1;
-                    }
-                    else
-                    {
-                        newGroup.StreamPresent = 0;
-                    }
-                    if (hasMajor == true)
-                    {
-                        newGroup.MajorPresent = 1;
-                    }
-                    else
-                    {
-                        newGroup.MajorPresent = 0;
-                    }
-                    if (hasSubMajor == true)
-                    {
-                        newGroup.SubMajorPresent = 1;
-                    }
-                    else
-                    {
-                        newGroup.SubMajorPresent = 0;
-                    }
-                    newGroup.CreditPoints = creditPoints;
-                    context.SubjectGroupingsCredit.Add(newGroup);
-                    context.SaveChanges();
-                    id = newGroup.ID;
+        //            if (hasSubject == true)
+        //            {
+        //                newGroup.SubjectPresent = 1;
+        //            }
+        //            else
+        //            {
+        //                newGroup.SubjectPresent = 0;
+        //            }
+        //            if (hasChoiceBlock == true)
+        //            {
+        //                newGroup.ChoiceBlockPresent = 1;
+        //            }
+        //            else
+        //            {
+        //                newGroup.ChoiceBlockPresent = 0;
+        //            }
+        //            if (hasStream == true)
+        //            {
+        //                newGroup.StreamPresent = 1;
+        //            }
+        //            else
+        //            {
+        //                newGroup.StreamPresent = 0;
+        //            }
+        //            if (hasMajor == true)
+        //            {
+        //                newGroup.MajorPresent = 1;
+        //            }
+        //            else
+        //            {
+        //                newGroup.MajorPresent = 0;
+        //            }
+        //            if (hasSubMajor == true)
+        //            {
+        //                newGroup.SubMajorPresent = 1;
+        //            }
+        //            else
+        //            {
+        //                newGroup.SubMajorPresent = 0;
+        //            }
+        //            newGroup.CreditPoints = creditPoints;
+        //            context.SubjectGroupings.Add(newGroup);
+        //            context.SaveChanges();
+        //            id = newGroup.ID;
 
-                }
-                using (var context = new MyCourseDBEntities())
-                {
-                    SubjectGroupings newGroupings = new SubjectGroupings();
-                    newGroupings.GroupID = id;
-                    foreach (var s in subjectGrouping) {
-                        if (s.Subjects != null){
-                            newGroupings.SubjectID = s.SubjectID;
-                        }
-                        else if (s.ChoiceBlocks != null) {
-                            newGroupings.ChoiceBlockID = s.ChoiceBlockID;
-                        }
-                        else if (s.Streams != null) {
-                            newGroupings.StreamID = s.StreamID;
-                        }
-                        else if (s.Majors != null) {
-                            newGroupings.MajorID = s.MajorID;
-                        }
-                        else if (s.SubMajors != null) {
-                            newGroupings.SubMajorID = s.SubMajorID;
-                        }
-                    } 
-                    context.SubjectGroupings.Add(newGroupings);
-                    context.SaveChanges();                    
-                }
-                scope.Complete();
-            }
-        }
+        //        }
+        //        using (var context = new MyCourseDBEntities())
+        //        {
+        //            SubjectGroupings newGroupings = new SubjectGroupings();
+        //            newGroupings.GroupID = id;
+        //            foreach (var s in subjectGrouping) {
+        //                if (s.Subjects != null){
+        //                    newGroupings.SubjectID = s.SubjectID;
+        //                }
+        //                else if (s.ChoiceBlocks != null) {
+        //                    newGroupings.ChoiceBlockID = s.ChoiceBlockID;
+        //                }
+        //                else if (s.Streams != null) {
+        //                    newGroupings.StreamID = s.StreamID;
+        //                }
+        //                else if (s.Majors != null) {
+        //                    newGroupings.MajorID = s.MajorID;
+        //                }
+        //                else if (s.SubMajors != null) {
+        //                    newGroupings.SubMajorID = s.SubMajorID;
+        //                }
+        //            } 
+        //            context.SubjectGroupings.Add(newGroupings);
+        //            context.SaveChanges();                    
+        //        }
+        //        scope.Complete();
+        //    }
+        //}
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteSubjectGroup(int id)
         {
             var context = new MyCourseDBEntities();
-            var query = from c in context.SubjectGroupingsCredit
+            var query = from c in context.SubjectGroupings
                         where c.ID.ToString().Equals(id)
                         select c;
             var deleteSubjectGroup = query.First();
-            context.SubjectGroupingsCredit.Remove(deleteSubjectGroup);
+            context.SubjectGroupings.Remove(deleteSubjectGroup);
             var secondQuery = from c in context.SubjectGroupings
                         where c.ID.ToString().Equals(id)
                         select c;
             var deleteSubjectGroupings = secondQuery.ToList();
-            context.SubjectGroupingsCredit.Remove(deleteSubjectGroup);
+            context.SubjectGroupings.Remove(deleteSubjectGroup);
             foreach (var d in deleteSubjectGroupings) {
                 context.SubjectGroupings.Remove(d);
             }

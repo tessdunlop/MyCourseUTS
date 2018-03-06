@@ -17,20 +17,28 @@ namespace MyCourseUTS.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Streams()
         {
+            this.ChoiceBlockRelationships = new HashSet<ChoiceBlockRelationships>();
+            this.CourseRelationships = new HashSet<CourseRelationships>();
             this.MajorRelationships = new HashSet<MajorRelationships>();
             this.StreamRelationships = new HashSet<StreamRelationships>();
             this.StreamRelationships1 = new HashSet<StreamRelationships>();
-            this.SubjectGroupings = new HashSet<SubjectGroupings>();
+            this.SubjectGroupingRelationships = new HashSet<SubjectGroupingRelationships>();
             this.SubMajorRelationships = new HashSet<SubMajorRelationships>();
         }
     
         public string ID { get; set; }
-        public int Version { get; set; }
+        public decimal Version { get; set; }
         public string Name { get; set; }
-        public int Active { get; set; }
+        public bool Active { get; set; }
         public int CreditPoints { get; set; }
         public string Abbreviation { get; set; }
+        public string StreamDescription { get; set; }
+        public string VersionDescription { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChoiceBlockRelationships> ChoiceBlockRelationships { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourseRelationships> CourseRelationships { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MajorRelationships> MajorRelationships { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -38,7 +46,7 @@ namespace MyCourseUTS.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StreamRelationships> StreamRelationships1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubjectGroupings> SubjectGroupings { get; set; }
+        public virtual ICollection<SubjectGroupingRelationships> SubjectGroupingRelationships { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubMajorRelationships> SubMajorRelationships { get; set; }
     }

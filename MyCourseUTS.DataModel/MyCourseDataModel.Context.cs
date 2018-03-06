@@ -27,15 +27,18 @@ namespace MyCourseUTS.DataModel
     
         public virtual DbSet<ChoiceBlockRelationships> ChoiceBlockRelationships { get; set; }
         public virtual DbSet<ChoiceBlocks> ChoiceBlocks { get; set; }
+        public virtual DbSet<CourseMajorRelationship> CourseMajorRelationship { get; set; }
         public virtual DbSet<CourseRelationships> CourseRelationships { get; set; }
         public virtual DbSet<Courses> Courses { get; set; }
         public virtual DbSet<CourseTypes> CourseTypes { get; set; }
         public virtual DbSet<MajorRelationships> MajorRelationships { get; set; }
         public virtual DbSet<Majors> Majors { get; set; }
+        public virtual DbSet<RequisiteRelationship> RequisiteRelationship { get; set; }
+        public virtual DbSet<RequisiteTypes> RequisiteTypes { get; set; }
         public virtual DbSet<StreamRelationships> StreamRelationships { get; set; }
         public virtual DbSet<Streams> Streams { get; set; }
+        public virtual DbSet<SubjectGroupingRelationships> SubjectGroupingRelationships { get; set; }
         public virtual DbSet<SubjectGroupings> SubjectGroupings { get; set; }
-        public virtual DbSet<SubjectGroupingsCredit> SubjectGroupingsCredit { get; set; }
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<SubjectTypes> SubjectTypes { get; set; }
         public virtual DbSet<SubMajorRelationships> SubMajorRelationships { get; set; }

@@ -15,7 +15,6 @@ namespace MyCourseUTS.DataModel
     public partial class MajorRelationships
     {
         public int ID { get; set; }
-        public string CourseID { get; set; }
         public string MajorID { get; set; }
         public Nullable<int> SubjectID { get; set; }
         public string StreamID { get; set; }
@@ -24,13 +23,14 @@ namespace MyCourseUTS.DataModel
         public int SubjectTypeID { get; set; }
         public int Stage { get; set; }
         public int Year { get; set; }
+        public string SubMajorID { get; set; }
     
         public virtual ChoiceBlocks ChoiceBlocks { get; set; }
-        public virtual Courses Courses { get; set; }
         public virtual Majors Majors { get; set; }
         public virtual Streams Streams { get; set; }
-        public virtual SubjectGroupingsCredit SubjectGroupingsCredit { get; set; }
+        public virtual SubjectGroupings SubjectGroupings { get; set; }
         public virtual Subjects Subjects { get; set; }
         public virtual SubjectTypes SubjectTypes { get; set; }
+        public virtual SubMajors SubMajors { get; set; }
     }
 }

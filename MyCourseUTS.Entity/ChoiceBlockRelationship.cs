@@ -9,9 +9,11 @@ namespace MyCourseUTS.Entity
     public class ChoiceBlockRelationship
     {
         public int ID { get; set; }
+        public ChoiceBlock ChoiceBlock{ get; set; }
         public Subject Subject { get; set; }
-        public ChoiceBlock ChoiceBlock { get; set; }
         public ChoiceBlock ContentChoiceBlock { get; set; }
-        public SubjectGroup SubjectGroup { get; set; }
+        public Stream ContentStream { get; set; }
+        public SubMajor ContentSubMajor { get; set; }
+        public SubjectGrouping ContentSubjectGrouping { get; set; }
     }
 }

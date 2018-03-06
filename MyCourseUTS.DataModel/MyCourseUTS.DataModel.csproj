@@ -104,6 +104,9 @@
     <Compile Include="ChoiceBlocks.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CourseMajorRelationship.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CourseRelationships.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
@@ -135,16 +138,22 @@
       <DependentUpon>MyCourseDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequisiteRelationship.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RequisiteTypes.cs">
+      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="StreamRelationships.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Streams.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SubjectGroupings.cs">
+    <Compile Include="SubjectGroupingRelationships.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SubjectGroupingsCredit.cs">
+    <Compile Include="SubjectGroupings.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Subjects.cs">

@@ -86,26 +86,26 @@ namespace MyCourseUTS.API.Controllers
             return listofChoiceBlock;
         }
 
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostChoiceBlock(ChoiceBlock choiceBlock)
-        {
-            using (var scope = new TransactionScope())
-            {
-                using (var context = new MyCourseDBEntities())
-                {
-                    ChoiceBlocks newRow = new ChoiceBlocks();
-                    newRow.ID = choiceBlock.ID;
-                    newRow.Name = choiceBlock.Name;
-                    newRow.CreditPoints = choiceBlock.CreditPoints;
-                    newRow.Abbreviation = choiceBlock.Abbreviation;
-                    newRow.Active = choiceBlock.Active;
-                    newRow.Version = choiceBlock.Version;
-                    context.ChoiceBlocks.Add(newRow);
-                    context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void PostChoiceBlock(ChoiceBlock choiceBlock)
+        //{
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        using (var context = new MyCourseDBEntities())
+        //        {
+        //            ChoiceBlocks newRow = new ChoiceBlocks();
+        //            newRow.ID = choiceBlock.ID;
+        //            newRow.Name = choiceBlock.Name;
+        //            newRow.CreditPoints = choiceBlock.CreditPoints;
+        //            newRow.Abbreviation = choiceBlock.Abbreviation;
+        //            newRow.Active = choiceBlock.Active;
+        //            newRow.Version = choiceBlock.Version;
+        //            context.ChoiceBlocks.Add(newRow);
+        //            context.SaveChanges();
+        //        }
+        //        scope.Complete();
+        //    }
+        //}
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteChoiceBlock(ChoiceBlock choiceBlock)

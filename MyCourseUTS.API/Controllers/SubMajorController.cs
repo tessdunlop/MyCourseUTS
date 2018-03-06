@@ -86,25 +86,25 @@ namespace MyCourseUTS.API.Controllers
             return listofSubMajor;
         }
 
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostSubMajor(SubMajor subMajor)
-        {
-            using (var scope = new TransactionScope())
-            {
-                using (var context = new MyCourseDBEntities())
-                {
-                    SubMajors newRow = new SubMajors();
-                    newRow.ID = subMajor.ID;
-                    newRow.Name = subMajor.Name;
-                    newRow.Abbreviation = subMajor.Abbreviation;
-                    newRow.Active = subMajor.Active;
-                    newRow.Version = subMajor.Version;
-                    context.SubMajors.Add(newRow);
-                    context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void PostSubMajor(SubMajor subMajor)
+        //{
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        using (var context = new MyCourseDBEntities())
+        //        {
+        //            SubMajors newRow = new SubMajors();
+        //            newRow.ID = subMajor.ID;
+        //            newRow.Name = subMajor.Name;
+        //            newRow.Abbreviation = subMajor.Abbreviation;
+        //            newRow.Active = subMajor.Active;
+        //            newRow.Version = subMajor.Version;
+        //            context.SubMajors.Add(newRow);
+        //            context.SaveChanges();
+        //        }
+        //        scope.Complete();
+        //    }
+        //}
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteSubMajor(SubMajor subMajor)

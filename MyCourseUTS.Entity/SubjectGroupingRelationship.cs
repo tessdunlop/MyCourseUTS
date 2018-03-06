@@ -14,6 +14,6 @@ namespace MyCourseUTS.Entity
         public ChoiceBlock ChoiceBlock { get; set; }
         public Stream Stream { get; set; }
         public Major Major { get; set; }
-        public SubjectGroup SubjectGroup { get; set; }
+        public SubjectGrouping SubjectGrouping { get; set; }
     }
 }

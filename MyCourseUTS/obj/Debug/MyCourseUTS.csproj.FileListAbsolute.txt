@@ -92,7 +92,6 @@ C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Threading.Tasks.Extensi
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Web.Cors.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Web.Http.Cors.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Web.Http.dll
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.Repository.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.DataModel.pdb
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.DataModel.dll.config
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.Entity.pdb
@@ -106,5 +105,3 @@ C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Text.Encodings.Web.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Web.Http.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Web.Http.Cors.xml
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.Repository.pdb
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.Repository.dll.config

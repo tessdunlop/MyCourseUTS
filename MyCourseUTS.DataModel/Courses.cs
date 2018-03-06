@@ -17,25 +17,28 @@ namespace MyCourseUTS.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Courses()
         {
+            this.CourseMajorRelationship = new HashSet<CourseMajorRelationship>();
             this.CourseRelationships = new HashSet<CourseRelationships>();
-            this.MajorRelationships = new HashSet<MajorRelationships>();
         }
     
         public string ID { get; set; }
-        public int Version { get; set; }
+        public decimal Version { get; set; }
         public string Name { get; set; }
-        public int Active { get; set; }
+        public bool Active { get; set; }
         public string VersionDescription { get; set; }
         public int CreditPoints { get; set; }
         public string Abbreviation { get; set; }
-        public double Years { get; set; }
+        public int Years { get; set; }
         public int Stages { get; set; }
         public int CourseTypeID { get; set; }
+        public string CourseDescription { get; set; }
+        public bool HasTemplate { get; set; }
+        public bool HasMajor { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourseMajorRelationship> CourseMajorRelationship { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseRelationships> CourseRelationships { get; set; }
         public virtual CourseTypes CourseTypes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MajorRelationships> MajorRelationships { get; set; }
     }
 }

@@ -250,7 +250,6 @@ C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\System.Text.Encodings.Web.
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\System.Threading.Tasks.Extensions.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\System.Web.Cors.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\System.Web.Http.Cors.dll
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\MyCourseUTS.Repository.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\MyCourseUTS.DataModel.pdb
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\MyCourseUTS.DataModel.dll.config
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\MyCourseUTS.Entity.pdb
@@ -262,5 +261,3 @@ C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\EntityFramework.SqlServer.
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\System.Text.Encodings.Web.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\System.Web.Http.Cors.xml
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\MyCourseUTS.Repository.pdb
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\MyCourseUTS.Repository.dll.config

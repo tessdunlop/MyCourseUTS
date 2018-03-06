@@ -4,47 +4,60 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="04312053505e4c569e0ed1bac00e180f" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlockRelationships" Width="1.5" PointX="3" PointY="12.75" />
-        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlocks" Width="1.5" PointX="0.75" PointY="12.375" />
-        <EntityTypeShape EntityType="MyCourseDBModel.CourseRelationships" Width="1.5" PointX="6" PointY="17.375" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Courses" Width="1.5" PointX="0.75" PointY="33.125" />
-        <EntityTypeShape EntityType="MyCourseDBModel.CourseTypes" Width="1.5" PointX="1.5" PointY="38" />
-        <EntityTypeShape EntityType="MyCourseDBModel.MajorRelationships" Width="1.5" PointX="3" PointY="6.875" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Majors" Width="1.5" PointX="0.75" PointY="25.5" />
-        <EntityTypeShape EntityType="MyCourseDBModel.StreamRelationships" Width="1.5" PointX="3" PointY="16.5" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Streams" Width="1.5" PointX="0.75" PointY="21.625" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupings" Width="1.5" PointX="6" PointY="12.375" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupingsCredit" Width="1.5" PointX="0.75" PointY="17.375" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Subjects" Width="1.5" PointX="0.75" PointY="29" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubjectTypes" Width="1.5" PointX="0.75" PointY="41.375" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubMajorRelationships" Width="1.5" PointX="6" PointY="7.5" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubMajors" Width="1.5" PointX="3.75" PointY="2.875" />
+      <Diagram DiagramId="04312053505e4c569e0ed1bac00e180f" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlockRelationships" Width="1.5" PointX="3" PointY="10.25" />
+        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlocks" Width="1.5" PointX="0.75" PointY="20.25" />
+        <EntityTypeShape EntityType="MyCourseDBModel.CourseMajorRelationship" Width="1.5" PointX="9" PointY="28.5" />
+        <EntityTypeShape EntityType="MyCourseDBModel.CourseRelationships" Width="1.5" PointX="6" PointY="14.875" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Courses" Width="1.5" PointX="3.75" PointY="30.375" />
+        <EntityTypeShape EntityType="MyCourseDBModel.CourseTypes" Width="1.5" PointX="1.5" PointY="31.5" />
+        <EntityTypeShape EntityType="MyCourseDBModel.MajorRelationships" Width="1.5" PointX="9" PointY="14.875" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Majors" Width="1.5" PointX="6.75" PointY="24.375" />
+        <EntityTypeShape EntityType="MyCourseDBModel.RequisiteRelationship" Width="1.5" PointX="6" PointY="20.875" />
+        <EntityTypeShape EntityType="MyCourseDBModel.RequisiteTypes" Width="1.5" PointX="3.75" PointY="25.125" />
+        <EntityTypeShape EntityType="MyCourseDBModel.StreamRelationships" Width="1.5" PointX="3" PointY="15.25" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Streams" Width="1.5" PointX="0.75" PointY="7.625" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupingRelationships" Width="1.5" PointX="3" PointY="20.25" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupings" Width="1.5" PointX="0.75" PointY="3.375" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Subjects" Width="1.5" PointX="0.75" PointY="15" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubjectTypes" Width="1.5" PointX="3.75" PointY="6.625" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubMajorRelationships" Width="1.5" PointX="6" PointY="10.25" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubMajors" Width="1.5" PointX="0.75" PointY="24.875" />
         <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_ChoiceBlocks" />
         <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_ChoiceBlocks1" />
+        <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_Streams" />
         <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_SubjectGroupingsCredit" />
         <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_Subjects" />
+        <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_SubMajors" />
         <AssociationConnector Association="MyCourseDBModel.FK_CourseRelationships_ChoiceBlocks" />
         <AssociationConnector Association="MyCourseDBModel.FK_MajorRelationships_ChoiceBlocks" />
         <AssociationConnector Association="MyCourseDBModel.FK_StreamRelationships_ChoiceBlocks" />
-        <AssociationConnector Association="MyCourseDBModel.FK_SubjectGroupings_ChoiceBlocks" />
+        <AssociationConnector Association="MyCourseDBModel.FK_SubjectGroupingRelationships_ChoiceBlocks" />
         <AssociationConnector Association="MyCourseDBModel.FK_SubMajorRelationships_ChoiceBlocks" />
+        <AssociationConnector Association="MyCourseDBModel.FK_CourseMajorRelationship_Courses" />
+        <AssociationConnector Association="MyCourseDBModel.FK_CourseMajorRelationship_Majors" />
         <AssociationConnector Association="MyCourseDBModel.FK_CourseRelationships_Courses" />
+        <AssociationConnector Association="MyCourseDBModel.FK_CourseRelationships_Streams" />
         <AssociationConnector Association="MyCourseDBModel.FK_CourseRelationships_SubjectGroupingsCredit" />
         <AssociationConnector Association="MyCourseDBModel.FK_CourseRelationships_Subjects" />
         <AssociationConnector Association="MyCourseDBModel.FK_CourseRelationships_SubjectTypes" />
+        <AssociationConnector Association="MyCourseDBModel.FK_CourseRelationships_SubMajors" />
         <AssociationConnector Association="MyCourseDBModel.FK_Courses_CourseTypes" />
-        <AssociationConnector Association="MyCourseDBModel.FK_MajorRelationships_Courses" />
         <AssociationConnector Association="MyCourseDBModel.FK_MajorRelationships_Majors" />
         <AssociationConnector Association="MyCourseDBModel.FK_MajorRelationships_Streams" />
         <AssociationConnector Association="MyCourseDBModel.FK_MajorRelationships_SubjectGroupingsCredit" />
         <AssociationConnector Association="MyCourseDBModel.FK_MajorRelationships_Subjects" />
         <AssociationConnector Association="MyCourseDBModel.FK_MajorRelationships_SubjectTypes" />
+        <AssociationConnector Association="MyCourseDBModel.FK_MajorRelationships_SubMajors" />
         <AssociationConnector Association="MyCourseDBModel.FK_SubjectGroupings_Majors" />
+        <AssociationConnector Association="MyCourseDBModel.FK_RequisiteRelationship_RequisiteType" />
+        <AssociationConnector Association="MyCourseDBModel.FK_RequisiteRelationship_Subjects" />
+        <AssociationConnector Association="MyCourseDBModel.FK_RequisiteRelationship_Subjects1" />
         <AssociationConnector Association="MyCourseDBModel.FK_StreamRelationships_Streams" />
         <AssociationConnector Association="MyCourseDBModel.FK_StreamRelationships_Streams1" />
         <AssociationConnector Association="MyCourseDBModel.FK_StreamRelationships_SubjectGroupingsCredit" />
         <AssociationConnector Association="MyCourseDBModel.FK_StreamRelationships_Subjects" />
+        <AssociationConnector Association="MyCourseDBModel.FK_StreamRelationships_SubMajors" />
         <AssociationConnector Association="MyCourseDBModel.FK_SubjectGroupings_Streams" />
         <AssociationConnector Association="MyCourseDBModel.FK_SubMajorRelationships_Streams" />
         <AssociationConnector Association="MyCourseDBModel.FK_SubjectGroupings_SubjectGroupingsCredit" />
@@ -53,6 +66,7 @@
         <AssociationConnector Association="MyCourseDBModel.FK_SubMajorRelationships_SubjectGroupingsCredit" />
         <AssociationConnector Association="MyCourseDBModel.FK_SubMajorRelationships_Subjects" />
         <AssociationConnector Association="MyCourseDBModel.FK_SubMajorRelationships_SubMajors" />
+        <AssociationConnector Association="MyCourseDBModel.FK_SubMajorRelationships_SubMajors1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -9,11 +9,13 @@ namespace MyCourseUTS.Entity
     public class Subject
     {
         public int ID { get; set; }
-        public int Version { get; set; }
+        public decimal Version { get; set; }
         public string Name { get; set; }
         public string Abbreviation { get; set; }
         public int CreditPoints { get; set; }
-        public int Active { get; set; }
+        public bool Active { get; set; }
+        public string SubjectDescription { get; set; }
+        public string VersionDescription { get; set; }
 
     }
 }

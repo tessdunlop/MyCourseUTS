@@ -87,27 +87,26 @@ namespace MyCourseUTS.API.Controllers
             return listOfMajor;
         }
 
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostMajor(Major major)
-        {
-            using (var scope = new TransactionScope())
-            {
-                using (var context = new MyCourseDBEntities())
-                {
-                    Majors newRow = new Majors();
-                    newRow.ID = major.ID;
-                    newRow.Name = major.Name;
-                    newRow.Abbreviation = major.Abbreviation;
-                    newRow.Active = major.Active;
-                    newRow.Version = major.Version;
-                    newRow.Stage = major.Stage;
-                    newRow.CreditPoints = major.CreditPoints;
-                    context.Majors.Add(newRow);
-                    context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void PostMajor(Major major)
+        //{
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        using (var context = new MyCourseDBEntities())
+        //        {
+        //            Majors newRow = new Majors();
+        //            newRow.ID = major.ID;
+        //            newRow.Name = major.Name;
+        //            newRow.Abbreviation = major.Abbreviation;
+        //            newRow.Active = major.Active;
+        //            newRow.Version = major.Version;
+        //            newRow.CreditPoints = major.CreditPoints;
+        //            context.Majors.Add(newRow);
+        //            context.SaveChanges();
+        //        }
+        //        scope.Complete();
+        //    }
+        //}
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteMajor(Major major)
