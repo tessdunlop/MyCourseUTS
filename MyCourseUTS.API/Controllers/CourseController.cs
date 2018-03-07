@@ -25,7 +25,7 @@ namespace MyCourseUTS.API.Controllers
             List<Courses> courses;
             var context = new MyCourseDBEntities();
             var query = from c in context.Courses.Include("CourseTypes")
-                        where c.Active.Equals(1)
+                        where c.Active.Equals(true)
                         select c;
             courses = query.ToList();
 

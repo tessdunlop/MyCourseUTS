@@ -22,7 +22,7 @@ namespace MyCourseUTS.API.Controllers
             List<ChoiceBlocks> cbk;
             var context = new MyCourseDBEntities();
             var query = from c in context.ChoiceBlocks
-                        where c.Active.Equals(1)
+                        where c.Active.Equals(true)
                         select c;
             cbk = query.ToList();
 

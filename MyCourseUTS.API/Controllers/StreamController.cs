@@ -22,7 +22,7 @@ namespace MyCourseUTS.API.Controllers
             List<Streams> streams;
             var context = new MyCourseDBEntities();
             var query = from c in context.Streams
-                        where c.Active.Equals(1)
+                        where c.Active.Equals(true)
                         select c;
             streams = query.ToList();
 

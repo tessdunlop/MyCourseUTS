@@ -11,7 +11,8 @@ namespace MyCourseUTS.Manager
     {
         public static Entity.Course MapCourseContent(DataModel.Courses contentData)
         {
-            if (contentData == null) {
+            if (contentData == null)
+            {
                 return null;
             }
 
@@ -30,7 +31,7 @@ namespace MyCourseUTS.Manager
                 CourseDescription = contentData.CourseDescription,
                 HasMajor = contentData.HasMajor,
                 HasTemplate = contentData.HasTemplate
-        };
+            };
             return content;
         }
 
@@ -240,7 +241,7 @@ namespace MyCourseUTS.Manager
                 Stream = MapStreamContent(contentData.Streams),
                 Subject = MapSubjectContent(contentData.Subjects),
                 ContentChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks),
-                ContentStream = MapStreamContent(contentData.Streams),
+                ContentStream = MapStreamContent(contentData.Streams1),
                 ContentSubMajor = MapSubMajorContent(contentData.SubMajors),
                 ContentSubjectGrouping = MapSubjectGroupingContent(contentData.SubjectGroupings)
             };
@@ -260,7 +261,7 @@ namespace MyCourseUTS.Manager
                 Subject = MapSubjectContent(contentData.Subjects),
                 ContentChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks),
                 ContentStream = MapStreamContent(contentData.Streams),
-                ContentSubMajor = MapSubMajorContent(contentData.SubMajors),
+                ContentSubMajor = MapSubMajorContent(contentData.SubMajors1),
                 ContentSubjectGrouping = MapSubjectGroupingContent(contentData.SubjectGroupings)
             };
             return content;
@@ -277,7 +278,7 @@ namespace MyCourseUTS.Manager
                 ID = contentData.ID,
                 ChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks),
                 Subject = MapSubjectContent(contentData.Subjects),
-                ContentChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks),
+                ContentChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks1),
                 ContentStream = MapStreamContent(contentData.Streams),
                 ContentSubMajor = MapSubMajorContent(contentData.SubMajors),
                 ContentSubjectGrouping = MapSubjectGroupingContent(contentData.SubjectGroupings)
@@ -315,7 +316,7 @@ namespace MyCourseUTS.Manager
             {
                 ID = contentData.ID,
                 Course = MapCourseContent(contentData.Courses),
-                Major = MapMajorContent(contentData.Majors), 
+                Major = MapMajorContent(contentData.Majors),
             };
             return content;
         }
@@ -331,7 +332,7 @@ namespace MyCourseUTS.Manager
                 ID = contentData.ID,
                 Abbreviation = contentData.Abbreviation,
                 RequisiteType = contentData.RequisiteType
-               
+
             };
             return content;
         }
@@ -345,8 +346,8 @@ namespace MyCourseUTS.Manager
             Entity.RequisiteRelationship content = new Entity.RequisiteRelationship
             {
                 ID = contentData.ID,
-                Subject = MapSubjectContent(contentData.Subjects),
-                Requisite = MapSubjectContent(contentData.Subjects),
+                Subject = MapSubjectContent(contentData.Subjects),//contentData.Subjects != null ? new Subject() { ID = contentData.Subjects.ID, Version = contentData.Subjects.Version, Name = contentData.Subjects.Name, Abbreviation = contentData.Subjects.Abbreviation, CreditPoints = contentData.Subjects.CreditPoints, Active = contentData.Subjects.Active, SubjectDescription = contentData.Subjects.SubjectDescription, VersionDescription = contentData.Subjects.VersionDescription,} : null,
+                Requisite = MapSubjectContent(contentData.Subjects1),
                 RequisiteType = MapRequisiteTypeContent(contentData.RequisiteTypes)
             };
             return content;

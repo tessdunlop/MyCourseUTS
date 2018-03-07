@@ -20,7 +20,7 @@ namespace MyCourseUTS.API.Controllers
             List<Subjects> subjects;
             var context = new MyCourseDBEntities();
             var query = from c in context.Subjects
-                        where c.Active.Equals(1)
+                        where c.Active.Equals(true)
                         select c;
             subjects = query.ToList();
 
@@ -42,6 +42,24 @@ namespace MyCourseUTS.API.Controllers
                         select c;
             subject = EntityMappingManager.MapSubjectContent(query.FirstOrDefault());
             return subject;
+        }
+
+        //http://mycourseuts.azurewebsites.net/api/subject/getsubjectrequisite?subjectid=13992
+        public List<Entity.RequisiteRelationship> GetSubjectRequisite(int subjectID)
+        {
+            List<DataModel.RequisiteRelationship> requisites;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.RequisiteRelationship.Include("RequisiteTypes").Include("Subjects")
+                        where c.SubjectID.Equals(subjectID)
+                        select c;
+            requisites = query.ToList();
+
+            List<Entity.RequisiteRelationship> listOfRequisites = new List<Entity.RequisiteRelationship>();
+            foreach (var c in requisites)
+            {
+                listOfRequisites.Add(EntityMappingManager.MapRequisiteRelationshipContent(c));
+            }
+            return listOfRequisites;
         }
 
         //http://mycourseuts.azurewebsites.net/api/subject/getsubjects?value=139
@@ -93,5 +111,7 @@ namespace MyCourseUTS.API.Controllers
             context.Subjects.Remove(deleteSubject);
             context.SaveChanges();
         }
+
+
     }
 }

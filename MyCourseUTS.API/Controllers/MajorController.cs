@@ -23,7 +23,7 @@ namespace MyCourseUTS.API.Controllers
             List<Majors> majors;
             var context = new MyCourseDBEntities();
             var query = from c in context.Majors
-                        where c.Active.Equals(1)
+                        where c.Active.Equals(true)
                         select c;
             majors = query.ToList();
 

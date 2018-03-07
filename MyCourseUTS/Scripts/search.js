@@ -122,7 +122,7 @@ function getCourseTypes() {
         }
     });
     console.log(data);
-    return data;  
+    return data;
 }
 
 function getCourse(id) {
@@ -244,6 +244,23 @@ function getSubjectGrouping(id) {
     });
     return data;
 }
+function getSubjectRequisites(id) {
+    var url = "http://mycourseuts.azurewebsites.net/api/subject/getsubjectrequisite?subjectid=" + id;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the subject requisites");
+        }
+    });
+    return data;
+}
 
 function getCourses(term) {
     var url = "http://mycourseuts.azurewebsites.net/api/course/getcourses?value=" + term;
@@ -359,6 +376,91 @@ function populateDropdown() {
     }
 }
 
+function disableMenuBar(option) {
+    if (option == true) {
+        document.getElementById("btnCourse").disabled = true;
+        document.getElementById("btnMajor").disabled = true;
+        document.getElementById("btnSubMajor").disabled = true;
+        document.getElementById("btnStream").disabled = true;;
+        document.getElementById("btnChoiceBlock").disabled = true;
+        document.getElementById("btnSubject").disabled = true;
+    }
+    else if (option == false) {
+        document.getElementById("btnCourse").disabled = false;
+        document.getElementById("btnMajor").disabled = false;
+        document.getElementById("btnSubMajor").disabled = false;
+        document.getElementById("btnStream").disabled = false;;
+        document.getElementById("btnChoiceBlock").disabled = false;
+        document.getElementById("btnSubject").disabled = false;
+    }
+
+}
+function refreshFields() {
+    document.getElementById("courseStatusActive").checked = true;
+    document.getElementById("majorStatusActive").checked = true;
+    document.getElementById("streamStatusActive").checked = true;
+    document.getElementById("subjectStatusActive").checked = true;
+
+    //course
+    document.getElementById("courseName").value = "";
+    document.getElementById("courseId").value = "";
+    document.getElementById("courseType").selectedIndex = 0;
+    document.getElementById("courseAbb").value = "";
+    document.getElementById("courseYears").value = "";
+    document.getElementById("courseStages").value = "";
+    document.getElementById("courseCredit").value = "";
+    document.getElementById("courseVersion").value = "";
+    document.getElementById("courseVersionDescription").value = "";
+    document.getElementById("courseDescription").value = "";
+
+    //major
+    document.getElementById("majorName").value = "";
+    document.getElementById("majorId").value = "";
+    document.getElementById("majorAbb").value = "";
+    document.getElementById("majorVersion").value = "";
+    document.getElementById("majorStages").value = "";
+    document.getElementById("majorCredit").value = "";
+    document.getElementById("majorVersionDescription").value = "";
+    document.getElementById("majorDescription").value = "";
+    document.getElementById("majorStatusActive").checked = true;
+    document.getElementById("majorStatusInActive").checked = false;
+    document.getElementById("includeMajorTemplate").checked = false;
+
+    //stream
+    document.getElementById("subMajorOption").checked = false;
+    document.getElementById("streamDescription").value = "";
+    document.getElementById("streamOption").checked = false;
+    document.getElementById("choiceBlockOption").checked = false;
+    document.getElementById("streamName").value = "";
+    document.getElementById("streamId").value = "";
+    document.getElementById("streamAbb").value = "";
+    document.getElementById("streamVersion").value = "";
+    document.getElementById("majorCredit").value = "";
+    document.getElementById("streamVersionDescription").value = "";
+    document.getElementById("streamStatusActive").checked = true;
+    document.getElementById("streamStatusInActive").checked = false;
+
+    //subject
+    document.getElementById("subjectName").value = "";
+    document.getElementById("subjectId").value = "";
+    document.getElementById("subjectAbb").value = "";
+    document.getElementById("subjectCredit").value = "";
+    document.getElementById("subjectVersion").value = "";
+    document.getElementById("subjectVersionDescription").value = "";
+    document.getElementById("subjectDescription").value = "";
+    document.getElementById("subjectPreReq").innerHTML = "";
+    document.getElementById("subjectAntiReq").innerHTML = "";
+    document.getElementById("subjectStatusActive").checked = true;
+    document.getElementById("subjectStatusInActive").checked = false;
+    document.getElementById("subjectAntiReqInput").value = "";
+    document.getElementById("subjectPreReqInput").value = "";
+    document.getElementById("subjectAntiReqInput").style.display = "none";
+    document.getElementById("subjectPreReqInput").style.display = "none";
+
+
+    handleEdit();
+}
+
 window.onload = function () {
     populateDropdown();
 }
@@ -372,8 +474,69 @@ getAllSubjects();
 getCourseTypes();
 
 
+function removeReqFromList(id) {
+    var listElement = document.getElementById(id);
+    if ($("#" + id).hasClass("disabled")) { }
+    else {
+        listElement.remove();
+    }
+}
+function handlePreReq(term) {
+    var data = new Array();
+    data = getSubjects(term);
+
+    $("#subjectPreReqInput").autocomplete({
+        source: function (request, response) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.Name,
+                    value: value.ID
+                }
+            }));
+        },
+        select: function (event, ui) {
+            console.log(ui);
+            var a = document.createElement("a");
+            var subReq = document.getElementById("subjectPreReq");
+            a.setAttribute('id', ui.item.value);
+            a.setAttribute('onClick', "removeReqFromList(this.id)");
+            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success ');
+            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
+            subReq.appendChild(a);
+        }
+
+    });
+}
+function handleAntiReq(term) {
+    var data = new Array();
+    data = getSubjects(term);
+
+    $("#subjectAntiReqInput").autocomplete({
+        source: function (request, response) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.Name,
+                    value: value.ID
+                }
+            }));
+        },
+        select: function (event, ui) {
+            console.log(ui);
+            var a = document.createElement("a");
+            var subReq = document.getElementById("subjectAntiReq");
+            a.setAttribute('id', ui.item.value);
+            a.setAttribute('onClick', "removeReqFromList(this.id)");
+            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-danger');
+            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
+            subReq.appendChild(a);
+        }
+
+    });
+}
+
 
 function handleSearch(term) {
+
     var data = new Array();
     if (selected == "course") {
         data = getCourses(term);
@@ -393,147 +556,213 @@ function handleSearch(term) {
     else if (selected == "subject") {
         data = getSubjects(term);
     }
-        $("#searchBar").autocomplete({
-            source: function (request, response) {
-                response($.map(data, function (value, key) {
-                    return {
-                        label: value.Name,
-                        value: value.ID
-                    }
-                }));
-            },
-            select: function (event, ui) {
-                console.log(ui);
-                document.getElementById('searchDiv').style.display = "none";
-                document.getElementById("btnSave").disabled = true;
-                if (selected == "course") {
-                    var data = getCourse(ui.item.value);
-                    console.log(data);
-                    document.getElementById("courseName").value = data.Name;
-                    document.getElementById("courseId").value = data.ID;
-                    document.getElementById("courseType").selectedIndex = data.CourseType.ID - 1;
-                    document.getElementById("courseAbb").value = data.Abbreviation;
-                    document.getElementById("courseYears").value = data.Years;
-                    document.getElementById("courseStages").value = data.Stages;
-                    document.getElementById("courseCredit").value = data.CreditPoints;
-                    document.getElementById("courseVersion").value = data.Version;
-                    document.getElementById("courseVersionDescription").value = data.VersionDescription;
-                    if (data.Active == 1) {
-                        document.getElementById("courseStatusActive").checked = true;
-                    }
-                    else {
-                        document.getElementById("courseStatusInActive").checked = true;
-                    }
-
-                    document.getElementById("courseName").readOnly = true;
-                    document.getElementById("courseId").readOnly = true;
-                    document.getElementById("courseType").disabled = true;
-                    document.getElementById("courseAbb").readOnly = true;
-                    document.getElementById("courseYears").readOnly = true;
-                    document.getElementById("courseStages").readOnly = true;
-                    document.getElementById("courseCredit").readOnly = true;
-                    document.getElementById("courseVersion").readOnly = true;
-                    document.getElementById("courseVersionDescription").readOnly = true;
-                    document.getElementById("courseStatusActive").disabled = true;
-                    document.getElementById("courseStatusInActive").disabled = true;
-
-                    document.getElementById('addCourseFormDiv').style.display = "block";
-                    
+    $("#searchBar").autocomplete({
+        source: function (request, response) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.Name,
+                    value: value.ID
                 }
-                else if (selected == "major") {
-                    var data = getMajor(ui.item.value);
-                    console.log(data);
-                    document.getElementById("majorName").value = data.Name;
-                    document.getElementById("majorId").value = data.ID;
-                    document.getElementById("majorAbb").value = data.Abbreviation;
-                    document.getElementById("majorVersion").value = data.Version;
-                    document.getElementById("majorStages").value = data.Stage;
-                    document.getElementById("majorCredit").value = data.CreditPoints;                  
-                    if (data.Active == 1) {
-                        document.getElementById("majorStatusActive").checked = true;
-                    }
-                    else {
-                        document.getElementById("majorStatusInActive").checked = true;
-                    }
-
-                    document.getElementById("majorName").readOnly = true;
-                    document.getElementById("majorId").readOnly = true;
-                    document.getElementById("majorAbb").readOnly = true;
-                    document.getElementById("majorVersion").readOnly = true;
-                    document.getElementById("majorStages").readOnly = true;
-                    document.getElementById("majorCredit").readOnly = true;
-                    document.getElementById("majorStatusActive").disabled = true;
-                    document.getElementById("majorStatusInActive").disabled = true;
-
-                    document.getElementById('addMajorFormDiv').style.display = "block";
+            }));
+        },
+        select: function (event, ui) {
+            disableMenuBar(true);
+            document.getElementById("addDiv").style.display = "none";
+            console.log(ui);
+            document.getElementById('searchDiv').style.display = "none";
+            document.getElementById("btnSave").disabled = true;
+            if (selected == "course") {
+                var data = getCourse(ui.item.value);
+                console.log(data);
+                document.getElementById("courseName").value = data.Name;
+                document.getElementById("courseId").value = data.ID;
+                document.getElementById("courseType").selectedIndex = data.CourseType.ID - 1;
+                document.getElementById("courseAbb").value = data.Abbreviation;
+                document.getElementById("courseYears").value = data.Years;
+                document.getElementById("courseStages").value = data.Stages;
+                document.getElementById("courseCredit").value = data.CreditPoints;
+                document.getElementById("courseVersion").value = data.Version;
+                document.getElementById("courseVersionDescription").value = data.VersionDescription;
+                document.getElementById("courseDescription").value = data.CourseDescription;
+                if (data.Active == true) {
+                    document.getElementById("courseStatusActive").checked = true;
                 }
-                else if (selected == "submajor" || selected == "stream" || selected == "choiceblock") {
-                    var data;
-
-                    if (selected == "submajor") {
-                        data = getSubMajor(ui.item.value);
-                        document.getElementById("subMajorOption").checked = true;
-                    }
-                    else if (selected == "stream") {
-                        data = getStream(ui.item.value);
-                        document.getElementById("streamOption").checked = true;
-                    }
-                    else if (selected == "choiceblock") {
-                        data = getChoiceBlock(ui.item.value);
-                        document.getElementById("choiceBlockOption").checked = true;
-                    }
-                   
-                    document.getElementById("streamName").value = data.Name;
-                    document.getElementById("streamId").value = data.ID;
-                    document.getElementById("streamAbb").value = data.Abbreviation;
-                    document.getElementById("streamVersion").value = data.Version;
-                    if (data.Active == 1) {
-                        document.getElementById("streamStatusActive").checked = true;
-                    }
-                    else {
-                        document.getElementById("streamStatusInActive").checked = true;
-                    }
-
-                    document.getElementById("subMajorOption").disabled = true;
-                    document.getElementById("streamOption").disabled = true;
-                    document.getElementById("choiceBlockOption").disabled = true;
-                    document.getElementById("streamName").readOnly = true;
-                    document.getElementById("streamId").readOnly = true;
-                    document.getElementById("streamAbb").readOnly = true;
-                    document.getElementById("streamVersion").readOnly = true;
-                    document.getElementById("streamStatusActive").disabled = true;
-                    document.getElementById("streamStatusInActive").disabled = true;
-
-                    document.getElementById('addStreamFormDiv').style.display = "block";                   
+                else {
+                    document.getElementById("courseStatusInActive").checked = true;
                 }
-                else if (selected == "subject") {
-                    var data = getSubject(ui.item.value);
-                    console.log(data);
-                    document.getElementById("subjectName").value = data.Name;
-                    document.getElementById("subjectId").value = data.ID;
-                    document.getElementById("subjectAbb").value = data.Abbreviation;
-                    document.getElementById("subjectCredit").value = data.CreditPoints;
-                    document.getElementById("subjectVersion").value = data.Version;
-                    if (data.Active == 1) {
-                        document.getElementById("subjectActiveStatus").checked = true;
-                    }
-                    else {
-                        document.getElementById("subjectInActiveStatus").checked = true;
-                    }
-
-                    document.getElementById("subjectName").readOnly = true;
-                    document.getElementById("subjectId").readOnly = true;
-                    document.getElementById("subjectAbb").readOnly = true;
-                    document.getElementById("subjectCredit").readOnly = true;
-                    document.getElementById("subjectVersion").readOnly = true;
-                    document.getElementById("subjectActiveStatus").disabled = true;
-                    document.getElementById("subjectInActiveStatus").disabled = true;
-
-                    document.getElementById('addSubjectFormDiv').style.display = "block";
+                if (data.HasMajor == true) {
+                    document.getElementById("includeMajor").checked = true;
                 }
-                document.getElementById('cancelButtonDiv').style.display = "block";
+                if (data.HasTemplate == true) {
+                    document.getElementById("includeCourseTemplate").checked = true;
+                }
+
+                document.getElementById("courseName").readOnly = true;
+                document.getElementById("courseId").readOnly = true;
+                document.getElementById("courseType").disabled = true;
+                document.getElementById("courseAbb").readOnly = true;
+                document.getElementById("courseYears").readOnly = true;
+                document.getElementById("courseStages").readOnly = true;
+                document.getElementById("courseCredit").readOnly = true;
+                document.getElementById("courseVersion").readOnly = true;
+                document.getElementById("courseVersionDescription").readOnly = true;
+                document.getElementById("courseDescription").readOnly = true;
+                document.getElementById("courseStatusActive").disabled = true;
+                document.getElementById("courseStatusInActive").disabled = true;
+                document.getElementById("includeCourseTemplate").disabled = true;
+                document.getElementById("includeMajor").disabled = true;
+
+                document.getElementById('addCourseFormDiv').style.display = "block";
+
             }
-        });
+            else if (selected == "major") {
+                var data = getMajor(ui.item.value);
+                console.log(data);
+                document.getElementById("majorName").value = data.Name;
+                document.getElementById("majorId").value = data.ID;
+                document.getElementById("majorAbb").value = data.Abbreviation;
+                document.getElementById("majorVersion").value = data.Version;
+                document.getElementById("majorStages").value = data.Stage;
+                document.getElementById("majorCredit").value = data.CreditPoints;
+                document.getElementById("majorVersionDescription").value = data.VersionDescription;
+                document.getElementById("majorDescription").value = data.MajorDescription;
+                if (data.Active == true) {
+                    document.getElementById("majorStatusActive").checked = true;
+                }
+                else {
+                    document.getElementById("majorStatusInActive").checked = true;
+                }
+                if (data.HasTemplate == true) {
+                    document.getElementById("includeMajorTemplate").checked = true;
+                }
+
+                document.getElementById("majorName").readOnly = true;
+                document.getElementById("majorId").readOnly = true;
+                document.getElementById("majorAbb").readOnly = true;
+                document.getElementById("majorVersion").readOnly = true;
+                document.getElementById("majorStages").readOnly = true;
+                document.getElementById("majorCredit").readOnly = true;
+                document.getElementById("majorVersionDescription").readOnly = true;
+                document.getElementById("majorDescription").readOnly = true;
+                document.getElementById("majorStatusActive").disabled = true;
+                document.getElementById("majorStatusInActive").disabled = true;
+                document.getElementById("includeMajorTemplate").disabled = true;
+
+                document.getElementById('addMajorFormDiv').style.display = "block";
+            }
+            else if (selected == "submajor" || selected == "stream" || selected == "choiceblock") {
+                var data;
+
+                if (selected == "submajor") {
+                    data = getSubMajor(ui.item.value);
+                    document.getElementById("subMajorOption").checked = true;
+                    document.getElementById("streamDescription").value = data.SubMajorDescription;
+                }
+                else if (selected == "stream") {
+                    data = getStream(ui.item.value);
+                    document.getElementById("streamOption").checked = true;
+                    document.getElementById("streamDescription").value = data.StreamDescription;
+                }
+                else if (selected == "choiceblock") {
+                    data = getChoiceBlock(ui.item.value);
+                    document.getElementById("choiceBlockOption").checked = true;
+                    document.getElementById("streamDescription").value = data.ChoiceBlockDescription;
+                }
+
+                document.getElementById("streamName").value = data.Name;
+                document.getElementById("streamId").value = data.ID;
+                document.getElementById("streamAbb").value = data.Abbreviation;
+                document.getElementById("streamVersion").value = data.Version;
+                document.getElementById("majorCredit").value = data.CreditPoints;
+                document.getElementById("streamVersionDescription").value = data.VersionDescription;
+
+                if (data.Active == true) {
+                    document.getElementById("streamStatusActive").checked = true;
+                }
+                else {
+                    document.getElementById("streamStatusInActive").checked = true;
+                }
+
+                document.getElementById("subMajorOption").disabled = true;
+                document.getElementById("streamOption").disabled = true;
+                document.getElementById("choiceBlockOption").disabled = true;
+                document.getElementById("streamName").readOnly = true;
+                document.getElementById("streamId").readOnly = true;
+                document.getElementById("streamAbb").readOnly = true;
+                document.getElementById("streamVersion").readOnly = true;
+                document.getElementById("streamCredit").readOnly = true;
+                document.getElementById("streamVersionDescription").readOnly = true;
+                document.getElementById("streamDescription").readOnly = true;
+                document.getElementById("streamStatusActive").disabled = true;
+                document.getElementById("streamStatusInActive").disabled = true;
+
+                document.getElementById('addStreamFormDiv').style.display = "block";
+            }
+            else if (selected == "subject") {
+                var data = getSubject(ui.item.value);
+                var reqs = getSubjectRequisites(ui.item.value);
+                console.log(data);
+                console.log(reqs);
+                document.getElementById("subjectName").value = data.Name;
+                document.getElementById("subjectId").value = data.ID;
+                document.getElementById("subjectAbb").value = data.Abbreviation;
+                document.getElementById("subjectCredit").value = data.CreditPoints;
+                document.getElementById("subjectVersion").value = data.Version;
+                document.getElementById("subjectVersionDescription").value = data.VersionDescription;
+                document.getElementById("subjectDescription").value = data.SubjectDescription;
+
+                for (var i = 0; i < reqs.length; i++) {
+                    if (reqs[i].RequisiteType.Abbreviation == "PRE") {
+                        var a = document.createElement("a");
+                        var subReq = document.getElementById("subjectPreReq");
+                        a.setAttribute('id', reqs[i].Requisite.ID);
+                        a.setAttribute('onClick', "removeReqFromList(this.id)");
+                        a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
+                        a.appendChild(document.createTextNode(reqs[i].Requisite.ID + " - " + reqs[i].Requisite.Name));
+                        subReq.appendChild(a);
+
+                        //$("#subjectAntiReq").append("<a href='#' class='list-group-item list-group-item-action list-group-item-success disabled'>" + reqs[i].Requisite.ID +" - " + reqs[i].Requisite.Name + "</a>");
+                    }
+                    else if (reqs[i].RequisiteType.Abbreviation == "ANTI") {
+                        var a = document.createElement("a");
+                        var subReq = document.getElementById("subjectAntiReq");
+                        a.setAttribute('id', reqs[i].Requisite.ID);
+                        a.setAttribute('onClick', "removeReqFromList(this.id)");
+                        a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-danger disabled');
+                        a.appendChild(document.createTextNode(reqs[i].Requisite.ID + " - " + reqs[i].Requisite.Name));
+                        subReq.appendChild(a);
+                        //$("#subjectPreReq").append("<a href='#' class='list-group-item list-group-item-action list-group-item-danger disabled'>" + reqs[i].Requisite.ID + " - " + reqs[i].Requisite.Name + "</a>");
+                    }
+                }
+
+                if (data.Active == true) {
+                    document.getElementById("subjectStatusActive").checked = true;
+                }
+                else {
+                    document.getElementById("subjectStatusInActive").checked = true;
+                }
+
+                document.getElementById("subjectName").readOnly = true;
+                document.getElementById("subjectId").readOnly = true;
+                document.getElementById("subjectAbb").readOnly = true;
+                document.getElementById("subjectCredit").readOnly = true;
+                document.getElementById("subjectVersion").readOnly = true;
+                document.getElementById("subjectStatusActive").disabled = true;
+                document.getElementById("subjectStatusInActive").disabled = true;
+                document.getElementById("subjectVersionDescription").readOnly = true;
+                document.getElementById("subjectDescription").readOnly = true;
+                document.getElementById("subjectPreReq").readOnly = true;
+                document.getElementById("subjectAntiReq").readOnly = true;
+                document.getElementById("subjectAntiReqInput").style.display = "none";
+                document.getElementById("subjectPreReqInput").style.display = "none";
+
+                document.getElementById('addSubjectFormDiv').style.display = "block";
+            }
+            document.getElementById('cancelButtonDiv').style.display = "block";
+
+        }
+
+    });
 }
 
 
@@ -544,7 +773,7 @@ function refreshNavColours() {
     document.getElementById("stream").style.backgroundColor = "lightskyblue";
     document.getElementById("submajor").style.backgroundColor = "lightskyblue";
     document.getElementById("choiceblock").style.backgroundColor = "lightskyblue";
-    document.getElementById("major").style.backgroundColor = "lightskyblue"; 
+    document.getElementById("major").style.backgroundColor = "lightskyblue";
 }
 
 function hide() {
@@ -616,7 +845,7 @@ function clearStream() {
     document.getElementById("streamStatus").checked = true;
 }
 
-function clearSubject(){
+function clearSubject() {
     document.getElementById('subjectName').value = "";
     document.getElementById('subjectId').value = "";
     document.getElementById('subjectAbb').value = "";
@@ -667,6 +896,7 @@ function handleStream() {
     document.getElementById("streamNameTitle").innerHTML = "<b>Stream Name</b>";
     document.getElementById("streamIDTitle").innerHTML = "<b>Stream Indentification</b>";
     document.getElementById("streamAbbreviationTitle").innerHTML = "<b>Stream Abbreviation</b>";
+    document.getElementById("streamDescriptionTitle").innerHTML = "<b>Stream Description</b>";
     refreshNavColours();
     document.getElementById("stream").style.backgroundColor = selectedBlue;
     document.getElementsByName('searchBar')[0].placeholder = "Search Streams";
@@ -685,6 +915,7 @@ function handleSubMajor() {
     document.getElementById("streamNameTitle").innerHTML = "<b>Sub-Major Name</b>";
     document.getElementById("streamIDTitle").innerHTML = "<b>Sub-Major Identification</b>";
     document.getElementById("streamAbbreviationTitle").innerHTML = "<b>Sub-Major Abbreviation</b>";
+    document.getElementById("streamDescriptionTitle").innerHTML = "<b>Sub-Major Description</b>";
     refreshNavColours();
     document.getElementById("submajor").style.backgroundColor = selectedBlue;
     document.getElementsByName('searchBar')[0].placeholder = "Search Sub-Majors";
@@ -703,6 +934,7 @@ function handleChoiceBlock() {
     document.getElementById("streamNameTitle").innerHTML = "<b>Choice Block Name</b>";
     document.getElementById("streamIDTitle").innerHTML = "<b>Choice Block Identification</b>";
     document.getElementById("streamAbbreviationTitle").innerHTML = "<b>Choice Block Abbreviation</b>";
+    document.getElementById("streamDescriptionTitle").innerHTML = "<b>Choice Block Description</b>";
     refreshNavColours();
     document.getElementById("choiceblock").style.backgroundColor = selectedBlue;
     document.getElementsByName('searchBar')[0].placeholder = "Search Choice Blocks";
@@ -744,10 +976,6 @@ function handleAdd() {
     addVisible = true;
     //document.getElementById('searchDiv').style.display = "none";
     //document.getElementById('addDiv').style.display = "none";
-    document.getElementById("courseStatus").checked = true;
-    document.getElementById("majorStatus").checked = true;
-    document.getElementById("streamStatus").checked = true;
-    document.getElementById("subjectStatus").checked = true;
 
     if (selected == "course") {
         handleCourse();
@@ -838,16 +1066,19 @@ function handleNext() {
 
 //this controls the cancel button, and clears everything back to default
 function handleCancel() {
+    disableMenuBar(false);
     addVisible = false;
     selected = "course";
     document.getElementById('searchBar').value = "";
-    document.getElementsByName('searchBar')[0].placeholder = "Search Courses";    
+    document.getElementsByName('searchBar')[0].placeholder = "Search Courses";
+    refreshFields();
     refreshNavColours();
     refreshTimetable();
     hide();
 
     document.getElementById("includeMajor").checked = false;
-    document.getElementById("includeStream").checked = false;
+    document.getElementById("includeCourseTemplate").checked = false;
+    document.getElementById("includeMajorTemplate").checked = false;
 
     document.getElementById("course").style.backgroundColor = selectedBlue;
 
@@ -855,10 +1086,10 @@ function handleCancel() {
     document.getElementById('addDiv').style.display = "block";
     document.getElementById('cancelButtonDiv').style.display = "none";
 
-    clearCourse();
-    clearMajor();
-    clearStream();
-    clearSubject();
+    //clearCourse();
+    //clearMajor();
+    //clearStream();
+    //clearSubject();
 }
 
 //this controls the save button, and updates the changes to the database
@@ -868,6 +1099,19 @@ function handleSaveChanges() {
 
 //this controls the edit button, and allows the user to make edits to the object
 function handleEdit() {
+    var preList = document.getElementById("subjectPreReq");
+    var preItems = preList.getElementsByTagName("a");
+    for (var i = 0; i < preItems.length; i++) {
+        $("#" + preItems[i].id).removeClass("disabled");
+    }
+    var antiList = document.getElementById("subjectAntiReq");
+    var antiItems = antiList.getElementsByTagName("a");
+    for (var i = 0; i < antiItems.length; i++) {
+        $("#" + antiItems[i].id).removeClass("disabled");
+    }
+
+    //$('.list-groupitem').removeClass("disabled");
+
     document.getElementById("btnSave").disabled = false;
 
     document.getElementById("courseName").readOnly = false;
@@ -879,8 +1123,11 @@ function handleEdit() {
     document.getElementById("courseCredit").readOnly = false;
     document.getElementById("courseVersion").readOnly = false;
     document.getElementById("courseVersionDescription").readOnly = false;
+    document.getElementById("courseDescription").readOnly = false;
     document.getElementById("courseStatusActive").disabled = false;
     document.getElementById("courseStatusInActive").disabled = false;
+    document.getElementById("includeCourseTemplate").disabled = false;
+    document.getElementById("includeMajor").disabled = false;
 
     document.getElementById("majorName").readOnly = false;
     document.getElementById("majorId").readOnly = false;
@@ -888,8 +1135,11 @@ function handleEdit() {
     document.getElementById("majorVersion").readOnly = false;
     document.getElementById("majorStages").readOnly = false;
     document.getElementById("majorCredit").readOnly = false;
+    document.getElementById("majorVersionDescription").readOnly = false;
+    document.getElementById("majorDescription").readOnly = false;
     document.getElementById("majorStatusActive").disabled = false;
     document.getElementById("majorStatusInActive").disabled = false;
+    document.getElementById("includeMajorTemplate").disabled = false;
 
     document.getElementById("subMajorOption").disabled = false;
     document.getElementById("streamOption").disabled = false;
@@ -898,6 +1148,9 @@ function handleEdit() {
     document.getElementById("streamId").readOnly = false;
     document.getElementById("streamAbb").readOnly = false;
     document.getElementById("streamVersion").readOnly = false;
+    document.getElementById("streamCredit").readOnly = false;
+    document.getElementById("streamVersionDescription").readOnly = false;
+    document.getElementById("streamDescription").readOnly = false;
     document.getElementById("streamStatusActive").disabled = false;
     document.getElementById("streamStatusInActive").disabled = false;
 
@@ -906,8 +1159,14 @@ function handleEdit() {
     document.getElementById("subjectAbb").readOnly = false;
     document.getElementById("subjectCredit").readOnly = false;
     document.getElementById("subjectVersion").readOnly = false;
-    document.getElementById("subjectActiveStatus").disabled = false;
-    document.getElementById("subjectInActiveStatus").disabled = false;
+    document.getElementById("subjectStatusActive").disabled = false;
+    document.getElementById("subjectStatusInActive").disabled = false;
+    document.getElementById("subjectVersionDescription").readOnly = false;
+    document.getElementById("subjectDescription").readOnly = false;
+    document.getElementById("subjectPreReq").readOnly = false;
+    document.getElementById("subjectAntiReq").readOnly = false;
+    document.getElementById("subjectAntiReqInput").style.display = "block";
+    document.getElementById("subjectPreReqInput").style.display = "block";
 
 }
 
@@ -970,7 +1229,7 @@ function handleSubjectAdd() {
         colour = "lightsalmon";
     }
     else if (type == "ELE") {
-        colour = "lightpink"; 
+        colour = "lightpink";
     }
     else if (type == "CDS") {
         colour = "lightgreen";

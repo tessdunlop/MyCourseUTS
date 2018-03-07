@@ -9,30 +9,36 @@
         <br />
         <div class="row">
             <div class="col-md">
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons" id="menuTabs">
                     <label class="btn" style="background-color: #2478fc" id="course">
                         <input type="radio" name="course" id="btnCourse" checked onclick="handleCourse();" />
                         Course
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="major">
                         <input type="radio" name="major" id="btnMajor" onclick="handleMajor();" />
                         Major
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="submajor">
                         <input type="radio" name="major" id="btnSubMajor" onclick="handleSubMajor();" />
                         Sub-Major
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="stream">
                         <input type="radio" name="stream" id="btnStream" onclick="handleStream();" />
                         Stream
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="choiceblock">
                         <input type="radio" name="choiceblock" id="btnChoiceBlock" onclick="handleChoiceBlock();" />
                         Choice Block
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="subject">
                         <input type="radio" name="subject" id="btnSubject" onclick="handleSubject();" />
                         Subject
+                   
                     </label>
 
                 </div>
@@ -50,11 +56,11 @@
                 <button id="btnAdd" type="button" class="btn btn-lg" onclick="handleAdd();" style="background-color: lightskyblue; color: #2478fc"><span class="glyphicon glyphicon-plus"></span></button>
             </div>
         </div>
-         <br />
+        <br />
 
         <div class="row" id="searchDiv">
             <div class="col-md">
-                <input id="searchBar" name="searchBar" type="text" class="form-control typeahead" placeholder="Search Courses" oninput="handleSearch(this.value);"/>
+                <input id="searchBar" name="searchBar" type="text" class="form-control typeahead" placeholder="Search Courses" oninput="handleSearch(this.value);" />
             </div>
         </div>
         <br />
@@ -104,6 +110,16 @@
                 </div>
                 <div class="col-sm">
                     <input type="text" id="courseAbb" class="form-control" style="width: 60%;" />
+                </div>
+                <br />
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-sm" style="text-align: right">
+                    <p><b>Course Description</b></p>
+                </div>
+                <div class="col-sm">
+                    <textarea class="form-control" id="courseDescription" rows="5" style="width: 60%;"></textarea>
                 </div>
                 <br />
                 <br />
@@ -181,6 +197,16 @@
                 <br />
                 <br />
             </div>
+            <div class="row">
+                <div class="col-sm" style="text-align: right; padding-top: 10px;">
+                    <p><b>Include Template</b></p>
+                </div>
+                <div class="col-sm radio">
+                    <input type="checkbox" value="includeCourseTemplate" id="includeCourseTemplate" />
+                </div>
+                <br />
+                <br />
+            </div>
         </div>
 
 
@@ -218,6 +244,16 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
+                    <p><b>Major Description</b></p>
+                </div>
+                <div class="col-sm">
+                    <textarea class="form-control" id="majorDescription" rows="5" style="width: 60%;"></textarea>
+                </div>
+                <br />
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-sm" style="text-align: right">
                     <p><b>Number of Stages</b></p>
                 </div>
                 <div class="col-sm">
@@ -246,7 +282,17 @@
                 <br />
                 <br />
             </div>
-            
+            <div class="row">
+                <div class="col-sm" style="text-align: right">
+                    <p><b>Version Description</b></p>
+                </div>
+                <div class="col-sm">
+                    <textarea class="form-control" id="majorVersionDescription" rows="5" style="width: 60%;"></textarea>
+                </div>
+                <br />
+                <br />
+            </div>
+
             <div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
                     <p><b>Status</b></p>
@@ -262,6 +308,16 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
+                    <p><b>Include Template</b></p>
+                </div>
+                <div class="col-sm radio">
+                    <input type="checkbox" value="includeMajorTemplate" id="includeMajorTemplate" />
+                </div>
+                <br />
+                <br />
+            </div>
+            <%--<div class="row">
+                <div class="col-sm" style="text-align: right; padding-top: 10px;">
                     <p><b>Include Sub-Major, Stream or Choice Block</b></p>
                 </div>
                 <div class="col-sm radio">
@@ -269,14 +325,14 @@
                 </div>
                 <br />
                 <br />
-            </div>
+            </div>--%>
         </div>
 
 
 
 
         <div id="addStreamFormDiv" style="display: none">
-             <div class="row">
+            <div class="row">
                 <div class="col-sm" style="text-align: right">
                     <p><b>Option</b></p>
                 </div>
@@ -286,14 +342,14 @@
                     <label class="radio-inline">
                         <input type="radio" name="optionType" id="streamOption" onclick="handleStream();" />Stream</label>
                     <label class="radio-inline">
-                        <input type="radio" name="optionType" id="choiceBlockOption" onclick="handleChoiceBlock();"/>Choice Block</label>
+                        <input type="radio" name="optionType" id="choiceBlockOption" onclick="handleChoiceBlock();" />Choice Block</label>
                 </div>
                 <br />
-                 <br />
+                <br />
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p id="streamNameTitle"><b >Stream Name</b></p>
+                    <p id="streamNameTitle"><b>Stream Name</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="streamName" class="form-control" style="width: 60%;" />
@@ -322,11 +378,41 @@
                 <br />
             </div>
             <div class="row">
-                <div class="col-sm" style="text-align: right">
-                    <p><b>Version</b></p>
+                <div class="col-sm" style="text-align: right" id="streamDescriptionTitle">
+                    <p><b>Stream Description</b></p>
                 </div>
                 <div class="col-sm">
+                    <textarea class="form-control" id="streamDescription" rows="5" style="width: 60%;"></textarea>
+                </div>
+                <br />
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-sm" style="text-align: right">
+                    <p><b>Credit Points</b></p>
+                </div>
+                <div class="col-sm">
+                    <input type="number" id="streamCredit" class="form-control" style="width: 60%;" />
+                </div>
+                <br />
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-sm" style="text-align: right" >
+                    <p><b>Version</b></p>
+                </div>
+                <div class="col-sm" >
                     <input type="text" id="streamVersion" class="form-control" style="width: 60%;" />
+                </div>
+                <br />
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-sm" style="text-align: right" id="streamVersionDescriptionTitle">
+                    <p><b>Version Description</b></p>
+                </div>
+                <div class="col-sm" >
+                    <textarea class="form-control" id="streamVersionDescription" rows="5" style="width: 60%;"></textarea>
                 </div>
                 <br />
                 <br />
@@ -339,7 +425,7 @@
                     <label class="radio-inline">
                         <input type="radio" name="streamStatus" id="streamStatusActive" />Active</label>
                     <label class="radio-inline">
-                        <input type="radio" name="streamStatus" id="streamStatusInActive"/>Inactive</label>
+                        <input type="radio" name="streamStatus" id="streamStatusInActive" />Inactive</label>
                 </div>
                 <br />
                 <br />
@@ -380,6 +466,16 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
+                    <p><b>Subject Description</b></p>
+                </div>
+                <div class="col-sm">
+                    <textarea class="form-control" id="subjectDescription" rows="5" style="width: 60%;"></textarea>
+                </div>
+                <br />
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-sm" style="text-align: right">
                     <p><b>Credit Points</b></p>
                 </div>
                 <div class="col-sm">
@@ -400,13 +496,23 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
+                    <p><b>Version Description</b></p>
+                </div>
+                <div class="col-sm">
+                    <textarea class="form-control" id="subjectVersionDescription" rows="5" style="width: 60%;"></textarea>
+                </div>
+                <br />
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-sm" style="text-align: right">
                     <p><b>Status</b></p>
                 </div>
                 <div class="col-sm radio">
                     <label class="radio-inline">
-                        <input type="radio" name="subjectStatus" id="subjectActiveStatus" />Active</label>
+                        <input type="radio" name="subjectStatus" id="subjectStatusActive" />Active</label>
                     <label class="radio-inline">
-                        <input type="radio" name="subjectStatus" id="subjectInActiveStatus" />Inactive</label>
+                        <input type="radio" name="subjectStatus" id="subjectStatusInActive" />Inactive</label>
                 </div>
             </div>
             <div class="row" style="padding-bottom: 8px">
@@ -414,15 +520,19 @@
                     <p><b>Pre-Requisites:</b></p>
                 </div>
                 <div class="col-sm">
-                    <textarea class="form-control" id="subjectPreReq" rows="5" style="width: 60%;"></textarea>
+                    <div class="list-group"  id="subjectPreReq" style="width: 60%;"></div>
+                    <%--<input type="text" id="subjectPreReqInput" class="form-control" style="width: 60%;" />--%>
+                    <input id="subjectPreReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Pre-Requisites" oninput="handlePreReq(this.value);" style="width: 60%;" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Requisites:</b></p>
+                    <p><b>Anti-Requisites:</b></p>
                 </div>
                 <div class="col-sm">
-                    <textarea class="form-control" id="subjectReq" rows="5" style="width: 60%;"></textarea>
+                    <div class="list-group" id="subjectAntiReq"style="width: 60%;"></div>
+                    <%--<input type="text" id="subjectAntiReqInput" class="form-control" style="width: 60%;" />--%>
+                    <input id="subjectAntiReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Anti-Requisites" oninput="handleAntiReq(this.value);" style="width: 60%;" />
                 </div>
             </div>
         </div>
