@@ -261,6 +261,23 @@ function getSubjectRequisites(id) {
     });
     return data;
 }
+function getCourseMajorRelationship(id) {
+    var url = "http://mycourseuts.azurewebsites.net/api/course/getcoursemajorrelationship?majorid=" + id;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the courses");
+        }
+    });
+    return data;
+}
 
 function getCourses(term) {
     var url = "http://mycourseuts.azurewebsites.net/api/course/getcourses?value=" + term;
@@ -456,6 +473,8 @@ function refreshFields() {
     document.getElementById("subjectPreReqInput").value = "";
     document.getElementById("subjectAntiReqInput").style.display = "none";
     document.getElementById("subjectPreReqInput").style.display = "none";
+    document.getElementById("courseMajorInput").style.display = "none";
+    document.getElementById("courseMajorInput").value = "";
 
 
     handleEdit();
@@ -472,9 +491,9 @@ getAllStreams();
 getAllChoiceBlocks();
 getAllSubjects();
 getCourseTypes();
+updateButtonDiv
 
-
-function removeReqFromList(id) {
+function removeFromList(id) {
     var listElement = document.getElementById(id);
     if ($("#" + id).hasClass("disabled")) { }
     else {
@@ -499,7 +518,7 @@ function handlePreReq(term) {
             var a = document.createElement("a");
             var subReq = document.getElementById("subjectPreReq");
             a.setAttribute('id', ui.item.value);
-            a.setAttribute('onClick', "removeReqFromList(this.id)");
+            a.setAttribute('onClick', "removeFromList(this.id)");
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success ');
             a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
             subReq.appendChild(a);
@@ -525,7 +544,7 @@ function handleAntiReq(term) {
             var a = document.createElement("a");
             var subReq = document.getElementById("subjectAntiReq");
             a.setAttribute('id', ui.item.value);
-            a.setAttribute('onClick', "removeReqFromList(this.id)");
+            a.setAttribute('onClick', "removeFromList(this.id)");
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-danger');
             a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
             subReq.appendChild(a);
@@ -533,7 +552,31 @@ function handleAntiReq(term) {
 
     });
 }
+function handleCourseMajor(term) {
+    var data = new Array();
+    data = getCourses(term);
 
+    $("#courseMajorInput").autocomplete({
+        source: function (request, response) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.Name,
+                    value: value.ID
+                }
+            }));
+        },
+        select: function (event, ui) {
+            console.log(ui);
+            var a = document.createElement("a");
+            var course = document.getElementById("courseMajorList");
+            a.setAttribute('id', ui.item.value);
+            a.setAttribute('onClick', "removeFromList(this.id)");
+            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success');
+            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
+            courseMajorList.appendChild(a);
+        }
+    });
+}
 
 function handleSearch(term) {
 
@@ -571,6 +614,7 @@ function handleSearch(term) {
             console.log(ui);
             document.getElementById('searchDiv').style.display = "none";
             document.getElementById("btnSave").disabled = true;
+            document.getElementById("btnDelete").disabled = true;
             if (selected == "course") {
                 var data = getCourse(ui.item.value);
                 console.log(data);
@@ -617,6 +661,7 @@ function handleSearch(term) {
             }
             else if (selected == "major") {
                 var data = getMajor(ui.item.value);
+                var courses = getCourseMajorRelationship(ui.item.value);
                 console.log(data);
                 document.getElementById("majorName").value = data.Name;
                 document.getElementById("majorId").value = data.ID;
@@ -635,6 +680,15 @@ function handleSearch(term) {
                 if (data.HasTemplate == true) {
                     document.getElementById("includeMajorTemplate").checked = true;
                 }
+                for (var i = 0; i < courses.length; i++) {
+                    var a = document.createElement("a");
+                    var list = document.getElementById("courseMajorList");
+                    a.setAttribute('id', courses[i].Course.ID);
+                    a.setAttribute('onClick', "removeFromList(this.id)");
+                    a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
+                    a.appendChild(document.createTextNode(courses[i].Course.ID + " - " + courses[i].Course.Name));
+                    list.appendChild(a);
+                }
 
                 document.getElementById("majorName").readOnly = true;
                 document.getElementById("majorId").readOnly = true;
@@ -647,6 +701,7 @@ function handleSearch(term) {
                 document.getElementById("majorStatusActive").disabled = true;
                 document.getElementById("majorStatusInActive").disabled = true;
                 document.getElementById("includeMajorTemplate").disabled = true;
+                document.getElementById("courseMajorInput").style.display = "none";
 
                 document.getElementById('addMajorFormDiv').style.display = "block";
             }
@@ -716,7 +771,7 @@ function handleSearch(term) {
                         var a = document.createElement("a");
                         var subReq = document.getElementById("subjectPreReq");
                         a.setAttribute('id', reqs[i].Requisite.ID);
-                        a.setAttribute('onClick', "removeReqFromList(this.id)");
+                        a.setAttribute('onClick', "removeFromList(this.id)");
                         a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
                         a.appendChild(document.createTextNode(reqs[i].Requisite.ID + " - " + reqs[i].Requisite.Name));
                         subReq.appendChild(a);
@@ -727,7 +782,7 @@ function handleSearch(term) {
                         var a = document.createElement("a");
                         var subReq = document.getElementById("subjectAntiReq");
                         a.setAttribute('id', reqs[i].Requisite.ID);
-                        a.setAttribute('onClick', "removeReqFromList(this.id)");
+                        a.setAttribute('onClick', "removeFromList(this.id)");
                         a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-danger disabled');
                         a.appendChild(document.createTextNode(reqs[i].Requisite.ID + " - " + reqs[i].Requisite.Name));
                         subReq.appendChild(a);
@@ -758,7 +813,7 @@ function handleSearch(term) {
 
                 document.getElementById('addSubjectFormDiv').style.display = "block";
             }
-            document.getElementById('cancelButtonDiv').style.display = "block";
+            document.getElementById('updateButtonDiv').style.display = "block";
 
         }
 
@@ -789,9 +844,9 @@ function hide() {
     document.getElementById('subjectListDiv').style.display = "none";
 
     document.getElementById('submitButtonDiv').style.display = "none";
-    document.getElementById('backButtonDiv').style.display = "none";
-    document.getElementById('nextButtonDiv').style.display = "none";
-    document.getElementById('subjectSubmitButtonDiv').style.display = "none";
+    //document.getElementById('backButtonDiv').style.display = "none";
+    //document.getElementById('nextButtonDiv').style.display = "none";
+    //document.getElementById('subjectSubmitButtonDiv').style.display = "none";
     document.getElementById('updateButtonDiv').style.display = "none";
 }
 
@@ -870,7 +925,8 @@ function handleCourse() {
     if (addVisible == true) {
         hide();
         document.getElementById('addCourseFormDiv').style.display = "block";
-        document.getElementById('nextButtonDiv').style.display = "block";
+        document.getElementById('submitButtonDiv').style.display = "block";
+        //document.getElementById('nextButtonDiv').style.display = "block";
     }
 }
 
@@ -884,7 +940,8 @@ function handleMajor() {
     if (addVisible == true) {
         hide();
         document.getElementById('addMajorFormDiv').style.display = "block";
-        document.getElementById('backButtonDiv').style.display = "block";
+        document.getElementById('submitButtonDiv').style.display = "block";
+        //document.getElementById('backButtonDiv').style.display = "block";
     }
 }
 
@@ -904,7 +961,8 @@ function handleStream() {
     if (addVisible == true) {
         hide();
         document.getElementById('addStreamFormDiv').style.display = "block";
-        document.getElementById('backButtonDiv').style.display = "block";
+        document.getElementById('submitButtonDiv').style.display = "block";
+        //document.getElementById('backButtonDiv').style.display = "block";
     }
 }
 
@@ -923,7 +981,8 @@ function handleSubMajor() {
     if (addVisible == true) {
         hide();
         document.getElementById('addStreamFormDiv').style.display = "block";
-        document.getElementById('backButtonDiv').style.display = "block";
+        document.getElementById('submitButtonDiv').style.display = "block";
+        //document.getElementById('backButtonDiv').style.display = "block";
     }
 }
 
@@ -942,7 +1001,8 @@ function handleChoiceBlock() {
     if (addVisible == true) {
         hide();
         document.getElementById('addStreamFormDiv').style.display = "block";
-        document.getElementById('backButtonDiv').style.display = "block";
+        document.getElementById('submitButtonDiv').style.display = "block";
+        //document.getElementById('backButtonDiv').style.display = "block";
     }
 }
 
@@ -956,7 +1016,7 @@ function handleSubject() {
     if (addVisible == true) {
         hide();
         document.getElementById('addSubjectFormDiv').style.display = "block";
-        document.getElementById('subjectSubmitButtonDiv').style.display = "block";
+        document.getElementById('submitButtonDiv').style.display = "block";
     }
 }
 
@@ -1084,7 +1144,8 @@ function handleCancel() {
 
     document.getElementById('searchDiv').style.display = "block";
     document.getElementById('addDiv').style.display = "block";
-    document.getElementById('cancelButtonDiv').style.display = "none";
+    document.getElementById('updateButtonDiv').style.display = "none";
+    document.getElementById('submitButtonDiv').style.display = "none";
 
     //clearCourse();
     //clearMajor();
@@ -1109,10 +1170,16 @@ function handleEdit() {
     for (var i = 0; i < antiItems.length; i++) {
         $("#" + antiItems[i].id).removeClass("disabled");
     }
+    var courseMajorList = document.getElementById("courseMajorList");
+    var items = courseMajorList.getElementsByTagName("a");
+    for (var i = 0; i < items.length; i++) {
+        $("#" + items[i].id).removeClass("disabled");
+    }
 
     //$('.list-groupitem').removeClass("disabled");
 
     document.getElementById("btnSave").disabled = false;
+    document.getElementById("btnDelete").disabled = false;
 
     document.getElementById("courseName").readOnly = false;
     document.getElementById("courseId").readOnly = false;
@@ -1167,6 +1234,7 @@ function handleEdit() {
     document.getElementById("subjectAntiReq").readOnly = false;
     document.getElementById("subjectAntiReqInput").style.display = "block";
     document.getElementById("subjectPreReqInput").style.display = "block";
+    document.getElementById("courseMajorInput").style.display = "block";
 
 }
 

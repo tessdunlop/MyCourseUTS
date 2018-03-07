@@ -232,6 +232,15 @@
                 <br />
                 <br />
             </div>
+            <div class="row" style="padding-bottom: 8px">
+                <div class="col-sm" style="text-align: right">
+                    <p><b>Courses</b></p>
+                </div>
+                <div class="col-sm">
+                    <div class="list-group"  id="courseMajorList" style="width: 60%;"></div>
+                    <input id="courseMajorInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Courses this Major belongs to" oninput="handleCourseMajor(this.value);" style="width: 60%;" />
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
                     <p><b>Major Abbreviation</b></p>
@@ -723,52 +732,25 @@
 
 
 
-        <div class="row" id="cancelButtonDiv" style="display: none">
+        <div class="row" id="updateButtonDiv" style="display: none">
             <div class="col-md" style="text-align: right">
                 <button id="btnEdit" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button>
                 <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSaveChanges();" style="background-color: green; color: white">Save</button>
-                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
-            </div>
-        </div>
-
-
-        <div class="row" id="backButtonDiv" style="display: none">
-            <div class="col-md" style="text-align: right">
-                <button id="btnBack" type="button" class="btn btn-lg" onclick="handleBack();" style="background-color: #2478fc; color: white">Back</button>
-                <button id="btnNext" type="button" class="btn btn-lg" onclick="handleNext();" style="background-color: #2478fc; color: white">Next</button>
-                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
-            </div>
-        </div>
-
-        <div class="row" id="nextButtonDiv" style="display: none">
-            <div class="col-md" style="text-align: right">
-                <button id="btnNext" type="button" class="btn btn-lg" onclick="handleNext();" style="background-color: #2478fc; color: white">Next</button>
-                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
+                <button id="btnDelete" type="button" class="btn btn-lg" onclick="handleDelete();" style="background-color: red; color: white">Delete</button>
+                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: darkgrey; color: white">Cancel</button>
             </div>
         </div>
 
         <div class="row" id="submitButtonDiv" style="display: none">
             <div class="col-md" style="text-align: right">
-                <button id="btnBack" type="button" class="btn btn-lg" onclick="handleBack();" style="background-color: #2478fc; color: white">Back</button>
-                <button id="btnSubmit" type="button" class="btn btn-lg" onclick="handleSubmit();" style="background-color: green; color: white">Finished</button>
-                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
-            </div>
-        </div>
-
-        <div class="row" id="subjectSubmitButtonDiv" style="display: none">
-            <div class="col-md" style="text-align: right">
                 <button id="btnSubmit" type="button" class="btn btn-lg" onclick="handleSubmit();" style="background-color: green; color: white">Submit</button>
                 <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
             </div>
         </div>
-
-        <div class="row" id="updateButtonDiv" style="display: none">
-            <div class="col-md" style="text-align: right">
-                <button id="btnDelete" type="button" class="btn btn-lg" onclick="handleDelete();" style="background-color: red; color: white">Delete</button>
-                <button id="btnUpdate" type="button" class="btn btn-lg" onclick="handleUpdate();" style="background-color: green; color: white">Update</button>
-                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
-            </div>
-        </div>
+        <br />
+        <br />
+        <br />
+        <br />
     </div>
 
 </asp:Content>

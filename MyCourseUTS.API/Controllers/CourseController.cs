@@ -89,6 +89,24 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourse;
         }
 
+        //http://mycourseuts.azurewebsites.net/api/subject/GetCourseMajorRelationship?majorid=MAJ03476
+        public List<Entity.CourseMajorRelationship> GetCourseMajorRelationship(string majorID)
+        {
+            List<DataModel.CourseMajorRelationship> courses;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.CourseMajorRelationship.Include("Courses").Include("Majors")
+                        where c.MajorID.Equals(majorID)
+                        select c;
+            courses = query.ToList();
+
+            List<Entity.CourseMajorRelationship> listOfCourses = new List<Entity.CourseMajorRelationship>();
+            foreach (var c in courses)
+            {
+                listOfCourses.Add(EntityMappingManager.MapCourseMajorRelationshipContent(c));
+            }
+            return listOfCourses;
+        }
+
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
         //public void PostCourse(Course course)
         //{
