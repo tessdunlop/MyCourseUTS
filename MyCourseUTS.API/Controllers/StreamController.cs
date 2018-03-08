@@ -73,8 +73,8 @@ namespace MyCourseUTS.API.Controllers
         {
             List<StreamRelationships> stream;
             var context = new MyCourseDBEntities();
-            var query = from c in context.StreamRelationships.Include("Subjects").Include("ChoiceBlocks").Include("SubjectGroupingsCredit").Include("Streams")
-                        where c.Streams.ID.Equals(streamID)
+            var query = from c in context.StreamRelationships.Include("Subjects").Include("SubMajors").Include("Streams").Include("ChoiceBlocks").Include("SubjectGroupings")
+                        where c.StreamID.Equals(streamID)
                         select c;
             stream = query.ToList();
 

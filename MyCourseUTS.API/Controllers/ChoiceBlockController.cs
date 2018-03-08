@@ -73,8 +73,8 @@ namespace MyCourseUTS.API.Controllers
         {
             List<ChoiceBlockRelationships> choiceBlock;
             var context = new MyCourseDBEntities();
-            var query = from c in context.ChoiceBlockRelationships.Include("Subjects").Include("ChoiceBlocks").Include("SubjectGroupingsCredit")
-                        where c.ChoiceBlocks.ID.Equals(choiceBlockID)
+            var query = from c in context.ChoiceBlockRelationships.Include("Subjects").Include("SubMajors").Include("Streams").Include("ChoiceBlocks").Include("SubjectGroupings")
+                        where c.ChoiceBlockID.Equals(choiceBlockID)
                         select c;
             choiceBlock = query.ToList();
 

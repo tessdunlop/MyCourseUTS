@@ -14,30 +14,36 @@
                         <input type="radio" name="course" id="btnCourse" checked onclick="handleCourse();" />
                         Course
                    
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="major">
                         <input type="radio" name="major" id="btnMajor" onclick="handleMajor();" />
                         Major
+                   
                    
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="submajor">
                         <input type="radio" name="major" id="btnSubMajor" onclick="handleSubMajor();" />
                         Sub-Major
                    
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="stream">
                         <input type="radio" name="stream" id="btnStream" onclick="handleStream();" />
                         Stream
+                   
                    
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="choiceblock">
                         <input type="radio" name="choiceblock" id="btnChoiceBlock" onclick="handleChoiceBlock();" />
                         Choice Block
                    
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="subject">
                         <input type="radio" name="subject" id="btnSubject" onclick="handleSubject();" />
                         Subject
+                   
                    
                     </label>
 
@@ -237,7 +243,7 @@
                     <p><b>Courses</b></p>
                 </div>
                 <div class="col-sm">
-                    <div class="list-group"  id="courseMajorList" style="width: 60%;"></div>
+                    <div class="list-group" id="courseMajorList" style="width: 60%;"></div>
                     <input id="courseMajorInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Courses this Major belongs to" oninput="handleCourseMajor(this.value);" style="width: 60%;" />
                 </div>
             </div>
@@ -386,6 +392,15 @@
                 <br />
                 <br />
             </div>
+            <div class="row" style="padding-bottom: 8px">
+                <div class="col-sm" style="text-align: right">
+                    <p><b>Subjects</b></p>
+                </div>
+                <div class="col-sm">
+                    <div class="list-group" id="streamSubjectList" style="width: 60%;"></div>
+                    <input id="streamSubjectInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add subjects, streams, choice blocks or sub-majors" oninput="handleStreamSubjects(this.value);" style="width: 60%;" />
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right" id="streamDescriptionTitle">
                     <p><b>Stream Description</b></p>
@@ -407,10 +422,10 @@
                 <br />
             </div>
             <div class="row">
-                <div class="col-sm" style="text-align: right" >
+                <div class="col-sm" style="text-align: right">
                     <p><b>Version</b></p>
                 </div>
-                <div class="col-sm" >
+                <div class="col-sm">
                     <input type="text" id="streamVersion" class="form-control" style="width: 60%;" />
                 </div>
                 <br />
@@ -420,7 +435,7 @@
                 <div class="col-sm" style="text-align: right" id="streamVersionDescriptionTitle">
                     <p><b>Version Description</b></p>
                 </div>
-                <div class="col-sm" >
+                <div class="col-sm">
                     <textarea class="form-control" id="streamVersionDescription" rows="5" style="width: 60%;"></textarea>
                 </div>
                 <br />
@@ -529,7 +544,7 @@
                     <p><b>Pre-Requisites:</b></p>
                 </div>
                 <div class="col-sm">
-                    <div class="list-group"  id="subjectPreReq" style="width: 60%;"></div>
+                    <div class="list-group" id="subjectPreReq" style="width: 60%;"></div>
                     <%--<input type="text" id="subjectPreReqInput" class="form-control" style="width: 60%;" />--%>
                     <input id="subjectPreReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Pre-Requisites" oninput="handlePreReq(this.value);" style="width: 60%;" />
                 </div>
@@ -539,7 +554,7 @@
                     <p><b>Anti-Requisites:</b></p>
                 </div>
                 <div class="col-sm">
-                    <div class="list-group" id="subjectAntiReq"style="width: 60%;"></div>
+                    <div class="list-group" id="subjectAntiReq" style="width: 60%;"></div>
                     <%--<input type="text" id="subjectAntiReqInput" class="form-control" style="width: 60%;" />--%>
                     <input id="subjectAntiReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Anti-Requisites" oninput="handleAntiReq(this.value);" style="width: 60%;" />
                 </div>

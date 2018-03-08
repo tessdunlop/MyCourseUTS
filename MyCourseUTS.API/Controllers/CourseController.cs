@@ -76,7 +76,7 @@ namespace MyCourseUTS.API.Controllers
         {
             List<DataModel.CourseRelationships> course;
             var context = new MyCourseDBEntities();
-            var query = from c in context.CourseRelationships.Include("Courses.CourseTypes").Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupingsCredit")
+            var query = from c in context.CourseRelationships.Include("Courses.CourseTypes").Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupings")
                         where c.Courses.ID.Equals(courseID)
                         select c;
             course = query.ToList();

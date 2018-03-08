@@ -74,7 +74,7 @@ namespace MyCourseUTS.API.Controllers
         {
             List<MajorRelationships> major;
             var context = new MyCourseDBEntities();
-            var query = from c in context.MajorRelationships.Include("Courses.CourseTypes").Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupingsCredit").Include("Majors").Include("Streams")
+            var query = from c in context.MajorRelationships.Include("Courses.CourseTypes").Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupings").Include("Majors").Include("Streams")
                         where c.Majors.ID.Equals(majorID)
                         select c;
             major = query.ToList();

@@ -73,8 +73,8 @@ namespace MyCourseUTS.API.Controllers
         {
             List<SubMajorRelationships> subMajor;
             var context = new MyCourseDBEntities();
-            var query = from c in context.SubMajorRelationships.Include("Subjects").Include("ChoiceBlocks").Include("SubjectGroupingsCredit").Include("Streams").Include("SubMajors")
-                        where c.SubMajors.ID.Equals(subMajorID)
+            var query = from c in context.SubMajorRelationships.Include("Subjects").Include("SubMajors").Include("Streams").Include("ChoiceBlocks").Include("SubjectGroupings")
+                        where c.SubMajorID.Equals(subMajorID)
                         select c;
             subMajor = query.ToList();
 

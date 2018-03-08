@@ -276,9 +276,9 @@ namespace MyCourseUTS.Manager
             Entity.ChoiceBlockRelationship content = new Entity.ChoiceBlockRelationship
             {
                 ID = contentData.ID,
-                ChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks),
+                ChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks1),
                 Subject = MapSubjectContent(contentData.Subjects),
-                ContentChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks1),
+                ContentChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks),
                 ContentStream = MapStreamContent(contentData.Streams),
                 ContentSubMajor = MapSubMajorContent(contentData.SubMajors),
                 ContentSubjectGrouping = MapSubjectGroupingContent(contentData.SubjectGroupings)
