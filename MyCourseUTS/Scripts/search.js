@@ -623,30 +623,32 @@ function handleHover(id, itemID) {
         if (data[i].ContentStream != null) {
             content += data[i].ContentStream.ID + ", ";                   
         }
-        else if (data[i].ContentSubMajor != null) {
+        if (data[i].ContentSubMajor != null) {
             content += data[i].ContentSubMajor.ID + ", ";                
         }
-        else if (data[i].ContentChoiceBlock != null) {
+        if (data[i].ContentChoiceBlock != null) {
             content += data[i].ContentChoiceBlock.ID + ", ";          
         }
-        else if (data[i].ContentSubjectGrouping.ID != id && data[i].ContentSubjectGrouping != null) {
+        if (data[i].ContentSubjectGrouping != null) {
+            if (data[i].ContentSubjectGrouping.ID != id) {
                 var grouping = getSubjectGroupingRelationship(data[i].ContentSubjectGrouping.ID);
                 for (var x = 0; x < grouping.length; x++) {
-                    if (grouping[x].Stream != null) {
-                        content += grouping[x].Stream.ID + ", ";
+                    if (grouping[x].ContentStream != null) {
+                        content += grouping[x].ContentStream.ID + ", ";
                     }
-                    else if (grouping[x].SubMajor != null) {
-                        content += grouping[x].SubMajor.ID + ", ";
+                    else if (grouping[x].ContentSubMajor != null) {
+                        content += grouping[x].ContentSubMajor.ID + ", ";
                     }
-                    else if (grouping[x].ChoiceBlock != null) {
-                        content += grouping[x].ChoiceBlock.ID + ", ";
+                    else if (grouping[x].ContentChoiceBlock != null) {
+                        content += grouping[x].ContentChoiceBlock.ID + ", ";
                     }
                     else if (grouping[x].Subject != null) {
                         content += grouping[x].Subject.ID + ", ";
                     }
+                }
             }
         }
-        else if (data[i].Subject != null) {
+        if (data[i].Subject != null) {
             content += data[i].Subject.ID + ", ";   
         }
     }
@@ -660,12 +662,14 @@ function handleHover(id, itemID) {
 function handleStreamSubjects(term) {
     //need to create an API that allows the user to search from subjects, streams, choiceblocks and submajors --> display name and number for this dropdown
     var data;// = new Array();
-    var streams = getAllStreams();
+    //var streams = getAllStreams();
+
+    data = getStreams(term);
     //var choiceBlocks = getAllChoiceBlocks();
     //var subMajors = getAllSubMajors();
     //var subjects = getAllSubjects();
 
-    data = streams;//.concat(choiceBlocks, subMajors, subjects); // this is where the api function is called
+    
 
     $("#streamSubjectInput").autocomplete({
         source: function (request, response) {
@@ -742,34 +746,34 @@ function handlePopulateSubjects(id) {
             //Do a call to get all the subjects within this subject grouping
             var grouping = getSubjectGroupingRelationship(data[i].ContentSubjectGrouping.ID);
             for (var x = 0; x < grouping.length; x++) {
-                if (grouping[x].Stream != null) {
+                if (grouping[x].ContentStream != null) {
                     var a = document.createElement("a");
-                    a.setAttribute('id', grouping[x].Stream.ID);
+                    a.setAttribute('id', grouping[x].ContentStream.ID);
                     a.setAttribute('onClick', "removeFromList(this.id)");
                     a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
-                    a.appendChild(document.createTextNode(grouping[x].Stream.ID + " - " + grouping[x].Stream.Name));
+                    a.appendChild(document.createTextNode(grouping[x].ContentStream.ID + " - " + grouping[x].ContentStream.Name));
                     list.appendChild(a);
-                    handleHover(grouping[x].Stream.ID, grouping[x].Stream.ID);
+                    handleHover(grouping[x].ContentStream.ID, grouping[x].ContentStream.ID);
                 }
-                else if (grouping[x].SubMajor != null) {
+                else if (grouping[x].ContentSubMajor != null) {
                     var a = document.createElement("a");
-                    a.setAttribute('id', grouping[x].SubMajor.ID);
+                    a.setAttribute('id', grouping[x].ContentSubMajor.ID);
                     a.setAttribute('onClick', "removeFromList(this.id)");
                     a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
-                    a.appendChild(document.createTextNode(grouping[x].SubMajor.ID + " - " + grouping[x].SubMajor.Name));
+                    a.appendChild(document.createTextNode(grouping[x].ContentSubMajor.ID + " - " + grouping[x].ContentSubMajor.Name));
                     list.appendChild(a);
-                    handleHover(grouping[x].SubMajor.ID, grouping[x].SubMajor.ID);
+                    handleHover(grouping[x].ContentSubMajor.ID, grouping[x].ContentSubMajor.ID);
                 }
-                else if (grouping[x].ChoiceBlock != null) {
+                else if (grouping[x].ContentChoiceBlock != null) {
                     var a = document.createElement("a");
-                    a.setAttribute('id', grouping[x].ChoiceBlock.ID);
+                    a.setAttribute('id', grouping[x].ContentChoiceBlock.ID);
                     a.setAttribute('onClick', "removeFromList(this.id)");
                     a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
-                    a.appendChild(document.createTextNode(grouping[x].ChoiceBlock.ID + " - " + grouping[x].ChoiceBlock.Name));
+                    a.appendChild(document.createTextNode(grouping[x].ContentChoiceBlock.ID + " - " + grouping[x].ContentChoiceBlock.Name));
                     list.appendChild(a);
-                    handleHover(grouping[x].ChoiceBlock.ID, grouping[x].ChoiceBlock.ID);
+                    handleHover(grouping[x].ContentChoiceBlock.ID, grouping[x].ContentChoiceBlock.ID);
                 }
-                else if (grouping[ix].Subject != null) {
+                else if (grouping[x].Subject != null) {
                     var a = document.createElement("a");
                     a.setAttribute('id', grouping[x].Subject.ID);
                     a.setAttribute('onClick', "removeFromList(this.id)");
@@ -1163,23 +1167,6 @@ function hide() {
     document.getElementById('updateButtonDiv').style.display = "none";
 }
 
-function refreshTimetable() {
-    document.getElementById("stageOne").innerHTML = "";
-    document.getElementById("stageTwo").innerHTML = "";
-    document.getElementById("stageThree").innerHTML = "";
-    document.getElementById("stageFour").innerHTML = "";
-    document.getElementById("stageFive").innerHTML = "";
-    document.getElementById("stageSix").innerHTML = "";
-    document.getElementById("stageSeven").innerHTML = "";
-    document.getElementById("stageEight").innerHTML = "";
-    document.getElementById("stageNine").innerHTML = "";
-    document.getElementById("stageTen").innerHTML = "";
-
-    document.getElementById("subjectStage").value = "";
-    document.getElementById("subjectType").value = "";
-    document.getElementById("subjectTitle").value = "";
-    document.getElementById("subjectNumber").value = "";
-}
 
 
 
@@ -1344,10 +1331,12 @@ function handleCancel() {
     document.getElementById('searchBar').value = "";
 
     document.getElementsByName('searchBar')[0].placeholder = "Search Courses";
+
     clearFields();
+    clearTimetable();
     refreshNavColours();
-    refreshTimetable();
     hide();
+    
 
     document.getElementById("includeMajor").checked = false;
     document.getElementById("includeCourseTemplate").checked = false;
@@ -1458,7 +1447,10 @@ function handleDelete() { }
 
 
 
-function handleClearTimetable() { }
+function clearTimetable() {
+    var headerRow = document.getElementById("headerRow");
+    headerRow.innerHTML = "";
+}
 
 //timetable functionality
 //"<div class='col-sm'><u><h4>Stage<br />One</h4></u><br /><div id='stageOne'></div></div>"
@@ -1521,37 +1513,10 @@ function handleViewEditTimetable(object) {
                     type = items[x].SubjectType.Abbreviation; 
                 }
                 else if (items[x].SubjectGrouping != null) {
-                    //var grouping = getSubjectGroupingRelationship(items[x].SubjectGrouping.ID);
                     name = "Choice";
                     id = items[x].SubjectGrouping.ID;
                     credit = 6;
-                    type = items[x].SubjectType.Abbreviation; 
-                    //for (var y = 0; y < grouping.length; y++) {                       
-                    //    if (grouping[y].Stream != null) {
-                    //        //name = grouping[y].Stream.Name;
-                    //        //id = grouping[y].Stream.ID;
-                    //        //credit = grouping[y].Stream.CreditPoints;
-                    //        //type = items[x].SubjectType.Abbreviation; 
-                    //    }
-                    //    else if (grouping[y].ChoiceBlock != null) {
-                    //        //name = grouping[y].ChoiceBlock.Name;
-                    //        //id = grouping[y].ChoiceBlock.ID;
-                    //        //credit = grouping[y].ChoiceBlock.CreditPoints;
-                    //        //type = items[x].SubjectType.Abbreviation;
-                    //    }
-                    //    else if (grouping[y].SubMajor != null) {
-                    //        //name = grouping[y].SubMajor.Name;
-                    //        //id = grouping[y].SubMajor.ID;
-                    //        //credit = grouping[y].SubMajor.CreditPoints;
-                    //        //type = items[x].SubjectType.Abbreviation;
-                    //    }
-                    //    else if (grouping[y].Subject != null) {
-                    //        //name = grouping[y].Subject.Name;
-                    //        //id = grouping[y].Subject.ID;
-                    //        //credit = grouping[y].Subject.CreditPoints;
-                    //        //type = items[x].SubjectType.Abbreviation;
-                    //    }
-                    //}                    
+                    type = items[x].SubjectType.Abbreviation;              
                 }
                 
                 if (type == "COR") {
