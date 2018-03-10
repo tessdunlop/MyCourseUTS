@@ -570,13 +570,13 @@ getCourseTypes();
 function handleHover(id) {
     var data;
     var type = id.toString().substring(0, 3);
-    if (type = "SMJ") {
+    if (type == "SMJ") {
         data = getSubMajorRelationship(id);
     }
-    else if (type = "STM") {
+    else if (type == "STM") {
         data = getStreamRelationship(id);
     }
-    else if (type = "CBK") {
+    else if (type == "CBK") {
         data = getChoiceBlockRelationship(id);
     }
     console.log(data);
@@ -584,67 +584,41 @@ function handleHover(id) {
 
     for (var i = 0; i < data.length; i++) {
         if (data[i].ContentStream != null) {
-            alert(data[i].ContentStream.ID);  
-            content = content + data[i].ContentStream.ID + ", ";
-            //console.log(content);
-                    
+            content += data[i].ContentStream.ID + ", ";                   
         }
         else if (data[i].ContentSubMajor != null) {
-            alert(data[i].ContentSubMajor.ID); 
-            content = content + data[i].ContentSubMajor.ID + ", ";
-            //console.log(content);
-                 
+            content += data[i].ContentSubMajor.ID + ", ";                
         }
         else if (data[i].ContentChoiceBlock != null) {
-            alert(data[i].ContentChoiceBlock.ID);
-            content = content + data[i].ContentChoiceBlock.ID + ", ";
-            //console.log(content);
-           
+            content += data[i].ContentChoiceBlock.ID + ", ";          
         }
         else if (data[i].ContentSubjectGrouping != null) {
             var grouping = getSubjectGroupingRelationship(data[i].ContentSubjectGrouping.ID);
             for (var i = 0; i < grouping.length; i++) {
                 if (grouping[i].Stream != null) {
-                    alert(grouping[i].Stream.ID);
-                    content = content + grouping[i].Stream.ID + ", ";
-                    //console.log(content);
-                    
+                    content += grouping[i].Stream.ID + ", ";                  
                 }
                 else if (grouping[i].SubMajor != null) {
-                    alert(grouping[i].SubMajor.ID);
-                    content = content + grouping[i].SubMajor.ID + ", ";
-                    //console.log(content);
-                    
+                    content += grouping[i].SubMajor.ID + ", ";                   
                 }
                 else if (grouping[i].ChoiceBlock != null) {
-                    alert(grouping[i].ChoiceBlock.ID);
-                    content = content + grouping[i].ChoiceBlock.ID + ", ";
-                    //console.log(content);
-                    
+                    content += grouping[i].ChoiceBlock.ID + ", ";               
                 }
                 else if (grouping[i].Subject != null) {
-                    alert(grouping[i].Subject.ID);
-                    content = content + grouping[i].Subject.ID + ", ";
-                    //console.log(content);
-                    
+                    content += grouping[i].Subject.ID + ", ";              
                 }
             }
         }
         else if (data[i].Subject != null) {
-            alert(data[i].Subject.ID);
-            content = content + data[i].Subject.ID + ", ";
-            //console.log(content);
-            
+            content += data[i].Subject.ID + ", ";   
         }
     }
-    console.log(content);
-    //content = content.slice(0, -2);
+    content = content.substring(0, content.length - 2);
 
     var item = document.getElementById(id);
     item.setAttribute("title", content);
     item.setAttribute("data-toggle", "popover");
     item.setAttribute("data-placement", "right");
-    //item.setAttribute("data-content", content);
 }
 
 function handleStreamSubjects(term) {
