@@ -453,6 +453,7 @@ function getSubjectGroupingRelationship(id) {
 }
 //END OF API CALLS
 
+//$('[data-toggle="popover"]').popover();   
 
 function populateDropdown() {
     var select = document.getElementById("courseType");
@@ -530,6 +531,8 @@ function clearFields() {
     document.getElementById("streamVersionDescription").value = "";
     document.getElementById("streamStatusActive").checked = true;
     document.getElementById("streamStatusInActive").checked = false;
+    document.getElementById("streamSubjectInput").value = "";
+    document.getElementById("streamSubjectInput").style.display = "none";
 
     //subject
     document.getElementById("subjectName").value = "";
@@ -564,7 +567,119 @@ getAllChoiceBlocks();
 getAllSubjects();
 getCourseTypes();
 
+function handleHover(id) {
+    var data;
+    var type = id.toString().substring(0, 3);
+    if (type = "SMJ") {
+        data = getSubMajorRelationship(id);
+    }
+    else if (type = "STM") {
+        data = getStreamRelationship(id);
+    }
+    else if (type = "CBK") {
+        data = getChoiceBlockRelationship(id);
+    }
+    console.log(data);
+    var content = "";
 
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].ContentStream != null) {
+            alert(data[i].ContentStream.ID);  
+            content = content + data[i].ContentStream.ID + ", ";
+            //console.log(content);
+                    
+        }
+        else if (data[i].ContentSubMajor != null) {
+            alert(data[i].ContentSubMajor.ID); 
+            content = content + data[i].ContentSubMajor.ID + ", ";
+            //console.log(content);
+                 
+        }
+        else if (data[i].ContentChoiceBlock != null) {
+            alert(data[i].ContentChoiceBlock.ID);
+            content = content + data[i].ContentChoiceBlock.ID + ", ";
+            //console.log(content);
+           
+        }
+        else if (data[i].ContentSubjectGrouping != null) {
+            var grouping = getSubjectGroupingRelationship(data[i].ContentSubjectGrouping.ID);
+            for (var i = 0; i < grouping.length; i++) {
+                if (grouping[i].Stream != null) {
+                    alert(grouping[i].Stream.ID);
+                    content = content + grouping[i].Stream.ID + ", ";
+                    //console.log(content);
+                    
+                }
+                else if (grouping[i].SubMajor != null) {
+                    alert(grouping[i].SubMajor.ID);
+                    content = content + grouping[i].SubMajor.ID + ", ";
+                    //console.log(content);
+                    
+                }
+                else if (grouping[i].ChoiceBlock != null) {
+                    alert(grouping[i].ChoiceBlock.ID);
+                    content = content + grouping[i].ChoiceBlock.ID + ", ";
+                    //console.log(content);
+                    
+                }
+                else if (grouping[i].Subject != null) {
+                    alert(grouping[i].Subject.ID);
+                    content = content + grouping[i].Subject.ID + ", ";
+                    //console.log(content);
+                    
+                }
+            }
+        }
+        else if (data[i].Subject != null) {
+            alert(data[i].Subject.ID);
+            content = content + data[i].Subject.ID + ", ";
+            //console.log(content);
+            
+        }
+    }
+    console.log(content);
+    //content = content.slice(0, -2);
+
+    var item = document.getElementById(id);
+    item.setAttribute("title", content);
+    item.setAttribute("data-toggle", "popover");
+    item.setAttribute("data-placement", "right");
+    //item.setAttribute("data-content", content);
+}
+
+function handleStreamSubjects(term) {
+    //need to create an API that allows the user to search from subjects, streams, choiceblocks and submajors --> display name and number for this dropdown
+    var data;// = new Array();
+    var streams = getAllStreams();
+    //var choiceBlocks = getAllChoiceBlocks();
+    //var subMajors = getAllSubMajors();
+    //var subjects = getAllSubjects();
+
+    data = streams;//.concat(choiceBlocks, subMajors, subjects); // this is where the api function is called
+
+    $("#streamSubjectInput").autocomplete({
+        source: function (request, response) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.Name,
+                    value: value.ID
+                }
+            }));
+        },
+        select: function (event, ui) {
+            document.getElementById("streamSubjectInput").value = "";
+            var subjectList = document.getElementById("streamSubjectList");
+            var a = document.createElement("a");
+            a.setAttribute('id', ui.item.value);
+            a.setAttribute('onClick', "removeFromList(this.id)");
+            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success');
+            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
+            subjectList.appendChild(a);
+            handleHover(ui.item.value);   
+        }
+    });
+
+}
 
 function handlePopulateSubjects(id) {
     var data;
@@ -581,6 +696,7 @@ function handlePopulateSubjects(id) {
     var list = document.getElementById("streamSubjectList");
     var searchBar = document.getElementById("streamSubjectInput");
 
+    console.log(data);
     for (var i = 0; i < data.length; i++) {
         if (data[i].ContentStream != null) {
             //Add functionality that if hover over this it will display the list of subjects within this
@@ -590,6 +706,7 @@ function handlePopulateSubjects(id) {
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
             a.appendChild(document.createTextNode(data[i].ContentStream.ID + " - " + data[i].ContentStream.Name));
             list.appendChild(a);
+            handleHover(data[i].ContentStream.ID);
         }
         else if (data[i].ContentSubMajor != null) {
             //Add functionality that if hover over this it will display the list of subjects within this
@@ -599,6 +716,7 @@ function handlePopulateSubjects(id) {
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
             a.appendChild(document.createTextNode(data[i].ContentSubMajor.ID + " - " + data[i].ContentSubMajor.Name));
             list.appendChild(a);
+            handleHover(data[i].ContentSubMajor.ID);
         }
         else if (data[i].ContentChoiceBlock != null) {
             //Add functionality that if hover over this it will display the list of subjects within this
@@ -608,33 +726,41 @@ function handlePopulateSubjects(id) {
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
             a.appendChild(document.createTextNode(data[i].ContentChoiceBlock.ID + " - " + data[i].ContentChoiceBlock.Name));
             list.appendChild(a);
+            handleHover(data[i].ContentChoiceBlock.ID);
         }
         else if (data[i].ContentSubjectGrouping != null) {
             //Do a call to get all the subjects within this subject grouping
             var grouping = getSubjectGroupingRelationship(data[i].ContentSubjectGrouping.ID);
             for (var i = 0; i < grouping.length; i++) {
                 if (grouping[i].Stream != null) {
+                    var a = document.createElement("a");
                     a.setAttribute('id', grouping[i].Stream.ID);
                     a.setAttribute('onClick', "removeFromList(this.id)");
                     a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
                     a.appendChild(document.createTextNode(grouping[i].Stream.ID + " - " + grouping[i].Stream.Name));
                     list.appendChild(a);
+                    handleHover(grouping[i].Stream.ID);
                 }
                 else if (grouping[i].SubMajor != null) {
+                    var a = document.createElement("a");
                     a.setAttribute('id', grouping[i].SubMajor.ID);
                     a.setAttribute('onClick', "removeFromList(this.id)");
                     a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
                     a.appendChild(document.createTextNode(grouping[i].SubMajor.ID + " - " + grouping[i].SubMajor.Name));
                     list.appendChild(a);
+                    handleHover(grouping[i].SubMajor.ID);
                 }
                 else if (grouping[i].ChoiceBlock != null) {
+                    var a = document.createElement("a");
                     a.setAttribute('id', grouping[i].ChoiceBlock.ID);
                     a.setAttribute('onClick', "removeFromList(this.id)");
                     a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
                     a.appendChild(document.createTextNode(grouping[i].ChoiceBlock.ID + " - " + grouping[i].ChoiceBlock.Name));
                     list.appendChild(a);
+                    handleHover(grouping[i].ChoiceBlock.ID);
                 }
                 else if (grouping[i].Subject != null) {
+                    var a = document.createElement("a");
                     a.setAttribute('id', grouping[i].Subject.ID);
                     a.setAttribute('onClick', "removeFromList(this.id)");
                     a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
@@ -653,12 +779,6 @@ function handlePopulateSubjects(id) {
             list.appendChild(a);
         }
     }
-
-
-
-
-
-
 }
 
 //Inner search bars that push buttons to list
@@ -747,33 +867,7 @@ function handleCourseMajor(term) {
     });
 }
 
-function handleStreamSubjects(term) {
-    //need to create an API that allows the user to search from subjects, streams, choiceblocks and submajors --> display name and number for this dropdown
-    var data = new Array();
-    data = "";//this is where the api function is called
 
-    $("#streamSubjectInput").autocomplete({
-        source: function (request, response) {
-            response($.map(data, function (value, key) {
-                return {
-                    label: value.Name,
-                    value: value.ID
-                }
-            }));
-        },
-        select: function (event, ui) {
-            console.log(ui);
-            var a = document.createElement("a");
-            var subjectList = document.getElementById("courseMajorList");
-            a.setAttribute('id', ui.item.value);
-            a.setAttribute('onClick', "removeFromList(this.id)");
-            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success');
-            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
-            subjectList.appendChild(a);
-        }
-    });
-
-}
 
 //functions to handle viewing and editing of objects
 function handleViewEditCourse(data) {
@@ -875,7 +969,6 @@ function handleViewEditStreamSubChoice(data) {
         document.getElementById("choiceBlockOption").checked = true;
         document.getElementById("streamDescription").value = data.ChoiceBlockDescription;
     }
-    handlePopulateSubjects(data.ID);
     document.getElementById("streamName").value = data.Name;
     document.getElementById("streamId").value = data.ID;
     document.getElementById("streamAbb").value = data.Abbreviation;
@@ -901,6 +994,8 @@ function handleViewEditStreamSubChoice(data) {
     document.getElementById("streamDescription").readOnly = true;
     document.getElementById("streamStatusActive").disabled = true;
     document.getElementById("streamStatusInActive").disabled = true;
+    document.getElementById("streamSubjectInput").style.display = "none";
+    handlePopulateSubjects(data.ID);
 
     document.getElementById('addStreamFormDiv').style.display = "block";
 }
@@ -1236,6 +1331,7 @@ function handleCancel() {
     addVisible = false;
     selected = "course";
     document.getElementById('searchBar').value = "";
+
     document.getElementsByName('searchBar')[0].placeholder = "Search Courses";
     clearFields();
     refreshNavColours();
@@ -1272,6 +1368,11 @@ function handleEdit() {
     }
     var courseMajorList = document.getElementById("courseMajorList");
     var items = courseMajorList.getElementsByTagName("a");
+    for (var i = 0; i < items.length; i++) {
+        $("#" + items[i].id).removeClass("disabled");
+    }
+    var streamSubjectList = document.getElementById("streamSubjectList");
+    var items = streamSubjectList.getElementsByTagName("a");
     for (var i = 0; i < items.length; i++) {
         $("#" + items[i].id).removeClass("disabled");
     }
@@ -1327,9 +1428,11 @@ function handleEdit() {
     document.getElementById("subjectDescription").readOnly = false;
     document.getElementById("subjectPreReq").readOnly = false;
     document.getElementById("subjectAntiReq").readOnly = false;
+
     document.getElementById("subjectAntiReqInput").style.display = "block";
     document.getElementById("subjectPreReqInput").style.display = "block";
     document.getElementById("courseMajorInput").style.display = "block";
+    document.getElementById("streamSubjectInput").style.display = "block";
 
 }
 
