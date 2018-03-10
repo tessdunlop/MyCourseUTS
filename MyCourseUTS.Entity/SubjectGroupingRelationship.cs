@@ -9,11 +9,11 @@ namespace MyCourseUTS.Entity
     public class SubjectGroupingRelationship
     {
         public int ID { get; set; }
-        public SubMajor SubMajor { get; set; }
+        public SubMajor ContentSubMajor { get; set; }
         public Subject Subject { get; set; }
-        public ChoiceBlock ChoiceBlock { get; set; }
-        public Stream Stream { get; set; }
-        public Major Major { get; set; }
-        public SubjectGrouping SubjectGrouping { get; set; }
+        public ChoiceBlock ContentChoiceBlock { get; set; }
+        public Stream ContentStream { get; set; }
+        public Major ContentMajor { get; set; }
+        public SubjectGrouping ContentSubjectGrouping { get; set; }
     }
 }

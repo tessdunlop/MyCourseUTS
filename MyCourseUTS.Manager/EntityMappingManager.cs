@@ -296,12 +296,12 @@ namespace MyCourseUTS.Manager
             Entity.SubjectGroupingRelationship content = new Entity.SubjectGroupingRelationship
             {
                 ID = contentData.ID,
-                SubMajor = MapSubMajorContent(contentData.SubMajors),
+                ContentSubMajor = MapSubMajorContent(contentData.SubMajors),
                 Subject = MapSubjectContent(contentData.Subjects),
-                ChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks),
-                Stream = MapStreamContent(contentData.Streams),
-                Major = MapMajorContent(contentData.Majors),
-                SubjectGrouping = MapSubjectGroupingContent(contentData.SubjectGroupings)
+                ContentChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks),
+                ContentStream = MapStreamContent(contentData.Streams),
+                ContentMajor = MapMajorContent(contentData.Majors),
+                ContentSubjectGrouping = MapSubjectGroupingContent(contentData.SubjectGroupings)
             };
             return content;
         }
