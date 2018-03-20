@@ -1,12 +1,6 @@
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\MyCourseUTS.Entity.dll.config
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\MyCourseUTS.Entity.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\MyCourseUTS.Entity.pdb
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\Newtonsoft.Json.dll
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\Newtonsoft.Json.xml
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.csprojResolveAssemblyReference.cache
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.csproj.CoreCompileInputs.cache
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.dll
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.pdb
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\MyCourseUTS.Entity.dll.config
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Data.Common.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Diagnostics.StackTrace.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Diagnostics.Tracing.dll
@@ -29,6 +23,7 @@ C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\Carbon.Versioning
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\EntityFramework.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\GitHub.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\Newtonsoft.Json.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Net.Http.Formatting.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Text.Encodings.Web.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Threading.Tasks.Extensions.dll
@@ -37,8 +32,13 @@ C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Web.Http.C
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Web.Http.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\EntityFramework.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\Newtonsoft.Json.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Net.Http.Formatting.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Text.Encodings.Web.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Web.Http.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\bin\Debug\System.Web.Http.Cors.xml
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.csprojResolveAssemblyReference.cache
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.csproj.CoreCompileInputs.cache
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.Entity\obj\Debug\MyCourseUTS.Entity.pdb

@@ -5,7 +5,7 @@ var selectedBlue = "#2478fc";
 
 //START OF API CALLS
 function getAllCourses() {
-    var url = "http://mycourseuts.azurewebsites.net/api/course/getallcourses";
+    var url = "http://mycourseuts.azurewebsites.net/services/api/course/getallcourses";
     var data;
     $.ajax({
         url: url,
@@ -22,7 +22,7 @@ function getAllCourses() {
     return data;
 }
 function getAllMajors() {
-    var url = "http://mycourseuts.azurewebsites.net/api/major/getallmajors";
+    var url = "http://mycourseuts.azurewebsites.net/services/api/major/getallmajors";
     var data;
     $.ajax({
         url: url,
@@ -39,7 +39,7 @@ function getAllMajors() {
     return data;
 }
 function getAllSubMajors() {
-    var url = "http://mycourseuts.azurewebsites.net/api/submajor/getallsubmajors";
+    var url = "http://mycourseuts.azurewebsites.net/services/api/submajor/getallsubmajors";
     var data;
     $.ajax({
         url: url,
@@ -56,7 +56,7 @@ function getAllSubMajors() {
     return data;
 }
 function getAllStreams() {
-    var url = "http://mycourseuts.azurewebsites.net/api/stream/getallstreams";
+    var url = "http://mycourseuts.azurewebsites.net/services/api/stream/getallstreams";
     var data;
     $.ajax({
         url: url,
@@ -74,7 +74,7 @@ function getAllStreams() {
 }
 function getAllChoiceBlocks() {
 
-    var url = "http://mycourseuts.azurewebsites.net/api/choiceblock/getallchoiceblocks";
+    var url = "http://mycourseuts.azurewebsites.net/services/api/choiceblock/getallchoiceblocks";
     var data;
     $.ajax({
         url: url,
@@ -91,7 +91,7 @@ function getAllChoiceBlocks() {
     return data;
 }
 function getAllSubjects() {
-    var url = "http://mycourseuts.azurewebsites.net/api/subject/getallsubjects";
+    var url = "http://mycourseuts.azurewebsites.net/services/api/subject/getallsubjects";
     var data;
     $.ajax({
         url: url,
@@ -108,7 +108,7 @@ function getAllSubjects() {
     return data;
 }
 function getCourseTypes() {
-    var url = "http://mycourseuts.azurewebsites.net/api/course/getcoursetypes";
+    var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcoursetypes";
     var data;
     $.ajax({
         url: url,
@@ -127,7 +127,7 @@ function getCourseTypes() {
 }
 
 function getCourse(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/course/getcourse?courseID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcourse?courseID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -144,7 +144,7 @@ function getCourse(id) {
     return data;
 }
 function getMajor(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/major/getmajor?majorID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/major/getmajor?majorID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -161,7 +161,7 @@ function getMajor(id) {
     return data;
 }
 function getSubMajor(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/submajor/getsubmajor?subMajorID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/submajor/getsubmajor?subMajorID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -178,7 +178,7 @@ function getSubMajor(id) {
     return data;
 }
 function getStream(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/stream/getstream?streamID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/stream/getstream?streamID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -195,7 +195,7 @@ function getStream(id) {
     return data;
 }
 function getChoiceBlock(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblock?choiceblockID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblock?choiceblockID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -212,7 +212,7 @@ function getChoiceBlock(id) {
     return data;
 }
 function getSubject(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/subject/getsubject?subjectID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/subject/getsubject?subjectID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -229,7 +229,7 @@ function getSubject(id) {
     return data;
 }
 function getSubjectGrouping(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/subjectgrouping/getsubjectgrouping?subjectgroupingID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/getsubjectgrouping?subjectgroupingID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -246,7 +246,7 @@ function getSubjectGrouping(id) {
     return data;
 }
 function getSubjectRequisites(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/subject/getsubjectrequisite?subjectid=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/subject/getsubjectrequisite?subjectid=" + id;
     var data;
     $.ajax({
         url: url,
@@ -263,7 +263,7 @@ function getSubjectRequisites(id) {
     return data;
 }
 function getCourseMajorRelationship(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/course/getcoursemajorrelationship?majorid=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcoursemajorrelationship?majorid=" + id;
     var data;
     $.ajax({
         url: url,
@@ -281,7 +281,7 @@ function getCourseMajorRelationship(id) {
 }
 
 function getCourses(term) {
-    var url = "http://mycourseuts.azurewebsites.net/api/course/getcourses?value=" + term;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcourses?value=" + term;
     var data;
     $.ajax({
         url: url,
@@ -298,7 +298,7 @@ function getCourses(term) {
     return data;
 }
 function getMajors(term) {
-    var url = "http://mycourseuts.azurewebsites.net/api/major/getmajors?value=" + term;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/major/getmajors?value=" + term;
     var data;
     $.ajax({
         url: url,
@@ -315,7 +315,7 @@ function getMajors(term) {
     return data;
 }
 function getSubMajors(term) {
-    var url = "http://mycourseuts.azurewebsites.net/api/submajor/getsubmajors?value=" + term;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/submajor/getsubmajors?value=" + term;
     var data;
     $.ajax({
         url: url,
@@ -332,7 +332,7 @@ function getSubMajors(term) {
     return data;
 }
 function getStreams(term) {
-    var url = "http://mycourseuts.azurewebsites.net/api/stream/getstreams?value=" + term;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/stream/getstreams?value=" + term;
     var data;
     $.ajax({
         url: url,
@@ -349,7 +349,7 @@ function getStreams(term) {
     return data;
 }
 function getChoiceBlocks(term) {
-    var url = "http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblocks?value=" + term;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblocks?value=" + term;
     var data;
     $.ajax({
         url: url,
@@ -366,7 +366,7 @@ function getChoiceBlocks(term) {
     return data;
 }
 function getSubjects(term) {
-    var url = "http://mycourseuts.azurewebsites.net/api/subject/getsubjects?value=" + term;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/subject/getsubjects?value=" + term;
     var data;
     $.ajax({
         url: url,
@@ -385,7 +385,7 @@ function getSubjects(term) {
 
 
 function getCourseRelationship(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/course/getcourserelationship?courseID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcourserelationship?courseID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -402,7 +402,7 @@ function getCourseRelationship(id) {
     return data;
 }
 function getMajorRelationship(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/major/getmajorrelationship?majorID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/major/getmajorrelationship?majorID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -419,7 +419,7 @@ function getMajorRelationship(id) {
     return data;
 }
 function getStreamRelationship(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/stream/getstreamrelationship?streamID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/stream/getstreamrelationship?streamID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -436,7 +436,7 @@ function getStreamRelationship(id) {
     return data;
 }
 function getChoiceBlockRelationship(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/choiceblock/getchoiceblockrelationship?choiceblockID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblockrelationship?choiceblockID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -453,7 +453,7 @@ function getChoiceBlockRelationship(id) {
     return data;
 }
 function getSubMajorRelationship(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/submajor/getsubmajorrelationship?submajorID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/submajor/getsubmajorrelationship?submajorID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -470,7 +470,7 @@ function getSubMajorRelationship(id) {
     return data;
 }
 function getSubjectGroupingRelationship(id) {
-    var url = "http://mycourseuts.azurewebsites.net/api/subjectgrouping/GetSubjectGroupingRelationship?subjectgroupingID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/GetSubjectGroupingRelationship?subjectgroupingID=" + id;
     var data;
     $.ajax({
         url: url,
@@ -1602,7 +1602,7 @@ function handleViewEditTimetable(object) {
                     handleHover(number, "item"+id);
                 }
 
-
+                $("#item"+id).attr("disabled", "disabled").off("click");
 
                 
             }

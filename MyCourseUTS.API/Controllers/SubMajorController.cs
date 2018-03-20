@@ -15,7 +15,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class SubMajorController : ApiController
     {
-        //http://mycourseuts.azurewebsites.net/api/submajor/getallsubmajors
+        //http://mycourseuts.azurewebsites.net/services//api/submajor/getallsubmajors
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubMajor> GetAllSubMajors()
         {
@@ -34,7 +34,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubMajors;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/submajor/getsubmajor?submajorID=SMJ01010
+        //http://mycourseuts.azurewebsites.net/services//api/submajor/getsubmajor?submajorID=SMJ01010
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public SubMajor GetSubMajor(string subMajorID)
         {
@@ -47,7 +47,7 @@ namespace MyCourseUTS.API.Controllers
             return subMajor;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/submajor/getsubmajors?value=SMJ01
+        //http://mycourseuts.azurewebsites.net/services//api/submajor/getsubmajors?value=SMJ01
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubMajor> GetSubMajors(string value)
         {
@@ -67,7 +67,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubMajor;
         }
 
-        //http://mycourseuts.azurewebsites.net/api/submajor/getsubmajorrelationship?submajorID=SMJ02015
+        //http://mycourseuts.azurewebsites.net/services//api/submajor/getsubmajorrelationship?submajorID=SMJ02015
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubMajorRelationship> GetSubMajorRelationship(string subMajorID)
         {
