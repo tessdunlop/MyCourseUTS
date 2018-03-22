@@ -81,6 +81,22 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubject;
         }
 
+        //http://mycourseuts.azurewebsites.net/services/api/subject/GetSubjectTypes
+        public List<Entity.SubjectTypes> GetSubjectTypes()
+        {
+            List<DataModel.SubjectTypes> subjectTypes;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubjectTypes
+                        select c;
+            subjectTypes = query.ToList();
+            List<Entity.SubjectTypes> listOfSubject = new List<Entity.SubjectTypes>();
+            foreach (var c in subjectTypes)
+            {
+                listOfSubject.Add(EntityMappingManager.MapSubjectTypeContent(c));
+            }
+            return listOfSubject;
+        }
+
         //public void PostSubject(Subject subject)
         //{
         //    using (var scope = new TransactionScope())

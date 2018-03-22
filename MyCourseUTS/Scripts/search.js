@@ -2,6 +2,8 @@
 var selected = "course";
 var lastSelected;
 var selectedBlue = "#2478fc";
+var subject;
+var stage;
 
 //START OF API CALLS
 function getAllCourses() {
@@ -107,6 +109,7 @@ function getAllSubjects() {
     });
     return data;
 }
+
 function getCourseTypes() {
     var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcoursetypes";
     var data;
@@ -120,6 +123,24 @@ function getCourseTypes() {
         },
         error: function () {
             alert("There was an issue retrieving the list of course types");
+        }
+    });
+    console.log(data);
+    return data;
+}
+function getSubjectTypes() {
+    var url = "http://mycourseuts.azurewebsites.net/services/api/subject/getsubjecttypes";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list of subject types");
         }
     });
     console.log(data);
@@ -383,7 +404,6 @@ function getSubjects(term) {
     return data;
 }
 
-
 function getCourseRelationship(id) {
     var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcourserelationship?courseID=" + id;
     var data;
@@ -487,17 +507,31 @@ function getSubjectGroupingRelationship(id) {
     return data;
 }
 //END OF API CALLS
- 
 
-function populateDropdown() {
+function populateCourseTypeDropdown() {
     var select = document.getElementById("courseType");
     var data = getCourseTypes();
-    for (var i = 0; data.length; i++) {
+    for (var i = 0; i< data.length; i++) {
         var option = document.createElement("option");
         option.value = data[i].ID;
         option.text = data[i].Abbreviation;
         select.add(option, null);
     }
+}
+function populateSubjectTypeDropdown() {
+    var select = document.getElementById("subjectTypeDropDown");
+    var data = getSubjectTypes();
+    for (var i = 0; i<data.length; i++) {
+        var option = document.createElement("option");
+        option.value = data[i].ID;
+        option.text = data[i].Abbreviation;
+        select.add(option, null);
+    }
+}
+
+window.onload = function () {
+    populateSubjectTypeDropdown();
+    populateCourseTypeDropdown();
 }
 
 function disableMenuBar(option) {
@@ -585,13 +619,13 @@ function clearFields() {
     document.getElementById("subjectAntiReqInput").style.display = "none";
     document.getElementById("subjectPreReqInput").style.display = "none";
 
+    subject ="";
+    stage ="";
+    subjectType ="";
 
     handleEdit();
 }
 
-window.onload = function () {
-    populateDropdown();
-}
 
 getAllCourses();
 getAllMajors();
@@ -855,6 +889,42 @@ function handleAntiReq(term) {
 
     });
 }
+function handleSubjectInput(term) {
+    var data = new Array();
+    data = getSubjects(term);
+    disabledAddSubjectButton();
+
+    $("#subjectAddInput").autocomplete({
+        source: function (request, response) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.Name,
+                    value: value.ID
+                }
+            }));
+        },
+        select: function (event, ui) {
+            console.log(ui);
+            subject = getSubject(ui.item.value);
+            disabledAddSubjectButton();
+        }
+
+    });
+}
+function handleSubjectStageInput(term) {
+    stage = term;
+    disabledAddSubjectButton();
+}
+
+function disabledAddSubjectButton() {
+    if (document.getElementById("subjectAddInput").value != "" && document.getElementById("subjectStageInput").value != "") {
+        document.getElementById("btnTimetableAdd").disabled = false;
+    }
+    else {
+        document.getElementById("btnTimetableAdd").disabled = true;
+    }
+}
+
 function handleCourseMajor(term) {
     var data = new Array();
     data = getCourses(term);
@@ -880,6 +950,12 @@ function handleCourseMajor(term) {
         }
     });
 }
+
+
+
+
+
+
 
 
 
@@ -1451,6 +1527,16 @@ function clearTimetable() {
     var headerRow = document.getElementById("headerRow");
     headerRow.innerHTML = "";
 }
+
+
+function handleSubjectTimetableAdd() {
+    //subject;
+    //stage;
+    var e = document.getElementById("subjectTypeDropDown");
+    var subjectType = e.options[e.selectedIndex].text;
+}
+
+
 
 //timetable functionality
 //"<div class='col-sm'><u><h4>Stage<br />One</h4></u><br /><div id='stageOne'></div></div>"

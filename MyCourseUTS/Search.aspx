@@ -630,6 +630,29 @@
 
 
         <div id="timetable"  text-align: center;">
+
+            <div class="row" style="padding-bottom: 8px">
+                <div class="col-sm">
+                    <input id="subjectAddInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Subject" oninput="handleSubjectInput(this.value);" style="width: 60%;" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm" style="padding-bottom: 8px">
+                    <select id="subjectTypeDropDown" class="form-control" style="width: 60%; height: 100%">
+                    </select>
+                </div>
+            </div>
+            <div class="row" style="padding-bottom: 8px">
+                <div class="col-sm">
+                    <input id="subjectStageInput" name="searchBar" type="number" class="form-control typeahead" style="width: 60%;" oninput="handleSubjectStageInput(this.value)" />
+                </div>
+            </div>
+            <div class="row" style="padding-bottom: 8px">
+                <div class="col-sm">
+                    <button disabled id="btnTimetableAdd" type="button" class="btn btn-lg" onclick="handleSubjectTimetableAdd();" style="background-color: green; color: white"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+            </div>
+
             <div class="row" id="headerRow"></div><br /><br />
         
 
