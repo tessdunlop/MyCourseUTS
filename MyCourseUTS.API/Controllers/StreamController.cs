@@ -15,7 +15,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class StreamController : ApiController
     {
-        //http://mycourseuts.azurewebsites.net/services//api/stream/getallstreams
+        //http://mycourseuts.azurewebsites.net/services/api/stream/getallstreams
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Stream> GetAllStreams()
         {
@@ -34,7 +34,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfStreams;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/stream/getstream?streamID=STM90068
+        //http://mycourseuts.azurewebsites.net/services/api/stream/getstream?streamID=STM90068
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public Stream GetStream(string streamID)
         {
@@ -47,7 +47,7 @@ namespace MyCourseUTS.API.Controllers
             return stream;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/stream/getstreams?value=STM903
+        //http://mycourseuts.azurewebsites.net/services/api/stream/getstreams?value=STM903
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Stream> GetStreams(string value)
         {
@@ -67,7 +67,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfStreams;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/stream/getstreamrelationship?streamID=STM90068
+        //http://mycourseuts.azurewebsites.net/services/api/stream/getstreamrelationship?streamID=STM90068
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<StreamRelationship> GetStreamRelationship(string streamID)
         {

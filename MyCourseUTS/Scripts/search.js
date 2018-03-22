@@ -1469,7 +1469,14 @@ function handleViewEditTimetable(object) {
     var SMJCount = 0;
     var groupCount = 0;
 
-    var items = getCourseRelationship(object.ID);
+    if (object.ID.substring(0, 3) == "MAJ") {
+        var items = getMajorRelationship(object.ID);
+        }
+    else {
+        var items = getCourseRelationship(object.ID);
+    }
+
+    
     console.log(items);
 
     //add headers

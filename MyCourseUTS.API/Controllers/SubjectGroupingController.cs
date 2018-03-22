@@ -15,7 +15,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class SubjectGroupingController : ApiController
     {
-        //http://mycourseuts.azurewebsites.net/services//api/subjectgrouping/getallsubjectgroupings
+        //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/getallsubjectgroupings
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubjectGrouping> GetAllSubjectGroupings()
         {
@@ -33,7 +33,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubjectGroupings;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/subjectgrouping/GetSubjectGrouping?subjectgroupingID=4
+        //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/GetSubjectGrouping?subjectgroupingID=4
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public SubjectGrouping GetSubjectGrouping(int subjectGroupingID)
         {
@@ -46,7 +46,7 @@ namespace MyCourseUTS.API.Controllers
             return subjectGroup;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/subjectgrouping/GetSubjectGroupings?subjectgroupingID=4
+        //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/GetSubjectGroupings?subjectgroupingID=4
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubjectGrouping> GetSubjectGroupings(string subjectGroupingID)
         {
@@ -64,7 +64,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubjectGroup;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/subjectgrouping/GetSubjectGroupingRelationship?subjectgroupingID=100
+        //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/GetSubjectGroupingRelationship?subjectgroupingID=100
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubjectGroupingRelationship> GetSubjectGroupingRelationship(string subjectGroupingID)
         {

@@ -67,6 +67,7 @@ namespace MyCourseUTS.Manager
                 Active = contentData.Active,
                 CreditPoints = contentData.CreditPoints,
                 Version = contentData.Version,
+                Stages = contentData.Stages
             };
             return content;
         }

@@ -14,7 +14,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class SubjectController : ApiController
     {
-        //http://mycourseuts.azurewebsites.net/services//api/subject/getallsubjects
+        //http://mycourseuts.azurewebsites.net/services/api/subject/getallsubjects
         public List<Subject> GetAllSubjects()
         {
             List<Subjects> subjects;
@@ -32,7 +32,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubjects;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/subject/getsubject?subjectid=13992
+        //http://mycourseuts.azurewebsites.net/services/api/subject/getsubject?subjectid=13992
         public Subject GetSubject(int subjectID)
         {
             Subject subject;
@@ -44,7 +44,7 @@ namespace MyCourseUTS.API.Controllers
             return subject;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/subject/getsubjectrequisite?subjectid=13992
+        //http://mycourseuts.azurewebsites.net/services/api/subject/getsubjectrequisite?subjectid=13992
         public List<Entity.RequisiteRelationship> GetSubjectRequisite(int subjectID)
         {
             List<DataModel.RequisiteRelationship> requisites;
@@ -62,7 +62,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfRequisites;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/subject/getsubjects?value=139
+        //http://mycourseuts.azurewebsites.net/services/api/subject/getsubjects?value=139
         public List<Subject> GetSubjects(string value)
         {
             List<Subjects> subjects;

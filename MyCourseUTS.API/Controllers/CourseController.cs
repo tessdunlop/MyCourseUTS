@@ -18,7 +18,7 @@ namespace MyCourseUTS.API.Controllers
 {
     public class CourseController : ApiController
     {
-        //http://mycourseuts.azurewebsites.net/services//api/course/getallcourses
+        //http://mycourseuts.azurewebsites.net/services/api/course/getallcourses
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Course> GetAllCourses()
         {
@@ -38,7 +38,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        //http://mycourseuts.azurewebsites.net/services//api/course/getcourse?courseID=C04273
+        //http://mycourseuts.azurewebsites.net/services/api/course/getcourse?courseID=C04273
         public Course GetCourse(string courseID)
         {
             Course course;
@@ -51,7 +51,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        //http://mycourseuts.azurewebsites.net/services//api/course/getcourses?value=bsc
+        //http://mycourseuts.azurewebsites.net/services/api/course/getcourses?value=bsc
         public List<Course> GetCourses(string value)
         {
             List <Courses> courses;
@@ -71,7 +71,7 @@ namespace MyCourseUTS.API.Controllers
         }
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        //http://mycourseuts.azurewebsites.net/services//api/course/getcourserelationship?courseID=C10143
+        //http://mycourseuts.azurewebsites.net/services/api/course/getcourserelationship?courseID=C10143
         public List<CourseRelationship> GetCourseRelationship(string courseID)
         {
             List<DataModel.CourseRelationships> course;
@@ -89,7 +89,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourse;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/subject/GetCourseMajorRelationship?majorid=MAJ03476
+        //http://mycourseuts.azurewebsites.net/services/api/subject/GetCourseMajorRelationship?majorid=MAJ03476
         public List<Entity.CourseMajorRelationship> GetCourseMajorRelationship(string majorID)
         {
             List<DataModel.CourseMajorRelationship> courses;
@@ -144,7 +144,7 @@ namespace MyCourseUTS.API.Controllers
             context.SaveChanges();
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/course/getcoursetypes
+        //http://mycourseuts.azurewebsites.net/services/api/course/getcoursetypes
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Entity.CourseTypes> GetCourseTypes()
         {

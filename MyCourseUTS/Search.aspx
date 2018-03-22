@@ -630,7 +630,7 @@
 
 
         <div id="timetable"  text-align: center;">
-            <div class="row" id="headerRow"></div>
+            <div class="row" id="headerRow"></div><br /><br />
         
 
         <div class="row" id="updateButtonDiv" style="display: none">

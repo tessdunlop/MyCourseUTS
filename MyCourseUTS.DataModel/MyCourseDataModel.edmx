@@ -107,6 +107,7 @@
           <Property Name="HasTemplate" Type="bit" Nullable="false" />
           <Property Name="MajorDescription" Type="nvarchar" MaxLength="150" />
           <Property Name="VersionDescription" Type="nvarchar" MaxLength="150" />
+          <Property Name="Stages" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RequisiteRelationship">
           <Key>
@@ -1279,6 +1280,7 @@
           <Property Name="HasTemplate" Type="Boolean" Nullable="false" />
           <Property Name="MajorDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="VersionDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Stages" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CourseMajorRelationship" Relationship="MyCourseDBModel.FK_CourseMajorRelationship_Majors" FromRole="Majors" ToRole="CourseMajorRelationship" />
           <NavigationProperty Name="MajorRelationships" Relationship="MyCourseDBModel.FK_MajorRelationships_Majors" FromRole="Majors" ToRole="MajorRelationships" />
           <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupings_Majors" FromRole="Majors" ToRole="SubjectGroupingRelationships" />
@@ -2080,6 +2082,7 @@
           <EntitySetMapping Name="Majors">
             <EntityTypeMapping TypeName="MyCourseDBModel.Majors">
               <MappingFragment StoreEntitySet="Majors">
+                <ScalarProperty Name="Stages" ColumnName="Stages" />
                 <ScalarProperty Name="VersionDescription" ColumnName="VersionDescription" />
                 <ScalarProperty Name="MajorDescription" ColumnName="MajorDescription" />
                 <ScalarProperty Name="HasTemplate" ColumnName="HasTemplate" />

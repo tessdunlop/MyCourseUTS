@@ -34,7 +34,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfCBK;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/choiceblock/getchoiceblock?choiceblockid=CBK90009
+        //http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblock?choiceblockid=CBK90009
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public ChoiceBlock GetChoiceBlock (string choiceBlockID)
         {
@@ -47,7 +47,7 @@ namespace MyCourseUTS.API.Controllers
             return choiceBlock;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/choiceblock/getchoiceblocks?value=CBK90
+        //http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblocks?value=CBK90
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<ChoiceBlock> GetChoiceBlocks(string value)
         {
@@ -67,7 +67,7 @@ namespace MyCourseUTS.API.Controllers
             return listOfChoiceBlock;
         }
 
-        //http://mycourseuts.azurewebsites.net/services//api/choiceblock/getchoiceblockrelationship?choiceblockid=CBK90009
+        //http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblockrelationship?choiceblockid=CBK90009
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<ChoiceBlockRelationship> GetChoiceBlockRelationship(string choiceBlockID)
         {

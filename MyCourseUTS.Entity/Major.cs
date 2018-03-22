@@ -17,6 +17,7 @@ namespace MyCourseUTS.Entity
         public bool HasTemplate { get; set; }
         public string MajorDescription { get; set; }
         public string VersionDescription { get; set; }
+        public int Stages { get; set; }
 
     }
 }
