@@ -5,7 +5,18 @@ var selectedBlue = "#2478fc";
 var subject;
 var stage;
 
-//START OF API CALLS
+var selectedData;
+
+var cor = "#bbd2f7";
+var pp = "#d3bbf7";
+var maj = "#f7bbbb";
+var ele = "#f7f2bb";
+var cds = "#ddf7bb";
+var mele = "#f7dfbb";
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////START OF API CALLS
 function getAllCourses() {
     var url = "http://mycourseuts.azurewebsites.net/services/api/course/getallcourses";
     var data;
@@ -266,6 +277,7 @@ function getSubjectGrouping(id) {
     });
     return data;
 }
+
 function getSubjectRequisites(id) {
     var url = "http://mycourseuts.azurewebsites.net/services/api/subject/getsubjectrequisite?subjectid=" + id;
     var data;
@@ -279,23 +291,6 @@ function getSubjectRequisites(id) {
         },
         error: function () {
             alert("There was an issue retrieving the subject requisites");
-        }
-    });
-    return data;
-}
-function getCourseMajorRelationship(id) {
-    var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcoursemajorrelationship?majorid=" + id;
-    var data;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: "json",
-        async: false,
-        success: function (response) {
-            data = response;
-        },
-        error: function () {
-            alert("There was an issue retrieving the courses");
         }
     });
     return data;
@@ -506,12 +501,122 @@ function getSubjectGroupingRelationship(id) {
     });
     return data;
 }
-//END OF API CALLS
+function getCourseMajorRelationship(id) {
+    var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcoursemajorrelationship?majorid=" + id;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the courses");
+        }
+    });
+    return data;
+}
 
+
+
+
+//Need to add the logic for all these below
+function updateCourse(id) { }
+function updateMajor(id) { }
+function updateChoiceBlock(id) { }
+function updateStream(id) { }
+function updateSubMajor(id) { }
+function updateSubject(id) { }
+
+function addCourse(item) {
+
+}
+function addMajor(item) {
+
+}
+function addChoiceBlock(item) {
+
+}
+function addStream(item) {
+
+}
+function addSubMajor(item) {
+
+}
+function addSubject(item) {
+
+}
+
+//delete everything that was in there and then insert the new values
+function updateCourseRelationship(id, item) { }
+function updateMajorRelationship(id, item) { }
+function updateCourseMajorRelationship(id, item) { }
+function updateChoiceBlockRelationship(id, item) { }
+function updateStreamRelationship(id, item) { }
+function updateSubMajorRelationship(id, item) { }
+function updateSubjectRelationship(id, item) { }
+function updateSubjectRequisites(id, item) { }
+
+function deleteCourse(id) {
+    //delete from courses
+    //delete from majorcourserelationship
+    //delete from courserelationship
+}
+function deleteMajor(id) {
+    //delete from majors
+    //delete from majorcourserelationship
+    //delete from majorrelationship
+    //delete from subjectgrouping??? one of these has majorid in the table
+}
+function deleteChoiceBlock(id) {
+    //delete from choiceblocks
+    //delete from subjectgroupings
+    //delete from subjectrelationships
+    //delete from streamrelationships
+    //delete from submajorrelationships
+    //delete from choiceblockrelationships
+    //delete from courserelationship
+}
+function deleteStream(id) {
+    //delete from streams
+    //delete from subjectgroupings
+    //delete from subjectrelationships
+    //delete from streamrelationships
+    //delete from submajorrelationships
+    //delete from choiceblockrelationships
+    //delete from courserelationship
+}
+function deleteSubMajor(id) {
+    //delete from submajors
+    //delete from subjectgroupings
+    //delete from subjectrelationships
+    //delete from streamrelationships
+    //delete from submajorrelationships
+    //delete from choiceblockrelationships
+    //delete from courserelationship   
+}
+function deleteSubject(id) {
+    //delete from subjects
+    //delete from subjectgroupings
+    //delete from subjectrelationships
+    //delete from streamrelationships
+    //delete from submajorrelationships
+    //delete from choiceblockrelationships
+    //delete from courserelationship   
+    //delete from requisiterelationship
+    //delete from courserelationship
+    //delete from majorrelationship
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END OF API CALLS
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AESTHETICS
 function populateCourseTypeDropdown() {
     var select = document.getElementById("courseType");
     var data = getCourseTypes();
-    for (var i = 0; i< data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
         var option = document.createElement("option");
         option.value = data[i].ID;
         option.text = data[i].Abbreviation;
@@ -521,19 +626,18 @@ function populateCourseTypeDropdown() {
 function populateSubjectTypeDropdown() {
     var select = document.getElementById("subjectTypeDropDown");
     var data = getSubjectTypes();
-    for (var i = 0; i<data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
         var option = document.createElement("option");
         option.value = data[i].ID;
         option.text = data[i].Abbreviation;
         select.add(option, null);
     }
 }
-
 window.onload = function () {
     populateSubjectTypeDropdown();
     populateCourseTypeDropdown();
+    document.getElementById("searchBar").focus();
 }
-
 function disableMenuBar(option) {
     if (option == true) {
         document.getElementById("btnCourse").disabled = true;
@@ -619,22 +723,39 @@ function clearFields() {
     document.getElementById("subjectAntiReqInput").style.display = "none";
     document.getElementById("subjectPreReqInput").style.display = "none";
 
-    subject ="";
-    stage ="";
-    subjectType ="";
+
+    document.getElementById("subjectAddInput").value = "";
+    document.getElementById("subjectTypeDropDown").selectedIndex = 0;
+    document.getElementById("subjectStageInput").value = "";
+
+    selectedCourse = "";
+    selectedMajor = "";
+
+    subject = "";
+    stage = "";
 
     handleEdit();
 }
-
-
-getAllCourses();
-getAllMajors();
-getAllSubMajors();
-getAllStreams();
-getAllChoiceBlocks();
-getAllSubjects();
-getCourseTypes();
-
+function refreshNavColours() {
+    document.getElementById("course").style.backgroundColor = "lightskyblue";
+    document.getElementById("subject").style.backgroundColor = "lightskyblue";
+    document.getElementById("stream").style.backgroundColor = "lightskyblue";
+    document.getElementById("submajor").style.backgroundColor = "lightskyblue";
+    document.getElementById("choiceblock").style.backgroundColor = "lightskyblue";
+    document.getElementById("major").style.backgroundColor = "lightskyblue";
+}
+function hide() {
+    document.getElementById('searchDiv').style.display = "none";
+    document.getElementById('addDiv').style.display = "none";
+    document.getElementById('addCourseFormDiv').style.display = "none";
+    document.getElementById('addSubjectFormDiv').style.display = "none";
+    document.getElementById('addStreamFormDiv').style.display = "none";
+    document.getElementById('addMajorFormDiv').style.display = "none";
+    //document.getElementById('subjectListDiv').style.display = "none";
+    document.getElementById('submitButtonDiv').style.display = "none";
+    document.getElementById('updateButtonDiv').style.display = "none";
+    document.getElementById('subjectAddDisable').style.display = "none";
+}
 function handleHover(id, itemID) {
     var data;
     var type = id.toString().substring(0, 3);
@@ -655,13 +776,13 @@ function handleHover(id, itemID) {
 
     for (var i = 0; i < data.length; i++) {
         if (data[i].ContentStream != null) {
-            content += data[i].ContentStream.ID + ", ";                   
+            content += data[i].ContentStream.ID + ", ";
         }
         if (data[i].ContentSubMajor != null) {
-            content += data[i].ContentSubMajor.ID + ", ";                
+            content += data[i].ContentSubMajor.ID + ", ";
         }
         if (data[i].ContentChoiceBlock != null) {
-            content += data[i].ContentChoiceBlock.ID + ", ";          
+            content += data[i].ContentChoiceBlock.ID + ", ";
         }
         if (data[i].ContentSubjectGrouping != null) {
             if (data[i].ContentSubjectGrouping.ID != id) {
@@ -683,7 +804,7 @@ function handleHover(id, itemID) {
             }
         }
         if (data[i].Subject != null) {
-            content += data[i].Subject.ID + ", ";   
+            content += data[i].Subject.ID + ", ";
         }
     }
     content = content.substring(0, content.length - 2);
@@ -693,43 +814,19 @@ function handleHover(id, itemID) {
     item.setAttribute("data-toggle", "popover");
     item.setAttribute("data-placement", "right");
 }
-function handleStreamSubjects(term) {
-    //need to create an API that allows the user to search from subjects, streams, choiceblocks and submajors --> display name and number for this dropdown
-    var data;// = new Array();
-    //var streams = getAllStreams();
-
-    data = getStreams(term);
-    //var choiceBlocks = getAllChoiceBlocks();
-    //var subMajors = getAllSubMajors();
-    //var subjects = getAllSubjects();
-
-    
-
-    $("#streamSubjectInput").autocomplete({
-        source: function (request, response) {
-            response($.map(data, function (value, key) {
-                return {
-                    label: value.Name,
-                    value: value.ID
-                }
-            }));
-        },
-        select: function (event, ui) {
-            document.getElementById("streamSubjectInput").value = "";
-            var subjectList = document.getElementById("streamSubjectList");
-            var a = document.createElement("a");
-            a.setAttribute('id', ui.item.value);
-            a.setAttribute('onClick', "removeFromList(this.id)");
-            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success');
-            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
-            subjectList.appendChild(a);
-            handleHover(ui.item.value, ui.item.value);   
-        }
-    });
-
+function disabledAddSubjectButton() {
+    if (document.getElementById("subjectAddInput").value != "" && document.getElementById("subjectStageInput").value != "") {
+        document.getElementById("btnTimetableAdd").disabled = false;
+    }
+    else {
+        document.getElementById("btnTimetableAdd").disabled = true;
+    }
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END AESTHETICS
 
-function handlePopulateSubjects(id) {
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////FUNCTIONS PUSHING AND REMOVING ITEMS FROM LIST
+function populateStmCbkSmjSubjects(id) {
     var data;
     if (selected == "submajor") {
         data = getSubMajorRelationship(id);
@@ -828,16 +925,7 @@ function handlePopulateSubjects(id) {
         }
     }
 }
-
-//Inner search bars that push buttons to list
-function removeFromList(id) {
-    var listElement = document.getElementById(id);
-    if ($("#" + id).hasClass("disabled")) { }
-    else {
-        listElement.remove();
-    }
-}
-function handlePreReq(term) {
+function handlePreRequisiteListPush(term) {
     var data = new Array();
     data = getSubjects(term);
 
@@ -859,11 +947,12 @@ function handlePreReq(term) {
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success ');
             a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
             subReq.appendChild(a);
+            document.getElementById("subjectPreReqInput").value = "";
         }
 
     });
 }
-function handleAntiReq(term) {
+function handleAntiRequisiteListPush(term) {
     var data = new Array();
     data = getSubjects(term);
 
@@ -885,8 +974,147 @@ function handleAntiReq(term) {
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-danger');
             a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
             subReq.appendChild(a);
+            document.getElementById("subjectAntiReqInput").value = "";
         }
 
+    });
+}
+function handleStmCbkSmjListPush(term) {
+    //need to create an API that allows the user to search from subjects, streams, choiceblocks and submajors --> display name and number for this dropdown
+    var data;// = new Array();
+    //var streams = getAllStreams();
+    data = getStreams(term);
+    //var choiceBlocks = getAllChoiceBlocks();
+    //var subMajors = getAllSubMajors();
+    //var subjects = getAllSubjects();
+
+    $("#streamSubjectInput").autocomplete({
+        source: function (request, response) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.Name,
+                    value: value.ID
+                }
+            }));
+        },
+        select: function (event, ui) {
+            var subjectList = document.getElementById("streamSubjectList");
+            var a = document.createElement("a");
+            a.setAttribute('id', ui.item.value);
+            a.setAttribute('onClick', "removeFromList(this.id)");
+            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success');
+            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
+            subjectList.appendChild(a);
+            handleHover(ui.item.value, ui.item.value);
+            document.getElementById("streamSubjectInput").value = "";
+            console.log(document.getElementById("streamSubjectInput").value);
+        }
+    });
+
+}
+function handleCourseMajorListPush(term) {
+    var data = new Array();
+    data = getCourses(term);
+
+    $("#courseMajorInput").autocomplete({
+        source: function (request, response) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.Name,
+                    value: value.ID
+                }
+            }));
+        },
+        select: function (event, ui) {
+            console.log(ui);
+            var a = document.createElement("a");
+            var courseMajorList = document.getElementById("courseMajorList");
+            a.setAttribute('id', ui.item.value);
+            a.setAttribute('onClick', "removeFromList(this.id)");
+            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success');
+            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
+            courseMajorList.appendChild(a);
+        }
+    });
+}
+function removeFromList(id) {
+    var listElement = document.getElementById(id);
+    if ($("#" + id).hasClass("disabled")) { }
+    else {
+        listElement.remove();
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END FUNCTIONS PUSHING AND REMOVING ITEMS FROM LIST
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////HANDLES INPUT EVENTS
+function handleSearch(term) {
+    var data = new Array();
+    if (selected == "course") {
+        data = getCourses(term);
+    }
+    else if (selected == "major") {
+        data = getMajors(term)
+    }
+    else if (selected == "submajor") {
+        data = getSubMajors(term);
+    }
+    else if (selected == "choiceblock") {
+        data = getChoiceBlocks(term);
+    }
+    else if (selected == "stream") {
+        data = getStreams(term);
+    }
+    else if (selected == "subject") {
+        data = getSubjects(term);
+    }
+    $("#searchBar").autocomplete({
+        source: function (request, response) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.Name,
+                    value: value.ID
+                }
+            }));
+        },
+        select: function (event, ui) {
+            disableMenuBar(true);
+            document.getElementById("addDiv").style.display = "none";
+            document.getElementById('searchDiv').style.display = "none";
+            document.getElementById("btnSave").disabled = true;
+            document.getElementById("btnDelete").disabled = true;
+            document.getElementById('updateButtonDiv').style.display = "block";
+            if (selected == "course") {
+                selectedData = getCourse(ui.item.value);
+                handleViewEditCourse(selectedData);
+                console.log(selectedData);
+            }
+            else if (selected == "major") {
+                selectedData = getMajor(ui.item.value);
+                handleViewEditMajor(selectedData);
+                console.log(selectedData);
+            }
+            else if (selected == "submajor" || selected == "stream" || selected == "choiceblock") {
+                if (selected == "submajor") {
+                    selectedData = getSubMajor(ui.item.value);
+                    console.log(selectedData);
+                }
+                else if (selected == "stream") {
+                    selectedData = getStream(ui.item.value);
+                    console.log(selectedData);
+                }
+                else if (selected == "choiceblock") {
+                    selectedData = getChoiceBlock(ui.item.value);
+                    console.log(selectedData);
+                }
+                handleViewEditStreamSubChoice(selectedData);
+            }
+            else if (selected == "subject") {
+                selectedData = getSubject(ui.item.value);
+                handleViewEditSubject(selectedData);
+                console.log(selectedData);
+            }
+        }
     });
 }
 function handleSubjectInput(term) {
@@ -915,51 +1143,10 @@ function handleSubjectStageInput(term) {
     stage = term;
     disabledAddSubjectButton();
 }
-
-function disabledAddSubjectButton() {
-    if (document.getElementById("subjectAddInput").value != "" && document.getElementById("subjectStageInput").value != "") {
-        document.getElementById("btnTimetableAdd").disabled = false;
-    }
-    else {
-        document.getElementById("btnTimetableAdd").disabled = true;
-    }
-}
-
-function handleCourseMajor(term) {
-    var data = new Array();
-    data = getCourses(term);
-
-    $("#courseMajorInput").autocomplete({
-        source: function (request, response) {
-            response($.map(data, function (value, key) {
-                return {
-                    label: value.Name,
-                    value: value.ID
-                }
-            }));
-        },
-        select: function (event, ui) {
-            console.log(ui);
-            var a = document.createElement("a");
-            var courseMajorList = document.getElementById("courseMajorList");
-            a.setAttribute('id', ui.item.value);
-            a.setAttribute('onClick', "removeFromList(this.id)");
-            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success');
-            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
-            courseMajorList.appendChild(a);
-        }
-    });
-}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END HANDLES INPUT EVENTS
 
 
-
-
-
-
-
-
-
-//functions to handle viewing and editing of objects
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////FUNCTIONS TO EDIT/VIEW OBJECTS
 function handleViewEditCourse(data) {
     document.getElementById("courseName").value = data.Name;
     document.getElementById("courseId").value = data.ID;
@@ -982,7 +1169,6 @@ function handleViewEditCourse(data) {
     }
     if (data.HasTemplate == true) {
         document.getElementById("includeCourseTemplate").checked = true;
-        handleViewEditTimetable(data);
     }
 
     document.getElementById("courseName").readOnly = true;
@@ -1009,7 +1195,7 @@ function handleViewEditMajor(data) {
     document.getElementById("majorId").value = data.ID;
     document.getElementById("majorAbb").value = data.Abbreviation;
     document.getElementById("majorVersion").value = data.Version;
-    document.getElementById("majorStages").value = data.Stage;
+    document.getElementById("majorStages").value = data.Stages;
     document.getElementById("majorCredit").value = data.CreditPoints;
     document.getElementById("majorVersionDescription").value = data.VersionDescription;
     document.getElementById("majorDescription").value = data.MajorDescription;
@@ -1021,7 +1207,6 @@ function handleViewEditMajor(data) {
     }
     if (data.HasTemplate == true) {
         document.getElementById("includeMajorTemplate").checked = true;
-        handleViewEditTimetable(data);
     }
     for (var i = 0; i < courses.length; i++) {
         var a = document.createElement("a");
@@ -1087,7 +1272,7 @@ function handleViewEditStreamSubChoice(data) {
     document.getElementById("streamStatusActive").disabled = true;
     document.getElementById("streamStatusInActive").disabled = true;
     document.getElementById("streamSubjectInput").style.display = "none";
-    handlePopulateSubjects(data.ID);
+    populateStmCbkSmjSubjects(data.ID);
 
     document.getElementById('addStreamFormDiv').style.display = "block";
 }
@@ -1150,102 +1335,10 @@ function handleViewEditSubject(data) {
 
     document.getElementById('addSubjectFormDiv').style.display = "block";
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END FUNCTIONS TO EDIT/VIEW OBJECTS
 
 
-
-
-function handleSearch(term) {
-    var data = new Array();
-    if (selected == "course") {
-        data = getCourses(term);
-    }
-    else if (selected == "major") {
-        data = getMajors(term)
-    }
-    else if (selected == "submajor") {
-        data = getSubMajors(term);
-    }
-    else if (selected == "choiceblock") {
-        data = getChoiceBlocks(term);
-    }
-    else if (selected == "stream") {
-        data = getStreams(term);
-    }
-    else if (selected == "subject") {
-        data = getSubjects(term);
-    }
-    $("#searchBar").autocomplete({
-        source: function (request, response) {
-            response($.map(data, function (value, key) {
-                return {
-                    label: value.Name,
-                    value: value.ID
-                }
-            }));
-        },
-        select: function (event, ui) {
-            disableMenuBar(true);
-            document.getElementById("addDiv").style.display = "none";
-            document.getElementById('searchDiv').style.display = "none";
-            document.getElementById("btnSave").disabled = true;
-            document.getElementById("btnDelete").disabled = true;
-            document.getElementById('updateButtonDiv').style.display = "block";
-            if (selected == "course") {
-                var data = getCourse(ui.item.value);
-                handleViewEditCourse(data);
-            }
-            else if (selected == "major") {
-                var data = getMajor(ui.item.value);
-                handleViewEditMajor(data);
-            }
-            else if (selected == "submajor" || selected == "stream" || selected == "choiceblock") {
-                var data;
-                if (selected == "submajor") {
-                    data = getSubMajor(ui.item.value);
-                }
-                else if (selected == "stream") {
-                    data = getStream(ui.item.value);
-                }
-                else if (selected == "choiceblock") {
-                    data = getChoiceBlock(ui.item.value);
-                }
-                handleViewEditStreamSubChoice(data);
-            }
-            else if (selected == "subject") {
-                var data = getSubject(ui.item.value);
-                handleViewEditSubject(data);
-            }
-        }
-    });
-}
-
-
-
-function refreshNavColours() {
-    document.getElementById("course").style.backgroundColor = "lightskyblue";
-    document.getElementById("subject").style.backgroundColor = "lightskyblue";
-    document.getElementById("stream").style.backgroundColor = "lightskyblue";
-    document.getElementById("submajor").style.backgroundColor = "lightskyblue";
-    document.getElementById("choiceblock").style.backgroundColor = "lightskyblue";
-    document.getElementById("major").style.backgroundColor = "lightskyblue";
-}
-
-function hide() {
-    document.getElementById('searchDiv').style.display = "none";
-    document.getElementById('addDiv').style.display = "none";
-    document.getElementById('addCourseFormDiv').style.display = "none";
-    document.getElementById('addSubjectFormDiv').style.display = "none";
-    document.getElementById('addStreamFormDiv').style.display = "none";
-    document.getElementById('addMajorFormDiv').style.display = "none";
-    document.getElementById('addCourseSubjectsFormDiv').style.display = "none";
-    //document.getElementById('subjectListDiv').style.display = "none";
-    document.getElementById('submitButtonDiv').style.display = "none";
-    document.getElementById('updateButtonDiv').style.display = "none";
-}
-
-
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////TAB BUTTON FUNCTIONS
 //Displays the course form
 function handleCourse() {
     selected = "course";
@@ -1259,8 +1352,8 @@ function handleCourse() {
         document.getElementById('submitButtonDiv').style.display = "block";
         //document.getElementById('nextButtonDiv').style.display = "block";
     }
+    document.getElementById("searchBar").focus();
 }
-
 //displays the major form
 function handleMajor() {
     selected = "major";
@@ -1274,8 +1367,8 @@ function handleMajor() {
         document.getElementById('submitButtonDiv').style.display = "block";
         //document.getElementById('backButtonDiv').style.display = "block";
     }
+    document.getElementById("searchBar").focus();
 }
-
 //displays the stream form
 function handleStream() {
     selected = "stream";
@@ -1295,8 +1388,8 @@ function handleStream() {
         document.getElementById('submitButtonDiv').style.display = "block";
         //document.getElementById('backButtonDiv').style.display = "block";
     }
+    document.getElementById("searchBar").focus();
 }
-
 function handleSubMajor() {
     selected = "submajor";
     document.getElementById('searchBar').value = "";
@@ -1315,8 +1408,8 @@ function handleSubMajor() {
         document.getElementById('submitButtonDiv').style.display = "block";
         //document.getElementById('backButtonDiv').style.display = "block";
     }
+    document.getElementById("searchBar").focus();
 }
-
 function handleChoiceBlock() {
     selected = "choiceblock";
     document.getElementById('searchBar').value = "";
@@ -1335,8 +1428,8 @@ function handleChoiceBlock() {
         document.getElementById('submitButtonDiv').style.display = "block";
         //document.getElementById('backButtonDiv').style.display = "block";
     }
+    document.getElementById("searchBar").focus();
 }
-
 //displays the subject form
 function handleSubject() {
     selected = "subject";
@@ -1349,27 +1442,12 @@ function handleSubject() {
         document.getElementById('addSubjectFormDiv').style.display = "block";
         document.getElementById('submitButtonDiv').style.display = "block";
     }
+    document.getElementById("searchBar").focus();
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END TAB BUTTON FUNCTIONS
 
 
-
-
-
-
-
-
-
-
-//displays the page where the user can add particular subjects to courses in the correct stages and types etc
-function handleCourseSubjects() {
-    refreshNavColours();
-    hide();
-    document.getElementById('addCourseSubjectsFormDiv').style.display = "block";
-    document.getElementById('submitButtonDiv').style.display = "block";
-    document.getElementById("subject").style.backgroundColor = selectedBlue;
-}
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////All BUTTONS
 //this handles the adding to the form
 function handleAdd() {
     addVisible = true;
@@ -1398,7 +1476,6 @@ function handleAdd() {
         handleSubject();
     }
 }
-
 //this controls the cancel button, and clears everything back to default
 function handleCancel() {
     disableMenuBar(false);
@@ -1412,7 +1489,7 @@ function handleCancel() {
     clearTimetable();
     refreshNavColours();
     hide();
-    
+
 
     document.getElementById("includeMajor").checked = false;
     document.getElementById("includeCourseTemplate").checked = false;
@@ -1424,14 +1501,14 @@ function handleCancel() {
     document.getElementById('addDiv').style.display = "block";
     document.getElementById('updateButtonDiv').style.display = "none";
     document.getElementById('submitButtonDiv').style.display = "none";
-
+    document.getElementById("searchBar").focus();
 }
-
 //this controls the save button, and updates the changes to the database
 function handleSave() { }
-
 //this controls the edit button, and allows the user to make edits to the object
 function handleEdit() {
+    templateCheck();
+
     var preList = document.getElementById("subjectPreReq");
     var preItems = preList.getElementsByTagName("a");
     for (var i = 0; i < preItems.length; i++) {
@@ -1468,7 +1545,9 @@ function handleEdit() {
     document.getElementById("courseDescription").readOnly = false;
     document.getElementById("courseStatusActive").disabled = false;
     document.getElementById("courseStatusInActive").disabled = false;
-    document.getElementById("includeCourseTemplate").disabled = false;
+    if (document.getElementById("courseStages").value != "") {
+        document.getElementById("includeCourseTemplate").disabled = false;
+    }
     document.getElementById("includeMajor").disabled = false;
 
     document.getElementById("majorName").readOnly = false;
@@ -1481,7 +1560,9 @@ function handleEdit() {
     document.getElementById("majorDescription").readOnly = false;
     document.getElementById("majorStatusActive").disabled = false;
     document.getElementById("majorStatusInActive").disabled = false;
-    document.getElementById("includeMajorTemplate").disabled = false;
+    if (document.getElementById("majorStages").value != "") {
+        document.getElementById("includeMajorTemplate").disabled = false;
+    }
 
     document.getElementById("streamName").readOnly = false;
     document.getElementById("streamId").readOnly = false;
@@ -1511,40 +1592,93 @@ function handleEdit() {
     document.getElementById("streamSubjectInput").style.display = "block";
 
 }
-
 //this controls the submit button which sends the data via and ajax call to the database
 function handleSubmit() { }
-
 //this controls the update button which updates a particular item that already exists within the database
 function handleUpdate() { }
-
 //This deletes an item from the database ie subject, course etc 
-function handleDelete() { }
+function handleDelete() {
+    selectedData.ID
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END ALL BUTTONS
 
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////All TEMPLATE FUNCTIONS
 function clearTimetable() {
     var headerRow = document.getElementById("headerRow");
     headerRow.innerHTML = "";
 }
-
-
-function handleSubjectTimetableAdd() {
-    //subject;
-    //stage;
-    var e = document.getElementById("subjectTypeDropDown");
-    var subjectType = e.options[e.selectedIndex].text;
+function checkYearValue(value) {
+    if (value != "") {
+        document.getElementById("includeCourseTemplate").disabled = false;
+        document.getElementById("includeMajorTemplate").disabled = false;
+        var year = +document.getElementById("courseYears").value;
+        document.getElementById("courseStages").value = year * 2;
+    }
+    else {
+        document.getElementById("includeCourseTemplate").disabled = true;
+        document.getElementById("includeMajorTemplate").disabled = true;
+    }
 }
-
-
-
-//timetable functionality
-//"<div class='col-sm'><u><h4>Stage<br />One</h4></u><br /><div id='stageOne'></div></div>"
-function handleViewEditTimetable(object) {
-    var stages = object.Stages;
-    var timetable = document.getElementById("timetable");
+function checkStageValue(value) {
+    if (value != "") {
+        console.log("enabled");
+        document.getElementById("includeCourseTemplate").disabled = false;
+        document.getElementById("includeMajorTemplate").disabled = false;
+        var stage = +document.getElementById("courseStages").value;
+        document.getElementById("courseYears").value = stage / 2;
+    }
+    else {
+        console.log("disabled");
+        document.getElementById("includeCourseTemplate").disabled = true;
+        document.getElementById("includeMajorTemplate").disabled = true;
+    }
+}
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector("#includeCourseTemplate").addEventListener('change', templateCheck);
+    document.querySelector("#includeMajorTemplate").addEventListener('change', templateCheck);
+});
+function templateCheck() {
     var headerRow = document.getElementById("headerRow");
+    if (includeCourseTemplate.checked || includeMajorTemplate.checked) {
+
+        if (selectedData.HasTemplate == true) {
+            buildTimetableStructure(selectedData.Stages);
+            populateExistingTimetable();
+        }
+        else {
+            var stages;
+            if (selected == "course") {
+                stages = +document.getElementById("courseStages").value;
+            }
+            else if (selected == "major") {
+                stages = +document.getElementById("majorStages").value;//Make the add template checkbox disabled unless this is entered
+            }
+            buildTimetableStructure(stages);
+        }
+        document.getElementById("courseStages").disabled = true;
+        document.getElementById("majorStages").disabled = true;
+        document.getElementById("courseYears").disabled = true;
+        document.getElementById("subjectAddDisable").style.display = "block";
+    }
+    else {
+        headerRow.innerHTML = "";
+        document.getElementById("subjectAddDisable").style.display = "none";
+        document.getElementById("courseStages").disabled = false;
+        document.getElementById("courseYears").disabled = false;
+        document.getElementById("majorStages").disabled = false;
+    }
+}
+function buildTimetableStructure(stages) {
+    var headerRow = document.getElementById("headerRow");
+    for (var i = 1; i < stages + 1; i++) {
+        headerRow.innerHTML += "<div class='col-sm'><u><h4><center>Stage " + i + "</center></h4></u><br /><div id=" + i + "></div></div>";
+    }
+}
+function populateExistingTimetable() {
+    var stages = selectedData.Stages;
     var column;
+    var items;
 
     var subject0Count = 0;
     var subject1Count = 0;
@@ -1555,20 +1689,15 @@ function handleViewEditTimetable(object) {
     var SMJCount = 0;
     var groupCount = 0;
 
-    if (object.ID.substring(0, 3) == "MAJ") {
-        var items = getMajorRelationship(object.ID);
-        }
+    if (selectedData.ID.substring(0, 3) == "MAJ") {
+        items = getMajorRelationship(selectedData.ID);
+    }
     else {
-        var items = getCourseRelationship(object.ID);
+        items = getCourseRelationship(selectedData.ID);
     }
 
-    
     console.log(items);
 
-    //add headers
-    for (var i = 1; i < stages + 1; i++) {
-        headerRow.innerHTML += "<div class='col-sm'><u><h4><center>Stage "+i+"</center></h4></u><br /><div id="+i+"></div></div>";
-    }
     //add body
     for (var i = 1; i < stages + 1; i++) {
         column = document.getElementById(i);
@@ -1585,50 +1714,50 @@ function handleViewEditTimetable(object) {
                     name = items[x].Streams.Name;
                     id = items[x].Streams.ID;
                     credit = items[x].Streams.CreditPoints;
-                    type = items[x].SubjectType.Abbreviation;                  
+                    type = items[x].SubjectType.Abbreviation;
                 }
                 else if (items[x].ChoiceBlock != null) {
                     name = items[x].ChoiceBlock.Name;
                     id = items[x].ChoiceBlock.ID;
                     credit = items[x].ChoiceBlock.CreditPoints;
-                    type = items[x].SubjectType.Abbreviation;  
+                    type = items[x].SubjectType.Abbreviation;
                 }
                 else if (items[x].SubMajor != null) {
                     name = items[x].SubMajor.Name;
                     id = items[x].SubMajor.ID;
                     credit = items[x].SubMajor.CreditPoints;
-                    type = items[x].SubjectType.Abbreviation; 
+                    type = items[x].SubjectType.Abbreviation;
                 }
                 else if (items[x].Subject != null) {
                     name = items[x].Subject.Name;
                     id = items[x].Subject.ID;
                     credit = items[x].Subject.CreditPoints;
-                    type = items[x].SubjectType.Abbreviation; 
+                    type = items[x].SubjectType.Abbreviation;
                 }
                 else if (items[x].SubjectGrouping != null) {
                     name = "Choice";
                     id = items[x].SubjectGrouping.ID;
                     credit = 6;
-                    type = items[x].SubjectType.Abbreviation;              
+                    type = items[x].SubjectType.Abbreviation;
                 }
-                
+
                 if (type == "COR") {
-                    colour = "lightsalmon";
+                    colour = cor;
                 }
                 else if (type == "PP") {
-                    colour = "lightpink";
+                    colour = pp;
                 }
                 else if (type == "MAJ") {
-                    colour = "lightgreen";
+                    colour = maj;
                 }
                 else if (type == "ELE") {
-                    colour = "lightcyan";
+                    colour = ele;
                 }
                 else if (type == "CDS") {
-                    colour = "lightsteelblue";
+                    colour = cds;
                 }
                 else if (type == "MELE") {
-                    colour = "lightcoral";
+                    colour = mele;
                 }
 
 
@@ -1690,109 +1819,80 @@ function handleViewEditTimetable(object) {
                 var string = "<div id='item" + id + "' onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + number + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
                 column.innerHTML += string;
 
-
                 if (id.toString().substring(0, 3) == "CBK" || id.toString().substring(0, 3) == "SMJ" || id.toString().substring(0, 3) == "STM" || name == "Choice") {
-                    handleHover(number, "item"+id);
+                    handleHover(number, "item" + id);
                 }
 
-                $("#item"+id).attr("disabled", "disabled").off("click");
+                $("#item" + id).attr("disabled", "disabled").off("click");
 
-                
+
             }
         }
-       
+
     }
 }
+function addToTimetable() {
+    //They also should be able to choose from stream, choiceblock and submajors here as well as subjects
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//This is the button the user hits to add a subject and the associated information to the list of subjects for the course
-function handleSubjectAdd() {
-    //These need to change to become the name of the item that was typed in and autocompleted from the database.
-    var name = "Software";
-    var number = "1111"; // document.getElementById('number').value;
-    var credit = "6";
-
-    var div;
+    var column;
+    var name = subject.Name;
+    var id = subject.ID;
+    var e = document.getElementById("subjectTypeDropDown");
+    var type = e.options[e.selectedIndex].text;
     var colour;
+    var credit = subject.CreditPoints;
 
-    var stage = document.getElementById("subjectStage").value;
-    var type = document.getElementById("subjectType").value;
-
-    if (stage == 1) {
-        div = document.getElementById("stageOne");
+    var stages;
+    if (selected == "course") {
+        stages = +document.getElementById("courseStages").value;
     }
-    else if (stage == 2) {
-        div = document.getElementById("stageTwo");
-    }
-    else if (stage == 3) {
-        div = document.getElementById("stageThree");
-    }
-    else if (stage == 4) {
-        div = document.getElementById("stageFour");
-    }
-    else if (stage == 5) {
-        div = document.getElementById("stageFive");
-    }
-    else if (stage == 6) {
-        div = document.getElementById("stageSix");
-    }
-    else if (stage == 7) {
-        div = document.getElementById("stageSeven");
-    }
-    else if (stage == 8) {
-        div = document.getElementById("stageEight");
-    }
-    else if (stage == 9) {
-        div = document.getElementById("stageNine");
-    }
-    else if (stage == 10) {
-        div = document.getElementById("stageTen");
+    else if (selected == "major") {
+        stages = +document.getElementById("majorStages").value;//Make the add template checkbox disabled unless this is entered
     }
 
-
-    //This should become a dropdown later on
-    if (type == "MAJ") {
-        colour = "lightsalmon";
-    }
-    else if (type == "ELE") {
-        colour = "lightpink";
-    }
-    else if (type == "CDS") {
-        colour = "lightgreen";
-    }
-    else if (type == "MELE") {
-        colour = "lightcyan";
-    }
-    else if (type == "COR") {
-        colour = "lightsteelblue";
+    if (type == "COR") {
+        colour = cor;
     }
     else if (type == "PP") {
-        colour = "lightcoral";
+        colour = pp;
+    }
+    else if (type == "MAJ") {
+        colour = maj;
+    }
+    else if (type == "ELE") {
+        colour = ele;
+    }
+    else if (type == "CDS") {
+        colour = cds;
+    }
+    else if (type == "MELE") {
+        colour = mele;
     }
 
-    var string = "<div id='" + number + "'><div class='row' style='border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + number + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><button type='button' style='background-color: red; color: white' class='btn btn-sm' onclick='removeSubject(" + number + ");'><span class='glyphicon glyphicon-minus'></span></button></div></div></div>"
-    div.innerHTML += string;
+    console.log(name);
+    console.log(id);
+    console.log(type);
+    console.log(credit);
+    console.log(colour);
+    console.log(stages);
 
-    document.getElementById("subjectStage").value = "";
-    document.getElementById("subjectType").value = "";
-    document.getElementById("subjectTitle").value = "";
-    document.getElementById("subjectNumber").value = "";
+    for (var i = 1; i < stages + 1; i++) {
+        if (stage == i) {
+            column = document.getElementById(i);
+            var string = "<div id='item" + id + "' onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
+            column.innerHTML += string;
+            if (id.toString().substring(0, 3) == "CBK" || id.toString().substring(0, 3) == "SMJ" || id.toString().substring(0, 3) == "STM" || name == "Choice") {
+                handleHover(number, "item" + id);
+            }
+            $("#item" + id).attr("disabled", "disabled").off("click");
+        }
+    }
+    document.getElementById("subjectAddInput").value = "";
+    document.getElementById("subjectTypeDropDown").selectedIndex = 0;
+    document.getElementById("subjectStageInput").value = "";
 }
-
 //This removes a subject from the timetable grid
 function removeSubject(number) {
     document.getElementById(number).remove();
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////All TEMPLATE FUNCTIONS

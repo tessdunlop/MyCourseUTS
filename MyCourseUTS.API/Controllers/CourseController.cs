@@ -45,7 +45,7 @@ namespace MyCourseUTS.API.Controllers
             var context = new MyCourseDBEntities();
             var query = from c in context.Courses.Include("CourseTypes")
                         where c.ID.Equals(courseID)
-                       select c;
+                        select c;
             course = EntityMappingManager.MapCourseContent(query.FirstOrDefault());
             return course;
         }
@@ -54,14 +54,14 @@ namespace MyCourseUTS.API.Controllers
         //http://mycourseuts.azurewebsites.net/services/api/course/getcourses?value=bsc
         public List<Course> GetCourses(string value)
         {
-            List <Courses> courses;
+            List<Courses> courses;
             var context = new MyCourseDBEntities();
             var query = from c in context.Courses.Include("CourseTypes")
                         where ((c.ID.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
                         || ((c.Name.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
                         || ((c.Abbreviation.Contains(value) && value != "") || (String.IsNullOrEmpty(value)))
                         select c;
-            courses = query.ToList();                
+            courses = query.ToList();
             List<Course> listOfCourses = new List<Course>();
             foreach (var c in courses)
             {
@@ -107,30 +107,72 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourses;
         }
 
-        //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        //public void PostCourse(Course course)
-        //{
-        //    using (var scope = new TransactionScope())
-        //    {
-        //        using (var context = new MyCourseDBEntities())
-        //        {
-        //                Courses newRow = new Courses();
-        //                newRow.ID = course.ID;
-        //                newRow.Name = course.Name;
-        //                newRow.Abbreviation = course.Abbreviation;
-        //                newRow.Active = course.Active;
-        //                newRow.Years = course.Years;
-        //                newRow.Stages = course.Stages;
-        //                newRow.Version = course.Version;
-        //                newRow.VersionDescription = course.VersionDescription;
-        //                newRow.CreditPoints = course.CreditPoints;
-        //                newRow.CourseTypes.ID = course.CourseType.ID;
-        //                context.Courses.Add(newRow);
-        //                context.SaveChanges();
-        //        }
-        //        scope.Complete();
-        //    }
-        //}
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void PostCourse(Course course)
+        {
+            using (var scope = new TransactionScope())
+            {
+                using (var context = new MyCourseDBEntities())
+                {
+                    Courses newRow = new Courses();
+                    newRow.ID = course.ID;
+                    newRow.Name = course.Name;
+                    newRow.Abbreviation = course.Abbreviation;
+                    newRow.Active = course.Active;
+                    newRow.Years = course.Years;
+                    newRow.Stages = course.Stages;
+                    newRow.Version = course.Version;
+                    newRow.VersionDescription = course.VersionDescription;
+                    newRow.CreditPoints = course.CreditPoints;
+                    newRow.CourseTypes.ID = course.CourseType.ID;
+                    newRow.CourseDescription = course.CourseDescription;
+                    newRow.HasMajor = course.HasMajor;
+                    newRow.HasTemplate = course.HasTemplate;
+                    context.Courses.Add(newRow);
+                    context.SaveChanges();
+                }
+                scope.Complete();
+            }
+        }
+
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void PostCourseRelationship(string courseID, List<CourseRelationship> relationships)
+        {
+            List<DataModel.CourseRelationships> course;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.CourseRelationships.Include("Courses.CourseTypes").Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupings")
+                        where c.Courses.ID.Equals(courseID)
+                        select c;
+            course = query.ToList();
+
+            if (course.Count != 0)//then we need to delete all the relationships first before we add new ones
+            {
+                foreach (var row in course)
+                {
+                    context.CourseRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+            using (var scope = new TransactionScope())
+            {
+                foreach (var rel in relationships)
+                {
+                    CourseRelationships newRow = new CourseRelationships();
+                    newRow.CourseID = rel.Course.ID;
+                    newRow.SubjectID = rel.Subject.ID;
+                    newRow.ChoiceBlockID = rel.ChoiceBlock.ID;
+                    newRow.GroupID = rel.SubjectGrouping.ID;
+                    newRow.SubjectTypeID = rel.SubjectType.ID;
+                    newRow.StreamID = rel.Stream.ID;
+                    newRow.Stage = rel.Stage;
+                    newRow.Year = rel.Year;
+                    context.CourseRelationships.Add(newRow);
+                    context.SaveChanges();
+                }
+                scope.Complete();
+            }
+        }
+
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteCourse(Course course)
@@ -163,3 +205,4 @@ namespace MyCourseUTS.API.Controllers
         }
     }
 }
+

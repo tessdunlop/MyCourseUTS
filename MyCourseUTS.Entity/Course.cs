@@ -15,7 +15,7 @@ namespace MyCourseUTS.Entity
         public string VersionDescription { get; set; }
         public int CreditPoints { get; set; }
         public string Abbreviation { get; set; }
-        public double Years { get; set; }
+        public int Years { get; set; }
         public int Stages { get; set; }
         public CourseTypes CourseType { get; set; }
         public string CourseDescription { get; set; }

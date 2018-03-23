@@ -15,10 +15,12 @@
                         Course
                    
                    
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="major">
                         <input type="radio" name="major" id="btnMajor" onclick="handleMajor();" />
                         Major
+                   
                    
                    
                     </label>
@@ -27,10 +29,12 @@
                         Sub-Major
                    
                    
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="stream">
                         <input type="radio" name="stream" id="btnStream" onclick="handleStream();" />
                         Stream
+                   
                    
                    
                     </label>
@@ -39,10 +43,12 @@
                         Choice Block
                    
                    
+                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="subject">
                         <input type="radio" name="subject" id="btnSubject" onclick="handleSubject();" />
                         Subject
+                   
                    
                    
                     </label>
@@ -50,28 +56,22 @@
                 </div>
             </div>
             <div class="col-md" style="text-align: right">
-                <h1 style="text-shadow: 1px 1px 1px #2478fc; color: lightskyblue; font-size: 50px">MyCourse</h1>
+                <h1 style="text-shadow: 1px 1px 1px #2478fc; color: lightskyblue; font-size: 50px">UTS:my<b>Course</b></h1>
             </div>
         </div>
         <br />
         <br />
 
 
-        <div class="row" id="addDiv">
-            <div class="col-md" style="text-align: right">
+
+        <div class="row">
+            <div class="col-sm-11" id="searchDiv" style="width: 100%; padding-top: 12px">
+                <input id="searchBar" name="searchBar" type="text" class="form-control typeahead" placeholder="Search Courses" oninput="handleSearch(this.value);" />
+            </div>
+            <div class="col-sm-1" style="text-align: right; width: 20%; padding-bottom: 12px" id="addDiv">
                 <button id="btnAdd" type="button" class="btn btn-lg" onclick="handleAdd();" style="background-color: lightskyblue; color: #2478fc"><span class="glyphicon glyphicon-plus"></span></button>
             </div>
         </div>
-        <br />
-
-        <div class="row" id="searchDiv">
-            <div class="col-md">
-                <input id="searchBar" name="searchBar" type="text" class="form-control typeahead" placeholder="Search Courses" oninput="handleSearch(this.value);" />
-            </div>
-        </div>
-        <br />
-        <br />
-
 
         <div class="row">
             <div class="col-md">
@@ -130,12 +130,12 @@
                 <br />
                 <br />
             </div>
-            <div class="row">
+            <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
                     <p><b>Number of Years</b></p>
                 </div>
                 <div class="col-sm">
-                    <input type="number" id="courseYears" class="form-control" style="width: 60%;" />
+                    <input type="number" id="courseYears" class="form-control" style="width: 60%;" oninput="checkYearValue(this.value);" />
                 </div>
                 <br />
                 <br />
@@ -145,7 +145,7 @@
                     <p><b>Number of Stages</b></p>
                 </div>
                 <div class="col-sm">
-                    <input type="number" id="courseStages" class="form-control" style="width: 60%;" />
+                    <input type="number" id="courseStages" class="form-control" style="width: 60%;" oninput="checkStageValue(this.value);" />
                 </div>
                 <br />
                 <br />
@@ -244,7 +244,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="list-group" id="courseMajorList" style="width: 60%;"></div>
-                    <input id="courseMajorInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Courses this Major belongs to" oninput="handleCourseMajor(this.value);" style="width: 60%;" />
+                    <input id="courseMajorInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Courses this Major belongs to" oninput="handleCourseMajorListPush(this.value);" style="width: 60%;" />
                 </div>
             </div>
             <div class="row">
@@ -267,12 +267,12 @@
                 <br />
                 <br />
             </div>
-            <div class="row">
+            <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
                     <p><b>Number of Stages</b></p>
                 </div>
                 <div class="col-sm">
-                    <input type="number" id="majorStages" class="form-control" style="width: 60%;" />
+                    <input type="number" id="majorStages" class="form-control" style="width: 60%;" oninput="checkStageValue(this.value);" />
                 </div>
                 <br />
                 <br />
@@ -398,7 +398,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="list-group" id="streamSubjectList" style="width: 60%;"></div>
-                    <input id="streamSubjectInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add subjects, streams, choice blocks or sub-majors" oninput="handleStreamSubjects(this.value);" style="width: 60%;" />
+                    <input id="streamSubjectInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add subjects, streams, choice blocks or sub-majors" oninput="handleStmCbkSmjListPush(this.value);" style="width: 60%;" />
                 </div>
             </div>
             <div class="row">
@@ -411,7 +411,7 @@
                 <br />
                 <br />
             </div>
-            <div class="row">
+            <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
                     <p><b>Credit Points</b></p>
                 </div>
@@ -498,7 +498,7 @@
                 <br />
                 <br />
             </div>
-            <div class="row">
+            <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
                     <p><b>Credit Points</b></p>
                 </div>
@@ -545,8 +545,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="list-group" id="subjectPreReq" style="width: 60%;"></div>
-                    <%--<input type="text" id="subjectPreReqInput" class="form-control" style="width: 60%;" />--%>
-                    <input id="subjectPreReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Pre-Requisites" oninput="handlePreReq(this.value);" style="width: 60%;" />
+                    <input id="subjectPreReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Pre-Requisites" oninput="handlePreRequisiteListPush(this.value);" style="width: 60%;" />
                 </div>
             </div>
             <div class="row">
@@ -555,8 +554,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="list-group" id="subjectAntiReq" style="width: 60%;"></div>
-                    <%--<input type="text" id="subjectAntiReqInput" class="form-control" style="width: 60%;" />--%>
-                    <input id="subjectAntiReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Anti-Requisites" oninput="handleAntiReq(this.value);" style="width: 60%;" />
+                    <input id="subjectAntiReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Anti-Requisites" oninput="handleAntiRequisiteListPush(this.value);" style="width: 60%;" />
                 </div>
             </div>
         </div>
@@ -564,97 +562,55 @@
 
 
 
-        <div id="addCourseSubjectsFormDiv" style="display: none">
 
-            <%--            <div class="row">
-                <div class="col-lg-11" style="text-align: center; padding-left: 20%;">
-                    <input id="subjectBar" name="subjectBar" type="text" class="form-control" placeholder="Add Subjects" />
-                </div>
-                <div class="col-sm-1" style="text-align: left; padding-left: 20px;">
-                    <button id="btnAddSubject" type="button" class="btn btn-lg" onclick="handleSubjectAdd();" style="background-color: lightskyblue; color: #2478fc"><span class="glyphicon glyphicon-plus"></span></button>
-                </div>
-            </div>--%>
-            <div class="row">
-                <div class="col-lg" style="text-align: center;">
-                    <input id="subjectBar" name="subjectBar" type="text" class="form-control" placeholder="Add Subjects" />
-                </div>
-            </div>
-            <br />
-            <br />
 
-            <div id="selectedSubjectDiv">
-                <%--<div id="selectedSubjectDiv" style="display: none">--%>
+        <div id="timetable" style="text-align: center;">
+
+            <div id="subjectAddDisable" style="display: none">
+                <hr />
+                <h1 style="text-align: center; color: #2478fc">Template Designer</h1><hr /><br />
                 <div class="row">
-                    <div class="col-lg">
-                        <h4 id="subjectTitle" style="text-align: center"></h4>
+                    <div class="col" style="text-align: right; padding-top: 12px">
+                        <p><b>Subject or Group</b></p>
                     </div>
+                    <div class="col" style="padding-top: 12px">
+                        <input id="subjectAddInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Subject, CBK, SMJ or STM" oninput="handleSubjectInput(this.value);" style="width: 100%;" />
+                    </div>
+                    <div class="col" style="text-align: center;"></div>
                 </div>
                 <div class="row">
-                    <div class="col-lg">
-                        <h5 id="subjectNumber" style="text-align: center"></h5>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-sm" style="text-align: right">
+                    <div class="col" style="text-align: right; padding-top: 12px">
                         <p><b>Subject Type</b></p>
                     </div>
-                    <div class="col-sm">
-                        <input type="text" id="subjectType" class="form-control" style="width: 60%;" />
+                    <div class="col" style="padding-top: 12px">
+                        <select id="subjectTypeDropDown" class="form-control" style="width: 100%; height: 100%">
+                        </select>
                     </div>
-                    <br />
-                    <br />
+                    <div class="col" style="text-align: center;"></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm" style="text-align: right">
-                        <p><b>Subject Stage</b></p>
+                    <div class="col" style="text-align: right; padding-top: 12px">
+                        <p><b>Stage</b></p>
                     </div>
-                    <div class="col-sm">
-                        <input type="number" id="subjectStage" class="form-control" style="width: 60%;" />
+                    <div class="col" style="padding-top: 12px">
+                        <input id="subjectStageInput" name="searchBar" type="number" class="form-control typeahead" style="width: 100%;" oninput="handleSubjectStageInput(this.value)" />
                     </div>
-                </div>
-                <br />
-                <br />
-                <div class="row">
-                    <div class="col-lg">
-                        <center><button id="btnAddSubject" type="button" class="btn btn-lg" onclick="handleSubjectAdd();" style="background-color: lightskyblue; color: #2478fc"><span class="glyphicon glyphicon-plus"></span></button></center>
+                    <div class="col" style="text-align: left; padding-bottom: 30px">
+                        <button disabled id="btnTimetableAdd" type="button" class="btn btn-lg" onclick="addToTimetable();" style="background-color: green; color: white"><span class="glyphicon glyphicon-plus"></span></button>
                     </div>
                 </div>
-
-                <br />
+                <div class="row" style="padding-bottom: 8px">
+                    <%--<div class="col-sm" style="text-align:center">
+                    <button disabled id="btnTimetableAdd" type="button" class="btn btn-lg" onclick="addToTimetable();" style="background-color: green; color: white"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>--%>
+                </div>
             </div>
         </div>
+
+        <div class="row" id="headerRow"></div>
+        <br />
         <br />
 
-        <hr />
-
-
-        <div id="timetable"  text-align: center;">
-
-            <div class="row" style="padding-bottom: 8px">
-                <div class="col-sm">
-                    <input id="subjectAddInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Subject" oninput="handleSubjectInput(this.value);" style="width: 60%;" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm" style="padding-bottom: 8px">
-                    <select id="subjectTypeDropDown" class="form-control" style="width: 60%; height: 100%">
-                    </select>
-                </div>
-            </div>
-            <div class="row" style="padding-bottom: 8px">
-                <div class="col-sm">
-                    <input id="subjectStageInput" name="searchBar" type="number" class="form-control typeahead" style="width: 60%;" oninput="handleSubjectStageInput(this.value)" />
-                </div>
-            </div>
-            <div class="row" style="padding-bottom: 8px">
-                <div class="col-sm">
-                    <button disabled id="btnTimetableAdd" type="button" class="btn btn-lg" onclick="handleSubjectTimetableAdd();" style="background-color: green; color: white"><span class="glyphicon glyphicon-plus"></span></button>
-                </div>
-            </div>
-
-            <div class="row" id="headerRow"></div><br /><br />
-        
 
         <div class="row" id="updateButtonDiv" style="display: none">
             <div class="col-md" style="text-align: right">
