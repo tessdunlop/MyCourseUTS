@@ -83,142 +83,243 @@ namespace MyCourseUTS.API.Controllers
             return listofSubjectGroup;
         }
 
-        
 
 
 
-        //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        //public void PostSubjectGrouping(List<SubjectGroupings> subjectGrouping, int creditPoints)
-        //{
-        //    int id;
-        //    using (var scope = new TransactionScope())
-        //    {
-        //        using (var context = new MyCourseDBEntities())
-        //        {
-        //            SubjectGroupings newGroup = new SubjectGroupings();
 
-        //            bool hasSubject = false;
-        //            bool hasChoiceBlock = false;
-        //            bool hasStream = false;
-        //            bool hasMajor = false;
-        //            bool hasSubMajor = false;
 
-        //            foreach (var s in subjectGrouping)
-        //            {
-        //                if (s.SubjectPresent != null)
-        //                {
-        //                    hasSubject = true;
-        //                }
-        //                else if (s.ChoiceBlocks != null)
-        //                {
-        //                    hasChoiceBlock = true;
-        //                }
-        //                else if (s.Streams != null)
-        //                {
-        //                    hasStream = true;
-        //                }
-        //                else if (s.Majors != null)
-        //                {
-        //                    hasMajor = true;
-        //                }
-        //                else if (s.SubMajors != null)
-        //                {
-        //                    hasSubMajor = true;
-        //                }
-        //            }
 
-        //            if (hasSubject == true)
-        //            {
-        //                newGroup.SubjectPresent = 1;
-        //            }
-        //            else
-        //            {
-        //                newGroup.SubjectPresent = 0;
-        //            }
-        //            if (hasChoiceBlock == true)
-        //            {
-        //                newGroup.ChoiceBlockPresent = 1;
-        //            }
-        //            else
-        //            {
-        //                newGroup.ChoiceBlockPresent = 0;
-        //            }
-        //            if (hasStream == true)
-        //            {
-        //                newGroup.StreamPresent = 1;
-        //            }
-        //            else
-        //            {
-        //                newGroup.StreamPresent = 0;
-        //            }
-        //            if (hasMajor == true)
-        //            {
-        //                newGroup.MajorPresent = 1;
-        //            }
-        //            else
-        //            {
-        //                newGroup.MajorPresent = 0;
-        //            }
-        //            if (hasSubMajor == true)
-        //            {
-        //                newGroup.SubMajorPresent = 1;
-        //            }
-        //            else
-        //            {
-        //                newGroup.SubMajorPresent = 0;
-        //            }
-        //            newGroup.CreditPoints = creditPoints;
-        //            context.SubjectGroupings.Add(newGroup);
-        //            context.SaveChanges();
-        //            id = newGroup.ID;
 
-        //        }
-        //        using (var context = new MyCourseDBEntities())
-        //        {
-        //            SubjectGroupings newGroupings = new SubjectGroupings();
-        //            newGroupings.GroupID = id;
-        //            foreach (var s in subjectGrouping) {
-        //                if (s.Subjects != null){
-        //                    newGroupings.SubjectID = s.SubjectID;
-        //                }
-        //                else if (s.ChoiceBlocks != null) {
-        //                    newGroupings.ChoiceBlockID = s.ChoiceBlockID;
-        //                }
-        //                else if (s.Streams != null) {
-        //                    newGroupings.StreamID = s.StreamID;
-        //                }
-        //                else if (s.Majors != null) {
-        //                    newGroupings.MajorID = s.MajorID;
-        //                }
-        //                else if (s.SubMajors != null) {
-        //                    newGroupings.SubMajorID = s.SubMajorID;
-        //                }
-        //            } 
-        //            context.SubjectGroupings.Add(newGroupings);
-        //            context.SaveChanges();                    
-        //        }
-        //        scope.Complete();
-        //    }
-        //}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/postsubjectgrouping
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void DeleteSubjectGroup(int id)
+        public void PostSubjectGrouping([FromBody]SubjectGrouping subjectGrouping)
         {
             var context = new MyCourseDBEntities();
             var query = from c in context.SubjectGroupings
-                        where c.ID.ToString().Equals(id)
+                        where c.ID.Equals(subjectGrouping.ID)
                         select c;
-            var deleteSubjectGroup = query.First();
-            context.SubjectGroupings.Remove(deleteSubjectGroup);
-            var secondQuery = from c in context.SubjectGroupings
-                        where c.ID.ToString().Equals(id)
-                        select c;
-            var deleteSubjectGroupings = secondQuery.ToList();
-            context.SubjectGroupings.Remove(deleteSubjectGroup);
-            foreach (var d in deleteSubjectGroupings) {
-                context.SubjectGroupings.Remove(d);
+            var existingGroup = query.FirstOrDefault();
+            if (query.Any())
+            {
+                existingGroup.ID = subjectGrouping.ID;
+                existingGroup.SubjectPresent = subjectGrouping.SubjectPresent;
+                existingGroup.MajorPresent = subjectGrouping.MajorPresent;
+                existingGroup.ChoiceBlockPresent = subjectGrouping.ChoiceBlockPresent;
+                existingGroup.StreamPresent = subjectGrouping.StreamPresent;
+                existingGroup.SubMajorPresent = subjectGrouping.SubMajorPresent;
+                existingGroup.CreditPoints = subjectGrouping.CreditPoints;
+                context.SaveChanges();
             }
+            else
+            {
+                SubjectGroupings newRow = new SubjectGroupings();
+                newRow.ID = subjectGrouping.ID;
+                newRow.SubjectPresent = subjectGrouping.SubjectPresent;
+                newRow.MajorPresent = subjectGrouping.MajorPresent;
+                newRow.ChoiceBlockPresent = subjectGrouping.ChoiceBlockPresent;
+                newRow.StreamPresent = subjectGrouping.StreamPresent;
+                newRow.SubMajorPresent = subjectGrouping.SubMajorPresent;
+                newRow.CreditPoints = subjectGrouping.CreditPoints;
+                context.SubjectGroupings.Add(newRow);
+                context.SaveChanges();
+            }
+        }
+
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/deletesubjectgrouping?groupID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteSubjectGrouping(string groupID)
+        {
+            DeleteChoiceBlockRelationship(groupID);
+            DeleteMajorRelationship(groupID);
+            DeleteStreamRelationship(groupID);
+            DeleteSubMajorRelationship(groupID);
+            DeleteCourseRelationship(groupID);
+            DeleteSubjectGroupingRelationship(groupID);
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubjectGroupings
+                        where c.ID.Equals(groupID)
+                        select c;
+            var deleteGroup = query.FirstOrDefault();
+            context.SubjectGroupings.Remove(deleteGroup);
             context.SaveChanges();
+        }
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/DeleteMajorRelationship?groupID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteMajorRelationship(string groupID)
+        {
+            List<DataModel.MajorRelationships> major;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.MajorRelationships
+                        where c.SubjectGroupings.ID.Equals(groupID)
+                        select c;
+            major = query.ToList();
+
+            if (major.Count != 0)
+            {
+                foreach (var row in major)
+                {
+                    context.MajorRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/deletechoiceblockIDrelationship?groupID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteChoiceBlockRelationship(string groupID)
+        {
+            List<DataModel.ChoiceBlockRelationships> cbk;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.ChoiceBlockRelationships
+                        where c.SubjectGroupings.ID.Equals(groupID)
+                        select c;
+            cbk = query.ToList();
+            if (cbk.Count != 0)
+            {
+                foreach (var row in cbk)
+                {
+                    context.ChoiceBlockRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/DeleteSubjectGroupingRelationship?groupID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteSubjectGroupingRelationship(string groupID)
+        {
+            List<DataModel.SubjectGroupingRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubjectGroupingRelationships
+                        where c.SubjectGroupings.ID.Equals(groupID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.SubjectGroupingRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/DeleteStreamRelationshipRelationship?groupID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteStreamRelationship(string groupID)
+        {
+            List<DataModel.StreamRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.StreamRelationships
+                        where c.SubjectGroupings.ID.Equals(groupID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.StreamRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+        //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/DeleteSubMajorRelationship?groupID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteSubMajorRelationship(string groupID)
+        {
+            List<DataModel.SubMajorRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubMajorRelationships
+                        where c.SubjectGroupings.ID.Equals(groupID) 
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.SubMajorRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+        //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/DeleteCourseRelationship?groupID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteCourseRelationship(string groupID)
+        {
+            List<DataModel.CourseRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.CourseRelationships
+                        where c.SubjectGroupings.ID.Equals(groupID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.CourseRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/PostsubjectgroupingRelationship?groupID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void PostSubjectGroupingRelationship(string groupID, [FromBody]List<SubjectGroupingRelationship> relationships)
+        {
+            var context = new MyCourseDBEntities();
+            DeleteSubjectGroupingRelationship(groupID);
+            using (var scope = new TransactionScope())
+            {
+                foreach (var rel in relationships)
+                {
+                    SubjectGroupingRelationships newRow = new SubjectGroupingRelationships();
+                    newRow.GroupID = rel.ContentSubjectGrouping.ID;
+                    if (rel.Subject != null)
+                    {
+                        newRow.SubjectID = rel.Subject.ID;
+                    }
+                    if (rel.ContentChoiceBlock != null)
+                    {
+                        newRow.ChoiceBlockID = rel.ContentChoiceBlock.ID;
+                    }
+                    if (rel.ContentStream != null)
+                    {
+                        newRow.StreamID = rel.ContentStream.ID;
+                    }
+                    if (rel.ContentSubMajor != null)
+                    {
+                        newRow.SubMajorID = rel.ContentSubMajor.ID;
+                    }
+                    if (rel.ContentMajor != null)
+                    {
+                        newRow.MajorID = rel.ContentMajor.ID;
+                    }
+                    context.SubjectGroupingRelationships.Add(newRow);
+                    context.SaveChanges();
+                }
+                scope.Complete();
+            }
         }
     }
 }

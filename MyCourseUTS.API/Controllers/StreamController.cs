@@ -86,37 +86,247 @@ namespace MyCourseUTS.API.Controllers
             return listofStream;
         }
 
-        //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        //public void PostStream(Stream stream)
-        //{
-        //    using (var scope = new TransactionScope())
-        //    {
-        //        using (var context = new MyCourseDBEntities())
-        //        {
-        //            Streams newRow = new Streams();
-        //            newRow.ID = stream.ID;
-        //            newRow.Name = stream.Name;
-        //            newRow.Abbreviation = stream.Abbreviation;
-        //            newRow.Active = stream.Active;
-        //            newRow.Version = stream.Version;
-        //            newRow.CreditPoints = stream.CreditPoints;
-        //            context.Streams.Add(newRow);
-        //            context.SaveChanges();
-        //        }
-        //        scope.Complete();
-        //    }
-        //}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/stream/poststream
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void DeleteStream(Stream stream)
+        public void PostStream([FromBody]Stream stream)
         {
             var context = new MyCourseDBEntities();
             var query = from c in context.Streams
                         where c.ID.Equals(stream.ID)
                         select c;
-            var deleteStream = query.First();
-            context.Streams.Remove(deleteStream);
+            var existingSTM = query.FirstOrDefault();
+            if (query.Any())
+            {
+                existingSTM.ID = stream.ID;
+                existingSTM.Name = stream.Name;
+                existingSTM.Abbreviation = stream.Abbreviation;
+                existingSTM.Active = stream.Active;
+                existingSTM.Version = stream.Version;
+                existingSTM.VersionDescription = stream.VersionDescription;
+                existingSTM.CreditPoints = stream.CreditPoints;
+                existingSTM.StreamDescription = stream.StreamDescription;
+                context.SaveChanges();
+            }
+            else
+            {
+                Streams newRow = new Streams();
+                newRow.ID = stream.ID;
+                newRow.Name = stream.Name;
+                newRow.Abbreviation = stream.Abbreviation;
+                newRow.Active = stream.Active;
+                newRow.Version = stream.Version;
+                newRow.VersionDescription = stream.VersionDescription;
+                newRow.CreditPoints = stream.CreditPoints;
+                newRow.StreamDescription = stream.StreamDescription;
+                context.Streams.Add(newRow);
+                context.SaveChanges();
+            }
+        }
+
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/stream/deletestream?streamID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteStream(string streamID)
+        {
+            DeleteChoiceBlockRelationship(streamID);
+            DeleteMajorRelationship(streamID);
+            DeleteStreamRelationship(streamID);
+            DeleteSubMajorRelationship(streamID);
+            DeleteCourseRelationship(streamID);
+            DeleteSubjectGroupingRelationship(streamID);
+            var context = new MyCourseDBEntities();
+            var query = from c in context.Streams
+                        where c.ID.Equals(streamID)
+                        select c;
+            var deleteSTM = query.FirstOrDefault();
+            context.Streams.Remove(deleteSTM);
             context.SaveChanges();
+        }
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/stream/DeleteMajorRelationship?streamID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteMajorRelationship(string streamID)
+        {
+            List<DataModel.MajorRelationships> major;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.MajorRelationships
+                        where c.Streams.ID.Equals(streamID)
+                        select c;
+            major = query.ToList();
+
+            if (major.Count != 0)
+            {
+                foreach (var row in major)
+                {
+                    context.MajorRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/stream/deletechoiceblockIDrelationship?streamID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteChoiceBlockRelationship(string streamID)
+        {
+            List<DataModel.ChoiceBlockRelationships> cbk;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.ChoiceBlockRelationships
+                        where c.Streams.ID.Equals(streamID)
+                        select c;
+            cbk = query.ToList();
+            if (cbk.Count != 0)
+            {
+                foreach (var row in cbk)
+                {
+                    context.ChoiceBlockRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/stream/DeleteSubjectGroupingRelationship?streamID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteSubjectGroupingRelationship(string streamID)
+        {
+            List<DataModel.SubjectGroupingRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubjectGroupingRelationships
+                        where c.Streams.ID.Equals(streamID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.SubjectGroupingRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/stream/DeleteStreamRelationshipRelationship?streamID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteStreamRelationship(string streamID)
+        {
+            List<DataModel.StreamRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.StreamRelationships
+                        where c.Streams.ID.Equals(streamID) || c.Streams1.ID.Equals(streamID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.StreamRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+        //http://mycourseuts.azurewebsites.net/Services/api/stream/DeleteSubMajorRelationship?streamID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteSubMajorRelationship(string streamID)
+        {
+            List<DataModel.SubMajorRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubMajorRelationships
+                        where c.Streams.ID.Equals(streamID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.SubMajorRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+        //http://mycourseuts.azurewebsites.net/Services/api/stream/DeleteCourseRelationship?streamID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteCourseRelationship(string streamID)
+        {
+            List<DataModel.CourseRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.CourseRelationships
+                        where c.Streams.ID.Equals(streamID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.CourseRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/stream/PostStreamRelationship?streamID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void PostStreamRelationship(string streamID, [FromBody]List<StreamRelationship> relationships)
+        {
+            var context = new MyCourseDBEntities();
+            DeleteStreamRelationship(streamID);
+            using (var scope = new TransactionScope())
+            {
+                foreach (var rel in relationships)
+                {
+                    StreamRelationships newRow = new StreamRelationships();
+                    newRow.StreamID = rel.Stream.ID;
+                    if (rel.Subject != null)
+                    {
+                        newRow.SubjectID = rel.Subject.ID;
+                    }
+                    if (rel.ContentChoiceBlock != null)
+                    {
+                        newRow.ContentChoiceBlockID = rel.ContentChoiceBlock.ID;
+                    }
+                    if (rel.ContentSubjectGrouping != null)
+                    {
+                        newRow.ContentGroupID = rel.ContentSubjectGrouping.ID;
+                    }
+                    if (rel.ContentStream != null)
+                    {
+                        newRow.ContentStreamID = rel.ContentStream.ID;
+                    }
+                    if (rel.ContentSubMajor != null)
+                    {
+                        newRow.ContentSubMajorID = rel.ContentSubMajor.ID;
+                    }
+
+                    context.StreamRelationships.Add(newRow);
+                    context.SaveChanges();
+                }
+                scope.Complete();
+            }
         }
     }
 }

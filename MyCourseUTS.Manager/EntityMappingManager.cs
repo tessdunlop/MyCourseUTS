@@ -307,7 +307,7 @@ namespace MyCourseUTS.Manager
             return content;
         }
 
-        public static Entity.CourseMajorRelationship MapCourseMajorRelationshipContent(DataModel.CourseMajorRelationship contentData)
+        public static Entity.CourseMajorRelationship MapCourseMajorRelationshipContent(DataModel.CourseMajorRelationships contentData)
         {
             if (contentData == null)
             {

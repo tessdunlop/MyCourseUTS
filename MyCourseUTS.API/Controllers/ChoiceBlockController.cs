@@ -86,37 +86,269 @@ namespace MyCourseUTS.API.Controllers
             return listofChoiceBlock;
         }
 
-        //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        //public void PostChoiceBlock(ChoiceBlock choiceBlock)
-        //{
-        //    using (var scope = new TransactionScope())
-        //    {
-        //        using (var context = new MyCourseDBEntities())
-        //        {
-        //            ChoiceBlocks newRow = new ChoiceBlocks();
-        //            newRow.ID = choiceBlock.ID;
-        //            newRow.Name = choiceBlock.Name;
-        //            newRow.CreditPoints = choiceBlock.CreditPoints;
-        //            newRow.Abbreviation = choiceBlock.Abbreviation;
-        //            newRow.Active = choiceBlock.Active;
-        //            newRow.Version = choiceBlock.Version;
-        //            context.ChoiceBlocks.Add(newRow);
-        //            context.SaveChanges();
-        //        }
-        //        scope.Complete();
-        //    }
-        //}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/choiceblock/postchoiceblock
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void DeleteChoiceBlock(ChoiceBlock choiceBlock)
+        public void PostChoiceBlock([FromBody]ChoiceBlock choiceblock)
         {
             var context = new MyCourseDBEntities();
             var query = from c in context.ChoiceBlocks
-                        where c.ID.Equals(choiceBlock.ID)
+                        where c.ID.Equals(choiceblock.ID)
                         select c;
-            var deleteChoiceBlock = query.First();
-            context.ChoiceBlocks.Remove(deleteChoiceBlock);
+            var existingCBK = query.FirstOrDefault();
+            if (query.Any())
+            {
+                existingCBK.ID = choiceblock.ID;
+                existingCBK.Name = choiceblock.Name;
+                existingCBK.Abbreviation = choiceblock.Abbreviation;
+                existingCBK.Active = choiceblock.Active;
+                existingCBK.Version = choiceblock.Version;
+                existingCBK.VersionDescription = choiceblock.VersionDescription;
+                existingCBK.CreditPoints = choiceblock.CreditPoints;
+                existingCBK.ChoiceBlockDescription = choiceblock.ChoiceBlockDescription;
+                context.SaveChanges();
+            }
+            else
+            {
+                ChoiceBlocks newRow = new ChoiceBlocks();
+                newRow.ID = choiceblock.ID;
+                newRow.Name = choiceblock.Name;
+                newRow.Abbreviation = choiceblock.Abbreviation;
+                newRow.Active = choiceblock.Active;
+                newRow.Version = choiceblock.Version;
+                newRow.VersionDescription = choiceblock.VersionDescription;
+                newRow.CreditPoints = choiceblock.CreditPoints;
+                newRow.ChoiceBlockDescription = choiceblock.ChoiceBlockDescription;
+                context.ChoiceBlocks.Add(newRow);
+                context.SaveChanges();
+            }
+        }
+
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/choiceblock/deletechoiceblock?choiceblockID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteChoiceBlock(string choiceBlockID)
+        {
+            DeleteChoiceBlockRelationship(choiceBlockID);
+            DeleteMajorRelationship(choiceBlockID);
+            DeleteStreamRelationship(choiceBlockID);
+            DeleteSubMajorRelationship(choiceBlockID);
+            DeleteCourseRelationship(choiceBlockID);
+            DeleteSubjectGroupingRelationship(choiceBlockID);
+            var context = new MyCourseDBEntities();
+            var query = from c in context.ChoiceBlocks
+                        where c.ID.Equals(choiceBlockID)
+                        select c;
+            var deleteCBK = query.FirstOrDefault();
+            context.ChoiceBlocks.Remove(deleteCBK);
             context.SaveChanges();
         }
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteMajorRelationship?choiceblockID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteMajorRelationship(string choiceBlockID)
+        {
+            List<DataModel.MajorRelationships> major;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.MajorRelationships
+                        where c.ChoiceBlocks.ID.Equals(choiceBlockID)
+                        select c;
+            major = query.ToList();
+
+            if (major.Count != 0)
+            {
+                foreach (var row in major)
+                {
+                    context.MajorRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/major/deletechoiceblockIDrelationship?choiceblockID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteChoiceBlockRelationship(string choiceBlockID)
+        {
+            List<DataModel.ChoiceBlockRelationships> cbk;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.ChoiceBlockRelationships
+                        where c.ChoiceBlocks.ID.Equals(choiceBlockID) || c.ChoiceBlocks1.ID.Equals(choiceBlockID)
+                        select c;
+            cbk = query.ToList();
+            if (cbk.Count != 0)
+            {
+                foreach (var row in cbk)
+                {
+                    context.ChoiceBlockRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteSubjectGroupingRelationship?choiceblockID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteSubjectGroupingRelationship(string choiceBlockID)
+        {
+            List<DataModel.SubjectGroupingRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubjectGroupingRelationships
+                        where c.ChoiceBlocks.ID.Equals(choiceBlockID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.SubjectGroupingRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteStreamRelationshipRelationship?choiceblockID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteStreamRelationship(string choiceBlockID)
+        {
+            List<DataModel.StreamRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.StreamRelationships
+                        where c.ChoiceBlocks.ID.Equals(choiceBlockID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.StreamRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+        //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteSubMajorRelationship?choiceblockID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteSubMajorRelationship(string choiceBlockID)
+        {
+            List<DataModel.SubMajorRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubMajorRelationships
+                        where c.ChoiceBlocks.ID.Equals(choiceBlockID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.SubMajorRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+        //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteCourseRelationship?choiceblockID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteCourseRelationship(string choiceBlockID)
+        {
+            List<DataModel.CourseRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.CourseRelationships
+                        where c.ChoiceBlocks.ID.Equals(choiceBlockID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.CourseRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/major/PostChoiceBlockRelationship?choiceblockID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void PostChoiceBlockRelationship(string choiceBlockID, [FromBody]List<ChoiceBlockRelationship> relationships)
+        {
+            var context = new MyCourseDBEntities();
+            DeleteChoiceBlockRelationship(choiceBlockID);
+            using (var scope = new TransactionScope())
+            {
+                foreach (var rel in relationships)
+                {
+                    ChoiceBlockRelationships newRow = new ChoiceBlockRelationships();
+                    newRow.ChoiceBlockID = rel.ChoiceBlock.ID;
+                    if (rel.Subject != null)
+                    {
+                        newRow.SubjectID = rel.Subject.ID;
+                    }
+                    if (rel.ContentChoiceBlock != null)
+                    {
+                        newRow.ContentChoiceBlockID = rel.ContentChoiceBlock.ID;
+                    }
+                    if (rel.ContentSubjectGrouping != null)
+                    {
+                        newRow.ContentGroupID = rel.ContentSubjectGrouping.ID;
+                    }
+                    if (rel.ContentStream != null)
+                    {
+                        newRow.ContentStreamID = rel.ContentStream.ID;
+                    }
+                    if (rel.ContentSubMajor != null)
+                    {
+                        newRow.ContentSubMajorID = rel.ContentSubMajor.ID;
+                    }
+
+                    context.ChoiceBlockRelationships.Add(newRow);
+                    context.SaveChanges();
+                }
+                scope.Complete();
+            }
+        }
+
     }
 }

@@ -104,7 +104,7 @@
     <Compile Include="ChoiceBlocks.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CourseMajorRelationship.cs">
+    <Compile Include="CourseMajorRelationships.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CourseRelationships.cs">

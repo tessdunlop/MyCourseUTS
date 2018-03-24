@@ -12,7 +12,7 @@ namespace MyCourseUTS.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class CourseMajorRelationship
+    public partial class CourseMajorRelationships
     {
         public int ID { get; set; }
         public string CourseID { get; set; }

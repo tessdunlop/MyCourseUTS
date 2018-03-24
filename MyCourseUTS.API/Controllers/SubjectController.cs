@@ -9,6 +9,7 @@ using System.Web.Http;
 using MyCourseUTS.DataModel;
 using MyCourseUTS.Entity;
 using MyCourseUTS.Manager;
+using System.Web.Http.Cors;
 
 namespace MyCourseUTS.API.Controllers
 {
@@ -97,37 +98,216 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubject;
         }
 
-        //public void PostSubject(Subject subject)
-        //{
-        //    using (var scope = new TransactionScope())
-        //    {
-        //        using (var context = new MyCourseDBEntities())
-        //        {
-        //            Subjects newRow = new Subjects();
-        //            newRow.ID = subject.ID;
-        //            newRow.Name = subject.Name;
-        //            newRow.CreditPoints = subject.CreditPoints;
-        //            newRow.Abbreviation = subject.Abbreviation;
-        //            newRow.Active = subject.Active;
-        //            newRow.Version = subject.Version;
-        //            context.Subjects.Add(newRow);
-        //            context.SaveChanges();
-        //        }
-        //        scope.Complete();
-        //    }
-        //}
 
-        public void DeleteSubjects(Subject subject)
+
+
+
+
+
+
+
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subject/postsubject
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void PostSubject([FromBody]Subject subject)
         {
             var context = new MyCourseDBEntities();
             var query = from c in context.Subjects
-                        where c.ID.ToString().Equals(subject.ID)
+                        where c.ID.Equals(subject.ID)
                         select c;
-            var deleteSubject = query.First();
+            var existingSubject = query.FirstOrDefault();
+            if (query.Any())
+            {
+                existingSubject.ID = subject.ID;
+                existingSubject.Version = subject.Version;
+                existingSubject.Name = subject.Name;
+                existingSubject.Active = subject.Active;
+                existingSubject.CreditPoints = subject.CreditPoints;
+                existingSubject.Abbreviation = subject.Abbreviation;
+                existingSubject.SubjectDescription = subject.SubjectDescription;
+                existingSubject.VersionDescription = subject.VersionDescription;
+                context.SaveChanges();
+            }
+            else
+            {
+                Subjects newRow = new Subjects();
+                newRow.ID = subject.ID;
+                newRow.Version = subject.Version;
+                newRow.Name = subject.Name;
+                newRow.Active = subject.Active;
+                newRow.CreditPoints = subject.CreditPoints;
+                newRow.Abbreviation = subject.Abbreviation;
+                newRow.SubjectDescription = subject.SubjectDescription;
+                newRow.VersionDescription = subject.VersionDescription;
+                context.Subjects.Add(newRow);
+                context.SaveChanges();
+            }
+        }
+
+
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subject/deletesubject?subjectID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteSubject(string subjectID)
+        {
+            DeleteChoiceBlockRelationship(subjectID);
+            DeleteMajorRelationship(subjectID);
+            DeleteStreamRelationship(subjectID);
+            DeleteSubMajorRelationship(subjectID);
+            DeleteCourseRelationship(subjectID);
+            DeleteSubjectGroupingRelationship(subjectID);
+            DeleteRequisiteRelationship(subjectID);
+            var context = new MyCourseDBEntities();
+            var query = from c in context.Subjects
+                        where c.ID.Equals(subjectID)
+                        select c;
+            var deleteSubject = query.FirstOrDefault();
             context.Subjects.Remove(deleteSubject);
             context.SaveChanges();
         }
 
 
+        //http://mycourseuts.azurewebsites.net/Services/api/subject/DeleteRequisiteRelationship?subjectID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteRequisiteRelationship(string subjectID)
+        {
+            List<DataModel.RequisiteRelationship> requisite;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.RequisiteRelationship
+                        where c.Subjects.ID.Equals(subjectID) || c.Subjects1.ID.Equals(subjectID)
+                        select c;
+            requisite = query.ToList();
+
+            if (requisite.Count != 0)
+            {
+                foreach (var row in requisite)
+                {
+                    context.RequisiteRelationship.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subject/DeleteMajorRelationship?subjectID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteMajorRelationship(string subjectID)
+        {
+            List<DataModel.MajorRelationships> major;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.MajorRelationships
+                        where c.Subjects.ID.Equals(subjectID)
+                        select c;
+            major = query.ToList();
+
+            if (major.Count != 0)
+            {
+                foreach (var row in major)
+                {
+                    context.MajorRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subject/deletechoiceblockIDrelationship?subjectID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteChoiceBlockRelationship(string subjectID)
+        {
+            List<DataModel.ChoiceBlockRelationships> cbk;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.ChoiceBlockRelationships
+                        where c.Subjects.ID.Equals(subjectID)
+                        select c;
+            cbk = query.ToList();
+            if (cbk.Count != 0)
+            {
+                foreach (var row in cbk)
+                {
+                    context.ChoiceBlockRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subject/DeleteSubjectGroupingRelationship?subjectID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteSubjectGroupingRelationship(string subjectID)
+        {
+            List<DataModel.SubjectGroupingRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubjectGroupingRelationships
+                        where c.Subjects.ID.Equals(subjectID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.SubjectGroupingRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/subject/DeleteStreamRelationshipRelationship?subjectID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteStreamRelationship(string subjectID)
+        {
+            List<DataModel.StreamRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.StreamRelationships
+                        where c.Subjects.ID.Equals(subjectID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.StreamRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+        //http://mycourseuts.azurewebsites.net/Services/api/subject/DeleteSubMajorRelationship?subjectID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteSubMajorRelationship(string subjectID)
+        {
+            List<DataModel.SubMajorRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubMajorRelationships
+                        where c.Subjects.ID.Equals(subjectID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.SubMajorRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+        //http://mycourseuts.azurewebsites.net/Services/api/subject/DeleteCourseRelationship?subjectID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteCourseRelationship(string subjectID)
+        {
+            List<DataModel.CourseRelationships> group;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.CourseRelationships
+                        where c.Subjects.ID.Equals(subjectID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.CourseRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
     }
 }

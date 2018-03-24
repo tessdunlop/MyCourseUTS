@@ -92,9 +92,9 @@ namespace MyCourseUTS.API.Controllers
         //http://mycourseuts.azurewebsites.net/services/api/subject/GetCourseMajorRelationship?majorid=MAJ03476
         public List<Entity.CourseMajorRelationship> GetCourseMajorRelationship(string majorID)
         {
-            List<DataModel.CourseMajorRelationship> courses;
+            List<DataModel.CourseMajorRelationships> courses;
             var context = new MyCourseDBEntities();
-            var query = from c in context.CourseMajorRelationship.Include("Courses").Include("Majors")
+            var query = from c in context.CourseMajorRelationships.Include("Courses").Include("Majors")
                         where c.MajorID.Equals(majorID)
                         select c;
             courses = query.ToList();
@@ -105,85 +105,6 @@ namespace MyCourseUTS.API.Controllers
                 listOfCourses.Add(EntityMappingManager.MapCourseMajorRelationshipContent(c));
             }
             return listOfCourses;
-        }
-
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostCourse(Course course)
-        {
-            using (var scope = new TransactionScope())
-            {
-                using (var context = new MyCourseDBEntities())
-                {
-                    Courses newRow = new Courses();
-                    newRow.ID = course.ID;
-                    newRow.Name = course.Name;
-                    newRow.Abbreviation = course.Abbreviation;
-                    newRow.Active = course.Active;
-                    newRow.Years = course.Years;
-                    newRow.Stages = course.Stages;
-                    newRow.Version = course.Version;
-                    newRow.VersionDescription = course.VersionDescription;
-                    newRow.CreditPoints = course.CreditPoints;
-                    newRow.CourseTypes.ID = course.CourseType.ID;
-                    newRow.CourseDescription = course.CourseDescription;
-                    newRow.HasMajor = course.HasMajor;
-                    newRow.HasTemplate = course.HasTemplate;
-                    context.Courses.Add(newRow);
-                    context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
-
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostCourseRelationship(string courseID, List<CourseRelationship> relationships)
-        {
-            List<DataModel.CourseRelationships> course;
-            var context = new MyCourseDBEntities();
-            var query = from c in context.CourseRelationships.Include("Courses.CourseTypes").Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupings")
-                        where c.Courses.ID.Equals(courseID)
-                        select c;
-            course = query.ToList();
-
-            if (course.Count != 0)//then we need to delete all the relationships first before we add new ones
-            {
-                foreach (var row in course)
-                {
-                    context.CourseRelationships.Remove(row);
-                    context.SaveChanges();
-                }
-            }
-            using (var scope = new TransactionScope())
-            {
-                foreach (var rel in relationships)
-                {
-                    CourseRelationships newRow = new CourseRelationships();
-                    newRow.CourseID = rel.Course.ID;
-                    newRow.SubjectID = rel.Subject.ID;
-                    newRow.ChoiceBlockID = rel.ChoiceBlock.ID;
-                    newRow.GroupID = rel.SubjectGrouping.ID;
-                    newRow.SubjectTypeID = rel.SubjectType.ID;
-                    newRow.StreamID = rel.Stream.ID;
-                    newRow.Stage = rel.Stage;
-                    newRow.Year = rel.Year;
-                    context.CourseRelationships.Add(newRow);
-                    context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
-
-
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void DeleteCourse(Course course)
-        {
-            var context = new MyCourseDBEntities();
-            var query = from c in context.Courses
-                        where c.ID.Equals(course.ID)
-                        select c;
-            var deleteCourse = query.First();
-            context.Courses.Remove(deleteCourse);
-            context.SaveChanges();
         }
 
         //http://mycourseuts.azurewebsites.net/services/api/course/getcoursetypes
@@ -202,6 +123,185 @@ namespace MyCourseUTS.API.Controllers
                 listOfCourseTypes.Add(EntityMappingManager.MapCourseTypeContent(c));
             }
             return listOfCourseTypes;
+        }
+
+
+
+
+
+
+
+
+        //DONE
+        //http://mycourseuts.azurewebsites.net/Services/api/course/postcourse
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void PostCourse([FromBody]Course course)
+        {
+            var context = new MyCourseDBEntities();
+            var query = from c in context.Courses.Include("CourseTypes")
+                        where c.ID.Equals(course.ID)
+                        select c;
+            var existingCourse = query.FirstOrDefault();
+            if (query.Any())
+            {
+                existingCourse.ID = course.ID;
+                existingCourse.Name = course.Name;
+                existingCourse.Abbreviation = course.Abbreviation;
+                existingCourse.Active = course.Active;
+                existingCourse.Years = course.Years;
+                existingCourse.Stages = course.Stages;
+                existingCourse.Version = course.Version;
+                existingCourse.VersionDescription = course.VersionDescription;
+                existingCourse.CreditPoints = course.CreditPoints;
+                existingCourse.CourseTypeID = course.CourseType.ID;
+                existingCourse.CourseDescription = course.CourseDescription;
+                existingCourse.HasMajor = course.HasMajor;
+                existingCourse.HasTemplate = course.HasTemplate;
+                context.SaveChanges();
+            }
+            else
+            {
+                Courses newRow = new Courses();
+                newRow.ID = course.ID;
+                newRow.Name = course.Name;
+                newRow.Abbreviation = course.Abbreviation;
+                newRow.Active = course.Active;
+                newRow.Years = course.Years;
+                newRow.Stages = course.Stages;
+                newRow.Version = course.Version;
+                newRow.VersionDescription = course.VersionDescription;
+                newRow.CreditPoints = course.CreditPoints;
+                newRow.CourseTypeID = course.CourseType.ID;
+                newRow.CourseDescription = course.CourseDescription;
+                newRow.HasMajor = course.HasMajor;
+                newRow.HasTemplate = course.HasTemplate;
+                context.Courses.Add(newRow);
+                context.SaveChanges();
+            }
+        }
+
+        //DONE
+        //http://mycourseuts.azurewebsites.net/Services/api/course/deletecourse?courseID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteCourse(string courseID)
+        {
+            DeleteCourseRelationship(courseID);
+            DeleteCourseMajorRelationship(courseID);
+            var context = new MyCourseDBEntities();
+            var query = from c in context.Courses
+                        where c.ID.Equals(courseID)
+                        select c;
+            var deleteCourse = query.FirstOrDefault();
+            context.Courses.Remove(deleteCourse);
+            context.SaveChanges();          
+        }
+
+        //DONE
+        //http://mycourseuts.azurewebsites.net/Services/api/course/postcourserelationship?courseID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void PostCourseRelationship(string courseID, [FromBody]List<CourseRelationship> relationships)
+        {
+            var context = new MyCourseDBEntities();
+            DeleteCourseRelationship(courseID);
+            using (var scope = new TransactionScope())
+            {
+                foreach (var rel in relationships)
+                {
+                    CourseRelationships newRow = new CourseRelationships();
+                    newRow.CourseID = rel.Course.ID;
+                    newRow.Stage = rel.Stage;
+                    newRow.Year = rel.Year;
+                    newRow.SubjectTypeID = rel.SubjectType.ID;
+
+                    if (rel.Subject != null)
+                    {
+                        newRow.SubjectID = rel.Subject.ID;
+                    }
+                    if (rel.ChoiceBlock != null)
+                    {
+                        newRow.ChoiceBlockID = rel.ChoiceBlock.ID;
+                    }
+                    if (rel.Stream != null)
+                    {
+                        newRow.StreamID = rel.Stream.ID;
+                    }
+                    if (rel.SubMajor != null)
+                    {
+                        newRow.SubMajorID = rel.SubMajor.ID;
+                    }
+                    if (rel.SubjectGrouping != null)
+                    {
+                        newRow.GroupID = rel.SubjectGrouping.ID;
+                    }
+
+                    context.CourseRelationships.Add(newRow);
+                    context.SaveChanges();
+                }
+                scope.Complete();
+            }
+        }
+
+        //DONE
+        //http://mycourseuts.azurewebsites.net/Services/api/course/deletecourserelationship?courseID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteCourseRelationship(string courseID)
+        {
+            List<DataModel.CourseRelationships> course;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.CourseRelationships
+                        where c.Courses.ID.Equals(courseID)
+                        select c;
+            course = query.ToList();
+
+            if (course.Count != 0)
+            {
+                foreach (var row in course)
+                {
+                    context.CourseRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //http://mycourseuts.azurewebsites.net/Services/api/course/postcourseMajorrelationship?courseID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void PostCourseMajorRelationship(string courseID, [FromBody]List<CourseMajorRelationship> relationships)
+        {
+            var context = new MyCourseDBEntities();
+            DeleteCourseMajorRelationship(courseID);
+            using (var scope = new TransactionScope())
+            {
+                foreach (var rel in relationships)
+                {
+                    CourseMajorRelationships newRow = new CourseMajorRelationships();
+                    newRow.CourseID = rel.Course.ID;
+                    newRow.MajorID = rel.Major.ID;                   
+                    context.CourseMajorRelationships.Add(newRow);
+                    context.SaveChanges();
+                }
+                scope.Complete();
+            }
+        }
+
+
+        //http://mycourseuts.azurewebsites.net/Services/api/course/deletecoursemajorrelationship?courseID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void DeleteCourseMajorRelationship(string courseID)
+        {
+            List<DataModel.CourseMajorRelationships> course;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.CourseMajorRelationships
+                        where c.Courses.ID.Equals(courseID)
+                        select c;
+            course = query.ToList();
+            if (course.Count != 0)
+            {
+                foreach (var row in course)
+                {
+                    context.CourseMajorRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }

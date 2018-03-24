@@ -17,7 +17,7 @@ namespace MyCourseUTS.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Majors()
         {
-            this.CourseMajorRelationship = new HashSet<CourseMajorRelationship>();
+            this.CourseMajorRelationships = new HashSet<CourseMajorRelationships>();
             this.MajorRelationships = new HashSet<MajorRelationships>();
             this.SubjectGroupingRelationships = new HashSet<SubjectGroupingRelationships>();
         }
@@ -34,7 +34,7 @@ namespace MyCourseUTS.DataModel
         public int Stages { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourseMajorRelationship> CourseMajorRelationship { get; set; }
+        public virtual ICollection<CourseMajorRelationships> CourseMajorRelationships { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MajorRelationships> MajorRelationships { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
