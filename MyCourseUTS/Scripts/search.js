@@ -16,6 +16,7 @@ var mele = "#f7dfbb";
 
 var template = [];
 var nextAvailableID = 0;
+var relationships = [];
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////START OF API CALLS
 function getAllCourses() {
@@ -520,11 +521,6 @@ function getCourseMajorRelationship(id) {
     return data;
 }
 
-
-
-
-
-
 function addCourse(item) {
     var url = "http://mycourseuts.azurewebsites.net/Services/api/course/postcourse";
     $.ajax({
@@ -953,6 +949,7 @@ function clearFields() {
 
     template = [];
     nextAvailableID = 0;
+    relationships = [];
 
     handleEdit();
 }
@@ -1048,15 +1045,20 @@ function disabledAddSubjectButton() {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////FUNCTIONS PUSHING AND REMOVING ITEMS FROM LIST
 function populateStmCbkSmjSubjects(id) {
     var data;
+    var title;
     if (selected == "submajor") {
-        data = getSubMajorRelationship(id);
+        data = getSubMajorRelationship(id);  
+        title = "SubMajorID";
     }
     else if (selected == "stream") {
         data = getStreamRelationship(id);
+        title = "StreamID";
     }
     else if (selected == "choiceblock") {
         data = getChoiceBlockRelationship(id);
+        title = "ChoiceBlockID";
     }
+    relationships = data;
 
     var list = document.getElementById("streamSubjectList");
     var searchBar = document.getElementById("streamSubjectInput");
@@ -1072,6 +1074,18 @@ function populateStmCbkSmjSubjects(id) {
             a.appendChild(document.createTextNode(data[i].ContentStream.ID + " - " + data[i].ContentStream.Name));
             list.appendChild(a);
             handleHover(data[i].ContentStream.ID, data[i].ContentStream.ID);
+
+            relationship.push({
+                "ID": data[i].ContentStream.ID,
+                title: document.getElementById("streamID").value,
+                "SubjectID": null,
+                "ContentChoiceBlockID": null,
+                "ContentSubMajorID": null,
+                "StreamID": null,
+                "ContentGroupID": null,
+                "ContentStreamID": { "ID": data[i].ContentStream.ID}
+            });
+
         }
         else if (data[i].ContentSubMajor != null) {
             //Add functionality that if hover over this it will display the list of subjects within this
@@ -1082,6 +1096,17 @@ function populateStmCbkSmjSubjects(id) {
             a.appendChild(document.createTextNode(data[i].ContentSubMajor.ID + " - " + data[i].ContentSubMajor.Name));
             list.appendChild(a);
             handleHover(data[i].ContentSubMajor.ID, data[i].ContentSubMajor.ID);
+
+            relationship.push({
+                "ID": data[i].ContentSubMajor.ID,
+                title: document.getElementById("streamID").value,
+                "SubjectID": null,
+                "ContentChoiceBlockID": null,
+                "ContentSubMajorID": { "ID": data[i].ContentSubMajor.ID },
+                "StreamID": null,
+                "ContentGroupID": null,
+                "ContentStreamID": null
+            });
         }
         else if (data[i].ContentChoiceBlock != null) {
             //Add functionality that if hover over this it will display the list of subjects within this
@@ -1092,8 +1117,29 @@ function populateStmCbkSmjSubjects(id) {
             a.appendChild(document.createTextNode(data[i].ContentChoiceBlock.ID + " - " + data[i].ContentChoiceBlock.Name));
             list.appendChild(a);
             handleHover(data[i].ContentChoiceBlock.ID, data[i].ContentChoiceBlock.ID);
+
+            relationship.push({
+                "ID": data[i].ContentChoiceBlock.ID,
+                title: document.getElementById("streamID").value,
+                "SubjectID": null,
+                "ContentChoiceBlockID": { "ID": data[i].ContentChoiceBlock.ID },
+                "ContentSubMajorID": null,
+                "StreamID": null,
+                "ContentGroupID": null,
+                "ContentStreamID": null
+            });
         }
         else if (data[i].ContentSubjectGrouping != null) {
+            relationship.push({
+                "ID": data[i].ContentSubjectGrouping.ID,
+                title: document.getElementById("streamID").value,
+                "SubjectID": null,
+                "ContentChoiceBlockID": null,
+                "ContentSubMajorID": null,
+                "StreamID": null,
+                "ContentGroupID": { "ID": grouping[x].ID },
+                "ContentStreamID": null
+            });
             //Do a call to get all the subjects within this subject grouping
             var grouping = getSubjectGroupingRelationship(data[i].ContentSubjectGrouping.ID);
             for (var x = 0; x < grouping.length; x++) {
@@ -1142,7 +1188,18 @@ function populateStmCbkSmjSubjects(id) {
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
             a.appendChild(document.createTextNode(data[i].Subject.ID + " - " + data[i].Subject.Name));
             list.appendChild(a);
+            relationship.push({
+                "ID": data[i].ContentStream.ID,
+                title: document.getElementById("streamID").value,
+                "SubjectID": { "ID": data[i].Subject.ID},
+                "ContentChoiceBlockID": null,
+                "ContentSubMajorID": null,
+                "StreamID": null,
+                "ContentGroupID": null,
+                "ContentStreamID": null
+            });
         }
+        console.log(relationships);
     }
 }
 function handlePreRequisiteListPush(term) {
@@ -1159,7 +1216,6 @@ function handlePreRequisiteListPush(term) {
             }));
         },
         select: function (event, ui) {
-            console.log(ui);
             var a = document.createElement("a");
             var subReq = document.getElementById("subjectPreReq");
             a.setAttribute('id', ui.item.value);
@@ -1168,6 +1224,14 @@ function handlePreRequisiteListPush(term) {
             a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
             subReq.appendChild(a);
             document.getElementById("subjectPreReqInput").value = "";
+
+            relationships.push({
+                "ID": ui.item.value,
+                "SubjectID": { "ID": document.getElementById("subjectID").value },
+                "RequisiteID": { "ID": ui.item.value},
+                "RequisiteTypeID": { "ID": 1 }                
+            });
+            console.log(relationships);
         }
 
     });
@@ -1195,6 +1259,14 @@ function handleAntiRequisiteListPush(term) {
             a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
             subReq.appendChild(a);
             document.getElementById("subjectAntiReqInput").value = "";
+
+            relationships.push({
+                "ID": ui.item.value,
+                "SubjectID": { "ID": document.getElementById("subjectID").value},
+                "RequisiteID": { "ID": ui.item.value},
+                "RequisiteTypeID": { "ID": 2 }
+            });
+            console.log(relationships);
         }
 
     });
@@ -1254,6 +1326,13 @@ function handleCourseMajorListPush(term) {
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success');
             a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
             courseMajorList.appendChild(a);
+
+            relationships.push({
+                "ID": ui.item.value,
+                "MajorID": { "ID": document.getElementById("majorId").value },
+                "CourseID": { "ID": ui.item.value }
+            });
+            console.log(relationships);
         }
     });
 }
@@ -1262,6 +1341,12 @@ function removeFromList(id) {
     if ($("#" + id).hasClass("disabled")) { }
     else {
         listElement.remove();
+        //for (var i = 0; i < relationships.length; i++) {
+        //    if (relationships[i].ID == id) {
+        //        console.log(relationships[i]);
+        //        relationships.splice(i, 1);
+        //    }
+        //}
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END FUNCTIONS PUSHING AND REMOVING ITEMS FROM LIST
@@ -1410,6 +1495,7 @@ function handleViewEditCourse(data) {
 }
 function handleViewEditMajor(data) {
     var courses = getCourseMajorRelationship(data.ID);
+    relationships = courses;
     console.log(data);
     document.getElementById("majorName").value = data.Name;
     document.getElementById("majorId").value = data.ID;
@@ -1498,6 +1584,7 @@ function handleViewEditStreamSubChoice(data) {
 }
 function handleViewEditSubject(data) {
     var reqs = getSubjectRequisites(data.ID);
+    relationships = reqs;
     console.log(data);
     console.log(reqs);
     document.getElementById("subjectName").value = data.Name;
@@ -1717,6 +1804,8 @@ function handleCancel() {
 
     document.getElementById("course").style.backgroundColor = selectedBlue;
 
+    document.getElementById('btnEdit').disabled = false;
+
     document.getElementById('searchDiv').style.display = "block";
     document.getElementById('addDiv').style.display = "block";
     document.getElementById('updateButtonDiv').style.display = "none";
@@ -1750,17 +1839,10 @@ function handleSave() {
         if (hasTemplate == true) {
             addCourseRelationship(id, template);
         }
-
-
-
-
-
-
-
     }
     else if (selected == "major") {
         var name = document.getElementById("majorName").value;
-        var id = document.getElementById("majorID").value;
+        var id = document.getElementById("majorId").value;
         var abbreviation = document.getElementById("majorAbb").value;
         var description = document.getElementById("majorDescription").value;
         var stages = document.getElementById("majorStages").value;
@@ -1784,21 +1866,75 @@ function handleSave() {
 
     }
     else if (selected == "stream") {
+        var name = document.getElementById("streamName").value;
+        var id = document.getElementById("streamId").value;
+        var abbreviation = document.getElementById("streamAbb").value;
+        var description = document.getElementById("streamDescription").value;
+        var creditPoints = document.getElementById("streamCredit").value;
+        var version = document.getElementById("streamVersion").value;
+        var versionDescription = document.getElementById("streamVersionDescription").value;
+        var status = document.getElementById("streamStatusActive").checked;
 
+        var item = {
+            "ID": id, "Name": name, "Abbreviation": abbreviation, "StreamDescription": description,
+            "Version": version, "VersionDescription": versionDescription,
+            "Active": status, "CreditPoints": creditPoints
+        };
+        addStream(item);
     }
     else if (selected == "submajor") {
+        var name = document.getElementById("streamName").value;
+        var id = document.getElementById("streamId").value;
+        var abbreviation = document.getElementById("streamAbb").value;
+        var description = document.getElementById("streamDescription").value;
+        var creditPoints = document.getElementById("streamCredit").value;
+        var version = document.getElementById("streamVersion").value;
+        var versionDescription = document.getElementById("streamVersionDescription").value;
+        var status = document.getElementById("streamStatusActive").checked;
 
+        var item = {
+            "ID": id, "Name": name, "Abbreviation": abbreviation, "SubMajorDescription": description,
+            "Version": version, "VersionDescription": versionDescription,
+            "Active": status, "CreditPoints": creditPoints
+        };
+        addSubMajor(item);
     }
     else if (selected == "choiceblock") {
+        var name = document.getElementById("streamName").value;
+        var id = document.getElementById("streamId").value;
+        var abbreviation = document.getElementById("streamAbb").value;
+        var description = document.getElementById("streamDescription").value;
+        var creditPoints = document.getElementById("streamCredit").value;
+        var version = document.getElementById("streamVersion").value;
+        var versionDescription = document.getElementById("streamVersionDescription").value;
+        var status = document.getElementById("streamStatusActive").checked;
 
+        var item = {
+            "ID": id, "Name": name, "Abbreviation": abbreviation, "ChoiceBlockDescription": description,
+            "Version": version, "VersionDescription": versionDescription,
+            "Active": status, "CreditPoints": creditPoints
+        };
+        addChoiceBlock(item);
     }
     else if (selected == "subject") {
+        var name = document.getElementById("subjectName").value;
+        var id = document.getElementById("subjectId").value;
+        var abbreviation = document.getElementById("subjectAbb").value;
+        var description = document.getElementById("subjectDescription").value;
+        var creditPoints = document.getElementById("subjectCredit").value;
+        var version = document.getElementById("subjectVersion").value;
+        var versionDescription = document.getElementById("subjectVersionDescription").value;
+        var status = document.getElementById("subjectStatusActive").checked;
 
+        var item = {
+            "ID": id, "Name": name, "Abbreviation": abbreviation, "SubjectDescription": description,
+            "Version": version, "VersionDescription": versionDescription,
+            "Active": status, "CreditPoints": creditPoints
+        };
+        addSubject(item);
     }
 
-
-
-
+    handleCancel();
 
 }
 //this controls the edit button, and allows the user to make edits to the object
@@ -1891,12 +2027,150 @@ function handleEdit() {
 
 }
 //this controls the submit button which sends the data via and ajax call to the database
-function handleSubmit() { }
+//function handleSubmit() {
+//    if (selected == "course") {
+//        var name = document.getElementById("courseName").value;
+//        var id = document.getElementById("courseId").value;
+//        var abbreviation = document.getElementById("courseAbb").value;
+//        var description = document.getElementById("courseDescription").value;
+//        var years = document.getElementById("courseYears").value;
+//        var stages = document.getElementById("courseStages").value;
+//        var creditPoints = document.getElementById("courseCredit").value;
+//        var version = document.getElementById("courseVersion").value;
+//        var versionDescription = document.getElementById("courseVersionDescription").value;
+//        var typeID = document.getElementById("courseType").selectedIndex + 1;
+//        var status = document.getElementById("courseStatusActive").checked;
+//        var hasMajor = document.getElementById("includeMajor").checked;
+//        var hasTemplate = document.getElementById("includeCourseTemplate").checked;
+
+//        var item = {
+//            "ID": id, "Name": name, "Abbreviation": abbreviation, "CourseDescription": description,
+//            "Years": years, "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
+//            "CourseType": { "ID": typeID }, "Active": status, "hasMajor": hasMajor, "hasTemplate": hasTemplate
+//        };
+//        addCourse(item);
+
+//        if (hasTemplate == true) {
+//            addCourseRelationship(id, template);
+//        }
+//    }
+//    else if (selected == "major") {
+//        var name = document.getElementById("majorName").value;
+//        var id = document.getElementById("majorId").value;
+//        var abbreviation = document.getElementById("majorAbb").value;
+//        var description = document.getElementById("majorDescription").value;
+//        var stages = document.getElementById("majorStages").value;
+//        var creditPoints = document.getElementById("majorCredit").value;
+//        var version = document.getElementById("majorVersion").value;
+//        var versionDescription = document.getElementById("majorVersionDescription").value;
+//        var status = document.getElementById("majorStatusActive").checked;
+//        var hasTemplate = document.getElementById("includeCourseTemplate").checked;
+
+//        var item = {
+//            "ID": id, "Name": name, "Abbreviation": abbreviation, "MajorDescription": description,
+//            "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
+//            "Active": status, "hasTemplate": hasTemplate
+//        };
+//        addMajor(item);
+//        if (hasTemplate == true) {
+//            addMajorRelationship(id, template);
+//        }
+
+//        //addCourseMajorRelationship(id, courseList);
+        
+//    }
+//    else if (selected == "stream") {
+//        var name = document.getElementById("streamName").value;
+//        var id = document.getElementById("streamId").value;
+//        var abbreviation = document.getElementById("streamAbb").value;
+//        var description = document.getElementById("streamDescription").value;
+//        var creditPoints = document.getElementById("streamCredit").value;
+//        var version = document.getElementById("streamVersion").value;
+//        var versionDescription = document.getElementById("streamVersionDescription").value;
+//        var status = document.getElementById("streamStatusActive").checked;
+
+//        var item = {
+//            "ID": id, "Name": name, "Abbreviation": abbreviation, "StreamDescription": description,
+//             "Version": version, "VersionDescription": versionDescription,
+//            "Active": status, "CreditPoints": creditPoints
+//        };
+//        addStream(item);
+//    }
+//    else if (selected == "submajor") {
+//        var name = document.getElementById("streamName").value;
+//        var id = document.getElementById("streamId").value;
+//        var abbreviation = document.getElementById("streamAbb").value;
+//        var description = document.getElementById("streamDescription").value;
+//        var creditPoints = document.getElementById("streamCredit").value;
+//        var version = document.getElementById("streamVersion").value;
+//        var versionDescription = document.getElementById("streamVersionDescription").value;
+//        var status = document.getElementById("streamStatusActive").checked;
+
+//        var item = {
+//            "ID": id, "Name": name, "Abbreviation": abbreviation, "SubMajorDescription": description,
+//             "Version": version, "VersionDescription": versionDescription,
+//            "Active": status, "CreditPoints": creditPoints
+//        };
+//        addSubMajor(item);
+//    }
+//    else if (selected == "choiceblock") {
+//        var name = document.getElementById("streamName").value;
+//        var id = document.getElementById("streamId").value;
+//        var abbreviation = document.getElementById("streamAbb").value;
+//        var description = document.getElementById("streamDescription").value;
+//        var creditPoints = document.getElementById("streamCredit").value;
+//        var version = document.getElementById("streamVersion").value;
+//        var versionDescription = document.getElementById("streamVersionDescription").value;
+//        var status = document.getElementById("streamStatusActive").checked;
+
+//        var item = {
+//            "ID": id, "Name": name, "Abbreviation": abbreviation, "ChoiceBlockDescription": description,
+//             "Version": version, "VersionDescription": versionDescription,
+//            "Active": status, "CreditPoints": creditPoints
+//        };
+//        addChoiceBlock(item);
+//    }
+//    else if (selected == "subject") {
+//        var name = document.getElementById("subjectName").value;
+//        var id = document.getElementById("subjectId").value;
+//        var abbreviation = document.getElementById("subjectAbb").value;
+//        var description = document.getElementById("subjectDescription").value;
+//        var creditPoints = document.getElementById("subjectCredit").value;
+//        var version = document.getElementById("subjectVersion").value;
+//        var versionDescription = document.getElementById("subjectVersionDescription").value;
+//        var status = document.getElementById("subjectStatusActive").checked;
+
+//        var item = {
+//            "ID": id, "Name": name, "Abbreviation": abbreviation, "SubjectDescription": description,
+//           "Version": version, "VersionDescription": versionDescription,
+//            "Active": status, "CreditPoints": creditPoints
+//        };
+//        addSubject(item);
+//    }
+//    handleCancel();
+//}
 //this controls the update button which updates a particular item that already exists within the database
-function handleUpdate() { }
 //This deletes an item from the database ie subject, course etc 
 function handleDelete() {
-    selectedData.ID
+    if (selected == "course") {
+        deleteCourse(selectedData.ID);
+    }
+    else if (selected == "major") {
+        deleteMajor(selectedData.ID);
+    }
+    else if (selected == "stream") {
+        deleteStream(selectedData.ID);
+    }
+    else if (selected == "submajor") {
+        deleteSubMajor(selectedData.ID);
+    }
+    else if (selected == "choiceblock") {
+        deleteChoiceBlock(selectedData.ID);
+    }
+    else if (selected == "subject") {
+        deleteSubject(selectedData.ID);
+    }
+    handleCancel();
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END ALL BUTTONS
 
