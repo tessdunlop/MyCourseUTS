@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="MyCourseDBEntities-Web.config Connection String" description="MyCourseDBEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/MyCourseDataModel.csdl|res://*/MyCourseDataModel.ssdl|res://*/MyCourseDataModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=mycourseserver.database.windows.net;initial catalog=MyCourseDB;persist security info=True;user id=MyCourse;password=Password123!;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+  <parameter name="MyCourseDBEntities-Web.config Connection String" description="MyCourseDBEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/MyCourseDataModel.csdl|res://*/MyCourseDataModel.ssdl|res://*/MyCourseDataModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=mycourseserver.database.windows.net;initial catalog=DEV_MyCourseDB;persist security info=True;user id=MyCourse;password=Password123!;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\TVSN\\Desktop\\MyCourseUTS\\MyCourseUTS\.API\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MyCourseDBEntities']/@connectionString" />
   </parameter>
 </parameters>

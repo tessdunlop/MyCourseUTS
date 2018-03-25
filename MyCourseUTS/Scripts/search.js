@@ -2,7 +2,7 @@
 var selected = "course";
 var lastSelected;
 var selectedBlue = "#2478fc";
-var subject;
+var templateItem;
 var stage;
 
 var selectedData;
@@ -14,7 +14,8 @@ var ele = "#f7f2bb";
 var cds = "#ddf7bb";
 var mele = "#f7dfbb";
 
-
+var template = [];
+var nextAvailableID = 0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////START OF API CALLS
 function getAllCourses() {
@@ -25,7 +26,7 @@ function getAllCourses() {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -42,7 +43,7 @@ function getAllMajors() {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -59,7 +60,7 @@ function getAllSubMajors() {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -76,7 +77,7 @@ function getAllStreams() {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -94,7 +95,7 @@ function getAllChoiceBlocks() {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -111,7 +112,7 @@ function getAllSubjects() {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -136,7 +137,7 @@ function getCourseTypes() {
             alert("There was an issue retrieving the list of course types");
         }
     });
-    console.log(data);
+    //console.log(data);
     return data;
 }
 function getSubjectTypes() {
@@ -154,7 +155,7 @@ function getSubjectTypes() {
             alert("There was an issue retrieving the list of subject types");
         }
     });
-    console.log(data);
+    //console.log(data);
     return data;
 }
 
@@ -321,7 +322,7 @@ function getMajors(term) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -338,7 +339,7 @@ function getSubMajors(term) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -355,7 +356,7 @@ function getStreams(term) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -372,7 +373,7 @@ function getChoiceBlocks(term) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -389,7 +390,7 @@ function getSubjects(term) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -522,92 +523,308 @@ function getCourseMajorRelationship(id) {
 
 
 
-//Need to add the logic for all these below
-function updateCourse(id) { }
-function updateMajor(id) { }
-function updateChoiceBlock(id) { }
-function updateStream(id) { }
-function updateSubMajor(id) { }
-function updateSubject(id) { }
+
 
 function addCourse(item) {
-
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/course/postcourse";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding course");
+        }
+    });
 }
 function addMajor(item) {
-
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/major/postmajor";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding major");
+        }
+    });
 }
 function addChoiceBlock(item) {
-
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/choiceblock/postchoiceblock";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding choice block");
+        }
+    });
 }
 function addStream(item) {
-
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/stream/poststream";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding stream");
+        }
+    });
 }
 function addSubMajor(item) {
-
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/submajor/postsubmajor";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding sub major");
+        }
+    });
 }
 function addSubject(item) {
-
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/subject/postsubject";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding subject");
+        }
+    });
 }
 
 //delete everything that was in there and then insert the new values
-function updateCourseRelationship(id, item) { }
-function updateMajorRelationship(id, item) { }
-function updateCourseMajorRelationship(id, item) { }
-function updateChoiceBlockRelationship(id, item) { }
-function updateStreamRelationship(id, item) { }
-function updateSubMajorRelationship(id, item) { }
-function updateSubjectRelationship(id, item) { }
-function updateSubjectRequisites(id, item) { }
+function addCourseRelationship(id, item) {
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/course/postcourserelationship?courseID=" + id;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding course relationship");
+        }
+    });
+}
+function addMajorRelationship(id, item) {
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/major/postmajorrelationship?majorID=" + id;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding major relationship");
+        }
+    });
+}
+function addCourseMajorRelationship(id, item) {
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/major/postcoursemajorrelationship?majorID=" + id;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding course major relationship");
+        }
+    });
+}
+function addChoiceBlockRelationship(id, item) {
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/choiceblock/postchoiceblockrelationship?choiceblockID=" + id;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding choice block relationship");
+        }
+    });
+}
+function addStreamRelationship(id, item) {
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/stream/poststreamrelationship?streamID=" + id;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding stream relationship");
+        }
+    });
+}
+function addSubMajorRelationship(id, item) {
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/submajor/postsubmajorrelationship?submajorID=" + id;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding sub major relationship");
+        }
+    });
+}
+function addSubjectRequisitesRelationship(id, item) {
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/subject/PostRequisiteRelationship?subjectID=" + id;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        data: JSON.stringify(item),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue adding requisite relationship");
+        }
+    });
+}
 
 function deleteCourse(id) {
-    //delete from courses
-    //delete from majorcourserelationship
-    //delete from courserelationship
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/course/deletecourse?courseID=" + id;
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        async: false,
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue deleting course");
+        }
+    });
 }
 function deleteMajor(id) {
-    //delete from majors
-    //delete from majorcourserelationship
-    //delete from majorrelationship
-    //delete from subjectgrouping??? one of these has majorid in the table
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/major/deletemajor?majorID=" + id;
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        async: false,
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue deleting major");
+        }
+    });
 }
 function deleteChoiceBlock(id) {
-    //delete from choiceblocks
-    //delete from subjectgroupings
-    //delete from subjectrelationships
-    //delete from streamrelationships
-    //delete from submajorrelationships
-    //delete from choiceblockrelationships
-    //delete from courserelationship
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/choiceblock/deletechoiceblock?choiceblockID=" + id;
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        async: false,
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue deleting choice block");
+        }
+    });
 }
 function deleteStream(id) {
-    //delete from streams
-    //delete from subjectgroupings
-    //delete from subjectrelationships
-    //delete from streamrelationships
-    //delete from submajorrelationships
-    //delete from choiceblockrelationships
-    //delete from courserelationship
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/stream/deletestream?streamID=" + id;
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        async: false,
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue deleting stream");
+        }
+    });
 }
 function deleteSubMajor(id) {
-    //delete from submajors
-    //delete from subjectgroupings
-    //delete from subjectrelationships
-    //delete from streamrelationships
-    //delete from submajorrelationships
-    //delete from choiceblockrelationships
-    //delete from courserelationship   
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/submajor/deletesubmajor?submajorD=" + id;
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        async: false,
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue deleting sub major");
+        }
+    });
 }
 function deleteSubject(id) {
-    //delete from subjects
-    //delete from subjectgroupings
-    //delete from subjectrelationships
-    //delete from streamrelationships
-    //delete from submajorrelationships
-    //delete from choiceblockrelationships
-    //delete from courserelationship   
-    //delete from requisiterelationship
-    //delete from courserelationship
-    //delete from majorrelationship
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/subject/deletesubject?subjectID=" + id;
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        async: false,
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+        },
+        error: function () {
+            alert("There was an issue deleting subject");
+        }
+    });
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END OF API CALLS
 
@@ -699,7 +916,7 @@ function clearFields() {
     document.getElementById("streamId").value = "";
     document.getElementById("streamAbb").value = "";
     document.getElementById("streamVersion").value = "";
-    document.getElementById("majorCredit").value = "";
+    document.getElementById("streamCredit").value = "";
     document.getElementById("streamVersionDescription").value = "";
     document.getElementById("streamStatusActive").checked = true;
     document.getElementById("streamStatusInActive").checked = false;
@@ -731,8 +948,11 @@ function clearFields() {
     selectedCourse = "";
     selectedMajor = "";
 
-    subject = "";
+    templateItem = "";
     stage = "";
+
+    template = [];
+    nextAvailableID = 0;
 
     handleEdit();
 }
@@ -1133,7 +1353,7 @@ function handleSubjectInput(term) {
         },
         select: function (event, ui) {
             console.log(ui);
-            subject = getSubject(ui.item.value);
+            templateItem = getSubject(ui.item.value);//need to change this so it can select from cbk, stm and smj as well
             disabledAddSubjectButton();
         }
 
@@ -1374,9 +1594,9 @@ function handleStream() {
     selected = "stream";
     document.getElementById('searchBar').value = "";
     document.getElementById("streamOption").checked = true;
-    document.getElementById("streamNameTitle").innerHTML = "<b>Stream Name</b>";
-    document.getElementById("streamIDTitle").innerHTML = "<b>Stream Indentification</b>";
-    document.getElementById("streamAbbreviationTitle").innerHTML = "<b>Stream Abbreviation</b>";
+    document.getElementById("streamNameTitle").innerHTML = "<b>Stream Name</b><b style='color: red; font-size:large'> *</b>";
+    document.getElementById("streamIDTitle").innerHTML = "<b>Stream Indentification</b><b style='color: red; font-size:large'> *</b>";
+    document.getElementById("streamAbbreviationTitle").innerHTML = "<b>Stream Abbreviation</b><b style='color: red; font-size:large'> *</b>";
     document.getElementById("streamDescriptionTitle").innerHTML = "<b>Stream Description</b>";
     refreshNavColours();
     document.getElementById("stream").style.backgroundColor = selectedBlue;
@@ -1394,9 +1614,9 @@ function handleSubMajor() {
     selected = "submajor";
     document.getElementById('searchBar').value = "";
     document.getElementById("subMajorOption").checked = true
-    document.getElementById("streamNameTitle").innerHTML = "<b>Sub-Major Name</b>";
-    document.getElementById("streamIDTitle").innerHTML = "<b>Sub-Major Identification</b>";
-    document.getElementById("streamAbbreviationTitle").innerHTML = "<b>Sub-Major Abbreviation</b>";
+    document.getElementById("streamNameTitle").innerHTML = "<b>Sub-Major Name</b><b style='color: red; font-size:large'> *</b>";
+    document.getElementById("streamIDTitle").innerHTML = "<b>Sub-Major Identification</b><b style='color: red; font-size:large'> *</b>";
+    document.getElementById("streamAbbreviationTitle").innerHTML = "<b>Sub-Major Abbreviation</b><b style='color: red; font-size:large'> *</b>";
     document.getElementById("streamDescriptionTitle").innerHTML = "<b>Sub-Major Description</b>";
     refreshNavColours();
     document.getElementById("submajor").style.backgroundColor = selectedBlue;
@@ -1414,9 +1634,9 @@ function handleChoiceBlock() {
     selected = "choiceblock";
     document.getElementById('searchBar').value = "";
     document.getElementById("choiceBlockOption").checked = true
-    document.getElementById("streamNameTitle").innerHTML = "<b>Choice Block Name</b>";
-    document.getElementById("streamIDTitle").innerHTML = "<b>Choice Block Identification</b>";
-    document.getElementById("streamAbbreviationTitle").innerHTML = "<b>Choice Block Abbreviation</b>";
+    document.getElementById("streamNameTitle").innerHTML = "<b>Choice Block Name</b><b style='color: red; font-size:large'> *</b>";
+    document.getElementById("streamIDTitle").innerHTML = "<b>Choice Block Identification</b><b style='color: red; font-size:large'> *</b>";
+    document.getElementById("streamAbbreviationTitle").innerHTML = "<b>Choice Block Abbreviation</b><b style='color: red; font-size:large'> *</b>";
     document.getElementById("streamDescriptionTitle").innerHTML = "<b>Choice Block Description</b>";
     refreshNavColours();
     document.getElementById("choiceblock").style.backgroundColor = selectedBlue;
@@ -1504,9 +1724,87 @@ function handleCancel() {
     document.getElementById("searchBar").focus();
 }
 //this controls the save button, and updates the changes to the database
-function handleSave() { }
+function handleSave() {
+    if (selected == "course") {
+        var name = document.getElementById("courseName").value;
+        var id = document.getElementById("courseId").value;
+        var abbreviation = document.getElementById("courseAbb").value;
+        var description = document.getElementById("courseDescription").value;
+        var years = document.getElementById("courseYears").value;
+        var stages = document.getElementById("courseStages").value;
+        var creditPoints = document.getElementById("courseCredit").value;
+        var version = document.getElementById("courseVersion").value;
+        var versionDescription = document.getElementById("courseVersionDescription").value;
+        var typeID = document.getElementById("courseType").selectedIndex + 1;
+        var status = document.getElementById("courseStatusActive").checked;
+        var hasMajor = document.getElementById("includeMajor").checked;
+        var hasTemplate = document.getElementById("includeCourseTemplate").checked;
+
+        var item = {
+            "ID": id, "Name": name, "Abbreviation": abbreviation, "CourseDescription": description,
+            "Years": years, "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
+            "CourseType": { "ID": typeID }, "Active": status, "hasMajor": hasMajor, "hasTemplate": hasTemplate
+        };
+        addCourse(item);
+
+        if (hasTemplate == true) {
+            addCourseRelationship(id, template);
+        }
+
+
+
+
+
+
+
+    }
+    else if (selected == "major") {
+        var name = document.getElementById("majorName").value;
+        var id = document.getElementById("majorID").value;
+        var abbreviation = document.getElementById("majorAbb").value;
+        var description = document.getElementById("majorDescription").value;
+        var stages = document.getElementById("majorStages").value;
+        var creditPoints = document.getElementById("majorCredit").value;
+        var version = document.getElementById("majorVersion").value;
+        var versionDescription = document.getElementById("majorVersionDescription").value;
+        var status = document.getElementById("majorStatusActive").checked;
+        var hasTemplate = document.getElementById("includeCourseTemplate").checked;
+
+        var item = {
+            "ID": id, "Name": name, "Abbreviation": abbreviation, "MajorDescription": description,
+            "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
+            "Active": status, "hasTemplate": hasTemplate
+        };
+        addMajor(item);
+        if (hasTemplate == true) {
+            addMajorRelationship(id, template);
+        }
+
+        //addCourseMajorRelationship(id, courseList);
+
+    }
+    else if (selected == "stream") {
+
+    }
+    else if (selected == "submajor") {
+
+    }
+    else if (selected == "choiceblock") {
+
+    }
+    else if (selected == "subject") {
+
+    }
+
+
+
+
+
+}
 //this controls the edit button, and allows the user to make edits to the object
 function handleEdit() {
+    document.getElementById("btnEdit").disabled = true;
+
     templateCheck();
 
     var preList = document.getElementById("subjectPreReq");
@@ -1626,7 +1924,7 @@ function checkStageValue(value) {
         document.getElementById("includeCourseTemplate").disabled = false;
         document.getElementById("includeMajorTemplate").disabled = false;
         var stage = +document.getElementById("courseStages").value;
-        document.getElementById("courseYears").value = stage / 2;
+        document.getElementById("courseYears").value = Math.round(stage / 2);
     }
     else {
         console.log("disabled");
@@ -1641,7 +1939,6 @@ document.addEventListener('DOMContentLoaded', function () {
 function templateCheck() {
     var headerRow = document.getElementById("headerRow");
     if (includeCourseTemplate.checked || includeMajorTemplate.checked) {
-
         if (selectedData.HasTemplate == true) {
             buildTimetableStructure(selectedData.Stages);
             populateExistingTimetable();
@@ -1676,24 +1973,19 @@ function buildTimetableStructure(stages) {
     }
 }
 function populateExistingTimetable() {
+    template = [];//refresh the template object
+    nextAvailableID = 0;
     var stages = selectedData.Stages;
     var column;
     var items;
 
-    var subject0Count = 0;
-    var subject1Count = 0;
-    var subject2Count = 0;
-    var subject3Count = 0;
-    var CBKCount = 0;
-    var STMCount = 0;
-    var SMJCount = 0;
-    var groupCount = 0;
-
     if (selectedData.ID.substring(0, 3) == "MAJ") {
         items = getMajorRelationship(selectedData.ID);
+        template = getMajorRelationship(selectedData.ID);
     }
     else {
         items = getCourseRelationship(selectedData.ID);
+        template = getCourseRelationship(selectedData.ID);
     }
 
     console.log(items);
@@ -1710,6 +2002,11 @@ function populateExistingTimetable() {
             var number;
 
             if (items[x].Stage == i) {
+                number = items[x].ID;
+                if (number > nextAvailableID) {
+                    nextAvailableID = number++;
+                }
+
                 if (items[x].Stream != null) {
                     name = items[x].Streams.Name;
                     id = items[x].Streams.ID;
@@ -1721,6 +2018,7 @@ function populateExistingTimetable() {
                     id = items[x].ChoiceBlock.ID;
                     credit = items[x].ChoiceBlock.CreditPoints;
                     type = items[x].SubjectType.Abbreviation;
+
                 }
                 else if (items[x].SubMajor != null) {
                     name = items[x].SubMajor.Name;
@@ -1740,7 +2038,7 @@ function populateExistingTimetable() {
                     credit = 6;
                     type = items[x].SubjectType.Abbreviation;
                 }
-
+                console.log(template);
                 if (type == "COR") {
                     colour = cor;
                 }
@@ -1759,73 +2057,13 @@ function populateExistingTimetable() {
                 else if (type == "MELE") {
                     colour = mele;
                 }
-
-
-                number = id;
-                //to handle the ids of repeating subjects, cbk, stm or smj
-                if (id == 0) {
-                    if (subject0Count != 0) {
-                        id += subject0Count;
-                    }
-                    subject0Count++;
-                    number = 0;
-                }
-                else if (id == 1) {
-                    if (subject1Count != 0) {
-                        id += subject1Count;
-                    }
-                    subject1Count++;
-                    number = 0;
-                }
-                else if (id == 2) {
-                    if (subject2Count != 0) {
-                        id += subject2Count;
-                    }
-                    subject2Count++;
-                    number = 0;
-                }
-                else if (id == 3) {
-                    if (subject3Count != 0) {
-                        id += subject3Count;
-                    }
-                    subject3Count++;
-                    number = 0;
-                }
-                else if (name == "Choice") {
-                    if (groupCount != 0) {
-                        id += groupCount;
-                    }
-                    groupCount++;
-                }
-
-                if (id.toString().substring(0, 3) == "STM") {
-                    if (STMCount != 0) {
-                        id += STMCount;
-                    }
-                    STMCount++;
-                }
-                else if (id.toString().substring(0, 3) == "SMJ") {
-                    if (SMJCount != 0) {
-                        id += SMJCount;
-                    }
-                    SMJCount++;
-                }
-                else if (id.toString().substring(0, 3) == "CBK") {
-                    if (CBKCount != 0) {
-                        id += CBKCount;
-                    }
-                    CBKCount++;
-                }
-                var string = "<div id='item" + id + "' onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + number + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
+                var string = "<div id='" + number + "'onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
                 column.innerHTML += string;
 
                 if (id.toString().substring(0, 3) == "CBK" || id.toString().substring(0, 3) == "SMJ" || id.toString().substring(0, 3) == "STM" || name == "Choice") {
-                    handleHover(number, "item" + id);
+                    handleHover(id, number);
                 }
-
                 $("#item" + id).attr("disabled", "disabled").off("click");
-
-
             }
         }
 
@@ -1835,20 +2073,165 @@ function addToTimetable() {
     //They also should be able to choose from stream, choiceblock and submajors here as well as subjects
 
     var column;
-    var name = subject.Name;
-    var id = subject.ID;
+    var name = templateItem.Name;
+    var id = templateItem.ID;
     var e = document.getElementById("subjectTypeDropDown");
     var type = e.options[e.selectedIndex].text;
     var colour;
-    var credit = subject.CreditPoints;
-
+    var credit = templateItem.CreditPoints;
     var stages;
+
+    var typeChecker = id.toString().substring(0, 3);
+
     if (selected == "course") {
-        stages = +document.getElementById("courseStages").value;
+        stages = +document.getElementById("courseStages").value;      
+        if (typeChecker == "SMJ") {
+            template.push({
+                "ID": nextAvailableID,
+                "CourseID": document.getElementById("courseId").value,
+                "SubjectID": null,
+                "ChoiceBlockID": null,
+                "SubMajorID": { "ID": id },
+                "StreamID": null,
+                "GroupID": null,
+                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Stage": stage,
+                "Year": Math.round(stage / 2)
+            });
+        }
+        else if (typeChecker == "STM") {
+            template.push({
+                "ID": nextAvailableID,
+                "CourseID": document.getElementById("courseId").value,
+                "SubjectID": null,
+                "ChoiceBlockID": null,
+                "SubMajorID": null,
+                "StreamID": { "ID": id },
+                "GroupID": null,
+                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Stage": stage,
+                "Year": Math.round(stage / 2)
+            });
+        }
+        else if (typeChecker == "CBK") {
+            template.push({
+                "ID": nextAvailableID,
+                "CourseID": document.getElementById("courseId").value,
+                "SubjectID": null,
+                "ChoiceBlockID": { "ID": id },
+                "SubMajorID": null,
+                "StreamID": null,
+                "GroupID": null,
+                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Stage": stage,
+                "Year": Math.round(stage / 2)
+            });
+        }
+        else if (id.length < 4) {//group
+            template.push({
+                "ID": nextAvailableID,
+                "CourseID": document.getElementById("courseId").value,
+                "SubjectID": null,
+                "ChoiceBlockID": null,
+                "SubMajorID": null,
+                "StreamID": null,
+                "GroupID": { "ID": id },
+                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Stage": stage,
+                "Year": Math.round(stage / 2)
+            });
+        }
+        else {//subject
+            template.push({
+                "ID": nextAvailableID,
+                "CourseID": document.getElementById("courseId").value,
+                "SubjectID": { "ID": id },
+                "ChoiceBlockID": null,
+                "SubMajorID": null,
+                "StreamID": null,
+                "GroupID": null,
+                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Stage": stage,
+                "Year": Math.round(stage / 2)
+            });
+        }
+    
     }
     else if (selected == "major") {
         stages = +document.getElementById("majorStages").value;//Make the add template checkbox disabled unless this is entered
+        if (typeChecker == "SMJ") {
+            template.push({
+                "ID": nextAvailableID,
+                "MajorID": document.getElementById("majorId").value,
+                "SubjectID": null,
+                "ChoiceBlockID": null,
+                "SubMajorID": { "ID": id },
+                "StreamID": null,
+                "GroupID": null,
+                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Stage": stage,
+                "Year": Math.round(stage / 2)
+            });
+        }
+        else if (typeChecker == "STM") {
+            template.push({
+                "ID": nextAvailableID,
+                "MajorID": document.getElementById("majorId").value,
+                "SubjectID": null,
+                "ChoiceBlockID": null,
+                "SubMajorID": null,
+                "StreamID": { "ID": id },
+                "GroupID": null,
+                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Stage": stage,
+                "Year": Math.round(stage / 2)
+            });
+        }
+        else if (typeChecker == "CBK") {
+            template.push({
+                "ID": nextAvailableID,
+                "MajorID": document.getElementById("majorId").value,
+                "SubjectID": null,
+                "ChoiceBlockID": { "ID": id },
+                "SubMajorID": null,
+                "StreamID": null,
+                "GroupID": null,
+                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Stage": stage,
+                "Year": Math.round(stage / 2)
+            });
+        }
+        else if (id.length < 4) {//group
+            template.push({
+                "ID": nextAvailableID,
+                "MajorID": document.getElementById("majorId").value,
+                "SubjectID": null,
+                "ChoiceBlockID": null,
+                "SubMajorID": null,
+                "StreamID": null,
+                "GroupID": { "ID": id },
+                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Stage": stage,
+                "Year": Math.round(stage / 2)
+            });
+        }
+        else {//subject
+            template.push({
+                "ID": nextAvailableID,
+                "MajorID": document.getElementById("majorId").value,
+                "SubjectID": { "ID": id },
+                "ChoiceBlockID": null,
+                "SubMajorID": null,
+                "StreamID": null,
+                "GroupID": null,
+                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Stage": stage,
+                "Year": Math.round(stage / 2)
+            });
+        }
     }
+
+    console.log(template);
 
     if (type == "COR") {
         colour = cor;
@@ -1869,17 +2252,17 @@ function addToTimetable() {
         colour = mele;
     }
 
-    console.log(name);
-    console.log(id);
-    console.log(type);
-    console.log(credit);
-    console.log(colour);
-    console.log(stages);
+    //console.log(name);
+    //console.log(id);
+    //console.log(type);
+    //console.log(credit);
+    //console.log(colour);
+    //console.log(stages);
 
     for (var i = 1; i < stages + 1; i++) {
         if (stage == i) {
             column = document.getElementById(i);
-            var string = "<div id='item" + id + "' onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
+            var string = "<div id='" + nextAvailableID + "' onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
             column.innerHTML += string;
             if (id.toString().substring(0, 3) == "CBK" || id.toString().substring(0, 3) == "SMJ" || id.toString().substring(0, 3) == "STM" || name == "Choice") {
                 handleHover(number, "item" + id);
@@ -1894,5 +2277,15 @@ function addToTimetable() {
 //This removes a subject from the timetable grid
 function removeSubject(number) {
     document.getElementById(number).remove();
+
+    //remove that json object from the template array
+    for (var i = 0; i < template.length; i++) {
+        if (template[i].ID == number) {
+            console.log(template[i]);
+            template.splice(i, 1);
+        }
+    }
+    console.log(template);
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////All TEMPLATE FUNCTIONS

@@ -169,6 +169,128 @@ namespace MyCourseUTS.API.Controllers
             context.SaveChanges();
         }
 
+        //http://mycourseuts.azurewebsites.net/Services/api/subject/PostRequisiteRelationship?subjectID=xxx
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void PostRequisiteRelationship(string subjectID, [FromBody]List<Entity.RequisiteRelationship> relationships)
+        {
+
+            var context = new MyCourseDBEntities();
+            List<DataModel.RequisiteRelationship> group;
+            var query = from c in context.RequisiteRelationship
+                        where c.Subjects.ID.Equals(subjectID)
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.RequisiteRelationship.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+            using (var scope = new TransactionScope())
+            {
+                foreach (var rel in relationships)
+                {
+                    DataModel.RequisiteRelationship newRow = new DataModel.RequisiteRelationship();
+                    newRow.SubjectID = rel.Subject.ID;
+                    newRow.RequisiteID = rel.Requisite.ID;
+                    newRow.RequisiteTypeID = rel.RequisiteType.ID;
+                    context.RequisiteRelationship.Add(newRow);
+                    context.SaveChanges();
+                }
+                scope.Complete();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            var context = new MyCourseDBEntities();
+            var query = from c in context.RequisiteRelationship.Include("Subjects")
+                        where c.SubjectID.Equals(subjectID)
+                        select c;
+            var existingRelationship = query.ToList();
+            if(existingRelationship.Count != 0) {
+                foreach (var req in existingRelationship)
+                {
+                    context.RequisiteRelationship.Remove(req);
+                    context.SaveChanges();
+                }
+            }
+            else { 
+                DataModel.RequisiteRelationship newRow = new DataModel.RequisiteRelationship();
+                newRow.SubjectID = requisites.Subject.ID;
+                newRow.RequisiteID = requisites.Requisite.ID;
+                newRow.RequisiteTypeID = .Name;
+                
+                context.Subjects.Add(newRow);
+                context.SaveChanges();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            List<DataModel.RequisiteRelationship> requisite;
+            var context = new MyCourseDBEntities();
+            var query = from c in context.RequisiteRelationship
+                        where c.Subjects.ID.Equals(subjectID) || c.Subjects1.ID.Equals(subjectID)
+                        select c;
+            requisite = query.ToList();
+
+            if (requisite.Count != 0)
+            {
+                foreach (var row in requisite)
+                {
+                    context.RequisiteRelationship.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+        }
 
         //http://mycourseuts.azurewebsites.net/Services/api/subject/DeleteRequisiteRelationship?subjectID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]

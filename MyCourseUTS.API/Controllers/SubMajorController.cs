@@ -281,7 +281,21 @@ namespace MyCourseUTS.API.Controllers
         public void PostSubMajorRelationship(string submajorID, [FromBody]List<SubMajorRelationship> relationships)
         {
             var context = new MyCourseDBEntities();
-            DeleteSubMajorRelationship(submajorID);
+
+            List<DataModel.SubMajorRelationships> group;
+            var query = from c in context.SubMajorRelationships
+                        where c.SubMajors.ID.Equals(submajorID) 
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.SubMajorRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
+
             using (var scope = new TransactionScope())
             {
                 foreach (var rel in relationships)

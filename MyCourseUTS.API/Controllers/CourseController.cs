@@ -263,25 +263,25 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
-        //http://mycourseuts.azurewebsites.net/Services/api/course/postcourseMajorrelationship?courseID=xxx
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostCourseMajorRelationship(string courseID, [FromBody]List<CourseMajorRelationship> relationships)
-        {
-            var context = new MyCourseDBEntities();
-            DeleteCourseMajorRelationship(courseID);
-            using (var scope = new TransactionScope())
-            {
-                foreach (var rel in relationships)
-                {
-                    CourseMajorRelationships newRow = new CourseMajorRelationships();
-                    newRow.CourseID = rel.Course.ID;
-                    newRow.MajorID = rel.Major.ID;                   
-                    context.CourseMajorRelationships.Add(newRow);
-                    context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
+        ////http://mycourseuts.azurewebsites.net/Services/api/course/postcourseMajorrelationship?courseID=xxx
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void PostCourseMajorRelationship(string courseID, [FromBody]List<CourseMajorRelationship> relationships)
+        //{
+        //    var context = new MyCourseDBEntities();
+        //    DeleteCourseMajorRelationship(courseID);
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        foreach (var rel in relationships)
+        //        {
+        //            CourseMajorRelationships newRow = new CourseMajorRelationships();
+        //            newRow.CourseID = rel.Course.ID;
+        //            newRow.MajorID = rel.Major.ID;                   
+        //            context.CourseMajorRelationships.Add(newRow);
+        //            context.SaveChanges();
+        //        }
+        //        scope.Complete();
+        //    }
+        //}
 
 
         //http://mycourseuts.azurewebsites.net/Services/api/course/deletecoursemajorrelationship?courseID=xxx

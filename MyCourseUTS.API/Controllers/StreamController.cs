@@ -294,7 +294,19 @@ namespace MyCourseUTS.API.Controllers
         public void PostStreamRelationship(string streamID, [FromBody]List<StreamRelationship> relationships)
         {
             var context = new MyCourseDBEntities();
-            DeleteStreamRelationship(streamID);
+            List<DataModel.StreamRelationships> group;
+            var query = from c in context.StreamRelationships
+                        where c.Streams.ID.Equals(streamID) 
+                        select c;
+            group = query.ToList();
+            if (group.Count != 0)
+            {
+                foreach (var row in group)
+                {
+                    context.StreamRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
             using (var scope = new TransactionScope())
             {
                 foreach (var rel in relationships)

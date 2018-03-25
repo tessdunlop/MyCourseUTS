@@ -315,7 +315,19 @@ namespace MyCourseUTS.API.Controllers
         public void PostChoiceBlockRelationship(string choiceBlockID, [FromBody]List<ChoiceBlockRelationship> relationships)
         {
             var context = new MyCourseDBEntities();
-            DeleteChoiceBlockRelationship(choiceBlockID);
+            List<DataModel.ChoiceBlockRelationships> cbk;
+            var query = from c in context.ChoiceBlockRelationships
+                        where c.ChoiceBlocks.ID.Equals(choiceBlockID) 
+                        select c;
+            cbk = query.ToList();
+            if (cbk.Count != 0)
+            {
+                foreach (var row in cbk)
+                {
+                    context.ChoiceBlockRelationships.Remove(row);
+                    context.SaveChanges();
+                }
+            }
             using (var scope = new TransactionScope())
             {
                 foreach (var rel in relationships)

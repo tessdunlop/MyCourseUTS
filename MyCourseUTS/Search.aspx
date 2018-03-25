@@ -81,7 +81,7 @@
         <div id="addCourseFormDiv" style="display: none">
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Course Name</b></p>
+                    <p><b>Course Name</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="courseName" class="form-control" style="width: 60%;" />
@@ -91,7 +91,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Course Identification</b></p>
+                    <p><b>Course Identification</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="courseId" class="form-control" style="width: 60%;" />
@@ -101,7 +101,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Course Type</b></p>
+                    <p><b>Course Type</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm" style="padding-bottom: 8px">
                     <select id="courseType" class="form-control" style="width: 60%; height: 100%">
@@ -112,7 +112,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Course Abbreviation</b></p>
+                    <p><b>Course Abbreviation</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="courseAbb" class="form-control" style="width: 60%;" />
@@ -132,7 +132,7 @@
             </div>
             <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Number of Years</b></p>
+                    <p><b>Number of Years</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="courseYears" class="form-control" style="width: 60%;" oninput="checkYearValue(this.value);" />
@@ -142,7 +142,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Number of Stages</b></p>
+                    <p><b>Number of Stages</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="courseStages" class="form-control" style="width: 60%;" oninput="checkStageValue(this.value);" />
@@ -152,7 +152,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Credit Points</b></p>
+                    <p><b>Credit Points</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="courseCredit" class="form-control" style="width: 60%;" />
@@ -162,7 +162,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Version</b></p>
+                    <p><b>Version</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="courseVersion" class="form-control" style="width: 60%;" />
@@ -182,7 +182,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
-                    <p><b>Status</b></p>
+                    <p><b>Status</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm radio">
                     <label class="radio-inline">
@@ -220,7 +220,7 @@
         <div id="addMajorFormDiv" style="display: none">
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Major Name</b></p>
+                    <p><b>Major Name</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="majorName" class="form-control" style="width: 60%;" />
@@ -230,7 +230,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Major Identification</b></p>
+                    <p><b>Major Identification</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="majorId" class="form-control" style="width: 60%;" />
@@ -249,7 +249,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Major Abbreviation</b></p>
+                    <p><b>Major Abbreviation</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="majorAbb" class="form-control" style="width: 60%;" />
@@ -269,7 +269,7 @@
             </div>
             <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Number of Stages</b></p>
+                    <p><b>Number of Stages</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="majorStages" class="form-control" style="width: 60%;" oninput="checkStageValue(this.value);" />
@@ -279,7 +279,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Credit Points</b></p>
+                    <p><b>Credit Points</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="majorCredit" class="form-control" style="width: 60%;" />
@@ -289,7 +289,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Version</b></p>
+                    <p><b>Version</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="majorVersion" class="form-control" style="width: 60%;" />
@@ -310,7 +310,7 @@
 
             <div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
-                    <p><b>Status</b></p>
+                    <p><b>Status</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm radio">
                     <label class="radio-inline">
@@ -364,7 +364,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p id="streamNameTitle"><b>Stream Name</b></p>
+                    <p id="streamNameTitle"><b>Stream Name</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="streamName" class="form-control" style="width: 60%;" />
@@ -374,7 +374,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p id="streamIDTitle"><b>Stream Identification</b></p>
+                    <p id="streamIDTitle"><b>Stream Identification</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="streamId" class="form-control" style="width: 60%;" />
@@ -384,7 +384,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p id="streamAbbreviationTitle"><b>Stream Abbreviation</b></p>
+                    <p id="streamAbbreviationTitle"><b>Stream Abbreviation</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="streamAbb" class="form-control" style="width: 60%;" />
@@ -413,7 +413,7 @@
             </div>
             <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Credit Points</b></p>
+                    <p><b>Credit Points</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="streamCredit" class="form-control" style="width: 60%;" />
@@ -423,7 +423,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Version</b></p>
+                    <p><b>Version</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="streamVersion" class="form-control" style="width: 60%;" />
@@ -443,7 +443,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Status</b></p>
+                    <p><b>Status</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm radio">
                     <label class="radio-inline">
@@ -460,7 +460,7 @@
         <div id="addSubjectFormDiv" style="display: none">
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Subject Name</b></p>
+                    <p><b>Subject Name</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="subjectName" class="form-control" style="width: 60%;" />
@@ -470,7 +470,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Subject Identification</b></p>
+                    <p><b>Subject Identification</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="subjectId" class="form-control" style="width: 60%;" />
@@ -480,7 +480,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Subject Abbreviation</b></p>
+                    <p><b>Subject Abbreviation</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="subjectAbb" class="form-control" style="width: 60%;" />
@@ -500,7 +500,7 @@
             </div>
             <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Credit Points</b></p>
+                    <p><b>Credit Points</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="subjectCredit" class="form-control" style="width: 60%;" />
@@ -510,7 +510,7 @@
             </div>
             <div class="row" style="padding-top: 3px;">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Version</b></p>
+                    <p><b>Version</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="subjectVersion" class="form-control" style="width: 60%;" />
@@ -530,7 +530,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Status</b></p>
+                    <p><b>Status</b><b style="color:red; font-size:large"> *</b></p>
                 </div>
                 <div class="col-sm radio">
                     <label class="radio-inline">
