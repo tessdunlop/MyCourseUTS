@@ -131,7 +131,7 @@ function getCourseTypes() {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+           // console.log(response);
             data = response;
         },
         error: function () {
@@ -149,7 +149,7 @@ function getSubjectTypes() {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -409,7 +409,7 @@ function getCourseRelationship(id) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -426,7 +426,7 @@ function getMajorRelationship(id) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -443,7 +443,7 @@ function getStreamRelationship(id) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -460,7 +460,7 @@ function getChoiceBlockRelationship(id) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -477,7 +477,7 @@ function getSubMajorRelationship(id) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -494,7 +494,7 @@ function getSubjectGroupingRelationship(id) {
         type: 'GET',
         async: false,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             data = response;
         },
         error: function () {
@@ -620,6 +620,7 @@ function addSubject(item) {
 
 //delete everything that was in there and then insert the new values
 function addCourseRelationship(id, item) {
+    console.log(item);
     var url = "http://mycourseuts.azurewebsites.net/Services/api/course/postcourserelationship?courseID=" + id;
     $.ajax({
         url: url,
@@ -636,6 +637,7 @@ function addCourseRelationship(id, item) {
     });
 }
 function addMajorRelationship(id, item) {
+    console.log(item);
     var url = "http://mycourseuts.azurewebsites.net/Services/api/major/postmajorrelationship?majorID=" + id;
     $.ajax({
         url: url,
@@ -936,7 +938,11 @@ function clearFields() {
     document.getElementById("subjectAntiReqInput").style.display = "none";
     document.getElementById("subjectPreReqInput").style.display = "none";
 
-
+    document.getElementById("courseMajorList").innerHTML = "";
+    document.getElementById("streamSubjectList").innerHTML = "";
+    document.getElementById("subjectPreReq").innerHTML = "";
+    document.getElementById("subjectAntiReq").innerHTML = "";
+    
     document.getElementById("subjectAddInput").value = "";
     document.getElementById("subjectTypeDropDown").selectedIndex = 0;
     document.getElementById("subjectStageInput").value = "";
@@ -988,7 +994,7 @@ function handleHover(id, itemID) {
     else {
         data = getSubjectGroupingRelationship(id);
     }
-    console.log(data);
+    //console.log(data);
     var content = "";
 
     for (var i = 0; i < data.length; i++) {
@@ -1063,7 +1069,7 @@ function populateStmCbkSmjSubjects(id) {
     var list = document.getElementById("streamSubjectList");
     var searchBar = document.getElementById("streamSubjectInput");
 
-    console.log(data);
+    //console.log(data);
     for (var i = 0; i < data.length; i++) {
         if (data[i].ContentStream != null) {
             //Add functionality that if hover over this it will display the list of subjects within this
@@ -1199,7 +1205,7 @@ function populateStmCbkSmjSubjects(id) {
                 "ContentStreamID": null
             });
         }
-        console.log(relationships);
+        //console.log(relationships);
     }
 }
 function handlePreRequisiteListPush(term) {
@@ -1231,7 +1237,7 @@ function handlePreRequisiteListPush(term) {
                 "RequisiteID": { "ID": ui.item.value},
                 "RequisiteTypeID": { "ID": 1 }                
             });
-            console.log(relationships);
+            //console.log(relationships);
         }
 
     });
@@ -1250,7 +1256,7 @@ function handleAntiRequisiteListPush(term) {
             }));
         },
         select: function (event, ui) {
-            console.log(ui);
+            //console.log(ui);
             var a = document.createElement("a");
             var subReq = document.getElementById("subjectAntiReq");
             a.setAttribute('id', ui.item.value);
@@ -1266,7 +1272,7 @@ function handleAntiRequisiteListPush(term) {
                 "RequisiteID": { "ID": ui.item.value},
                 "RequisiteTypeID": { "ID": 2 }
             });
-            console.log(relationships);
+            //console.log(relationships);
         }
 
     });
@@ -1299,7 +1305,7 @@ function handleStmCbkSmjListPush(term) {
             subjectList.appendChild(a);
             handleHover(ui.item.value, ui.item.value);
             document.getElementById("streamSubjectInput").value = "";
-            console.log(document.getElementById("streamSubjectInput").value);
+            //console.log(document.getElementById("streamSubjectInput").value);
         }
     });
 
@@ -1318,7 +1324,7 @@ function handleCourseMajorListPush(term) {
             }));
         },
         select: function (event, ui) {
-            console.log(ui);
+            //console.log(ui);
             var a = document.createElement("a");
             var courseMajorList = document.getElementById("courseMajorList");
             a.setAttribute('id', ui.item.value);
@@ -1332,7 +1338,7 @@ function handleCourseMajorListPush(term) {
                 "MajorID": { "ID": document.getElementById("majorId").value },
                 "CourseID": { "ID": ui.item.value }
             });
-            console.log(relationships);
+            //console.log(relationships);
         }
     });
 }
@@ -1392,32 +1398,32 @@ function handleSearch(term) {
             if (selected == "course") {
                 selectedData = getCourse(ui.item.value);
                 handleViewEditCourse(selectedData);
-                console.log(selectedData);
+                //console.log(selectedData);
             }
             else if (selected == "major") {
                 selectedData = getMajor(ui.item.value);
                 handleViewEditMajor(selectedData);
-                console.log(selectedData);
+                //console.log(selectedData);
             }
             else if (selected == "submajor" || selected == "stream" || selected == "choiceblock") {
                 if (selected == "submajor") {
                     selectedData = getSubMajor(ui.item.value);
-                    console.log(selectedData);
+                    //console.log(selectedData);
                 }
                 else if (selected == "stream") {
                     selectedData = getStream(ui.item.value);
-                    console.log(selectedData);
+                    //console.log(selectedData);
                 }
                 else if (selected == "choiceblock") {
                     selectedData = getChoiceBlock(ui.item.value);
-                    console.log(selectedData);
+                    //console.log(selectedData);
                 }
                 handleViewEditStreamSubChoice(selectedData);
             }
             else if (selected == "subject") {
                 selectedData = getSubject(ui.item.value);
                 handleViewEditSubject(selectedData);
-                console.log(selectedData);
+                //console.log(selectedData);
             }
         }
     });
@@ -1437,7 +1443,7 @@ function handleSubjectInput(term) {
             }));
         },
         select: function (event, ui) {
-            console.log(ui);
+            //console.log(ui);
             templateItem = getSubject(ui.item.value);//need to change this so it can select from cbk, stm and smj as well
             disabledAddSubjectButton();
         }
@@ -1496,7 +1502,7 @@ function handleViewEditCourse(data) {
 function handleViewEditMajor(data) {
     var courses = getCourseMajorRelationship(data.ID);
     relationships = courses;
-    console.log(data);
+    //console.log(data);
     document.getElementById("majorName").value = data.Name;
     document.getElementById("majorId").value = data.ID;
     document.getElementById("majorAbb").value = data.Abbreviation;
@@ -1585,8 +1591,8 @@ function handleViewEditStreamSubChoice(data) {
 function handleViewEditSubject(data) {
     var reqs = getSubjectRequisites(data.ID);
     relationships = reqs;
-    console.log(data);
-    console.log(reqs);
+    //console.log(data);
+    //console.log(reqs);
     document.getElementById("subjectName").value = data.Name;
     document.getElementById("subjectId").value = data.ID;
     document.getElementById("subjectAbb").value = data.Abbreviation;
@@ -1814,6 +1820,7 @@ function handleCancel() {
 }
 //this controls the save button, and updates the changes to the database
 function handleSave() {
+    //NEED TO ADD LOADING FUNCTIONALITY HERE
     if (selected == "course") {
         var name = document.getElementById("courseName").value;
         var id = document.getElementById("courseId").value;
@@ -1839,6 +1846,10 @@ function handleSave() {
         if (hasTemplate == true) {
             addCourseRelationship(id, template);
         }
+        else {
+            template = [];
+            addCourseRelationship(id, template);
+        }
     }
     else if (selected == "major") {
         var name = document.getElementById("majorName").value;
@@ -1850,7 +1861,7 @@ function handleSave() {
         var version = document.getElementById("majorVersion").value;
         var versionDescription = document.getElementById("majorVersionDescription").value;
         var status = document.getElementById("majorStatusActive").checked;
-        var hasTemplate = document.getElementById("includeCourseTemplate").checked;
+        var hasTemplate = document.getElementById("includeMajorTemplate").checked;
 
         var item = {
             "ID": id, "Name": name, "Abbreviation": abbreviation, "MajorDescription": description,
@@ -1861,8 +1872,13 @@ function handleSave() {
         if (hasTemplate == true) {
             addMajorRelationship(id, template);
         }
+        else {
+            template = [];
+            addMajorRelationship(id, template);
+        }
 
-        //addCourseMajorRelationship(id, courseList);
+        //Need to add the logic for adding data into the course major list
+        //addCourseMajorRelationship(id, relationships);
 
     }
     else if (selected == "stream") {
@@ -1881,6 +1897,9 @@ function handleSave() {
             "Active": status, "CreditPoints": creditPoints
         };
         addStream(item);
+
+        //Need to add the logic for adding data into the course major list
+        //addStreamRelationship(id, relationships);
     }
     else if (selected == "submajor") {
         var name = document.getElementById("streamName").value;
@@ -1898,6 +1917,7 @@ function handleSave() {
             "Active": status, "CreditPoints": creditPoints
         };
         addSubMajor(item);
+        //addSubMajorRelationship(id, relationships);
     }
     else if (selected == "choiceblock") {
         var name = document.getElementById("streamName").value;
@@ -1915,6 +1935,7 @@ function handleSave() {
             "Active": status, "CreditPoints": creditPoints
         };
         addChoiceBlock(item);
+        //addChoiceBlockRelationship(id, relationships);
     }
     else if (selected == "subject") {
         var name = document.getElementById("subjectName").value;
@@ -1932,6 +1953,7 @@ function handleSave() {
             "Active": status, "CreditPoints": creditPoints
         };
         addSubject(item);
+        //addSubjectRequisitesRelationship(id, relationships);
     }
 
     handleCancel();
@@ -2026,130 +2048,6 @@ function handleEdit() {
     document.getElementById("streamSubjectInput").style.display = "block";
 
 }
-//this controls the submit button which sends the data via and ajax call to the database
-//function handleSubmit() {
-//    if (selected == "course") {
-//        var name = document.getElementById("courseName").value;
-//        var id = document.getElementById("courseId").value;
-//        var abbreviation = document.getElementById("courseAbb").value;
-//        var description = document.getElementById("courseDescription").value;
-//        var years = document.getElementById("courseYears").value;
-//        var stages = document.getElementById("courseStages").value;
-//        var creditPoints = document.getElementById("courseCredit").value;
-//        var version = document.getElementById("courseVersion").value;
-//        var versionDescription = document.getElementById("courseVersionDescription").value;
-//        var typeID = document.getElementById("courseType").selectedIndex + 1;
-//        var status = document.getElementById("courseStatusActive").checked;
-//        var hasMajor = document.getElementById("includeMajor").checked;
-//        var hasTemplate = document.getElementById("includeCourseTemplate").checked;
-
-//        var item = {
-//            "ID": id, "Name": name, "Abbreviation": abbreviation, "CourseDescription": description,
-//            "Years": years, "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
-//            "CourseType": { "ID": typeID }, "Active": status, "hasMajor": hasMajor, "hasTemplate": hasTemplate
-//        };
-//        addCourse(item);
-
-//        if (hasTemplate == true) {
-//            addCourseRelationship(id, template);
-//        }
-//    }
-//    else if (selected == "major") {
-//        var name = document.getElementById("majorName").value;
-//        var id = document.getElementById("majorId").value;
-//        var abbreviation = document.getElementById("majorAbb").value;
-//        var description = document.getElementById("majorDescription").value;
-//        var stages = document.getElementById("majorStages").value;
-//        var creditPoints = document.getElementById("majorCredit").value;
-//        var version = document.getElementById("majorVersion").value;
-//        var versionDescription = document.getElementById("majorVersionDescription").value;
-//        var status = document.getElementById("majorStatusActive").checked;
-//        var hasTemplate = document.getElementById("includeCourseTemplate").checked;
-
-//        var item = {
-//            "ID": id, "Name": name, "Abbreviation": abbreviation, "MajorDescription": description,
-//            "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
-//            "Active": status, "hasTemplate": hasTemplate
-//        };
-//        addMajor(item);
-//        if (hasTemplate == true) {
-//            addMajorRelationship(id, template);
-//        }
-
-//        //addCourseMajorRelationship(id, courseList);
-        
-//    }
-//    else if (selected == "stream") {
-//        var name = document.getElementById("streamName").value;
-//        var id = document.getElementById("streamId").value;
-//        var abbreviation = document.getElementById("streamAbb").value;
-//        var description = document.getElementById("streamDescription").value;
-//        var creditPoints = document.getElementById("streamCredit").value;
-//        var version = document.getElementById("streamVersion").value;
-//        var versionDescription = document.getElementById("streamVersionDescription").value;
-//        var status = document.getElementById("streamStatusActive").checked;
-
-//        var item = {
-//            "ID": id, "Name": name, "Abbreviation": abbreviation, "StreamDescription": description,
-//             "Version": version, "VersionDescription": versionDescription,
-//            "Active": status, "CreditPoints": creditPoints
-//        };
-//        addStream(item);
-//    }
-//    else if (selected == "submajor") {
-//        var name = document.getElementById("streamName").value;
-//        var id = document.getElementById("streamId").value;
-//        var abbreviation = document.getElementById("streamAbb").value;
-//        var description = document.getElementById("streamDescription").value;
-//        var creditPoints = document.getElementById("streamCredit").value;
-//        var version = document.getElementById("streamVersion").value;
-//        var versionDescription = document.getElementById("streamVersionDescription").value;
-//        var status = document.getElementById("streamStatusActive").checked;
-
-//        var item = {
-//            "ID": id, "Name": name, "Abbreviation": abbreviation, "SubMajorDescription": description,
-//             "Version": version, "VersionDescription": versionDescription,
-//            "Active": status, "CreditPoints": creditPoints
-//        };
-//        addSubMajor(item);
-//    }
-//    else if (selected == "choiceblock") {
-//        var name = document.getElementById("streamName").value;
-//        var id = document.getElementById("streamId").value;
-//        var abbreviation = document.getElementById("streamAbb").value;
-//        var description = document.getElementById("streamDescription").value;
-//        var creditPoints = document.getElementById("streamCredit").value;
-//        var version = document.getElementById("streamVersion").value;
-//        var versionDescription = document.getElementById("streamVersionDescription").value;
-//        var status = document.getElementById("streamStatusActive").checked;
-
-//        var item = {
-//            "ID": id, "Name": name, "Abbreviation": abbreviation, "ChoiceBlockDescription": description,
-//             "Version": version, "VersionDescription": versionDescription,
-//            "Active": status, "CreditPoints": creditPoints
-//        };
-//        addChoiceBlock(item);
-//    }
-//    else if (selected == "subject") {
-//        var name = document.getElementById("subjectName").value;
-//        var id = document.getElementById("subjectId").value;
-//        var abbreviation = document.getElementById("subjectAbb").value;
-//        var description = document.getElementById("subjectDescription").value;
-//        var creditPoints = document.getElementById("subjectCredit").value;
-//        var version = document.getElementById("subjectVersion").value;
-//        var versionDescription = document.getElementById("subjectVersionDescription").value;
-//        var status = document.getElementById("subjectStatusActive").checked;
-
-//        var item = {
-//            "ID": id, "Name": name, "Abbreviation": abbreviation, "SubjectDescription": description,
-//           "Version": version, "VersionDescription": versionDescription,
-//            "Active": status, "CreditPoints": creditPoints
-//        };
-//        addSubject(item);
-//    }
-//    handleCancel();
-//}
-//this controls the update button which updates a particular item that already exists within the database
 //This deletes an item from the database ie subject, course etc 
 function handleDelete() {
     if (selected == "course") {
@@ -2194,14 +2092,14 @@ function checkYearValue(value) {
 }
 function checkStageValue(value) {
     if (value != "") {
-        console.log("enabled");
+        //console.log("enabled");
         document.getElementById("includeCourseTemplate").disabled = false;
         document.getElementById("includeMajorTemplate").disabled = false;
         var stage = +document.getElementById("courseStages").value;
         document.getElementById("courseYears").value = Math.round(stage / 2);
     }
     else {
-        console.log("disabled");
+        //console.log("disabled");
         document.getElementById("includeCourseTemplate").disabled = true;
         document.getElementById("includeMajorTemplate").disabled = true;
     }
@@ -2243,11 +2141,10 @@ function templateCheck() {
 function buildTimetableStructure(stages) {
     var headerRow = document.getElementById("headerRow");
     for (var i = 1; i < stages + 1; i++) {
-        headerRow.innerHTML += "<div class='col-sm'><u><h4><center>Stage " + i + "</center></h4></u><br /><div id=" + i + "></div></div>";
+        headerRow.innerHTML += "<div class='col-sm'><u><h4><center>Stage " + i + "</center></h4></u><br /><div id='" + i + "'></div></div>";
     }
 }
 function populateExistingTimetable() {
-    template = [];//refresh the template object
     nextAvailableID = 0;
     var stages = selectedData.Stages;
     var column;
@@ -2255,14 +2152,23 @@ function populateExistingTimetable() {
 
     if (selectedData.ID.substring(0, 3) == "MAJ") {
         items = getMajorRelationship(selectedData.ID);
-        template = getMajorRelationship(selectedData.ID);
+        
     }
     else {
         items = getCourseRelationship(selectedData.ID);
-        template = getCourseRelationship(selectedData.ID);
     }
 
-    console.log(items);
+    template = items;
+
+    for (var i = 0; i < template.length; i++) {
+        if (template[i].ID < 20) {
+            template[i].ID = +template[i].ID + 100;
+        }
+    }
+
+
+    console.log(template);
+
 
     //add body
     for (var i = 1; i < stages + 1; i++) {
@@ -2276,15 +2182,21 @@ function populateExistingTimetable() {
             var number;
 
             if (items[x].Stage == i) {
-                number = items[x].ID;
+                number = +items[x].ID;
+
+                
+
+                if (number < 20) {//This is because if it has an id of 1-12ish it will clash with the column ids meaning they will be displayed weird
+                    number = number + 100;
+                }
                 if (number > nextAvailableID) {
-                    nextAvailableID = number++;
+                    nextAvailableID = number + 1;
                 }
 
                 if (items[x].Stream != null) {
-                    name = items[x].Streams.Name;
-                    id = items[x].Streams.ID;
-                    credit = items[x].Streams.CreditPoints;
+                    name = items[x].Stream.Name;
+                    id = items[x].Stream.ID;
+                    credit = items[x].Stream.CreditPoints;
                     type = items[x].SubjectType.Abbreviation;
                 }
                 else if (items[x].ChoiceBlock != null) {
@@ -2312,7 +2224,8 @@ function populateExistingTimetable() {
                     credit = 6;
                     type = items[x].SubjectType.Abbreviation;
                 }
-                console.log(template);
+
+
                 if (type == "COR") {
                     colour = cor;
                 }
@@ -2331,6 +2244,8 @@ function populateExistingTimetable() {
                 else if (type == "MELE") {
                     colour = mele;
                 }
+
+                console.log(number);
                 var string = "<div id='" + number + "'onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
                 column.innerHTML += string;
 
@@ -2362,13 +2277,13 @@ function addToTimetable() {
         if (typeChecker == "SMJ") {
             template.push({
                 "ID": nextAvailableID,
-                "CourseID": document.getElementById("courseId").value,
-                "SubjectID": null,
-                "ChoiceBlockID": null,
-                "SubMajorID": { "ID": id },
-                "StreamID": null,
-                "GroupID": null,
-                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Subject": null,
+                "ChoiceBlock": null,
+                "SubMajor": { "ID": id },
+                "Stream": null,
+                "SubjectGrouping": null,
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown").selectedIndex + 1 },
                 "Stage": stage,
                 "Year": Math.round(stage / 2)
             });
@@ -2376,13 +2291,13 @@ function addToTimetable() {
         else if (typeChecker == "STM") {
             template.push({
                 "ID": nextAvailableID,
-                "CourseID": document.getElementById("courseId").value,
-                "SubjectID": null,
-                "ChoiceBlockID": null,
-                "SubMajorID": null,
-                "StreamID": { "ID": id },
-                "GroupID": null,
-                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Subject": null,
+                "ChoiceBlock": null,
+                "SubMajor": null,
+                "Stream": { "ID": id },
+                "SubjectGrouping": null,
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown").selectedIndex + 1 },
                 "Stage": stage,
                 "Year": Math.round(stage / 2)
             });
@@ -2390,13 +2305,13 @@ function addToTimetable() {
         else if (typeChecker == "CBK") {
             template.push({
                 "ID": nextAvailableID,
-                "CourseID": document.getElementById("courseId").value,
-                "SubjectID": null,
-                "ChoiceBlockID": { "ID": id },
-                "SubMajorID": null,
-                "StreamID": null,
-                "GroupID": null,
-                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Subject": null,
+                "ChoiceBlock": { "ID": id },
+                "SubMajor": null,
+                "Stream": null,
+                "SubjectGrouping": null,
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown").selectedIndex + 1 },
                 "Stage": stage,
                 "Year": Math.round(stage / 2)
             });
@@ -2404,13 +2319,13 @@ function addToTimetable() {
         else if (id.length < 4) {//group
             template.push({
                 "ID": nextAvailableID,
-                "CourseID": document.getElementById("courseId").value,
-                "SubjectID": null,
-                "ChoiceBlockID": null,
-                "SubMajorID": null,
-                "StreamID": null,
-                "GroupID": { "ID": id },
-                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Subject": null,
+                "ChoiceBlock": null,
+                "SubMajor": null,
+                "Stream": null,
+                "SubjectGrouping": { "ID": id },
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown").selectedIndex + 1 },
                 "Stage": stage,
                 "Year": Math.round(stage / 2)
             });
@@ -2418,13 +2333,13 @@ function addToTimetable() {
         else {//subject
             template.push({
                 "ID": nextAvailableID,
-                "CourseID": document.getElementById("courseId").value,
-                "SubjectID": { "ID": id },
-                "ChoiceBlockID": null,
-                "SubMajorID": null,
-                "StreamID": null,
-                "GroupID": null,
-                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Subject": { "ID": id },
+                "ChoiceBlock": null,
+                "SubMajor": null,
+                "Stream": null,
+                "SubjectGrouping": null,
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown").selectedIndex + 1 },
                 "Stage": stage,
                 "Year": Math.round(stage / 2)
             });
@@ -2436,13 +2351,13 @@ function addToTimetable() {
         if (typeChecker == "SMJ") {
             template.push({
                 "ID": nextAvailableID,
-                "MajorID": document.getElementById("majorId").value,
-                "SubjectID": null,
-                "ChoiceBlockID": null,
-                "SubMajorID": { "ID": id },
-                "StreamID": null,
-                "GroupID": null,
-                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Major": { "ID": document.getElementById("majorId").value },
+                "Subject": null,
+                "ChoiceBlock": null,
+                "SubMajor": { "ID": id },
+                "Stream": null,
+                "SubjectGrouping": null,
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown").selectedIndex + 1 },
                 "Stage": stage,
                 "Year": Math.round(stage / 2)
             });
@@ -2450,13 +2365,13 @@ function addToTimetable() {
         else if (typeChecker == "STM") {
             template.push({
                 "ID": nextAvailableID,
-                "MajorID": document.getElementById("majorId").value,
-                "SubjectID": null,
-                "ChoiceBlockID": null,
-                "SubMajorID": null,
-                "StreamID": { "ID": id },
-                "GroupID": null,
-                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Major": { "ID": document.getElementById("majorId").value },
+                "Subject": null,
+                "ChoiceBlock": null,
+                "SubMajor": null,
+                "Stream": { "ID": id },
+                "SubjectGrouping": null,
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown").selectedIndex + 1 },
                 "Stage": stage,
                 "Year": Math.round(stage / 2)
             });
@@ -2464,13 +2379,13 @@ function addToTimetable() {
         else if (typeChecker == "CBK") {
             template.push({
                 "ID": nextAvailableID,
-                "MajorID": document.getElementById("majorId").value,
-                "SubjectID": null,
-                "ChoiceBlockID": { "ID": id },
-                "SubMajorID": null,
-                "StreamID": null,
-                "GroupID": null,
-                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Major": { "ID": document.getElementById("majorId").value },
+                "Subject": null,
+                "ChoiceBlock": { "ID": id },
+                "SubMajor": null,
+                "Stream": null,
+                "SubjectGrouping": null,
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown").selectedIndex + 1 },
                 "Stage": stage,
                 "Year": Math.round(stage / 2)
             });
@@ -2478,13 +2393,13 @@ function addToTimetable() {
         else if (id.length < 4) {//group
             template.push({
                 "ID": nextAvailableID,
-                "MajorID": document.getElementById("majorId").value,
-                "SubjectID": null,
-                "ChoiceBlockID": null,
-                "SubMajorID": null,
-                "StreamID": null,
-                "GroupID": { "ID": id },
-                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Major": { "ID": document.getElementById("majorId").value },
+                "Subject": null,
+                "ChoiceBlock": null,
+                "SubMajor": null,
+                "Stream": null,
+                "SubjectGrouping": { "ID": id },
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown").selectedIndex + 1 },
                 "Stage": stage,
                 "Year": Math.round(stage / 2)
             });
@@ -2492,13 +2407,13 @@ function addToTimetable() {
         else {//subject
             template.push({
                 "ID": nextAvailableID,
-                "MajorID": document.getElementById("majorId").value,
-                "SubjectID": { "ID": id },
-                "ChoiceBlockID": null,
-                "SubMajorID": null,
-                "StreamID": null,
-                "GroupID": null,
-                "SubjectTypeID": document.getElementById("subjectTypeDropDown").selectedIndex + 1,
+                "Major": { "ID": document.getElementById("majorId").value },
+                "Subject": { "ID": id },
+                "ChoiceBlock": null,
+                "SubMajor": null,
+                "Stream": null,
+                "SubjectGrouping": null,
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown").selectedIndex + 1 },
                 "Stage": stage,
                 "Year": Math.round(stage / 2)
             });
@@ -2526,13 +2441,6 @@ function addToTimetable() {
         colour = mele;
     }
 
-    //console.log(name);
-    //console.log(id);
-    //console.log(type);
-    //console.log(credit);
-    //console.log(colour);
-    //console.log(stages);
-
     for (var i = 1; i < stages + 1; i++) {
         if (stage == i) {
             column = document.getElementById(i);
@@ -2550,13 +2458,13 @@ function addToTimetable() {
 }
 //This removes a subject from the timetable grid
 function removeSubject(number) {
+    console.log(number);
     document.getElementById(number).remove();
-
     //remove that json object from the template array
     for (var i = 0; i < template.length; i++) {
         if (template[i].ID == number) {
             console.log(template[i]);
-            template.splice(i, 1);
+            template.splice(i, 1);          
         }
     }
     console.log(template);
