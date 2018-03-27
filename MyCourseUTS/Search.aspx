@@ -78,6 +78,8 @@
             </div>
         </div>
 
+        <center><img style="display:none" id="loading" src="CSS/ajax-loader.gif" /></center>
+
         <div id="addCourseFormDiv" style="display: none">
             <div class="row">
                 <div class="col-sm" style="text-align: right">

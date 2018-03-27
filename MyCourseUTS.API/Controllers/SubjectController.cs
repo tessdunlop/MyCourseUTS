@@ -171,13 +171,13 @@ namespace MyCourseUTS.API.Controllers
 
         //http://mycourseuts.azurewebsites.net/Services/api/subject/PostRequisiteRelationship?subjectID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostRequisiteRelationship(string subjectID, [FromBody]List<Entity.RequisiteRelationship> relationships)
+        public void PostRequisiteRelationship(int subjectID, [FromBody]List<Entity.RequisiteRelationship> relationships)
         {
 
             var context = new MyCourseDBEntities();
             List<DataModel.RequisiteRelationship> group;
             var query = from c in context.RequisiteRelationship
-                        where c.Subjects.ID.Equals(subjectID)
+                        where c.SubjectID.Equals(subjectID)
                         select c;
             group = query.ToList();
             if (group.Count != 0)

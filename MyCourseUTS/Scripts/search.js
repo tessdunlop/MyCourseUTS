@@ -18,6 +18,7 @@ var template = [];
 var nextAvailableID = 0;
 var relationships = [];
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////START OF API CALLS
 function getAllCourses() {
     var url = "http://mycourseuts.azurewebsites.net/services/api/course/getallcourses";
@@ -531,6 +532,7 @@ function addCourse(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding course");
@@ -547,6 +549,7 @@ function addMajor(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding major");
@@ -563,6 +566,7 @@ function addChoiceBlock(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding choice block");
@@ -579,6 +583,7 @@ function addStream(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding stream");
@@ -595,6 +600,7 @@ function addSubMajor(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding sub major");
@@ -611,6 +617,7 @@ function addSubject(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding subject");
@@ -630,6 +637,7 @@ function addCourseRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding course relationship");
@@ -647,6 +655,7 @@ function addMajorRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding major relationship");
@@ -663,6 +672,7 @@ function addCourseMajorRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding course major relationship");
@@ -670,6 +680,7 @@ function addCourseMajorRelationship(id, item) {
     });
 }
 function addChoiceBlockRelationship(id, item) {
+    console.log(relationships);
     var url = "http://mycourseuts.azurewebsites.net/Services/api/choiceblock/postchoiceblockrelationship?choiceblockID=" + id;
     $.ajax({
         url: url,
@@ -679,6 +690,7 @@ function addChoiceBlockRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding choice block relationship");
@@ -695,6 +707,7 @@ function addStreamRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding stream relationship");
@@ -711,6 +724,7 @@ function addSubMajorRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding sub major relationship");
@@ -718,8 +732,6 @@ function addSubMajorRelationship(id, item) {
     });
 }
 function addSubjectRequisitesRelationship(id, item) {
-    console.log(item);
-    //THERE IS A PROBLEM HERE
     var url = "http://mycourseuts.azurewebsites.net/Services/api/subject/PostRequisiteRelationship?subjectID=" + id;
     $.ajax({
         url: url,
@@ -729,6 +741,7 @@ function addSubjectRequisitesRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding requisite relationship");
@@ -745,6 +758,7 @@ function deleteCourse(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting course");
@@ -760,6 +774,7 @@ function deleteMajor(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting major");
@@ -775,6 +790,7 @@ function deleteChoiceBlock(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting choice block");
@@ -790,6 +806,7 @@ function deleteStream(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting stream");
@@ -805,6 +822,7 @@ function deleteSubMajor(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting sub major");
@@ -820,6 +838,7 @@ function deleteSubject(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting subject");
@@ -1094,9 +1113,9 @@ function populateStmCbkSmjSubjects(id) {
             list.appendChild(a);
             handleHover(data[i].ContentStream.ID, number);
 
-            relationship.push({
+            relationships.push({
                 "ID": number,
-                title: { "ID": document.getElementById("streamID").value },
+                title: { "ID": document.getElementById("streamId").value },
                 "Subject": null,
                 "ContentChoiceBlock": null,
                 "ContentSubMajor": null,
@@ -1116,9 +1135,9 @@ function populateStmCbkSmjSubjects(id) {
             list.appendChild(a);
             handleHover(data[i].ContentSubMajor.ID, number);
 
-            relationship.push({
+            relationships.push({
                 "ID": number,
-                title: { "ID": document.getElementById("streamID").value },
+                title: { "ID": document.getElementById("streamId").value },
                 "Subject": null,
                 "ContentChoiceBlock": null,
                 "ContentSubMajor": { "ID": data[i].ContentSubMajor.ID },
@@ -1137,9 +1156,9 @@ function populateStmCbkSmjSubjects(id) {
             list.appendChild(a);
             handleHover(data[i].ContentChoiceBlock.ID, number);
 
-            relationship.push({
+            relationships.push({
                 "ID": number,
-                title: { "ID": document.getElementById("streamID").value },
+                title: { "ID": document.getElementById("streamId").value },
                 "Subject": null,
                 "ContentChoiceBlock": { "ID": data[i].ContentChoiceBlock.ID },
                 "ContentSubMajor": null,
@@ -1150,14 +1169,14 @@ function populateStmCbkSmjSubjects(id) {
 
         }
         else if (data[i].ContentSubjectGrouping != null) {
-            relationship.push({
+            relationships.push({
                 "ID": number,
-                title: { "ID": document.getElementById("streamID").value },
+                title: { "ID": document.getElementById("streamId").value },
                 "Subject": null,
                 "ContentChoiceBlock": null,
                 "ContentSubMajor": null,
                 "Stream": null,
-                "ContentSubjectGrouping": { "ID": grouping[x].ID },
+                "ContentSubjectGrouping": { "ID": data[i].ContentSubjectGrouping.ID },
                 "ContentStream": null
             });
 
@@ -1210,9 +1229,9 @@ function populateStmCbkSmjSubjects(id) {
             a.appendChild(document.createTextNode(data[i].Subject.ID + " - " + data[i].Subject.Name));
             list.appendChild(a);
 
-            relationship.push({
+            relationships.push({
                 "ID": number,
-                title: { "ID": document.getElementById("streamID").value },
+                title: { "ID": document.getElementById("streamId").value },
                 "Subject": { "ID": data[i].Subject.ID },
                 "ContentChoiceBlock": null,
                 "ContentSubMajor": null,
@@ -1877,6 +1896,7 @@ function handleCancel() {
 }
 //this controls the save button, and updates the changes to the database
 function handleSave() {
+    document.getElementById("loading").style.display = "block";
     //NEED TO ADD LOADING FUNCTIONALITY HERE
     if (selected == "course") {
         var name = document.getElementById("courseName").value;
@@ -2106,6 +2126,7 @@ function handleEdit() {
 }
 //This deletes an item from the database ie subject, course etc 
 function handleDelete() {
+    document.getElementById("loading").style.display = "block";
     if (selected == "course") {
         deleteCourse(selectedData.ID);
     }
