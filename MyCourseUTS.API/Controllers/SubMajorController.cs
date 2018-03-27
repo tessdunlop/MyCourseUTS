@@ -140,7 +140,7 @@ namespace MyCourseUTS.API.Controllers
         public void DeleteSubMajor(string submajorID)
         {
             DeleteChoiceBlockRelationship(submajorID);
-            DeleteMajorRelationship(submajorID);
+            //DeleteMajorRelationship(submajorID);
             DeleteStreamRelationship(submajorID);
             DeleteSubMajorRelationship(submajorID);
             DeleteCourseRelationship(submajorID);
@@ -156,26 +156,26 @@ namespace MyCourseUTS.API.Controllers
 
 
 
-        //http://mycourseuts.azurewebsites.net/Services/api/submajor/DeleteMajorRelationship?submajorID=xxx
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void DeleteMajorRelationship(string submajorID)
-        {
-            List<DataModel.MajorRelationships> major;
-            var context = new MyCourseDBEntities();
-            var query = from c in context.MajorRelationships
-                        where c.SubMajors.ID.Equals(submajorID)
-                        select c;
-            major = query.ToList();
+        ////http://mycourseuts.azurewebsites.net/Services/api/submajor/DeleteMajorRelationship?submajorID=xxx
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void DeleteMajorRelationship(string submajorID)
+        //{
+        //    List<DataModel.MajorRelationships> major;
+        //    var context = new MyCourseDBEntities();
+        //    var query = from c in context.MajorRelationships
+        //                where c.SubMajors.ID.Equals(submajorID)
+        //                select c;
+        //    major = query.ToList();
 
-            if (major.Count != 0)
-            {
-                foreach (var row in major)
-                {
-                    context.MajorRelationships.Remove(row);
-                    context.SaveChanges();
-                }
-            }
-        }
+        //    if (major.Count != 0)
+        //    {
+        //        foreach (var row in major)
+        //        {
+        //            context.MajorRelationships.Remove(row);
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //}
 
         //http://mycourseuts.azurewebsites.net/Services/api/submajor/deletechoiceblockIDrelationship?submajorID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]

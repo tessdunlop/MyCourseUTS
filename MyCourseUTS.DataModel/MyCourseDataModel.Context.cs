@@ -27,11 +27,9 @@ namespace MyCourseUTS.DataModel
     
         public virtual DbSet<ChoiceBlockRelationships> ChoiceBlockRelationships { get; set; }
         public virtual DbSet<ChoiceBlocks> ChoiceBlocks { get; set; }
-        public virtual DbSet<CourseMajorRelationships> CourseMajorRelationships { get; set; }
         public virtual DbSet<CourseRelationships> CourseRelationships { get; set; }
         public virtual DbSet<Courses> Courses { get; set; }
         public virtual DbSet<CourseTypes> CourseTypes { get; set; }
-        public virtual DbSet<MajorRelationships> MajorRelationships { get; set; }
         public virtual DbSet<Majors> Majors { get; set; }
         public virtual DbSet<RequisiteRelationship> RequisiteRelationship { get; set; }
         public virtual DbSet<RequisiteTypes> RequisiteTypes { get; set; }

@@ -104,9 +104,6 @@
     <Compile Include="ChoiceBlocks.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CourseMajorRelationships.cs">
-      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="CourseRelationships.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
@@ -114,9 +111,6 @@
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CourseTypes.cs">
-      <DependentUpon>MyCourseDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MajorRelationships.cs">
       <DependentUpon>MyCourseDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Majors.cs">

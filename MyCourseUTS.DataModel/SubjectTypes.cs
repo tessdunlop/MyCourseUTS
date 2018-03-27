@@ -18,7 +18,6 @@ namespace MyCourseUTS.DataModel
         public SubjectTypes()
         {
             this.CourseRelationships = new HashSet<CourseRelationships>();
-            this.MajorRelationships = new HashSet<MajorRelationships>();
         }
     
         public int ID { get; set; }
@@ -27,7 +26,5 @@ namespace MyCourseUTS.DataModel
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseRelationships> CourseRelationships { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MajorRelationships> MajorRelationships { get; set; }
     }
 }

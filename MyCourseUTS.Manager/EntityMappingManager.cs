@@ -203,32 +203,34 @@ namespace MyCourseUTS.Manager
                 Stream = MapStreamContent(contentData.Streams),
                 SubMajor = MapSubMajorContent(contentData.SubMajors),
                 Stage = contentData.Stage,
-                Year = contentData.Year
+                Year = contentData.Year,
+                Major = MapMajorContent(contentData.Majors),
+                HasTemplate = contentData.HasTemplate
             };
             return content;
         }
 
-        public static Entity.MajorRelationship MapMajorRelationshipContent(DataModel.MajorRelationships contentData)
-        {
-            if (contentData == null)
-            {
-                return null;
-            }
-            Entity.MajorRelationship content = new Entity.MajorRelationship
-            {
-                ID = contentData.ID,
-                Subject = MapSubjectContent(contentData.Subjects),
-                ChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks),
-                SubMajor = MapSubMajorContent(contentData.SubMajors),
-                Stream = MapStreamContent(contentData.Streams),
-                Major = MapMajorContent(contentData.Majors),
-                SubjectType = MapSubjectTypeContent(contentData.SubjectTypes),
-                SubjectGrouping = MapSubjectGroupingContent(contentData.SubjectGroupings),
-                Stage = contentData.Stage,
-                Year = contentData.Year
-            };
-            return content;
-        }
+        //public static Entity.MajorRelationship MapMajorRelationshipContent(DataModel.MajorRelationships contentData)
+        //{
+        //    if (contentData == null)
+        //    {
+        //        return null;
+        //    }
+        //    Entity.MajorRelationship content = new Entity.MajorRelationship
+        //    {
+        //        ID = contentData.ID,
+        //        Subject = MapSubjectContent(contentData.Subjects),
+        //        ChoiceBlock = MapChoiceBlockContent(contentData.ChoiceBlocks),
+        //        SubMajor = MapSubMajorContent(contentData.SubMajors),
+        //        Stream = MapStreamContent(contentData.Streams),
+        //        Major = MapMajorContent(contentData.Majors),
+        //        SubjectType = MapSubjectTypeContent(contentData.SubjectTypes),
+        //        SubjectGrouping = MapSubjectGroupingContent(contentData.SubjectGroupings),
+        //        Stage = contentData.Stage,
+        //        Year = contentData.Year
+        //    };
+        //    return content;
+        //}
 
         public static Entity.StreamRelationship MapStreamRelationshipContent(DataModel.StreamRelationships contentData)
         {
@@ -307,20 +309,20 @@ namespace MyCourseUTS.Manager
             return content;
         }
 
-        public static Entity.CourseMajorRelationship MapCourseMajorRelationshipContent(DataModel.CourseMajorRelationships contentData)
-        {
-            if (contentData == null)
-            {
-                return null;
-            }
-            Entity.CourseMajorRelationship content = new Entity.CourseMajorRelationship
-            {
-                ID = contentData.ID,
-                Course = MapCourseContent(contentData.Courses),
-                Major = MapMajorContent(contentData.Majors),
-            };
-            return content;
-        }
+        //public static Entity.CourseMajorRelationship MapCourseMajorRelationshipContent(DataModel.CourseMajorRelationships contentData)
+        //{
+        //    if (contentData == null)
+        //    {
+        //        return null;
+        //    }
+        //    Entity.CourseMajorRelationship content = new Entity.CourseMajorRelationship
+        //    {
+        //        ID = contentData.ID,
+        //        Course = MapCourseContent(contentData.Courses),
+        //        Major = MapMajorContent(contentData.Majors),
+        //    };
+        //    return content;
+        //}
 
         public static Entity.RequisiteTypes MapRequisiteTypeContent(DataModel.RequisiteTypes contentData)
         {

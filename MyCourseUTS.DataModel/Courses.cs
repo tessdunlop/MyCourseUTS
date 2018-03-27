@@ -17,7 +17,6 @@ namespace MyCourseUTS.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Courses()
         {
-            this.CourseMajorRelationships = new HashSet<CourseMajorRelationships>();
             this.CourseRelationships = new HashSet<CourseRelationships>();
         }
     
@@ -35,8 +34,6 @@ namespace MyCourseUTS.DataModel
         public bool HasTemplate { get; set; }
         public bool HasMajor { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourseMajorRelationships> CourseMajorRelationships { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseRelationships> CourseRelationships { get; set; }
         public virtual CourseTypes CourseTypes { get; set; }

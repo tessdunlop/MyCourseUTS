@@ -153,7 +153,7 @@ namespace MyCourseUTS.API.Controllers
         public void DeleteStream(string streamID)
         {
             DeleteChoiceBlockRelationship(streamID);
-            DeleteMajorRelationship(streamID);
+            //DeleteMajorRelationship(streamID);
             DeleteStreamRelationship(streamID);
             DeleteSubMajorRelationship(streamID);
             DeleteCourseRelationship(streamID);
@@ -169,26 +169,26 @@ namespace MyCourseUTS.API.Controllers
 
 
 
-        //http://mycourseuts.azurewebsites.net/Services/api/stream/DeleteMajorRelationship?streamID=xxx
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void DeleteMajorRelationship(string streamID)
-        {
-            List<DataModel.MajorRelationships> major;
-            var context = new MyCourseDBEntities();
-            var query = from c in context.MajorRelationships
-                        where c.Streams.ID.Equals(streamID)
-                        select c;
-            major = query.ToList();
+        ////http://mycourseuts.azurewebsites.net/Services/api/stream/DeleteMajorRelationship?streamID=xxx
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void DeleteMajorRelationship(string streamID)
+        //{
+        //    List<DataModel.MajorRelationships> major;
+        //    var context = new MyCourseDBEntities();
+        //    var query = from c in context.MajorRelationships
+        //                where c.Streams.ID.Equals(streamID)
+        //                select c;
+        //    major = query.ToList();
 
-            if (major.Count != 0)
-            {
-                foreach (var row in major)
-                {
-                    context.MajorRelationships.Remove(row);
-                    context.SaveChanges();
-                }
-            }
-        }
+        //    if (major.Count != 0)
+        //    {
+        //        foreach (var row in major)
+        //        {
+        //            context.MajorRelationships.Remove(row);
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //}
 
         //http://mycourseuts.azurewebsites.net/Services/api/stream/deletechoiceblockIDrelationship?streamID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]

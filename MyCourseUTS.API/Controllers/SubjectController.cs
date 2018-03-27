@@ -154,7 +154,7 @@ namespace MyCourseUTS.API.Controllers
         public void DeleteSubject(string subjectID)
         {
             DeleteChoiceBlockRelationship(subjectID);
-            DeleteMajorRelationship(subjectID);
+            //DeleteMajorRelationship(subjectID);
             DeleteStreamRelationship(subjectID);
             DeleteSubMajorRelationship(subjectID);
             DeleteCourseRelationship(subjectID);
@@ -225,26 +225,26 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
-        //http://mycourseuts.azurewebsites.net/Services/api/subject/DeleteMajorRelationship?subjectID=xxx
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void DeleteMajorRelationship(string subjectID)
-        {
-            List<DataModel.MajorRelationships> major;
-            var context = new MyCourseDBEntities();
-            var query = from c in context.MajorRelationships
-                        where c.Subjects.ID.Equals(subjectID)
-                        select c;
-            major = query.ToList();
+        ////http://mycourseuts.azurewebsites.net/Services/api/subject/DeleteMajorRelationship?subjectID=xxx
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void DeleteMajorRelationship(string subjectID)
+        //{
+        //    List<DataModel.MajorRelationships> major;
+        //    var context = new MyCourseDBEntities();
+        //    var query = from c in context.MajorRelationships
+        //                where c.Subjects.ID.Equals(subjectID)
+        //                select c;
+        //    major = query.ToList();
 
-            if (major.Count != 0)
-            {
-                foreach (var row in major)
-                {
-                    context.MajorRelationships.Remove(row);
-                    context.SaveChanges();
-                }
-            }
-        }
+        //    if (major.Count != 0)
+        //    {
+        //        foreach (var row in major)
+        //        {
+        //            context.MajorRelationships.Remove(row);
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //}
 
         //http://mycourseuts.azurewebsites.net/Services/api/subject/deletechoiceblockIDrelationship?subjectID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]

@@ -14,19 +14,22 @@ namespace MyCourseUTS.DataModel
     
     public partial class CourseRelationships
     {
-        public int ID { get; set; }
         public string CourseID { get; set; }
+        public string MajorID { get; set; }
         public Nullable<int> SubjectID { get; set; }
-        public string ChoiceBlockID { get; set; }
-        public Nullable<int> GroupID { get; set; }
-        public int SubjectTypeID { get; set; }
-        public int Stage { get; set; }
-        public int Year { get; set; }
         public string StreamID { get; set; }
+        public string ChoiceBlockID { get; set; }
         public string SubMajorID { get; set; }
+        public Nullable<int> GroupID { get; set; }
+        public Nullable<int> SubjectTypeID { get; set; }
+        public Nullable<int> Stage { get; set; }
+        public Nullable<int> Year { get; set; }
+        public bool HasTemplate { get; set; }
+        public int ID { get; set; }
     
         public virtual ChoiceBlocks ChoiceBlocks { get; set; }
         public virtual Courses Courses { get; set; }
+        public virtual Majors Majors { get; set; }
         public virtual Streams Streams { get; set; }
         public virtual SubjectGroupings SubjectGroupings { get; set; }
         public virtual Subjects Subjects { get; set; }

@@ -76,7 +76,7 @@ namespace MyCourseUTS.API.Controllers
         {
             List<DataModel.CourseRelationships> course;
             var context = new MyCourseDBEntities();
-            var query = from c in context.CourseRelationships.Include("Courses.CourseTypes").Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupings")
+            var query = from c in context.CourseRelationships.Include("Courses.CourseTypes").Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupings").Include("Majors").Include("ChoiceBlocks").Include("SubMajors")
                         where c.Courses.ID.Equals(courseID)
                         select c;
             course = query.ToList();
@@ -89,23 +89,23 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourse;
         }
 
-        //http://mycourseuts.azurewebsites.net/services/api/subject/GetCourseMajorRelationship?majorid=MAJ03476
-        public List<Entity.CourseMajorRelationship> GetCourseMajorRelationship(string majorID)
-        {
-            List<DataModel.CourseMajorRelationships> courses;
-            var context = new MyCourseDBEntities();
-            var query = from c in context.CourseMajorRelationships.Include("Courses").Include("Majors")
-                        where c.MajorID.Equals(majorID)
-                        select c;
-            courses = query.ToList();
+        ////http://mycourseuts.azurewebsites.net/services/api/subject/GetCourseMajorRelationship?majorid=MAJ03476
+        //public List<Entity.CourseMajorRelationship> GetCourseMajorRelationship(string majorID)
+        //{
+        //    List<DataModel.CourseMajorRelationships> courses;
+        //    var context = new MyCourseDBEntities();
+        //    var query = from c in context.CourseMajorRelationships.Include("Courses").Include("Majors")
+        //                where c.MajorID.Equals(majorID)
+        //                select c;
+        //    courses = query.ToList();
 
-            List<Entity.CourseMajorRelationship> listOfCourses = new List<Entity.CourseMajorRelationship>();
-            foreach (var c in courses)
-            {
-                listOfCourses.Add(EntityMappingManager.MapCourseMajorRelationshipContent(c));
-            }
-            return listOfCourses;
-        }
+        //    List<Entity.CourseMajorRelationship> listOfCourses = new List<Entity.CourseMajorRelationship>();
+        //    foreach (var c in courses)
+        //    {
+        //        listOfCourses.Add(EntityMappingManager.MapCourseMajorRelationshipContent(c));
+        //    }
+        //    return listOfCourses;
+        //}
 
         //http://mycourseuts.azurewebsites.net/services/api/course/getcoursetypes
         [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -186,7 +186,7 @@ namespace MyCourseUTS.API.Controllers
         public void DeleteCourse(string courseID)
         {
             DeleteCourseRelationship(courseID);
-            DeleteCourseMajorRelationship(courseID);
+            //DeleteCourseMajorRelationship(courseID);
             var context = new MyCourseDBEntities();
             var query = from c in context.Courses
                         where c.ID.Equals(courseID)
@@ -284,25 +284,25 @@ namespace MyCourseUTS.API.Controllers
         //}
 
 
-        //http://mycourseuts.azurewebsites.net/Services/api/course/deletecoursemajorrelationship?courseID=xxx
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void DeleteCourseMajorRelationship(string courseID)
-        {
-            List<DataModel.CourseMajorRelationships> course;
-            var context = new MyCourseDBEntities();
-            var query = from c in context.CourseMajorRelationships
-                        where c.Courses.ID.Equals(courseID)
-                        select c;
-            course = query.ToList();
-            if (course.Count != 0)
-            {
-                foreach (var row in course)
-                {
-                    context.CourseMajorRelationships.Remove(row);
-                    context.SaveChanges();
-                }
-            }
-        }
+        ////http://mycourseuts.azurewebsites.net/Services/api/course/deletecoursemajorrelationship?courseID=xxx
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void DeleteCourseMajorRelationship(string courseID)
+        //{
+        //    List<DataModel.CourseMajorRelationships> course;
+        //    var context = new MyCourseDBEntities();
+        //    var query = from c in context.CourseMajorRelationships
+        //                where c.Courses.ID.Equals(courseID)
+        //                select c;
+        //    course = query.ToList();
+        //    if (course.Count != 0)
+        //    {
+        //        foreach (var row in course)
+        //        {
+        //            context.CourseMajorRelationships.Remove(row);
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //}
     }
 }
 

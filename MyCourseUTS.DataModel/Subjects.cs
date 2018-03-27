@@ -19,7 +19,6 @@ namespace MyCourseUTS.DataModel
         {
             this.ChoiceBlockRelationships = new HashSet<ChoiceBlockRelationships>();
             this.CourseRelationships = new HashSet<CourseRelationships>();
-            this.MajorRelationships = new HashSet<MajorRelationships>();
             this.RequisiteRelationship = new HashSet<RequisiteRelationship>();
             this.RequisiteRelationship1 = new HashSet<RequisiteRelationship>();
             this.StreamRelationships = new HashSet<StreamRelationships>();
@@ -40,8 +39,6 @@ namespace MyCourseUTS.DataModel
         public virtual ICollection<ChoiceBlockRelationships> ChoiceBlockRelationships { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseRelationships> CourseRelationships { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MajorRelationships> MajorRelationships { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequisiteRelationship> RequisiteRelationship { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

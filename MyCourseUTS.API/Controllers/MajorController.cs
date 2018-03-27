@@ -68,24 +68,24 @@ namespace MyCourseUTS.API.Controllers
             return listOfMajors;
         }
 
-        //http://mycourseuts.azurewebsites.net/services/api/major/GetMajorRelationship?majorID=MAJ03472
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public List<MajorRelationship> GetMajorRelationship(string majorID)
-        {
-            List<MajorRelationships> major;
-            var context = new MyCourseDBEntities();
-            var query = from c in context.MajorRelationships.Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupings").Include("Majors").Include("Streams")
-                        where c.Majors.ID.Equals(majorID)
-                        select c;
-            major = query.ToList();
+        ////http://mycourseuts.azurewebsites.net/services/api/major/GetMajorRelationship?majorID=MAJ03472
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public List<MajorRelationship> GetMajorRelationship(string majorID)
+        //{
+        //    List<MajorRelationships> major;
+        //    var context = new MyCourseDBEntities();
+        //    var query = from c in context.MajorRelationships.Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupings").Include("Majors").Include("Streams")
+        //                where c.Majors.ID.Equals(majorID)
+        //                select c;
+        //    major = query.ToList();
 
-            List<MajorRelationship> listOfMajor = new List<MajorRelationship>();
-            foreach (var c in major)
-            {
-                listOfMajor.Add(EntityMappingManager.MapMajorRelationshipContent(c));
-            }
-            return listOfMajor;
-        }
+        //    List<MajorRelationship> listOfMajor = new List<MajorRelationship>();
+        //    foreach (var c in major)
+        //    {
+        //        listOfMajor.Add(EntityMappingManager.MapMajorRelationshipContent(c));
+        //    }
+        //    return listOfMajor;
+        //}
 
 
 
@@ -175,8 +175,8 @@ namespace MyCourseUTS.API.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteMajor(string majorID)
         {
-            DeleteMajorRelationship(majorID);
-            DeleteCourseMajorRelationship(majorID);
+            //DeleteMajorRelationship(majorID);
+            //DeleteCourseMajorRelationship(majorID);
             DeleteSubjectGroupingRelationship(majorID);
 
 
@@ -191,45 +191,45 @@ namespace MyCourseUTS.API.Controllers
 
 
 
-        //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteMajorRelationship?majorID=xxx
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void DeleteMajorRelationship(string majorID) {
-            List<DataModel.MajorRelationships> major;
-            var context = new MyCourseDBEntities();
-            var query = from c in context.MajorRelationships
-                        where c.Majors.ID.Equals(majorID)
-                        select c;
-            major = query.ToList();
+        ////http://mycourseuts.azurewebsites.net/Services/api/major/DeleteMajorRelationship?majorID=xxx
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void DeleteMajorRelationship(string majorID) {
+        //    List<DataModel.MajorRelationships> major;
+        //    var context = new MyCourseDBEntities();
+        //    var query = from c in context.MajorRelationships
+        //                where c.Majors.ID.Equals(majorID)
+        //                select c;
+        //    major = query.ToList();
 
-            if (major.Count != 0)
-            {
-                foreach (var row in major)
-                {
-                    context.MajorRelationships.Remove(row);
-                    context.SaveChanges();
-                }
-            }
-        }
+        //    if (major.Count != 0)
+        //    {
+        //        foreach (var row in major)
+        //        {
+        //            context.MajorRelationships.Remove(row);
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //}
 
-        //http://mycourseuts.azurewebsites.net/Services/api/major/deletecoursemajorrelationship?majorID=xxx
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void DeleteCourseMajorRelationship(string majorID)
-        {
-            List<DataModel.CourseMajorRelationships> major;
-            var context = new MyCourseDBEntities();
-            var query = from c in context.CourseMajorRelationships
-                        where c.Majors.ID.Equals(majorID)
-                        select c;
-            major = query.ToList();
-            if (major.Count != 0)
-            {
-                foreach (var row in major)
-                {
-                    context.CourseMajorRelationships.Remove(row);
-                    context.SaveChanges();
-                }
-            }
-        }
+        ////http://mycourseuts.azurewebsites.net/Services/api/major/deletecoursemajorrelationship?majorID=xxx
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void DeleteCourseMajorRelationship(string majorID)
+        //{
+        //    List<DataModel.CourseMajorRelationships> major;
+        //    var context = new MyCourseDBEntities();
+        //    var query = from c in context.CourseMajorRelationships
+        //                where c.Majors.ID.Equals(majorID)
+        //                select c;
+        //    major = query.ToList();
+        //    if (major.Count != 0)
+        //    {
+        //        foreach (var row in major)
+        //        {
+        //            context.CourseMajorRelationships.Remove(row);
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //}
 
         //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteSubjectGroupingRelationship?majorID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -251,68 +251,68 @@ namespace MyCourseUTS.API.Controllers
         }
 
 
-        //http://mycourseuts.azurewebsites.net/Services/api/major/PostMajorRelationship?majorID=xxx
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostMajorRelationship(string majorID, [FromBody]List<MajorRelationship> relationships)
-        {
-            var context = new MyCourseDBEntities();
-            DeleteMajorRelationship(majorID);
-            using (var scope = new TransactionScope())
-            {
-                foreach (var rel in relationships)
-                {
-                    MajorRelationships newRow = new MajorRelationships();
-                    newRow.MajorID = rel.Major.ID;
-                    newRow.SubjectTypeID = rel.SubjectType.ID;
-                    newRow.Stage = rel.Stage;
-                    newRow.Year = rel.Year;
+        ////http://mycourseuts.azurewebsites.net/Services/api/major/PostMajorRelationship?majorID=xxx
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void PostMajorRelationship(string majorID, [FromBody]List<MajorRelationship> relationships)
+        //{
+        //    var context = new MyCourseDBEntities();
+        //    DeleteMajorRelationship(majorID);
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        foreach (var rel in relationships)
+        //        {
+        //            MajorRelationships newRow = new MajorRelationships();
+        //            newRow.MajorID = rel.Major.ID;
+        //            newRow.SubjectTypeID = rel.SubjectType.ID;
+        //            newRow.Stage = rel.Stage;
+        //            newRow.Year = rel.Year;
 
-                    if (rel.Subject != null)
-                    {
-                        newRow.SubjectID = rel.Subject.ID;
-                    }
-                    if (rel.Stream != null) {
-                        newRow.StreamID = rel.Stream.ID;
-                    }
-                    if (rel.ChoiceBlock != null)
-                    {
-                        newRow.ChoiceBlockID = rel.ChoiceBlock.ID;
-                    }
-                    if (rel.SubjectGrouping != null)
-                    {
-                        newRow.GroupID = rel.SubjectGrouping.ID;
-                    }
-                    if (rel.SubMajor != null)
-                    {
-                        newRow.SubMajorID = rel.SubMajor.ID;
-                    }
+        //            if (rel.Subject != null)
+        //            {
+        //                newRow.SubjectID = rel.Subject.ID;
+        //            }
+        //            if (rel.Stream != null) {
+        //                newRow.StreamID = rel.Stream.ID;
+        //            }
+        //            if (rel.ChoiceBlock != null)
+        //            {
+        //                newRow.ChoiceBlockID = rel.ChoiceBlock.ID;
+        //            }
+        //            if (rel.SubjectGrouping != null)
+        //            {
+        //                newRow.GroupID = rel.SubjectGrouping.ID;
+        //            }
+        //            if (rel.SubMajor != null)
+        //            {
+        //                newRow.SubMajorID = rel.SubMajor.ID;
+        //            }
 
-                    context.MajorRelationships.Add(newRow);
-                    context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
+        //            context.MajorRelationships.Add(newRow);
+        //            context.SaveChanges();
+        //        }
+        //        scope.Complete();
+        //    }
+        //}
 
-        //http://mycourseuts.azurewebsites.net/Services/api/major/postcoursemajorrelationship?majorID=xxx
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostCourseMajorRelationship(string majorID, [FromBody]List<CourseMajorRelationship> relationships)
-        {
-            var context = new MyCourseDBEntities();
-            DeleteCourseMajorRelationship(majorID);
-            using (var scope = new TransactionScope())
-            {
-                foreach (var rel in relationships)
-                {
-                    CourseMajorRelationships newRow = new CourseMajorRelationships();
-                    newRow.CourseID = rel.Course.ID;
-                    newRow.MajorID = rel.Major.ID;
-                    context.CourseMajorRelationships.Add(newRow);
-                    context.SaveChanges();
-                }
-                scope.Complete();
-            }
-        }
+        ////http://mycourseuts.azurewebsites.net/Services/api/major/postcoursemajorrelationship?majorID=xxx
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public void PostCourseMajorRelationship(string majorID, [FromBody]List<CourseMajorRelationship> relationships)
+        //{
+        //    var context = new MyCourseDBEntities();
+        //    DeleteCourseMajorRelationship(majorID);
+        //    using (var scope = new TransactionScope())
+        //    {
+        //        foreach (var rel in relationships)
+        //        {
+        //            CourseMajorRelationships newRow = new CourseMajorRelationships();
+        //            newRow.CourseID = rel.Course.ID;
+        //            newRow.MajorID = rel.Major.ID;
+        //            context.CourseMajorRelationships.Add(newRow);
+        //            context.SaveChanges();
+        //        }
+        //        scope.Complete();
+        //    }
+        //}
 
         //http://mycourseuts.azurewebsites.net/Services/api/major/PostSubjectGroupingRelationship?majorID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
