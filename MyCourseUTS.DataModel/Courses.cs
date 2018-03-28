@@ -31,8 +31,6 @@ namespace MyCourseUTS.DataModel
         public int Stages { get; set; }
         public int CourseTypeID { get; set; }
         public string CourseDescription { get; set; }
-        public bool HasTemplate { get; set; }
-        public bool HasMajor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseRelationships> CourseRelationships { get; set; }

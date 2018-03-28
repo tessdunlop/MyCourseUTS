@@ -19,7 +19,5 @@ namespace MyCourseUTS.Entity
         public int Stages { get; set; }
         public CourseTypes CourseType { get; set; }
         public string CourseDescription { get; set; }
-        public bool HasTemplate { get; set; }
-        public bool HasMajor { get; set; }
     }
 }

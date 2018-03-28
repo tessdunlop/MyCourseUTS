@@ -27,7 +27,6 @@ namespace MyCourseUTS.DataModel
         public string Abbreviation { get; set; }
         public int CreditPoints { get; set; }
         public bool Active { get; set; }
-        public bool HasTemplate { get; set; }
         public string MajorDescription { get; set; }
         public string VersionDescription { get; set; }
         public int Stages { get; set; }

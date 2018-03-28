@@ -89,23 +89,6 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourse;
         }
 
-        ////http://mycourseuts.azurewebsites.net/services/api/subject/GetCourseMajorRelationship?majorid=MAJ03476
-        //public List<Entity.CourseMajorRelationship> GetCourseMajorRelationship(string majorID)
-        //{
-        //    List<DataModel.CourseMajorRelationships> courses;
-        //    var context = new MyCourseDBEntities();
-        //    var query = from c in context.CourseMajorRelationships.Include("Courses").Include("Majors")
-        //                where c.MajorID.Equals(majorID)
-        //                select c;
-        //    courses = query.ToList();
-
-        //    List<Entity.CourseMajorRelationship> listOfCourses = new List<Entity.CourseMajorRelationship>();
-        //    foreach (var c in courses)
-        //    {
-        //        listOfCourses.Add(EntityMappingManager.MapCourseMajorRelationshipContent(c));
-        //    }
-        //    return listOfCourses;
-        //}
 
         //http://mycourseuts.azurewebsites.net/services/api/course/getcoursetypes
         [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -124,12 +107,6 @@ namespace MyCourseUTS.API.Controllers
             }
             return listOfCourseTypes;
         }
-
-
-
-
-
-
 
 
         //DONE
@@ -155,8 +132,6 @@ namespace MyCourseUTS.API.Controllers
                 existingCourse.CreditPoints = course.CreditPoints;
                 existingCourse.CourseTypeID = course.CourseType.ID;
                 existingCourse.CourseDescription = course.CourseDescription;
-                existingCourse.HasMajor = course.HasMajor;
-                existingCourse.HasTemplate = course.HasTemplate;
                 context.SaveChanges();
             }
             else
@@ -173,8 +148,6 @@ namespace MyCourseUTS.API.Controllers
                 newRow.CreditPoints = course.CreditPoints;
                 newRow.CourseTypeID = course.CourseType.ID;
                 newRow.CourseDescription = course.CourseDescription;
-                newRow.HasMajor = course.HasMajor;
-                newRow.HasTemplate = course.HasTemplate;
                 context.Courses.Add(newRow);
                 context.SaveChanges();
             }
@@ -186,7 +159,6 @@ namespace MyCourseUTS.API.Controllers
         public void DeleteCourse(string courseID)
         {
             DeleteCourseRelationship(courseID);
-            //DeleteCourseMajorRelationship(courseID);
             var context = new MyCourseDBEntities();
             var query = from c in context.Courses
                         where c.ID.Equals(courseID)
@@ -201,43 +173,51 @@ namespace MyCourseUTS.API.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostCourseRelationship(string courseID, [FromBody]List<CourseRelationship> relationships)
         {
-            var context = new MyCourseDBEntities();
-            DeleteCourseRelationship(courseID);
-            using (var scope = new TransactionScope())
+            if (relationships != null)
             {
-                foreach (var rel in relationships)
+                var context = new MyCourseDBEntities();
+                DeleteCourseRelationship(courseID);
+                using (var scope = new TransactionScope())
                 {
-                    CourseRelationships newRow = new CourseRelationships();
-                    newRow.CourseID = rel.Course.ID;
-                    newRow.Stage = rel.Stage;
-                    newRow.Year = rel.Year;
-                    newRow.SubjectTypeID = rel.SubjectType.ID;
+                    foreach (var rel in relationships)
+                    {
+                        CourseRelationships newRow = new CourseRelationships();
+                        newRow.CourseID = rel.Course.ID;
+                        newRow.Stage = rel.Stage;
+                        newRow.Year = rel.Year;
+                        newRow.SubjectTypeID = rel.SubjectType.ID;
+                        newRow.DateUpdated = DateTime.Now;
 
-                    if (rel.Subject != null)
-                    {
-                        newRow.SubjectID = rel.Subject.ID;
-                    }
-                    if (rel.ChoiceBlock != null)
-                    {
-                        newRow.ChoiceBlockID = rel.ChoiceBlock.ID;
-                    }
-                    if (rel.Stream != null)
-                    {
-                        newRow.StreamID = rel.Stream.ID;
-                    }
-                    if (rel.SubMajor != null)
-                    {
-                        newRow.SubMajorID = rel.SubMajor.ID;
-                    }
-                    if (rel.SubjectGrouping != null)
-                    {
-                        newRow.GroupID = rel.SubjectGrouping.ID;
-                    }
+                        if (rel.Subject != null)
+                        {
+                            newRow.SubjectID = rel.Subject.ID;
+                        }
+                        if (rel.ChoiceBlock != null)
+                        {
+                            newRow.ChoiceBlockID = rel.ChoiceBlock.ID;
+                        }
+                        if (rel.Stream != null)
+                        {
+                            newRow.StreamID = rel.Stream.ID;
+                        }
+                        if (rel.SubMajor != null)
+                        {
+                            newRow.SubMajorID = rel.SubMajor.ID;
+                        }
+                        if (rel.SubjectGrouping != null)
+                        {
+                            newRow.GroupID = rel.SubjectGrouping.ID;
+                        }
+                        if (rel.Major != null)
+                        {
+                            newRow.MajorID = rel.Major.ID;
+                        }
 
-                    context.CourseRelationships.Add(newRow);
-                    context.SaveChanges();
+                        context.CourseRelationships.Add(newRow);
+                        context.SaveChanges();
+                    }
+                    scope.Complete();
                 }
-                scope.Complete();
             }
         }
 
@@ -263,46 +243,6 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
-        ////http://mycourseuts.azurewebsites.net/Services/api/course/postcourseMajorrelationship?courseID=xxx
-        //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        //public void PostCourseMajorRelationship(string courseID, [FromBody]List<CourseMajorRelationship> relationships)
-        //{
-        //    var context = new MyCourseDBEntities();
-        //    DeleteCourseMajorRelationship(courseID);
-        //    using (var scope = new TransactionScope())
-        //    {
-        //        foreach (var rel in relationships)
-        //        {
-        //            CourseMajorRelationships newRow = new CourseMajorRelationships();
-        //            newRow.CourseID = rel.Course.ID;
-        //            newRow.MajorID = rel.Major.ID;                   
-        //            context.CourseMajorRelationships.Add(newRow);
-        //            context.SaveChanges();
-        //        }
-        //        scope.Complete();
-        //    }
-        //}
-
-
-        ////http://mycourseuts.azurewebsites.net/Services/api/course/deletecoursemajorrelationship?courseID=xxx
-        //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        //public void DeleteCourseMajorRelationship(string courseID)
-        //{
-        //    List<DataModel.CourseMajorRelationships> course;
-        //    var context = new MyCourseDBEntities();
-        //    var query = from c in context.CourseMajorRelationships
-        //                where c.Courses.ID.Equals(courseID)
-        //                select c;
-        //    course = query.ToList();
-        //    if (course.Count != 0)
-        //    {
-        //        foreach (var row in course)
-        //        {
-        //            context.CourseMajorRelationships.Remove(row);
-        //            context.SaveChanges();
-        //        }
-        //    }
-        //}
     }
 }
 

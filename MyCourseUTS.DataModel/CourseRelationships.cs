@@ -26,6 +26,7 @@ namespace MyCourseUTS.DataModel
         public Nullable<int> Year { get; set; }
         public bool HasTemplate { get; set; }
         public int ID { get; set; }
+        public System.DateTime DateUpdated { get; set; }
     
         public virtual ChoiceBlocks ChoiceBlocks { get; set; }
         public virtual Courses Courses { get; set; }

@@ -102,6 +102,15 @@
                 <br />
                 <br />
             </div>
+            <div class="row" style="padding-bottom: 8px">
+                <div class="col-sm" style="text-align: right">
+                    <p><b>Majors</b></p>
+                </div>
+                <div class="col-sm">
+                    <div class="list-group" id="majorList" style="width: 60%;"></div>
+                    <input id="majorInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Majors belonging to this course" oninput="handleMajorListPush(this.value);" style="width: 60%;" />
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
                     <p><b>Course Type</b><b style="color: red; font-size: large"> *</b></p>
@@ -196,7 +205,7 @@
                 <br />
                 <br />
             </div>
-            <div class="row">
+<%--            <div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
                     <p><b>Include Major</b></p>
                 </div>
@@ -215,7 +224,7 @@
                 </div>
                 <br />
                 <br />
-            </div>
+            </div>--%>
             <br />
             <br />
         </div>
@@ -242,15 +251,6 @@
                 </div>
                 <br />
                 <br />
-            </div>
-            <div class="row" style="padding-bottom: 8px">
-                <div class="col-sm" style="text-align: right">
-                    <p><b>Courses</b></p>
-                </div>
-                <div class="col-sm">
-                    <div class="list-group" id="courseMajorList" style="width: 60%;"></div>
-                    <input id="courseMajorInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Courses this Major belongs to" oninput="handleCourseMajorListPush(this.value);" style="width: 60%;" />
-                </div>
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
@@ -326,7 +326,7 @@
                 <br />
                 <br />
             </div>
-            <div class="row">
+<%--            <div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
                     <p><b>Include Template</b></p>
                 </div>
@@ -335,7 +335,7 @@
                 </div>
                 <br />
                 <br />
-            </div>
+            </div>--%>
             <%--<div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
                     <p><b>Include Sub-Major, Stream or Choice Block</b></p>

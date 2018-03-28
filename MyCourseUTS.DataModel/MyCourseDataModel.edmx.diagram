@@ -5,22 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="04312053505e4c569e0ed1bac00e180f" Name="Diagram1" ZoomLevel="40">
-        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlockRelationships" Width="1.5" PointX="3" PointY="12.875" />
-        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlocks" Width="1.5" PointX="0.75" PointY="18.125" />
-        <EntityTypeShape EntityType="MyCourseDBModel.CourseRelationships" Width="1.5" PointX="3" PointY="7.125" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Courses" Width="1.5" PointX="0.75" PointY="42.125" />
-        <EntityTypeShape EntityType="MyCourseDBModel.CourseTypes" Width="1.5" PointX="1.5" PointY="47.25" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Majors" Width="1.5" PointX="0.75" PointY="35.5" />
-        <EntityTypeShape EntityType="MyCourseDBModel.RequisiteRelationship" Width="1.5" PointX="6" PointY="13.375" />
-        <EntityTypeShape EntityType="MyCourseDBModel.RequisiteTypes" Width="1.5" PointX="3.75" PointY="22.75" />
-        <EntityTypeShape EntityType="MyCourseDBModel.StreamRelationships" Width="1.5" PointX="6" PointY="8.875" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Streams" Width="1.5" PointX="0.75" PointY="27" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupingRelationships" Width="1.5" PointX="6" PointY="16.875" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupings" Width="1.5" PointX="0.75" PointY="31.5" />
-        <EntityTypeShape EntityType="MyCourseDBModel.Subjects" Width="1.5" PointX="0.75" PointY="12.625" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubjectTypes" Width="1.5" PointX="0.75" PointY="39.625" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubMajorRelationships" Width="1.5" PointX="3" PointY="17.875" />
-        <EntityTypeShape EntityType="MyCourseDBModel.SubMajors" Width="1.5" PointX="0.75" PointY="22.5" />
+        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlockRelationships" Width="1.5" PointX="6" PointY="17" />
+        <EntityTypeShape EntityType="MyCourseDBModel.ChoiceBlocks" Width="1.5" PointX="3.75" PointY="38.125" />
+        <EntityTypeShape EntityType="MyCourseDBModel.CourseRelationships" Width="1.5" PointX="6" PointY="7.125" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Courses" Width="1.5" PointX="3.75" PointY="23" />
+        <EntityTypeShape EntityType="MyCourseDBModel.CourseTypes" Width="1.5" PointX="1.5" PointY="23.875" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Majors" Width="1.5" PointX="3.75" PointY="27.25" />
+        <EntityTypeShape EntityType="MyCourseDBModel.RequisiteRelationship" Width="1.5" PointX="6" PointY="13.5" />
+        <EntityTypeShape EntityType="MyCourseDBModel.RequisiteTypes" Width="1.5" PointX="3.75" PointY="4.875" />
+        <EntityTypeShape EntityType="MyCourseDBModel.StreamRelationships" Width="1.5" PointX="3" PointY="8" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Streams" Width="1.5" PointX="3.75" PointY="33.625" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupingRelationships" Width="1.5" PointX="3" PointY="13" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubjectGroupings" Width="1.5" PointX="3.75" PointY="47" />
+        <EntityTypeShape EntityType="MyCourseDBModel.Subjects" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubjectTypes" Width="1.5" PointX="3.75" PointY="31.125" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubMajorRelationships" Width="1.5" PointX="3" PointY="18" />
+        <EntityTypeShape EntityType="MyCourseDBModel.SubMajors" Width="1.5" PointX="3.75" PointY="42.625" />
         <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_ChoiceBlocks" />
         <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_ChoiceBlocks1" />
         <AssociationConnector Association="MyCourseDBModel.FK_ChoiceBlockRelationships_Streams" />

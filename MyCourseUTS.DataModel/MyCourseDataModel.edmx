@@ -46,6 +46,7 @@
           <Property Name="Year" Type="int" />
           <Property Name="HasTemplate" Type="bit" Nullable="false" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateUpdated" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Courses">
           <Key>
@@ -62,8 +63,6 @@
           <Property Name="Stages" Type="int" Nullable="false" />
           <Property Name="CourseTypeID" Type="int" Nullable="false" />
           <Property Name="CourseDescription" Type="nvarchar" MaxLength="150" />
-          <Property Name="HasTemplate" Type="bit" Nullable="false" />
-          <Property Name="HasMajor" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseTypes">
           <Key>
@@ -83,7 +82,6 @@
           <Property Name="Abbreviation" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreditPoints" Type="int" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="HasTemplate" Type="bit" Nullable="false" />
           <Property Name="MajorDescription" Type="nvarchar" MaxLength="150" />
           <Property Name="VersionDescription" Type="nvarchar" MaxLength="150" />
           <Property Name="Stages" Type="int" Nullable="false" />
@@ -1013,6 +1011,7 @@
           <Property Name="Year" Type="Int32" />
           <Property Name="HasTemplate" Type="Boolean" Nullable="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="ChoiceBlocks" Relationship="MyCourseDBModel.FK_CourseRelationships_ChoiceBlocks" FromRole="CourseRelationships" ToRole="ChoiceBlocks" />
           <NavigationProperty Name="Courses" Relationship="MyCourseDBModel.FK_CourseRelationships_Courses" FromRole="CourseRelationships" ToRole="Courses" />
           <NavigationProperty Name="Majors" Relationship="MyCourseDBModel.FK_CourseRelationships_Majors" FromRole="CourseRelationships" ToRole="Majors" />
@@ -1037,8 +1036,6 @@
           <Property Name="Stages" Type="Int32" Nullable="false" />
           <Property Name="CourseTypeID" Type="Int32" Nullable="false" />
           <Property Name="CourseDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="HasTemplate" Type="Boolean" Nullable="false" />
-          <Property Name="HasMajor" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CourseRelationships" Relationship="MyCourseDBModel.FK_CourseRelationships_Courses" FromRole="Courses" ToRole="CourseRelationships" />
           <NavigationProperty Name="CourseTypes" Relationship="MyCourseDBModel.FK_Courses_CourseTypes" FromRole="Courses" ToRole="CourseTypes" />
         </EntityType>
@@ -1061,7 +1058,6 @@
           <Property Name="Abbreviation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreditPoints" Type="Int32" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="HasTemplate" Type="Boolean" Nullable="false" />
           <Property Name="MajorDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="VersionDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Stages" Type="Int32" Nullable="false" />
@@ -1695,6 +1691,7 @@
           <EntitySetMapping Name="CourseRelationships">
             <EntityTypeMapping TypeName="MyCourseDBModel.CourseRelationships">
               <MappingFragment StoreEntitySet="CourseRelationships">
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="HasTemplate" ColumnName="HasTemplate" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
@@ -1713,8 +1710,6 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="MyCourseDBModel.Courses">
               <MappingFragment StoreEntitySet="Courses">
-                <ScalarProperty Name="HasMajor" ColumnName="HasMajor" />
-                <ScalarProperty Name="HasTemplate" ColumnName="HasTemplate" />
                 <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
                 <ScalarProperty Name="CourseTypeID" ColumnName="CourseTypeID" />
                 <ScalarProperty Name="Stages" ColumnName="Stages" />
@@ -1744,7 +1739,6 @@
                 <ScalarProperty Name="Stages" ColumnName="Stages" />
                 <ScalarProperty Name="VersionDescription" ColumnName="VersionDescription" />
                 <ScalarProperty Name="MajorDescription" ColumnName="MajorDescription" />
-                <ScalarProperty Name="HasTemplate" ColumnName="HasTemplate" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
                 <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />

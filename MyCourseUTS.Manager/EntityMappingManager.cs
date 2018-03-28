@@ -28,9 +28,7 @@ namespace MyCourseUTS.Manager
                 Stages = contentData.Stages,
                 Version = contentData.Version,
                 Years = contentData.Years,
-                CourseDescription = contentData.CourseDescription,
-                HasMajor = contentData.HasMajor,
-                HasTemplate = contentData.HasTemplate
+                CourseDescription = contentData.CourseDescription
             };
             return content;
         }
@@ -63,7 +61,6 @@ namespace MyCourseUTS.Manager
                 Abbreviation = contentData.Abbreviation,
                 MajorDescription = contentData.MajorDescription,
                 VersionDescription = contentData.VersionDescription,
-                HasTemplate = contentData.HasTemplate,
                 Active = contentData.Active,
                 CreditPoints = contentData.CreditPoints,
                 Version = contentData.Version,
@@ -205,7 +202,8 @@ namespace MyCourseUTS.Manager
                 Stage = contentData.Stage,
                 Year = contentData.Year,
                 Major = MapMajorContent(contentData.Majors),
-                HasTemplate = contentData.HasTemplate
+                HasTemplate = contentData.HasTemplate,
+                DateUpdated = contentData.DateUpdated
             };
             return content;
         }
