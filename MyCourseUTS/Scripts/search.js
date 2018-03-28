@@ -860,17 +860,19 @@ function populateCourseTypeDropdown() {
     }
 }
 function populateSubjectTypeDropdown() {
-    //var select = document.getElementById("subjectTypeDropDown");
-    //var data = getSubjectTypes();
-    //for (var i = 0; i < data.length; i++) {
-    //    var option = document.createElement("option");
-    //    option.value = data[i].ID;
-    //    option.text = data[i].Abbreviation;
-    //    select.add(option, null);
-    //}
+
+        var select = document.getElementById("subjectTypeDropDown");
+        var data = getSubjectTypes();
+        for (var i = 0; i < data.length; i++) {
+            var option = document.createElement("option");
+            option.value = data[i].ID;
+            option.text = data[i].Abbreviation;
+            select.add(option, null);
+        }
+    
 }
 window.onload = function () {
-    populateSubjectTypeDropdown();
+    //populateSubjectTypeDropdown();
     populateCourseTypeDropdown();
     document.getElementById("searchBar").focus();
 }
@@ -1564,9 +1566,6 @@ function handleViewEditCourse(data) {
     document.getElementById('addCourseFormDiv').style.display = "block";
 }
 function handleViewEditMajor(data) {
-    var courses = getCourseMajorRelationship(data.ID);
-    relationships = courses;
-    console.log(relationships);
 
     document.getElementById("majorName").value = data.Name;
     document.getElementById("majorId").value = data.ID;
@@ -1586,23 +1585,6 @@ function handleViewEditMajor(data) {
         document.getElementById("includeMajorTemplate").checked = true;
     }
 
-    for (var i = 0; i < courses.length; i++) {
-        var number = courses[i].ID;
-        if (number < 20) {
-            number = number + 100;
-        }
-        if (number > nextAvailableID) {
-            nextAvailableID = number + 1;
-        }
-
-        var a = document.createElement("a");
-        var list = document.getElementById("courseMajorList");
-        a.setAttribute('id', number);
-        a.setAttribute('onClick', "removeFromList(this.id)");
-        a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success disabled');
-        a.appendChild(document.createTextNode(courses[i].Course.ID + " - " + courses[i].Course.Name));
-        list.appendChild(a);
-    }
 
     document.getElementById("majorName").readOnly = true;
     document.getElementById("majorId").readOnly = true;
@@ -2219,9 +2201,7 @@ function buildTimetableStructure(stages) {
 }
 
 
-function showPanel(id) {
-    alert(id);
-}
+
 
 
 function populateExistingTimetable() {
@@ -2252,10 +2232,12 @@ function populateExistingTimetable() {
     //checks for major relationship
     if (majorsList.length != 0) {
         for (var y = 0; y < majorsList.length; y++) {
+            
+            accordion.innerHTML += "<div class='row' > <div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value);' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button disabled id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable();' style='background-color: green; color: white''><span class='glyphicon glyphicon-plus'></span></button > </div > </div > <div class='row' style='padding-bottom: 8px''><div class='col- sm' style='text- align:center'> <button disabled id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable();' style='background-color: green; color: white'><span class='glyphicon glyphicon- plus'></span></button></div>";
+            
             accordion.innerHTML += "<div class='card' style='width:100%'><div class='card-header' id='heading" + y + "'><h5 class='mb-0'><button class='btn btn-link' data-toggle='collapse' data-target='#collapse" + y + "' aria-expanded='false' aria-controls='collapse" + y + "'>" + majorsList[y].Name + "</button></h5></div><div id='collapse" + y + "' class='collapse show' aria-labelledby='heading" + y + "' data-parent='#accordion'><div class='card-body row' id='body" + y + "'></div></div></div>";
 
-            //<%--<div class='row' > <div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value);' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button disabled id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable();' style='background-color: green; color: white''><span class='glyphicon glyphicon-plus'></span></button > </div > </div > <div class='row' style='padding-bottom: 8px''><div class='col- sm' style='text- align:center''> <button disabled id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable();' style='background-color: green; color: white''><span class='glyphicon glyphicon- plus'></span></button></div>--%>
-            //accordion.innerHTML += "<div class='card'><div class='card-header' id='heading" + y + "'><h5 class='mb-0'><button class='btn' id='btn"+y+"' onClick='showPanel(this.id)' data-toggle='collapse' data-target='#collapse" + y + "' aria-expanded='false' aria-controls='collapse" + y + "'>" + majorsList[y].Name + "</button></h5></div><div id='panel" + y + "' ></div></div>";
+            populateSubjectTypeDropdown();
 
             var space = document.getElementById("body" + y);
             for (var x = 1; x < stages + 1; x++) {
@@ -2431,113 +2413,6 @@ function populateExistingTimetable() {
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //add body
-        //for (var i = 1; i < stages + 1; i++) {
-        //    column = document.getElementById(i);
-        //    for (var x = 0; x < items.length; x++) {
-        //        var name;
-        //        var id;
-        //        var type;
-        //        var colour;
-        //        var credit;
-        //        var number;
-
-        //        if (items[x].Stage == i) {
-        //            number = +items[x].ID;
-
-
-
-        //            if (number < 20) {//This is because if it has an id of 1-12ish it will clash with the column ids meaning they will be displayed weird
-        //                number = number + 100;
-        //            }
-        //            if (number > nextAvailableID) {
-        //                nextAvailableID = number + 1;
-        //            }
-
-        //            if (items[x].Stream != null) {
-        //                name = items[x].Stream.Name;
-        //                id = items[x].Stream.ID;
-        //                credit = items[x].Stream.CreditPoints;
-        //                type = items[x].SubjectType.Abbreviation;
-        //            }
-        //            else if (items[x].ChoiceBlock != null) {
-        //                name = items[x].ChoiceBlock.Name;
-        //                id = items[x].ChoiceBlock.ID;
-        //                credit = items[x].ChoiceBlock.CreditPoints;
-        //                type = items[x].SubjectType.Abbreviation;
-
-        //            }
-        //            else if (items[x].SubMajor != null) {
-        //                name = items[x].SubMajor.Name;
-        //                id = items[x].SubMajor.ID;
-        //                credit = items[x].SubMajor.CreditPoints;
-        //                type = items[x].SubjectType.Abbreviation;
-        //            }
-        //            else if (items[x].Subject != null) {
-        //                name = items[x].Subject.Name;
-        //                id = items[x].Subject.ID;
-        //                credit = items[x].Subject.CreditPoints;
-        //                type = items[x].SubjectType.Abbreviation;
-        //            }
-        //            else if (items[x].SubjectGrouping != null) {
-        //                name = "Choice";
-        //                id = items[x].SubjectGrouping.ID;
-        //                credit = 6;
-        //                type = items[x].SubjectType.Abbreviation;
-        //            }
-
-
-        //            if (type == "COR") {
-        //                colour = cor;
-        //            }
-        //            else if (type == "PP") {
-        //                colour = pp;
-        //            }
-        //            else if (type == "MAJ") {
-        //                colour = maj;
-        //            }
-        //            else if (type == "ELE") {
-        //                colour = ele;
-        //            }
-        //            else if (type == "CDS") {
-        //                colour = cds;
-        //            }
-        //            else if (type == "MELE") {
-        //                colour = mele;
-        //            }
-
-        //            console.log(number);
-        //            var string = "<div id='" + number + "'onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
-        //            column.innerHTML += string;
-
-        //            if (id.toString().substring(0, 3) == "CBK" || id.toString().substring(0, 3) == "SMJ" || id.toString().substring(0, 3) == "STM" || name == "Choice") {
-        //                handleHover(id, number);
-        //            }
-        //            $("#item" + id).attr("disabled", "disabled").off("click");
-        //        }
-        //    }
-
-        //}
     }
 }
 function addToTimetable() {
