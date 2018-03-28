@@ -216,6 +216,8 @@
                 <br />
                 <br />
             </div>
+            <br />
+            <br />
         </div>
 
 
@@ -563,53 +565,13 @@
         </div>
 
 
+         
+
 
             <div id="accordion" style="text-align: center;">
             </div>
 
 
-     <%--   <div id="timetable" style="text-align: center;">
-
-            <div id="subjectAddDisable" style="display: none">
-                <hr />
-                <h1 style="text-align: center; color: #2478fc">Template Designer</h1><hr /><br />
-                <div class="row">
-                    <div class="col" style="text-align: right; padding-top: 12px">
-                        <p><b>Subject or Group</b></p>
-                    </div>
-                    <div class="col" style="padding-top: 12px">
-                        <input id="subjectAddInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Subject, CBK, SMJ or STM" oninput="handleSubjectInput(this.value);" style="width: 100%;" />
-                    </div>
-                    <div class="col" style="text-align: center;"></div>
-                </div>
-                <div class="row">
-                    <div class="col" style="text-align: right; padding-top: 12px">
-                        <p><b>Subject Type</b></p>
-                    </div>
-                    <div class="col" style="padding-top: 12px">
-                        <select id="subjectTypeDropDown" class="form-control" style="width: 100%; height: 100%">
-                        </select>
-                    </div>
-                    <div class="col" style="text-align: center;"></div>
-                </div>
-                <div class="row">
-                    <div class="col" style="text-align: right; padding-top: 12px">
-                        <p><b>Stage</b></p>
-                    </div>
-                    <div class="col" style="padding-top: 12px">
-                        <input id="subjectStageInput" name="searchBar" type="number" class="form-control typeahead" style="width: 100%;" oninput="handleSubjectStageInput(this.value)" />
-                    </div>
-                    <div class="col" style="text-align: left; padding-bottom: 30px">
-                        <button disabled id="btnTimetableAdd" type="button" class="btn btn-lg" onclick="addToTimetable();" style="background-color: green; color: white"><span class="glyphicon glyphicon-plus"></span></button>
-                    </div>
-                </div>
-                <div class="row" style="padding-bottom: 8px">
-                    <div class="col-sm" style="text-align:center">
-                    <button disabled id="btnTimetableAdd" type="button" class="btn btn-lg" onclick="addToTimetable();" style="background-color: green; color: white"><span class="glyphicon glyphicon-plus"></span></button>
-                </div>
-    </div>
-    </div>
-        </div>--%>
 
         <div class="row" id="headerRow"></div>
     <br />
@@ -635,7 +597,7 @@
     <br />
     <br />
     <br />
-    </div>
+</div>
 
 </asp:Content>
 
