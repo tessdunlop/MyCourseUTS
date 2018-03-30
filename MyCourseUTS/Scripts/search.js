@@ -886,17 +886,21 @@ function clearFields() {
     document.getElementById("subjectDescription").value = "";
     document.getElementById("subjectPreReq").innerHTML = "";
     document.getElementById("subjectAntiReq").innerHTML = "";
+    document.getElementById("subjectCoReq").innerHTML = "";
     document.getElementById("subjectStatusActive").checked = true;
     document.getElementById("subjectStatusInActive").checked = false;
     document.getElementById("subjectAntiReqInput").value = "";
+    document.getElementById("subjectCoReqInput").value = "";
     document.getElementById("subjectPreReqInput").value = "";
     document.getElementById("subjectAntiReqInput").style.display = "none";
+    document.getElementById("subjectCoReqInput").style.display = "none";
     document.getElementById("subjectPreReqInput").style.display = "none";
 
     document.getElementById("majorList").innerHTML = "";
     document.getElementById("streamSubjectList").innerHTML = "";
     document.getElementById("subjectPreReq").innerHTML = "";
     document.getElementById("subjectAntiReq").innerHTML = "";
+    document.getElementById("subjectCoReq").innerHTML = "";
 
     document.getElementById("accordion").innerHTML = "";
 
@@ -1195,18 +1199,17 @@ function handlePreRequisiteListPush(term) {
             }));
         },
         select: function (event, ui) {
-            nextAvailableID++;
             var a = document.createElement("a");
             var subReq = document.getElementById("subjectPreReq");
-            a.setAttribute('id', nextAvailableID);
+            a.setAttribute('id', ui.item.value);
             a.setAttribute('onClick', "removeFromList(this.id)");
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success ');
-            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
+            a.appendChild(document.createTextNode(ui.item.label));
             subReq.appendChild(a);
             document.getElementById("subjectPreReqInput").value = "";
 
             relationships.push({
-                "ID": nextAvailableID,
+                "ID": ui.item.value,
                 "Subject": { "ID": +document.getElementById("subjectId").value },
                 "Requisite": { "ID": ui.item.value },
                 "RequisiteType": { "ID": 1 }
@@ -1231,22 +1234,55 @@ function handleAntiRequisiteListPush(term) {
             }));
         },
         select: function (event, ui) {
-            //console.log(ui);
-            nextAvailableID++;
             var a = document.createElement("a");
             var subReq = document.getElementById("subjectAntiReq");
-            a.setAttribute('id', nextAvailableID);
+            a.setAttribute('id', ui.item.value);
             a.setAttribute('onClick', "removeFromList(this.id)");
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-danger');
-            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
+            a.appendChild(document.createTextNode(ui.item.label));
             subReq.appendChild(a);
             document.getElementById("subjectAntiReqInput").value = "";
 
             relationships.push({
-                "ID": nextAvailableID,
+                "ID": ui.item.value,
                 "Subject": { "ID": +document.getElementById("subjectId").value },
                 "Requisite": { "ID": ui.item.value },
                 "RequisiteType": { "ID": 2 }
+            });
+
+            //console.log(relationships);
+        }
+
+    });
+}
+function handleCoRequisiteListPush(term) {
+    var data = new Array();
+    data = getSubjects(term);
+
+    $("#subjectCoReqInput").autocomplete({
+        source: function (request, response) {
+            response($.map(data, function (value, key) {
+                return {
+                    label: value.ID + " - " + value.Name,
+                    value: value.ID
+                }
+            }));
+        },
+        select: function (event, ui) {
+            var a = document.createElement("a");
+            var subReq = document.getElementById("subjectCoReq");
+            a.setAttribute('id', ui.item.value);
+            a.setAttribute('onClick', "removeFromList(this.id)");
+            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-warning');
+            a.appendChild(document.createTextNode(ui.item.label));
+            subReq.appendChild(a);
+            document.getElementById("subjectCoReqInput").value = "";
+
+            relationships.push({
+                "ID": ui.item.value,
+                "Subject": { "ID": +document.getElementById("subjectId").value },
+                "Requisite": { "ID": ui.item.value },
+                "RequisiteType": { "ID": 3 }
             });
 
             //console.log(relationships);
@@ -1593,6 +1629,16 @@ function handleViewEditSubject(data) {
             subReq.appendChild(a);
             //$("#subjectPreReq").append("<a href='#' class='list-group-item list-group-item-action list-group-item-danger disabled'>" + reqs[i].Requisite.ID + " - " + reqs[i].Requisite.Name + "</a>");
         }
+        else if (reqs[i].RequisiteType.Abbreviation == "CO") {
+            var a = document.createElement("a");
+            var subReq = document.getElementById("subjectCoReq");
+            a.setAttribute('id', number);
+            a.setAttribute('onClick', "removeFromList(this.id)");
+            a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-warning disabled');
+            a.appendChild(document.createTextNode(reqs[i].Requisite.ID + " - " + reqs[i].Requisite.Name));
+            subReq.appendChild(a);
+            //$("#subjectPreReq").append("<a href='#' class='list-group-item list-group-item-action list-group-item-danger disabled'>" + reqs[i].Requisite.ID + " - " + reqs[i].Requisite.Name + "</a>");
+        }
     }
 
     if (data.Active == true) {
@@ -1614,6 +1660,8 @@ function handleViewEditSubject(data) {
     document.getElementById("subjectPreReq").readOnly = true;
     document.getElementById("subjectAntiReq").readOnly = true;
     document.getElementById("subjectAntiReqInput").style.display = "none";
+    document.getElementById("subjectCoReq").readOnly = true;
+    document.getElementById("subjectCoReqInput").style.display = "none";
     document.getElementById("subjectPreReqInput").style.display = "none";
 
     document.getElementById('addSubjectFormDiv').style.display = "block";
@@ -1921,6 +1969,11 @@ function handleEdit() {
     for (var i = 0; i < antiItems.length; i++) {
         $("#" + antiItems[i].id).removeClass("disabled");
     }
+    var CoList = document.getElementById("subjectCoReq");
+    var CoItems = CoList.getElementsByTagName("a");
+    for (var i = 0; i < CoItems.length; i++) {
+        $("#" + CoItems[i].id).removeClass("disabled");
+    }
     var streamSubjectList = document.getElementById("streamSubjectList");
     var items = streamSubjectList.getElementsByTagName("a");
     for (var i = 0; i < items.length; i++) {
@@ -1977,7 +2030,9 @@ function handleEdit() {
     document.getElementById("subjectDescription").readOnly = false;
     document.getElementById("subjectPreReq").readOnly = false;
     document.getElementById("subjectAntiReq").readOnly = false;
+    document.getElementById("subjectCoReq").readOnly = false;
 
+    document.getElementById("subjectCoReqInput").style.display = "block";
     document.getElementById("subjectAntiReqInput").style.display = "block";
     document.getElementById("subjectPreReqInput").style.display = "block";
     document.getElementById("majorInput").style.display = "block";
@@ -2188,6 +2243,7 @@ function addToTimetable(number) {
             template.push({
                 "ID": itemID,
                 "Course": { "ID": document.getElementById("courseId").value },
+                "Major": null,
                 "Subject": null,
                 "ChoiceBlock": null,
                 "SubMajor": { "ID": id },
@@ -2195,13 +2251,15 @@ function addToTimetable(number) {
                 "SubjectGrouping": null,
                 "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
                 "Stage": stage,
-                "Year": Math.round(stage / 2)
+                "Year": Math.round(stage / 2),
+                "HasTemplate": 1
             });
         }
         else if (typeChecker == "STM") {
             template.push({
                 "ID": itemID,
                 "Course": { "ID": document.getElementById("courseId").value },
+                "Major": null,
                 "Subject": null,
                 "ChoiceBlock": null,
                 "SubMajor": null,
@@ -2209,13 +2267,15 @@ function addToTimetable(number) {
                 "SubjectGrouping": null,
                 "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
                 "Stage": stage,
-                "Year": Math.round(stage / 2)
+                "Year": Math.round(stage / 2),
+                "HasTemplate": 1
             });
         }
         else if (typeChecker == "CBK") {
             template.push({
                 "ID": itemID,
                 "Course": { "ID": document.getElementById("courseId").value },
+                "Major": null,
                 "Subject": null,
                 "ChoiceBlock": { "ID": id },
                 "SubMajor": null,
@@ -2223,13 +2283,15 @@ function addToTimetable(number) {
                 "SubjectGrouping": null,
                 "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
                 "Stage": stage,
-                "Year": Math.round(stage / 2)
+                "Year": Math.round(stage / 2),
+                "HasTemplate": 1
             });
         }
         else if (id.length < 4) {//group
             template.push({
                 "ID": itemID,
                 "Course": { "ID": document.getElementById("courseId").value },
+                "Major": null,
                 "Subject": null,
                 "ChoiceBlock": null,
                 "SubMajor": null,
@@ -2237,13 +2299,15 @@ function addToTimetable(number) {
                 "SubjectGrouping": { "ID": id },
                 "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
                 "Stage": stage,
-                "Year": Math.round(stage / 2)
+                "Year": Math.round(stage / 2),
+                "HasTemplate": 1
             });
         }
         else {//subject
             template.push({
                 "ID": itemID,
                 "Course": { "ID": document.getElementById("courseId").value },
+                "Major": null,
                 "Subject": { "ID": id },
                 "ChoiceBlock": null,
                 "SubMajor": null,
@@ -2251,7 +2315,8 @@ function addToTimetable(number) {
                 "SubjectGrouping": null,
                 "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
                 "Stage": stage,
-                "Year": Math.round(stage / 2)
+                "Year": Math.round(stage / 2),
+                "HasTemplate": 1
             });
         }
 
@@ -2261,7 +2326,8 @@ function addToTimetable(number) {
         if (typeChecker == "SMJ") {
             template.push({
                 "ID": itemID,
-                "Major": { "ID": document.getElementById("majorId").value },
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Major": { "ID": majorsList[number].ID },
                 "Subject": null,
                 "ChoiceBlock": null,
                 "SubMajor": { "ID": id },
@@ -2269,13 +2335,15 @@ function addToTimetable(number) {
                 "SubjectGrouping": null,
                 "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
                 "Stage": stage,
-                "Year": Math.round(stage / 2)
+                "Year": Math.round(stage / 2),
+                "HasTemplate": 1
             });
         }
         else if (typeChecker == "STM") {
             template.push({
                 "ID": itemID,
-                "Major": { "ID": document.getElementById("majorId").value },
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Major": { "ID": majorsList[number].ID },
                 "Subject": null,
                 "ChoiceBlock": null,
                 "SubMajor": null,
@@ -2283,13 +2351,15 @@ function addToTimetable(number) {
                 "SubjectGrouping": null,
                 "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
                 "Stage": stage,
-                "Year": Math.round(stage / 2)
+                "Year": Math.round(stage / 2),
+                "HasTemplate": 1
             });
         }
         else if (typeChecker == "CBK") {
             template.push({
                 "ID": itemID,
-                "Major": { "ID": document.getElementById("majorId").value },
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Major": { "ID": majorsList[number].ID },
                 "Subject": null,
                 "ChoiceBlock": { "ID": id },
                 "SubMajor": null,
@@ -2297,13 +2367,15 @@ function addToTimetable(number) {
                 "SubjectGrouping": null,
                 "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
                 "Stage": stage,
-                "Year": Math.round(stage / 2)
+                "Year": Math.round(stage / 2),
+                "HasTemplate": 1
             });
         }
         else if (id.length < 4) {//group
             template.push({
                 "ID": itemID,
-                "Major": { "ID": document.getElementById("majorId").value },
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Major": { "ID": majorsList[number].ID },
                 "Subject": null,
                 "ChoiceBlock": null,
                 "SubMajor": null,
@@ -2311,13 +2383,15 @@ function addToTimetable(number) {
                 "SubjectGrouping": { "ID": id },
                 "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
                 "Stage": stage,
-                "Year": Math.round(stage / 2)
+                "Year": Math.round(stage / 2),
+                "HasTemplate": 1
             });
         }
         else {//subject
             template.push({
                 "ID": itemID,
-                "Major": { "ID": document.getElementById("majorId").value },
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Major": { "ID": majorsList[number].ID },
                 "Subject": { "ID": id },
                 "ChoiceBlock": null,
                 "SubMajor": null,
@@ -2325,9 +2399,11 @@ function addToTimetable(number) {
                 "SubjectGrouping": null,
                 "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
                 "Stage": stage,
-                "Year": Math.round(stage / 2)
+                "Year": Math.round(stage / 2),
+                "HasTemplate": 1
             });
         }
+        console.log(template);
     }
 
     console.log(template);
@@ -2402,9 +2478,6 @@ function removeMajor(majorID) {
     console.log(majorsList);
     refreshTemplate();
 }
-
-
-
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////All TEMPLATE FUNCTIONS

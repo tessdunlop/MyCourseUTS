@@ -549,7 +549,7 @@
                     <p><b>Pre-Requisites:</b></p>
                 </div>
                 <div class="col-sm">
-                    <div class="list-group" id="subjectPreReq" style="width: 60%;"></div>
+                    <div class="list-group" id="subjectPreReq" style="width: 60%; padding-top:5px;"></div>
                     <input id="subjectPreReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Pre-Requisites" oninput="handlePreRequisiteListPush(this.value);" style="width: 60%;" />
                 </div>
             </div>
@@ -558,8 +558,17 @@
                     <p><b>Anti-Requisites:</b></p>
                 </div>
                 <div class="col-sm">
-                    <div class="list-group" id="subjectAntiReq" style="width: 60%;"></div>
+                    <div class="list-group" id="subjectAntiReq" style="width: 60%; padding-top:5px;"></div>
                     <input id="subjectAntiReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Anti-Requisites" oninput="handleAntiRequisiteListPush(this.value);" style="width: 60%;" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm" style="text-align: right">
+                    <p><b>Co-Requisites:</b></p>
+                </div>
+                <div class="col-sm">
+                    <div class="list-group" id="subjectCoReq" style="width: 60%; padding-top:10px;"></div>
+                    <input id="subjectCoReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Co-Requisites" oninput="handleCoRequisiteListPush(this.value);" style="width: 60%;" />
                 </div>
             </div>
         </div>

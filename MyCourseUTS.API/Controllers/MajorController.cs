@@ -68,63 +68,6 @@ namespace MyCourseUTS.API.Controllers
             return listOfMajors;
         }
 
-        ////http://mycourseuts.azurewebsites.net/services/api/major/GetMajorRelationship?majorID=MAJ03472
-        //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        //public List<MajorRelationship> GetMajorRelationship(string majorID)
-        //{
-        //    List<MajorRelationships> major;
-        //    var context = new MyCourseDBEntities();
-        //    var query = from c in context.MajorRelationships.Include("Subjects").Include("ChoiceBlocks").Include("SubjectTypes").Include("SubjectGroupings").Include("Majors").Include("Streams")
-        //                where c.Majors.ID.Equals(majorID)
-        //                select c;
-        //    major = query.ToList();
-
-        //    List<MajorRelationship> listOfMajor = new List<MajorRelationship>();
-        //    foreach (var c in major)
-        //    {
-        //        listOfMajor.Add(EntityMappingManager.MapMajorRelationshipContent(c));
-        //    }
-        //    return listOfMajor;
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         //http://mycourseuts.azurewebsites.net/Services/api/major/postmajor
