@@ -225,6 +225,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ChoiceBlockController.cs" />
+    <Compile Include="Controllers\ListItemController.cs" />
     <Compile Include="Controllers\MajorController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\StreamController.cs" />

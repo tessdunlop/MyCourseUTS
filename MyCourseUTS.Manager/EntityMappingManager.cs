@@ -202,7 +202,8 @@ namespace MyCourseUTS.Manager
                 Stage = contentData.Stage,
                 Year = contentData.Year,
                 Major = MapMajorContent(contentData.Majors),
-                HasTemplate = contentData.HasTemplate
+                HasTemplate = contentData.HasTemplate,
+                DateUpdated = String.Format("{0:dd/MM/yyyy HH:mm:ss}", contentData.DateUpdated) 
             };
             return content;
         }
@@ -314,6 +315,65 @@ namespace MyCourseUTS.Manager
                 Subject = MapSubjectContent(contentData.Subjects),//contentData.Subjects != null ? new Subject() { ID = contentData.Subjects.ID, Version = contentData.Subjects.Version, Name = contentData.Subjects.Name, Abbreviation = contentData.Subjects.Abbreviation, CreditPoints = contentData.Subjects.CreditPoints, Active = contentData.Subjects.Active, SubjectDescription = contentData.Subjects.SubjectDescription, VersionDescription = contentData.Subjects.VersionDescription,} : null,
                 Requisite = MapSubjectContent(contentData.Subjects1),
                 RequisiteType = MapRequisiteTypeContent(contentData.RequisiteTypes)
+            };
+            return content;
+        }
+
+        public static Entity.ListItem MapListItemSubjectContent(DataModel.Subjects contentData) {
+            if (contentData == null)
+            {
+                return null;
+            }
+            Entity.ListItem content = new Entity.ListItem
+            {
+                ID = contentData.ID.ToString(),
+                Name = contentData.Name,
+                Abbreviation = contentData.Abbreviation
+            };
+            return content;
+        }
+
+        public static Entity.ListItem MapListItemChoiceBlockContent(DataModel.ChoiceBlocks contentData)
+        {
+            if (contentData == null)
+            {
+                return null;
+            }
+            Entity.ListItem content = new Entity.ListItem
+            {
+                ID = contentData.ID,
+                Name = contentData.Name,
+                Abbreviation = contentData.Abbreviation
+            };
+            return content;
+        }
+
+        public static Entity.ListItem MapListItemStreamContent(DataModel.Streams contentData)
+        {
+            if (contentData == null)
+            {
+                return null;
+            }
+            Entity.ListItem content = new Entity.ListItem
+            {
+                ID = contentData.ID,
+                Name = contentData.Name,
+                Abbreviation = contentData.Abbreviation
+            };
+            return content;
+        }
+
+        public static Entity.ListItem MapListItemSubMajorContent(DataModel.SubMajors contentData)
+        {
+            if (contentData == null)
+            {
+                return null;
+            }
+            Entity.ListItem content = new Entity.ListItem
+            {
+                ID = contentData.ID,
+                Name = contentData.Name,
+                Abbreviation = contentData.Abbreviation
             };
             return content;
         }

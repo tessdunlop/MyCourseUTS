@@ -165,7 +165,7 @@ namespace MyCourseUTS.API.Controllers
                         select c;
             var deleteCourse = query.FirstOrDefault();
             context.Courses.Remove(deleteCourse);
-            context.SaveChanges();          
+            context.SaveChanges();
         }
 
         //DONE
@@ -183,10 +183,20 @@ namespace MyCourseUTS.API.Controllers
                     {
                         CourseRelationships newRow = new CourseRelationships();
                         newRow.CourseID = rel.Course.ID;
-                        newRow.Stage = rel.Stage;
-                        newRow.Year = rel.Year;
-                        newRow.SubjectTypeID = rel.SubjectType.ID;
                         newRow.DateUpdated = DateTime.Now;
+                        newRow.HasTemplate = rel.HasTemplate;
+                        if (rel.Stage != null)
+                        {
+                            newRow.Stage = rel.Stage;
+                        }
+                        if (rel.Year != null)
+                        {
+                            newRow.Year = rel.Year;
+                        }
+                        if (rel.SubjectType != null)
+                        {
+                            newRow.SubjectTypeID = rel.SubjectType.ID;
+                        }
 
                         if (rel.Subject != null)
                         {

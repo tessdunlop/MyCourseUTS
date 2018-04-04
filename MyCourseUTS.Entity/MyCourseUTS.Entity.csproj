@@ -98,7 +98,9 @@
     <Compile Include="Course.cs" />
     <Compile Include="CourseRelationship.cs" />
     <Compile Include="CourseTypes.cs" />
+    <Compile Include="ListItem.cs" />
     <Compile Include="Major.cs" />
+    <Compile Include="MajorRelationship.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequisiteRelationship.cs" />
     <Compile Include="RequisiteType.cs" />

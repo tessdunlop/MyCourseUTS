@@ -151,17 +151,37 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSS\ajax-loader.gif" />
+    <Content Include="CSS\font-awesome.min.css" />
+    <Content Include="CSS\fontawesome.min.css" />
+    <Content Include="CSS\search.css" />
     <Content Include="packages.config" />
-    <Content Include="Scripts\bootstrap1\css\bootstrap-theme.css" />
-    <Content Include="Scripts\bootstrap1\css\bootstrap-theme.min.css" />
-    <Content Include="Scripts\bootstrap1\css\bootstrap.css" />
-    <Content Include="Scripts\bootstrap1\css\bootstrap.min.css" />
-    <Content Include="Scripts\bootstrap1\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Scripts\bootstrap1\js\bootstrap.js" />
-    <Content Include="Scripts\bootstrap1\js\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap-grid.css" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap-grid.min.css" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap-reboot.css" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap-reboot.min.css" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap.css" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap.min.css" />
+    <Content Include="Scripts\bootstrap4\js\alert.js" />
+    <Content Include="Scripts\bootstrap4\js\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap4\js\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap4\js\bootstrap.js" />
+    <Content Include="Scripts\bootstrap4\js\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap4\js\button.js" />
+    <Content Include="Scripts\bootstrap4\js\carousel.js" />
+    <Content Include="Scripts\bootstrap4\js\collapse.js" />
+    <Content Include="Scripts\bootstrap4\js\dropdown.js" />
+    <Content Include="Scripts\bootstrap4\js\index.js" />
+    <Content Include="Scripts\bootstrap4\js\modal.js" />
+    <Content Include="Scripts\bootstrap4\js\popover.js" />
+    <Content Include="Scripts\bootstrap4\js\scrollspy.js" />
+    <Content Include="Scripts\bootstrap4\js\tab.js" />
+    <Content Include="Scripts\bootstrap4\js\tooltip.js" />
+    <Content Include="Scripts\bootstrap4\js\util.js" />
+    <Content Include="Scripts\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-ui.min.css" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\popper.js" />
     <Content Include="Site.Master" />
     <Content Include="Scripts\bootstrap\css\bootstrap-grid.min.css.map" />
     <Content Include="Scripts\bootstrap\css\bootstrap-reboot.min.css.map" />
@@ -174,11 +194,16 @@
     <Content Include="Scripts\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\MyCourseUTS - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\MyCourseUTS - Web Deploy.pubxml" />
-    <Content Include="Scripts\bootstrap1\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\bootstrap1\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Scripts\bootstrap1\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Scripts\bootstrap1\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Scripts\bootstrap1\config.json" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap-grid.css.map" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap-grid.min.css.map" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap-reboot.css.map" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap.css.map" />
+    <Content Include="Scripts\bootstrap4\css\bootstrap.min.css.map" />
+    <Content Include="Scripts\bootstrap4\js\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\bootstrap4\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap4\js\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap4\js\bootstrap.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -218,18 +243,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyCourseUTS.DataModel\MyCourseUTS.DataModel.csproj">
-      <Project>{0afeba99-9c57-445e-964d-46ea0984abb6}</Project>
-      <Name>MyCourseUTS.DataModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyCourseUTS.Entity\MyCourseUTS.Entity.csproj">
-      <Project>{da69c258-4108-44f5-93ac-5742e2844cb8}</Project>
-      <Name>MyCourseUTS.Entity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyCourseUTS.Manager\MyCourseUTS.Manager.csproj">
-      <Project>{ca4db6e8-62ad-47ed-9dac-d27ee5c16373}</Project>
-      <Name>MyCourseUTS.Manager</Name>
-    </ProjectReference>
+    <Folder Include="Scripts\bootstrap4\fonts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

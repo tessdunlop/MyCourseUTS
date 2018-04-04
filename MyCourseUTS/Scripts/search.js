@@ -6,6 +6,7 @@ var templateItem;
 var stage;
 
 var selectedData;
+var edit = false;
 
 var cor = "#bbd2f7";
 var pp = "#d3bbf7";
@@ -402,6 +403,23 @@ function getSubjects(term) {
     });
     return data;
 }
+function getListItem(term) {
+    var url = "http://mycourseuts.azurewebsites.net/services/api/listitem/getlist?value=" + term;
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (response) {
+            //console.log(response);
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the list");
+        }
+    });
+    return data;
+}
 
 function getCourseRelationship(id) {
     var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcourserelationship?courseID=" + id;
@@ -499,7 +517,7 @@ function addCourse(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
+            //document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding course");
@@ -806,7 +824,6 @@ function populateSubjectTypeDropdown(number) {
 window.onload = function () {
     populateCourseTypeDropdown();
     document.getElementById("searchBar").focus();
-    
 }
 function disableMenuBar(option) {
     if (option == true) {
@@ -896,7 +913,6 @@ function clearFields() {
     document.getElementById("subjectCoReqInput").style.display = "none";
     document.getElementById("subjectPreReqInput").style.display = "none";
 
-    document.getElementById("majorList").innerHTML = "";
     document.getElementById("streamSubjectList").innerHTML = "";
     document.getElementById("subjectPreReq").innerHTML = "";
     document.getElementById("subjectAntiReq").innerHTML = "";
@@ -918,7 +934,7 @@ function clearFields() {
     nextAvailableID = 0;
     relationships = [];
 
-    handleEdit();
+    //handleEdit();
 }
 function refreshNavColours() {
     document.getElementById("course").style.backgroundColor = "lightskyblue";
@@ -927,6 +943,13 @@ function refreshNavColours() {
     document.getElementById("submajor").style.backgroundColor = "lightskyblue";
     document.getElementById("choiceblock").style.backgroundColor = "lightskyblue";
     document.getElementById("major").style.backgroundColor = "lightskyblue";
+
+    document.getElementById("course").style.color = "black";
+    document.getElementById("subject").style.color = "black";
+    document.getElementById("stream").style.color = "black";
+    document.getElementById("submajor").style.color = "black";
+    document.getElementById("choiceblock").style.color = "black";
+    document.getElementById("major").style.color = "black";
 }
 function hide() {
     document.getElementById('searchDiv').style.display = "none";
@@ -953,8 +976,11 @@ function handleHover(id, itemID) {
     else if (type == "CBK") {
         data = getChoiceBlockRelationship(id);
     }
-    else {
+    else if (id.length < 4) {
         data = getSubjectGroupingRelationship(id);
+    }
+    else {
+        data = getSubjectRequisites(id);
     }
     //console.log(data);
     var content = "";
@@ -990,6 +1016,11 @@ function handleHover(id, itemID) {
         }
         if (data[i].Subject != null) {
             content += data[i].Subject.ID + ", ";
+        }
+        if (data[i].Requsite != null) {
+            if (data[i].RequisiteType == 1) {//Prereqs only
+                content += data[i].Requsite.ID + ", ";
+            }
         }
     }
     content = content.substring(0, content.length - 2);
@@ -1185,6 +1216,7 @@ function populateStmCbkSmjSubjects(id) {
         //console.log(relationships);
     }
 }
+
 function handlePreRequisiteListPush(term) {
     var data = new Array();
     data = getSubjects(term);
@@ -1291,13 +1323,7 @@ function handleCoRequisiteListPush(term) {
     });
 }
 function handleStmCbkSmjListPush(term) {
-    //need to create an API that allows the user to search from subjects, streams, choiceblocks and submajors --> display name and number for this dropdown
-    var data;// = new Array();
-    //var streams = getAllStreams();
-    data = getStreams(term);
-    //var choiceBlocks = getAllChoiceBlocks();
-    //var subMajors = getAllSubMajors();
-    //var subjects = getAllSubjects();
+    var data = getListItem(term);
 
     $("#streamSubjectInput").autocomplete({
         source: function (request, response) {
@@ -1312,12 +1338,12 @@ function handleStmCbkSmjListPush(term) {
             nextAvailableID++;
             var subjectList = document.getElementById("streamSubjectList");
             var a = document.createElement("a");
-            a.setAttribute('id', nextAvailableID);
+            a.setAttribute('id', ui.item.label + nextAvailableID);
             a.setAttribute('onClick', "removeFromList(this.id)");
             a.setAttribute('class', 'list-group-item list-group-item-action list-group-item-success');
-            a.appendChild(document.createTextNode(ui.item.value + " - " + ui.item.label));
+            a.appendChild(document.createTextNode(ui.item.label));
             subjectList.appendChild(a);
-            handleHover(ui.item.value, nextAvailableID);
+            handleHover(ui.item.value, ui.item.label + nextAvailableID);
             document.getElementById("streamSubjectInput").value = "";
 
             //need to check if its stm etc
@@ -1350,7 +1376,29 @@ function handleMajorListPush(term) {
             }));
         },
         select: function (event, ui) {
-            majorsList.push(getMajor(ui.item.value));//Double check this later
+            var exists = 0;
+            for (var x = 0; x < majorsList.length; x++) {
+                if (ui.item.value == majorsList[x].ID) {
+                    exists = 1;
+                }
+            }
+            if (exists == 0) {
+                majorsList.push(getMajor(ui.item.value));
+            }
+            template.push({
+                "ID": ui.item.value,
+                "Course": { "ID": document.getElementById("courseId").value },
+                "Major": { "ID": ui.item.value},
+                "Subject": null,
+                "ChoiceBlock": null,
+                "SubMajor": null,
+                "Stream": null,
+                "SubjectGrouping": null,
+                "SubjectType": null,
+                "Stage": null,
+                "Year": null,
+                "HasTemplate": false
+            });
             refreshTemplate();
             //some refresh to add this to the list
         }
@@ -1444,8 +1492,7 @@ function handleSearch(term) {
     });
 }
 function handleSubjectInput(term, number) {
-    var data = new Array();
-    data = getSubjects(term);
+    var data = getListItem(term);
     disabledAddSubjectButton();
 
     $("#subjectAddInput" + number).autocomplete({
@@ -1459,7 +1506,19 @@ function handleSubjectInput(term, number) {
         },
         select: function (event, ui) {
             //console.log(ui);
-            templateItem = getSubject(ui.item.value);//need to change this so it can select from cbk, stm and smj as well
+            var type = (ui.item.value).toString().substring(0, 3);
+            if (type == "CBK") {
+                templateItem = getChoiceBlock(ui.item.value);
+            }
+            else if (type == "STM") {
+                templateItem = getStream(ui.item.value);
+            }
+            else if (type == "SMJ") {
+                templateItem = getSubMajor(ui.item.value);
+            }
+            else {
+                templateItem = getSubject(ui.item.value);
+            }
             disabledAddSubjectButton();
         }
 
@@ -1474,7 +1533,7 @@ function handleSubjectStageInput(term) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////FUNCTIONS TO EDIT/VIEW OBJECTS
 function handleViewEditCourse(data) {
-    
+
     document.getElementById("courseName").value = data.Name;
     document.getElementById("courseId").value = data.ID;
     document.getElementById("courseType").selectedIndex = data.CourseType.ID - 1;
@@ -1504,11 +1563,25 @@ function handleViewEditCourse(data) {
     document.getElementById("courseDescription").readOnly = true;
     document.getElementById("courseStatusActive").disabled = true;
     document.getElementById("courseStatusInActive").disabled = true;
+    document.getElementById("majorInput").disabled = true;
 
 
     document.getElementById('addCourseFormDiv').style.display = "block";
     mapCourseRelationships();
-    refreshTemplate(data.Stages);
+    //refreshTemplate(data.Stages);
+    refreshTemplate();
+
+    if (majorsList.length != 0) {
+        for (var i = 0; i < majorsList.length; i++) {
+            document.getElementById("input" + majorsList[i].ID).style.display = "none";
+            document.getElementById("remove" + majorsList[i].ID).style.display = "none";
+        }
+    }
+    else {
+        document.getElementById("input" + selectedData.ID).style.display = "none";
+    }
+
+
 
 }
 function handleViewEditMajor(data) {
@@ -1676,6 +1749,7 @@ function handleCourse() {
     document.getElementById('searchBar').value = "";
     refreshNavColours();
     document.getElementById("course").style.backgroundColor = selectedBlue;
+    document.getElementById("course").style.color = "white";
     document.getElementsByName('searchBar')[0].placeholder = "Search Courses";
     if (addVisible == true) {
         hide();
@@ -1691,6 +1765,7 @@ function handleMajor() {
     document.getElementById('searchBar').value = "";
     refreshNavColours();
     document.getElementById("major").style.backgroundColor = selectedBlue;
+    document.getElementById("major").style.color = "white";
     document.getElementsByName('searchBar')[0].placeholder = "Search Majors";
     if (addVisible == true) {
         hide();
@@ -1711,6 +1786,7 @@ function handleStream() {
     document.getElementById("streamDescriptionTitle").innerHTML = "<b>Stream Description</b>";
     refreshNavColours();
     document.getElementById("stream").style.backgroundColor = selectedBlue;
+    document.getElementById("stream").style.color = "white";
     document.getElementsByName('searchBar')[0].placeholder = "Search Streams";
 
     if (addVisible == true) {
@@ -1731,6 +1807,7 @@ function handleSubMajor() {
     document.getElementById("streamDescriptionTitle").innerHTML = "<b>Sub-Major Description</b>";
     refreshNavColours();
     document.getElementById("submajor").style.backgroundColor = selectedBlue;
+    document.getElementById("submajor").style.color = "white";
     document.getElementsByName('searchBar')[0].placeholder = "Search Sub-Majors";
 
     if (addVisible == true) {
@@ -1751,6 +1828,7 @@ function handleChoiceBlock() {
     document.getElementById("streamDescriptionTitle").innerHTML = "<b>Choice Block Description</b>";
     refreshNavColours();
     document.getElementById("choiceblock").style.backgroundColor = selectedBlue;
+    document.getElementById("choiceblock").style.color = "white";
     document.getElementsByName('searchBar')[0].placeholder = "Search Choice Blocks";
 
     if (addVisible == true) {
@@ -1767,6 +1845,7 @@ function handleSubject() {
     document.getElementById('searchBar').value = "";
     refreshNavColours();
     document.getElementById("subject").style.backgroundColor = selectedBlue;
+    document.getElementById("subject").style.color = "white";
     document.getElementsByName('searchBar')[0].placeholder = "Search Subjects";
     if (addVisible == true) {
         hide();
@@ -1809,30 +1888,27 @@ function handleAdd() {
 }
 //this controls the cancel button, and clears everything back to default
 function handleCancel() {
+    $("#loading").show();
+    edit = false;
     disableMenuBar(false);
     addVisible = false;
-    selected = "course";
-    document.getElementById('searchBar').value = "";
-
-    document.getElementsByName('searchBar')[0].placeholder = "Search Courses";
-
+    handleCourse();
     clearFields();
-    refreshNavColours();
     hide();
 
-    document.getElementById("course").style.backgroundColor = selectedBlue;
-
     document.getElementById('btnEdit').disabled = false;
-
     document.getElementById('searchDiv').style.display = "block";
     document.getElementById('addDiv').style.display = "block";
     document.getElementById('updateButtonDiv').style.display = "none";
     document.getElementById('submitButtonDiv').style.display = "none";
     document.getElementById("searchBar").focus();
+
+    $("#loading").hide();
 }
 //this controls the save button, and updates the changes to the database
 function handleSave() {
-    document.getElementById("loading").style.display = "block";
+    $("#loading").show();
+
     //NEED TO ADD LOADING FUNCTIONALITY HERE
     if (selected == "course") {
         var name = document.getElementById("courseName").value;
@@ -1958,7 +2034,7 @@ function handleSave() {
 //this controls the edit button, and allows the user to make edits to the object
 function handleEdit() {
     document.getElementById("btnEdit").disabled = true;
-
+    edit = true;
     var preList = document.getElementById("subjectPreReq");
     var preItems = preList.getElementsByTagName("a");
     for (var i = 0; i < preItems.length; i++) {
@@ -1995,6 +2071,7 @@ function handleEdit() {
     document.getElementById("courseDescription").readOnly = false;
     document.getElementById("courseStatusActive").disabled = false;
     document.getElementById("courseStatusInActive").disabled = false;
+    document.getElementById("majorInput").disabled = false;
 
 
     document.getElementById("majorName").readOnly = false;
@@ -2038,6 +2115,17 @@ function handleEdit() {
     document.getElementById("majorInput").style.display = "block";
     document.getElementById("streamSubjectInput").style.display = "block";
 
+    if (selected == "course") {
+        if (majorsList.length != 0) {
+            for (var i = 0; i < majorsList.length; i++) {
+                document.getElementById("input" + majorsList[i].ID).style.display = "block";
+                document.getElementById("remove" + majorsList[i].ID).style.display = "block";
+            }
+        }
+        else {
+            document.getElementById("input" + selectedData.ID).style.display = "block";
+        }
+    }
 }
 //This deletes an item from the database ie subject, course etc 
 function handleDelete() {
@@ -2069,17 +2157,16 @@ function handleDelete() {
 function checkYearValue(year) {
     if (year != "") {
         document.getElementById("courseStages").value = (+year * 2);
-        refreshTemplate(+year * 2);
+        refreshTemplate();
     }
 }
 function checkStageValue(stage) {
     if (stage != "") {
         document.getElementById("courseYears").value = (+stage / 2);
-        refreshTemplate(+stage);
+        refreshTemplate();
     }
 
 }
-
 
 
 function mapCourseRelationships() {
@@ -2102,12 +2189,27 @@ function mapCourseRelationships() {
     }
 }
 
-function refreshTemplate(totalStages) {
+function refreshTemplate() {
+    var totalStages = +document.getElementById("courseStages").value;
+    console.log(template);
     var accordion = document.getElementById("accordion");
     accordion.innerHTML = "";
+    accordion.style.display = "block";
+    var updated;
     if (majorsList.length != 0) {
         for (var y = 0; y < majorsList.length; y++) {
-            accordion.innerHTML += "<button type='button' style='background-color:" + selectedBlue + "; color:white' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + majorsList[y].ID + " - " + majorsList[y].Name + "</button><div id='" + y + "' class=' w3-hide'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white''><span class='glyphicon glyphicon-plus'></span></button ></div></div><div class='row' id='body" + y + "'></div><br/><button id='" + majorsList[y].ID+"' class='btn btn-danger' type='button' onclick='removeMajor(this.id);'>Remove " + majorsList[y].Name + " from " + selectedData.Name + "</button><br/><br/></div>";
+
+            for (var x = 0; x < template.length; x++) {
+                if (majorsList[y].ID == template[x].Major.ID) {
+                    updated = template[x].DateUpdated;
+                    console.log(updated);
+                }
+            }
+            if (updated == null) {
+                updated = "now";
+            }
+
+            accordion.innerHTML += "<button id='button" + y + "' type='button' style='background-color:lightskyblue; color: black' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + majorsList[y].ID + " - " + majorsList[y].Name + "</button><div id='" + y + "' class=' w3-hide'><div id='input" + majorsList[y].ID + "'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white'><i class='fa fa-plus'></i></button ></div></div></div><div class='row' id='body" + y + "'></div><br/><p style='text-align:right;'>Last Updated: " + updated + "</p><br/><center><button id='remove" + majorsList[y].ID + "' style='text-align:center;' class='btn btn-danger' type='button' onclick='removeMajor(this.id);'>Remove " + majorsList[y].Name + " from " + selectedData.Name + "</button></center><br/><button id='" + majorsList[y].ID + "' type='button' class='btn' style='float: right;' onclick='downloadPDF(this.id)'>Download PDF</button><br/><br/></div>";
             populateSubjectTypeDropdown(y);
             var space = document.getElementById("body" + y);
             for (var x = 1; x < totalStages + 1; x++) {
@@ -2118,8 +2220,18 @@ function refreshTemplate(totalStages) {
 
     }
     else {
+        for (var x = 0; x < template.length; x++) {
+            if (selectedData.ID == template[x].Course.ID) {
+                updated = template[x].DateUpdated;
+                console.log(updated);
+            }
+        }
+        if (updated == null) {
+            updated = "now";
+        }
+
         var y = 0;
-        accordion.innerHTML += "<button type='button' style='background-color:" + selectedBlue + "; color:white' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + selectedData.ID + " - " + selectedData.Name + "</button><div id='" + y + "' class=' w3-hide'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white''><span class='glyphicon glyphicon-plus'></span></button ></div></div><div class='row' id='body" + y + "'></div><br/></div>";
+        accordion.innerHTML += "<button id='button" + y + "' type='button' style='background-color:lightskyblue; color: black' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + selectedData.ID + " - " + selectedData.Name + "</button><div id='" + y + "' class=' w3-hide'><div id='input" + selectedData.ID + "'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white'><i class='fa fa-plus'></i></button ></div></div></div><div class='row' id='body" + y + "'></div><br/><p style='text-align:right;'>Last Updated: " + updated + "</p><br/><button id='" + selectedData.ID + "' type='button' class='btn' style='float: right;' onclick='downloadPDF(this.id)'>Download PDF</button></div>";
         populateSubjectTypeDropdown(y);
         var space = document.getElementById("body" + y);
         for (var x = 1; x < totalStages + 1; x++) {
@@ -2135,8 +2247,7 @@ function populateExistingTimetable(totalStages, type) {
         for (var i = 0; i < template.length; i++) {
             if (type == "majors") {
                 for (var y = 0; y < majorsList.length; y++) {
-
-                    if (template[i].HasTemplate == 1) {
+                    if (template[i].HasTemplate) {
                         if (template[i].Major.ID == majorsList[y].ID) {
                             pushToTemplate(x, y, i);
                         }
@@ -2150,6 +2261,7 @@ function populateExistingTimetable(totalStages, type) {
     }
 }
 
+//pushes existing db subjects to template
 function pushToTemplate(x, y, i) {
     var column = document.getElementById("stageHeading" + x + y);
     var name;
@@ -2157,11 +2269,8 @@ function pushToTemplate(x, y, i) {
     var type;
     var colour;
     var credit;
-    var number;
 
     if (template[i].Stage == x) {
-        number = "number" + template[i].ID + x;
-
         if (template[i].Stream != null) {
             name = template[i].Stream.Name;
             id = template[i].Stream.ID;
@@ -2213,32 +2322,34 @@ function pushToTemplate(x, y, i) {
             colour = mele;
         }
 
-        var string = "<div id='" + number + "'onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
+        var string = "<div id='" + template[i].ID + "'onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
         column.innerHTML += string;
 
-        if (id.toString().substring(0, 3) == "CBK" || id.toString().substring(0, 3) == "SMJ" || id.toString().substring(0, 3) == "STM" || name == "Choice") {
-            handleHover(id, number);
-        }
+        //if (id.toString().substring(0, 3) == "CBK" || id.toString().substring(0, 3) == "SMJ" || id.toString().substring(0, 3) == "STM" || name == "Choice") {
+            handleHover(id, template[i].ID);
+        //}
         $("#item" + id).attr("disabled", "disabled").off("click");
-    }  
+    }
 }
 
-function addToTimetable(number) {
+//adds new subjects to template
+function addToTimetable(majorNumber) {
     //They also should be able to choose from stream, choiceblock and submajors here as well as subjects
 
     var name = templateItem.Name;
     var id = templateItem.ID;
-    var e = document.getElementById("subjectTypeDropDown" + number);
+    var e = document.getElementById("subjectTypeDropDown" + majorNumber);
     var type = e.options[e.selectedIndex].text;
     var colour;
     var credit = templateItem.CreditPoints;
-    var stages;
-    var itemID = id + number;//probably need to change this later
+    var stages = +document.getElementById("courseStages").value;
+    var itemID = id + majorNumber;//probably need to change this later cause issue if there are two of the same subjects in the same timetable
 
     var typeChecker = id.toString().substring(0, 3);
 
-    if (selected == "course") {
-        stages = +document.getElementById("courseStages").value;
+    
+
+    if (majorsList.length == 0) {
         if (typeChecker == "SMJ") {
             template.push({
                 "ID": itemID,
@@ -2249,10 +2360,10 @@ function addToTimetable(number) {
                 "SubMajor": { "ID": id },
                 "Stream": null,
                 "SubjectGrouping": null,
-                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
-                "Stage": stage,
-                "Year": Math.round(stage / 2),
-                "HasTemplate": 1
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex + 1 },
+                "Stage": +stage,
+                "Year": +Math.round(stage / 2),
+                "HasTemplate": true
             });
         }
         else if (typeChecker == "STM") {
@@ -2265,10 +2376,10 @@ function addToTimetable(number) {
                 "SubMajor": null,
                 "Stream": { "ID": id },
                 "SubjectGrouping": null,
-                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
-                "Stage": stage,
-                "Year": Math.round(stage / 2),
-                "HasTemplate": 1
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex + 1 },
+                "Stage": +stage,
+                "Year": +Math.round(stage / 2),
+                "HasTemplate": true
             });
         }
         else if (typeChecker == "CBK") {
@@ -2281,10 +2392,10 @@ function addToTimetable(number) {
                 "SubMajor": null,
                 "Stream": null,
                 "SubjectGrouping": null,
-                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
-                "Stage": stage,
-                "Year": Math.round(stage / 2),
-                "HasTemplate": 1
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex + 1 },
+                "Stage": +stage,
+                "Year": +Math.round(stage / 2),
+                "HasTemplate": true
             });
         }
         else if (id.length < 4) {//group
@@ -2297,10 +2408,10 @@ function addToTimetable(number) {
                 "SubMajor": null,
                 "Stream": null,
                 "SubjectGrouping": { "ID": id },
-                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
-                "Stage": stage,
-                "Year": Math.round(stage / 2),
-                "HasTemplate": 1
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex + 1 },
+                "Stage": +stage,
+                "Year": +Math.round(stage / 2),
+                "HasTemplate": true
             });
         }
         else {//subject
@@ -2313,97 +2424,95 @@ function addToTimetable(number) {
                 "SubMajor": null,
                 "Stream": null,
                 "SubjectGrouping": null,
-                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
-                "Stage": stage,
-                "Year": Math.round(stage / 2),
-                "HasTemplate": 1
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex + 1 },
+                "Stage": +stage,
+                "Year": +Math.round(stage / 2),
+                "HasTemplate": true
             });
         }
 
     }
-    else if (selected == "major") {
-        stages = +document.getElementById("majorStages").value;//Make the add template checkbox disabled unless this is entered
+    else {
         if (typeChecker == "SMJ") {
             template.push({
                 "ID": itemID,
                 "Course": { "ID": document.getElementById("courseId").value },
-                "Major": { "ID": majorsList[number].ID },
+                "Major": { "ID": majorsList[majorNumber].ID },
                 "Subject": null,
                 "ChoiceBlock": null,
                 "SubMajor": { "ID": id },
                 "Stream": null,
                 "SubjectGrouping": null,
-                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
-                "Stage": stage,
-                "Year": Math.round(stage / 2),
-                "HasTemplate": 1
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex + 1 },
+                "Stage": +stage,
+                "Year": +Math.round(stage / 2),
+                "HasTemplate": true
             });
         }
         else if (typeChecker == "STM") {
             template.push({
                 "ID": itemID,
                 "Course": { "ID": document.getElementById("courseId").value },
-                "Major": { "ID": majorsList[number].ID },
+                "Major": { "ID": majorsList[majorNumber].ID },
                 "Subject": null,
                 "ChoiceBlock": null,
                 "SubMajor": null,
                 "Stream": { "ID": id },
                 "SubjectGrouping": null,
-                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
-                "Stage": stage,
-                "Year": Math.round(stage / 2),
-                "HasTemplate": 1
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex + 1 },
+                "Stage": +stage,
+                "Year": +Math.round(stage / 2),
+                "HasTemplate": true
             });
         }
         else if (typeChecker == "CBK") {
             template.push({
                 "ID": itemID,
                 "Course": { "ID": document.getElementById("courseId").value },
-                "Major": { "ID": majorsList[number].ID },
+                "Major": { "ID": majorsList[majorNumber].ID },
                 "Subject": null,
                 "ChoiceBlock": { "ID": id },
                 "SubMajor": null,
                 "Stream": null,
                 "SubjectGrouping": null,
-                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
-                "Stage": stage,
-                "Year": Math.round(stage / 2),
-                "HasTemplate": 1
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex + 1 },
+                "Stage": +stage,
+                "Year": +Math.round(stage / 2),
+                "HasTemplate": true
             });
         }
         else if (id.length < 4) {//group
             template.push({
                 "ID": itemID,
                 "Course": { "ID": document.getElementById("courseId").value },
-                "Major": { "ID": majorsList[number].ID },
+                "Major": { "ID": majorsList[majorNumber].ID },
                 "Subject": null,
                 "ChoiceBlock": null,
                 "SubMajor": null,
                 "Stream": null,
                 "SubjectGrouping": { "ID": id },
-                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
-                "Stage": stage,
-                "Year": Math.round(stage / 2),
-                "HasTemplate": 1
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex + 1 },
+                "Stage": +stage,
+                "Year": +Math.round(stage / 2),
+                "HasTemplate": true
             });
         }
         else {//subject
             template.push({
                 "ID": itemID,
                 "Course": { "ID": document.getElementById("courseId").value },
-                "Major": { "ID": majorsList[number].ID },
+                "Major": { "ID": majorsList[majorNumber].ID },
                 "Subject": { "ID": id },
                 "ChoiceBlock": null,
                 "SubMajor": null,
                 "Stream": null,
                 "SubjectGrouping": null,
-                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + number).selectedIndex + 1 },
-                "Stage": stage,
-                "Year": Math.round(stage / 2),
-                "HasTemplate": 1
+                "SubjectType": { "ID": document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex + 1 },
+                "Stage": +stage,
+                "Year": +Math.round(stage / 2),
+                "HasTemplate": true
             });
         }
-        console.log(template);
     }
 
     console.log(template);
@@ -2429,55 +2538,71 @@ function addToTimetable(number) {
 
     for (var i = 1; i < stages + 1; i++) {
         if (stage == i) {
-            var column = document.getElementById("stageHeading" + i + number);
+            var column = document.getElementById("stageHeading" + i + majorNumber);
             var string = "<div id='" + itemID + "' onclick='removeSubject(this.id);'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
             column.innerHTML += string;
-            if (id.toString().substring(0, 3) == "CBK" || id.toString().substring(0, 3) == "SMJ" || id.toString().substring(0, 3) == "STM" || name == "Choice") {
+            //if (id.toString().substring(0, 3) == "CBK" || id.toString().substring(0, 3) == "SMJ" || id.toString().substring(0, 3) == "STM" || name == "Choice") {
                 handleHover(id, itemID);
-            }
+            //}
             $("#" + itemID).attr("disabled", "disabled").off("click");
         }
     }
-    document.getElementById("subjectAddInput" + number).value = "";
-    document.getElementById("subjectTypeDropDown" + number).selectedIndex = 0;
-    document.getElementById("subjectStageInput" + number).value = "";
+    document.getElementById("subjectAddInput" + majorNumber).value = "";
+    document.getElementById("subjectTypeDropDown" + majorNumber).selectedIndex = 0;
+    document.getElementById("subjectStageInput" + majorNumber).value = "";
 }
+
 //This removes a subject from the timetable grid
 function removeSubject(number) {
-    console.log(number);
-    document.getElementById(number).remove();
-    //remove that json object from the template array
-    for (var i = 0; i < template.length; i++) {
-        if (template[i].ID == number) {
-            console.log(template[i]);
-            template.splice(i, 1);
+    if (edit) {
+        console.log(number);
+        document.getElementById(number).remove();
+        //remove that json object from the template array
+        for (var i = 0; i < template.length; i++) {
+            if (template[i].ID == number) {
+                console.log(template[i]);
+                template.splice(i, 1);
+            }
         }
+        console.log(template);
     }
-    console.log(template);
-
 }
 
 function showAccordion(id) {
     var x = document.getElementById(id);
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
+        document.getElementById("button" + id).style.backgroundColor = selectedBlue;
+        document.getElementById("button" + id).style.color = "white";
     }
     else {
         x.className = x.className.replace(" w3-show", "");
+        document.getElementById("button" + id).style.backgroundColor = "lightskyblue";
+        document.getElementById("button" + id).style.color = "black";
     }
 }
 
 function removeMajor(majorID) {
     console.log(majorID);
-    console.log(majorsList);
+    console.log(majorsList);  
+    majorID = majorID.slice(6);
+    alert(majorID);
     for (var i = 0; i < majorsList.length; i++) {
         if (majorsList[i].ID == majorID) {
             majorsList.splice(i, 1);
+            for (var x = 0; x < template.length; x++) {
+                if (template[x].Major.ID == majorID) {
+                    template.splice(x, 1);
+                }
+            }
         }
     }
     console.log(majorsList);
     refreshTemplate();
 }
 
+function downloadPDF(id) {
+    alert(id);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////All TEMPLATE FUNCTIONS

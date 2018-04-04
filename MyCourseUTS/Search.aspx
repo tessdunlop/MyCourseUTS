@@ -4,53 +4,40 @@
     <script src="Scripts/search.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   <%-- <div class="container" id="container" style=" background-color:pink">--%>
-     <div  id="container" style=" padding: 0% 15% 0% 15%">
+    <%-- <div class="container" id="container" style=" background-color:pink">--%>
+    <div id="container" style="padding: 0% 10% 0% 10%;">
         <br />
         <br />
         <div class="row">
             <div class="col-md">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons" id="menuTabs">
-                    <label class="btn" style="background-color: #2478fc" id="course">
+                    <label class="btn" style="background-color: #2478fc; color: white" id="course">
                         <input type="radio" name="course" id="btnCourse" checked onclick="handleCourse();" />
                         Course
-                   
-                   
                    
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="major">
                         <input type="radio" name="major" id="btnMajor" onclick="handleMajor();" />
                         Major
-                   
-                   
-                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="submajor">
                         <input type="radio" name="major" id="btnSubMajor" onclick="handleSubMajor();" />
                         Sub-Major
                    
-                   
-                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="stream">
                         <input type="radio" name="stream" id="btnStream" onclick="handleStream();" />
-                        Stream
-                   
-                   
+                        Stream                   
                    
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="choiceblock">
                         <input type="radio" name="choiceblock" id="btnChoiceBlock" onclick="handleChoiceBlock();" />
                         Choice Block
                    
-                   
-                   
                     </label>
                     <label class="btn" style="background-color: lightskyblue" id="subject">
                         <input type="radio" name="subject" id="btnSubject" onclick="handleSubject();" />
-                        Subject
-                   
-                   
+                        Subject  
                    
                     </label>
 
@@ -70,7 +57,7 @@
                 <input id="searchBar" name="searchBar" type="text" class="form-control typeahead" placeholder="Search Courses" oninput="handleSearch(this.value);" />
             </div>
             <div class="col-sm-1" style="text-align: right; width: 20%; padding-bottom: 12px" id="addDiv">
-                <button id="btnAdd" type="button" class="btn btn-lg" onclick="handleAdd();" style="background-color: lightskyblue; color: #2478fc"><span class="glyphicon glyphicon-plus"></span></button>
+                <button id="btnAdd" type="button" class="btn btn-lg" onclick="handleAdd();" style="background-color: lightskyblue; color: #2478fc"><i class="fa fa-plus"></i></button>
             </div>
         </div>
 
@@ -79,7 +66,7 @@
             </div>
         </div>
 
-        <center><img style="display:none" id="loading" src="CSS/ajax-loader.gif" /></center>
+        <div id="loading"></div>
 
         <div id="addCourseFormDiv" style="display: none">
             <div class="row">
@@ -107,7 +94,6 @@
                     <p><b>Majors</b></p>
                 </div>
                 <div class="col-sm">
-                    <div class="list-group" id="majorList" style="width: 60%;"></div>
                     <input id="majorInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Majors belonging to this course" oninput="handleMajorListPush(this.value);" style="width: 60%;" />
                 </div>
             </div>
@@ -205,7 +191,7 @@
                 <br />
                 <br />
             </div>
-<%--            <div class="row">
+            <%--            <div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
                     <p><b>Include Major</b></p>
                 </div>
@@ -326,7 +312,7 @@
                 <br />
                 <br />
             </div>
-<%--            <div class="row">
+            <%--            <div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
                     <p><b>Include Template</b></p>
                 </div>
@@ -399,7 +385,7 @@
             </div>
             <div class="row" style="padding-bottom: 8px">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Subjects</b></p>
+                    <p><b>Contents</b></p>
                 </div>
                 <div class="col-sm">
                     <div class="list-group" id="streamSubjectList" style="width: 60%;"></div>
@@ -549,7 +535,7 @@
                     <p><b>Pre-Requisites:</b></p>
                 </div>
                 <div class="col-sm">
-                    <div class="list-group" id="subjectPreReq" style="width: 60%; padding-top:5px;"></div>
+                    <div class="list-group" id="subjectPreReq" style="width: 60%; padding-top: 5px;"></div>
                     <input id="subjectPreReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Pre-Requisites" oninput="handlePreRequisiteListPush(this.value);" style="width: 60%;" />
                 </div>
             </div>
@@ -558,7 +544,7 @@
                     <p><b>Anti-Requisites:</b></p>
                 </div>
                 <div class="col-sm">
-                    <div class="list-group" id="subjectAntiReq" style="width: 60%; padding-top:5px;"></div>
+                    <div class="list-group" id="subjectAntiReq" style="width: 60%; padding-top: 5px;"></div>
                     <input id="subjectAntiReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Anti-Requisites" oninput="handleAntiRequisiteListPush(this.value);" style="width: 60%;" />
                 </div>
             </div>
@@ -567,46 +553,55 @@
                     <p><b>Co-Requisites:</b></p>
                 </div>
                 <div class="col-sm">
-                    <div class="list-group" id="subjectCoReq" style="width: 60%; padding-top:10px;"></div>
+                    <div class="list-group" id="subjectCoReq" style="width: 60%; padding-top: 15px;"></div>
                     <input id="subjectCoReqInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Co-Requisites" oninput="handleCoRequisiteListPush(this.value);" style="width: 60%;" />
                 </div>
             </div>
         </div>
 
 
-         
 
 
-            <div id="accordion" style="text-align: center;">
-            </div>
+
+        <div id="accordion" style="text-align: center;">
+        </div>
 
 
 
         <div class="row" id="headerRow"></div>
-    <br />
-    <br />
+        <br />
+        <br />
 
 
-    <div class="row" id="updateButtonDiv" style="display: none">
-        <div class="col-md" style="text-align: right">
-            <button id="btnEdit" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button>
-            <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Save</button>
-            <button id="btnDelete" type="button" class="btn btn-lg" onclick="handleDelete();" style="background-color: red; color: white">Delete</button>
-            <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: darkgrey; color: white">Cancel</button>
+<%--                        <button type="button" class="btn btn-large btn-primary" data-toggle="confirmation"
+                    data-btn-ok-label="Continue" data-btn-ok-class="btn-success"
+                    data-btn-ok-icon-class="material-icons" data-btn-ok-icon-content="check"
+                    data-btn-cancel-label="Stoooop!" data-btn-cancel-class="btn-danger"
+                    data-btn-cancel-icon-class="material-icons" data-btn-cancel-icon-content="close"
+                    data-title="Is it ok?" data-content="This might be dangerous">
+                    Confirmation
+                </button>--%>
+
+        <div class="row" id="updateButtonDiv" style="display: none">
+            <div class="col-md" style="text-align: right">
+                <button id="btnEdit" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button>
+                <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Save</button>
+                <button id="btnDelete" type="button" class="btn btn-lg" onclick="handleDelete();" style="background-color: red; color: white">Delete</button>
+                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: darkgrey; color: white">Cancel</button>
+            </div>
         </div>
-    </div>
 
-    <div class="row" id="submitButtonDiv" style="display: none">
-        <div class="col-md" style="text-align: right">
-            <button id="btnSubmit" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Submit</button>
-            <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
+        <div class="row" id="submitButtonDiv" style="display: none">
+            <div class="col-md" style="text-align: right">
+                <button id="btnSubmit" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Submit</button>
+                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
+            </div>
         </div>
+        <br />
+        <br />
+        <br />
+        <br />
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
-</div>
 
 </asp:Content>
 

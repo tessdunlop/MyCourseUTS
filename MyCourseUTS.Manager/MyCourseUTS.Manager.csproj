@@ -98,6 +98,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\MyCourseUTS.DataModel\MyCourseUTS.DataModel.csproj">
       <Project>{0afeba99-9c57-445e-964d-46ea0984abb6}</Project>
       <Name>MyCourseUTS.DataModel</Name>
@@ -106,10 +110,6 @@
       <Project>{da69c258-4108-44f5-93ac-5742e2844cb8}</Project>
       <Name>MyCourseUTS.Entity</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

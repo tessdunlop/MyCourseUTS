@@ -113,9 +113,6 @@ C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\EntityFramework.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\EntityFramework.SqlServer.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\GitHub.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.DataModel.dll
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.Entity.dll
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.Manager.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\Newtonsoft.Json.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Net.Http.Formatting.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Text.Encodings.Web.dll
@@ -124,12 +121,6 @@ C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Web.Cors.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Web.Http.Common.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Web.Http.Cors.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\System.Web.Http.dll
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.DataModel.pdb
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.DataModel.dll.config
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.Entity.pdb
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.Entity.dll.config
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.Manager.pdb
-C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\MyCourseUTS.Manager.dll.config
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\EntityFramework.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\EntityFramework.SqlServer.xml
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml

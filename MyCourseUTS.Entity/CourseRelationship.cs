@@ -20,5 +20,6 @@ namespace MyCourseUTS.Entity
         public int? Year { get; set; }
         public SubjectGrouping SubjectGrouping { get; set; }
         public bool HasTemplate { get; set; }
+        public String DateUpdated { get; set; }
     }
 }
