@@ -77,6 +77,9 @@
     <Reference Include="GitHub, Version=1.11.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GitHub.1.11.2\lib\netstandard2.0\GitHub.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -228,6 +231,7 @@
     <Compile Include="Controllers\ListItemController.cs" />
     <Compile Include="Controllers\MajorController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\PDFController.cs" />
     <Compile Include="Controllers\StreamController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Controllers\SubjectGroupingController.cs" />

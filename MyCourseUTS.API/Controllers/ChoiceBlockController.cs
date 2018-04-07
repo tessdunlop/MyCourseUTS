@@ -91,44 +91,6 @@ namespace MyCourseUTS.API.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //http://mycourseuts.azurewebsites.net/Services/api/choiceblock/postchoiceblock
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostChoiceBlock([FromBody]ChoiceBlock choiceblock)

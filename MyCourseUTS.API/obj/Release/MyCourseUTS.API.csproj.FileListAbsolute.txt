@@ -262,3 +262,5 @@ C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\obj\Release\MyCourseUTS.API.cs
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\obj\Release\MyCourseUTS.API.csproj.CoreCompileInputs.cache
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\obj\Release\MyCourseUTS.API.dll
 C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\obj\Release\MyCourseUTS.API.pdb
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\itextsharp.dll
+C:\Users\TVSN\Desktop\MyCourseUTS\MyCourseUTS.API\bin\itextsharp.xml

@@ -540,7 +540,6 @@ function addMajor(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding major");
@@ -557,7 +556,6 @@ function addChoiceBlock(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding choice block");
@@ -574,7 +572,6 @@ function addStream(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding stream");
@@ -591,7 +588,6 @@ function addSubMajor(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding sub major");
@@ -608,7 +604,6 @@ function addSubject(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding subject");
@@ -628,7 +623,6 @@ function addCourseRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding course relationship");
@@ -646,7 +640,6 @@ function addChoiceBlockRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding choice block relationship");
@@ -663,7 +656,6 @@ function addStreamRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding stream relationship");
@@ -680,7 +672,6 @@ function addSubMajorRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding sub major relationship");
@@ -697,7 +688,6 @@ function addSubjectRequisitesRelationship(id, item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue adding requisite relationship");
@@ -714,7 +704,6 @@ function deleteCourse(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting course");
@@ -730,7 +719,6 @@ function deleteMajor(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting major");
@@ -746,7 +734,6 @@ function deleteChoiceBlock(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting choice block");
@@ -762,7 +749,6 @@ function deleteStream(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting stream");
@@ -778,7 +764,6 @@ function deleteSubMajor(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting sub major");
@@ -794,13 +779,42 @@ function deleteSubject(id) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            document.getElementById("loading").style.display = "none";
         },
         error: function () {
             alert("There was an issue deleting subject");
         }
     });
 }
+
+function generatePDF(courseID, majorID) {
+    console.log(courseID);
+    console.log(majorID);
+
+    var url;
+    if (majorID == null) {
+        url = "http://mycourseuts.azurewebsites.net/Services/api/pdf/getpdf?courseID=" + courseID;
+    }
+    else {
+        url = "http://mycourseuts.azurewebsites.net/Services/api/pdf/getpdf?courseID=" + courseID + "&majorID=" + majorID;
+    }
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (response) {
+            console.log("template generated");
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr);
+            console.log(status);
+            console.log(error);
+
+
+            alert("There was an issue generating pdf");
+        }
+    });
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END OF API CALLS
 
 
@@ -974,92 +988,92 @@ function hide() {
 
 
 function hoverOn(e, item, id) {
-    console.log(item);
-    var content = "<div id='hover' style='text-align: center;'><b><u>";
-    var type = id.toString().substring(0, 3);
-    var data;
+    if (!edit) {
+        console.log(item);
+        var content = "<div id='hover' style='text-align: center;'><b><u>";
+        var type = id.toString().substring(0, 3);
+        var data;
 
-    if (type == "SMJ") {
-        data = getSubMajorRelationship(id);
-        content += "Contents of Sub-Major:</u></b></div><br/>";
-    }
-    else if (type == "STM") {
-        data = getStreamRelationship(id);
-        content += "Contents of Stream:</u></b></div><br/>";
-    }
-    else if (type == "CBK") {
-        data = getChoiceBlockRelationship(id);
-        content += "Contents of Choice Block:</u></b></div><br/>";
-    }
-    else if (id.length < 4) {
-        data = getSubjectGroupingRelationship(id);
-        content += "Contents of Choice:</u></b></div><br/>";
-    }
-    else {
-        data = getSubjectRequisites(id);
-        content += "Subject Pre-Requisites:</u></b></div><br/>";
-    }
+        if (type == "SMJ") {
+            data = getSubMajorRelationship(id);
+            content += "Contents of Sub-Major:</u></b></div><br/>";
+        }
+        else if (type == "STM") {
+            data = getStreamRelationship(id);
+            content += "Contents of Stream:</u></b></div><br/>";
+        }
+        else if (type == "CBK") {
+            data = getChoiceBlockRelationship(id);
+            content += "Contents of Choice Block:</u></b></div><br/>";
+        }
+        else if (id.length < 4) {
+            data = getSubjectGroupingRelationship(id);
+            content += "Contents of Choice:</u></b></div><br/>";
+        }
+        else {
+            data = getSubjectRequisites(id);
+            content += "Subject Pre-Requisites:</u></b></div><br/>";
+        }
 
 
-    for (var i = 0; i < data.length; i++) {
-        if (data[i].ContentStream != null) {
-            content += "<div>" + data[i].ContentStream.Name + " - " + data[i].ContentStream.ID + "</div>";
-        }
-        if (data[i].ContentSubMajor != null) {
-            content += "<div>" + data[i].ContentSubMajor.Name + " - " + data[i].ContentSubMajor.ID + "</div>";
-        }
-        if (data[i].ContentChoiceBlock != null) {
-            content += "<div>" + data[i].ContentChoiceBlock.Name + " - " + data[i].ContentChoiceBlock.ID + "</div>";
-        }
-        if (data[i].ContentSubjectGrouping != null) {
-            if (data[i].ContentSubjectGrouping.ID != id) {
-                var grouping = getSubjectGroupingRelationship(data[i].ContentSubjectGrouping.ID);
-                for (var x = 0; x < grouping.length; x++) {
-                    if (grouping[x].ContentStream != null) {
-                        content += "<div>" + grouping[x].ContentStream.Name + " - " + grouping[x].ContentStream.ID + "</div>";
-                    }
-                    else if (grouping[x].ContentSubMajor != null) {
-                        content += "<div>" + grouping[x].ContentSubMajor.Name + " - " + grouping[x].ContentSubMajor.ID + "</div>";
-                    }
-                    else if (grouping[x].ContentChoiceBlock != null) {
-                        content += "<div>" + grouping[x].ContentChoiceBlock.Name + " - " + grouping[x].ContentChoiceBlock.ID + "</div>";
-                    }
-                    else if (grouping[x].Subject != null) {
-                        content += "<div>" + grouping[x].Subject.Name + " - " + grouping[x].Subject.ID + "</div>";
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].ContentStream != null) {
+                content += "<div>" + data[i].ContentStream.Name + " - " + data[i].ContentStream.ID + "</div>";
+            }
+            if (data[i].ContentSubMajor != null) {
+                content += "<div>" + data[i].ContentSubMajor.Name + " - " + data[i].ContentSubMajor.ID + "</div>";
+            }
+            if (data[i].ContentChoiceBlock != null) {
+                content += "<div>" + data[i].ContentChoiceBlock.Name + " - " + data[i].ContentChoiceBlock.ID + "</div>";
+            }
+            if (data[i].ContentSubjectGrouping != null) {
+                if (data[i].ContentSubjectGrouping.ID != id) {
+                    var grouping = getSubjectGroupingRelationship(data[i].ContentSubjectGrouping.ID);
+                    for (var x = 0; x < grouping.length; x++) {
+                        if (grouping[x].ContentStream != null) {
+                            content += "<div>" + grouping[x].ContentStream.Name + " - " + grouping[x].ContentStream.ID + "</div>";
+                        }
+                        else if (grouping[x].ContentSubMajor != null) {
+                            content += "<div>" + grouping[x].ContentSubMajor.Name + " - " + grouping[x].ContentSubMajor.ID + "</div>";
+                        }
+                        else if (grouping[x].ContentChoiceBlock != null) {
+                            content += "<div>" + grouping[x].ContentChoiceBlock.Name + " - " + grouping[x].ContentChoiceBlock.ID + "</div>";
+                        }
+                        else if (grouping[x].Subject != null) {
+                            content += "<div>" + grouping[x].Subject.Name + " - " + grouping[x].Subject.ID + "</div>";
+                        }
                     }
                 }
             }
-        }
-        if (data[i].Subject != null) {
-            if (data[i].Requisite != null) {
-                if (data[i].RequisiteType.ID == 1) {//Prereqs only
-                    content += "<div>" + data[i].Requisite.Name + " - " + data[i].Requisite.ID + "</div><br/>";
+            if (data[i].Subject != null) {
+                if (data[i].Requisite != null) {
+                    if (data[i].RequisiteType.ID == 1) {//Prereqs only
+                        content += "<div>" + data[i].Requisite.Name + " - " + data[i].Requisite.ID + "</div><br/>";
+                    }
+                }
+                else {
+                    content += "<div>" + data[i].Subject.Name + " - " + data[i].Subject.ID + "</div><br/>";
                 }
             }
-            else {
-                content += "<div>" + data[i].Subject.Name + " - " + data[i].Subject.ID + "</div><br/>";
-            }
         }
-    }
-    //content += "</div>";
+        //content += "</div>";
 
-    var compareStart = "<div id='hover' style='text-align: center;'><b><u>";
-    var compareEnd = ":</u></b></div><br/>";
+        var compareStart = "<div id='hover' style='text-align: center;'><b><u>";
+        var compareEnd = ":</u></b></div><br/>";
 
-    if (!(content == compareStart + "Contents of Sub-Major" + compareEnd || content == compareStart + "Contents of Choice Block" + compareEnd || content == compareStart + "Contents of Stream" + compareEnd || content == compareStart + "Contents of Choice" + compareEnd || content == compareStart + "Subject Pre-Requisites" + compareEnd)) {
-        var preview = document.getElementById("preview");
-        preview.style.display = "block";
-        preview.innerHTML = content;
-        //if (edit) {
-        //    preview.style.top = (e.clientY + 915) + "px";
-        //    preview.style.left = (e.clientX + 20) + "px";
+        if (!(content == compareStart + "Contents of Sub-Major" + compareEnd || content == compareStart + "Contents of Choice Block" + compareEnd || content == compareStart + "Contents of Stream" + compareEnd || content == compareStart + "Contents of Choice" + compareEnd || content == compareStart + "Subject Pre-Requisites" + compareEnd)) {
+            var preview = document.getElementById("preview");
+            preview.style.display = "block";
+            preview.innerHTML = content;
 
-        //} else {
-        //    preview.style.top = (e.clientY + 715) + "px";
-        //    preview.style.left = (e.clientX + 20) + "px";
-        //}
-        preview.style.top = e.clientY + "px";
-        preview.style.left = e.clientX + "px";
+            var body = document.body.getBoundingClientRect();
+            var elemRect = item.getBoundingClientRect();
+            var offset = elemRect.top - body.top;
+            console.log(offset);
+
+            preview.style.top = e.pageY + "px";
+            preview.style.left = e.pageX + "px";
+        }
     }
 }
 function hoverOff() {
@@ -2415,7 +2429,7 @@ function refreshTemplate() {
                 updated = "now";
             }
 
-            accordion.innerHTML += "<button id='button" + y + "' type='button' style='background-color:lightskyblue; color: black' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + majorsList[y].ID + " - " + majorsList[y].Name + "</button><div id='" + y + "' class=' w3-hide'><div id='input" + majorsList[y].ID + "'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white'><i class='fa fa-plus'></i></button ></div></div></div><div class='row' id='body" + y + "'></div><br/><p style='text-align:right;'>Last Updated: " + updated + "</p><br/><center><button id='remove" + majorsList[y].ID + "' style='text-align:center;' class='btn btn-danger' type='button' onclick='removeMajor(this.id);'>Remove " + majorsList[y].Name + " from " + selectedData.Name + "</button></center><br/><button id='" + majorsList[y].ID + "' type='button' class='btn' style='float: right;' onclick='downloadPDF(this.id)'>Download PDF</button><br/><br/></div>";
+            accordion.innerHTML += "<button id='button" + y + "' type='button' style='background-color:lightskyblue; color: black' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + majorsList[y].ID + " - " + majorsList[y].Name + "</button><div id='" + y + "' class=' w3-hide'><div id='input" + majorsList[y].ID + "'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white'><i class='fa fa-plus'></i></button ></div></div></div><div class='row' id='body" + y + "'></div><br/><p style='text-align:right;'>Last Updated: " + updated + "</p><br/><center><button id='remove" + majorsList[y].ID + "' style='text-align:center;' class='btn btn-danger' type='button' onclick='removeMajor(this.id);'>Remove " + majorsList[y].Name + " from " + selectedData.Name + "</button></center><br/><button id='" + majorsList[y].ID + "' type='button' class='btn' style='float: right;' onclick='generatePDF(\"" + selectedData.ID + "\" , \"" + majorsList[y].ID + "\")'>Download PDF</button><br/><br/></div>";
             populateSubjectTypeDropdown(y);
             var space = document.getElementById("body" + y);
             for (var x = 1; x < totalStages + 1; x++) {
@@ -2801,8 +2815,6 @@ function removeMajor(majorID) {
     refreshTemplate();
 }
 
-function downloadPDF(id) {
-    alert(id);
-}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////All TEMPLATE FUNCTIONS
