@@ -17,7 +17,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Version" Type="int" Nullable="false" />
+    <Property Name="Version" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Active" Type="bit" Nullable="false" />
     <Property Name="CreditPoints" Type="int" Nullable="false" />
@@ -25,28 +25,23 @@
     <Property Name="VersionDescription" Type="nvarchar" MaxLength="150" />
     <Property Name="ChoiceBlockDescription" Type="varchar" MaxLength="150" />
   </EntityType>
-  <EntityType Name="CourseMajorRelationship">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CourseID" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="MajorID" Type="nvarchar" MaxLength="50" Nullable="false" />
-  </EntityType>
   <EntityType Name="CourseRelationships">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CourseID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MajorID" Type="nvarchar" MaxLength="50" />
     <Property Name="SubjectID" Type="int" />
-    <Property Name="ChoiceBlockID" Type="nvarchar" MaxLength="50" />
-    <Property Name="GroupID" Type="int" />
-    <Property Name="SubjectTypeID" Type="int" Nullable="false" />
-    <Property Name="Stage" Type="int" Nullable="false" />
-    <Property Name="Year" Type="int" Nullable="false" />
     <Property Name="StreamID" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChoiceBlockID" Type="nvarchar" MaxLength="50" />
     <Property Name="SubMajorID" Type="nvarchar" MaxLength="50" />
+    <Property Name="GroupID" Type="int" />
+    <Property Name="SubjectTypeID" Type="int" />
+    <Property Name="Stage" Type="int" />
+    <Property Name="Year" Type="int" />
+    <Property Name="HasTemplate" Type="bit" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Courses">
     <Key>
@@ -63,8 +58,6 @@
     <Property Name="Stages" Type="int" Nullable="false" />
     <Property Name="CourseTypeID" Type="int" Nullable="false" />
     <Property Name="CourseDescription" Type="nvarchar" MaxLength="150" />
-    <Property Name="HasTemplate" Type="bit" Nullable="false" />
-    <Property Name="HasMajor" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="CourseTypes">
     <Key>
@@ -73,21 +66,6 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CourseType" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Abbreviation" Type="nvarchar" MaxLength="50" Nullable="false" />
-  </EntityType>
-  <EntityType Name="MajorRelationships">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MajorID" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="SubjectID" Type="int" />
-    <Property Name="StreamID" Type="nvarchar" MaxLength="50" />
-    <Property Name="ChoiceBlockID" Type="nvarchar" MaxLength="50" />
-    <Property Name="GroupID" Type="int" />
-    <Property Name="SubjectTypeID" Type="int" Nullable="false" />
-    <Property Name="Stage" Type="int" Nullable="false" />
-    <Property Name="Year" Type="int" Nullable="false" />
-    <Property Name="SubMajorID" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Majors">
     <Key>
@@ -99,9 +77,9 @@
     <Property Name="Abbreviation" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="CreditPoints" Type="int" Nullable="false" />
     <Property Name="Active" Type="bit" Nullable="false" />
-    <Property Name="HasTemplate" Type="bit" Nullable="false" />
     <Property Name="MajorDescription" Type="nvarchar" MaxLength="150" />
     <Property Name="VersionDescription" Type="nvarchar" MaxLength="150" />
+    <Property Name="Stages" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="RequisiteRelationship">
     <Key>
@@ -251,7 +229,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ChoiceBlockRelationships_SubjectGroupingsCredit">
+  <Association Name="FK_ChoiceBlockRelationships_SubjectGroupings">
     <End Role="SubjectGroupings" Type="Self.SubjectGroupings" Multiplicity="0..1" />
     <End Role="ChoiceBlockRelationships" Type="Self.ChoiceBlockRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -287,30 +265,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_CourseMajorRelationship_Courses">
-    <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
-    <End Role="CourseMajorRelationship" Type="Self.CourseMajorRelationship" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Courses">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CourseMajorRelationship">
-        <PropertyRef Name="CourseID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CourseMajorRelationship_Majors">
-    <End Role="Majors" Type="Self.Majors" Multiplicity="1" />
-    <End Role="CourseMajorRelationship" Type="Self.CourseMajorRelationship" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Majors">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CourseMajorRelationship">
-        <PropertyRef Name="MajorID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_CourseRelationships_ChoiceBlocks">
     <End Role="ChoiceBlocks" Type="Self.ChoiceBlocks" Multiplicity="0..1" />
     <End Role="CourseRelationships" Type="Self.CourseRelationships" Multiplicity="*" />
@@ -335,6 +289,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CourseRelationships_Majors">
+    <End Role="Majors" Type="Self.Majors" Multiplicity="0..1" />
+    <End Role="CourseRelationships" Type="Self.CourseRelationships" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Majors">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CourseRelationships">
+        <PropertyRef Name="MajorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CourseRelationships_Streams">
     <End Role="Streams" Type="Self.Streams" Multiplicity="0..1" />
     <End Role="CourseRelationships" Type="Self.CourseRelationships" Multiplicity="*" />
@@ -347,7 +313,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_CourseRelationships_SubjectGroupingsCredit">
+  <Association Name="FK_CourseRelationships_SubjectGroupings">
     <End Role="SubjectGroupings" Type="Self.SubjectGroupings" Multiplicity="0..1" />
     <End Role="CourseRelationships" Type="Self.CourseRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -372,7 +338,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CourseRelationships_SubjectTypes">
-    <End Role="SubjectTypes" Type="Self.SubjectTypes" Multiplicity="1" />
+    <End Role="SubjectTypes" Type="Self.SubjectTypes" Multiplicity="0..1" />
     <End Role="CourseRelationships" Type="Self.CourseRelationships" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="SubjectTypes">
@@ -404,90 +370,6 @@
       </Principal>
       <Dependent Role="Courses">
         <PropertyRef Name="CourseTypeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_ChoiceBlocks">
-    <End Role="ChoiceBlocks" Type="Self.ChoiceBlocks" Multiplicity="0..1" />
-    <End Role="MajorRelationships" Type="Self.MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ChoiceBlocks">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="ChoiceBlockID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_Majors">
-    <End Role="Majors" Type="Self.Majors" Multiplicity="1" />
-    <End Role="MajorRelationships" Type="Self.MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Majors">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="MajorID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_Streams">
-    <End Role="Streams" Type="Self.Streams" Multiplicity="0..1" />
-    <End Role="MajorRelationships" Type="Self.MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Streams">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="StreamID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_SubjectGroupingsCredit">
-    <End Role="SubjectGroupings" Type="Self.SubjectGroupings" Multiplicity="0..1" />
-    <End Role="MajorRelationships" Type="Self.MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SubjectGroupings">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="GroupID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_Subjects">
-    <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
-    <End Role="MajorRelationships" Type="Self.MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Subjects">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="SubjectID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_SubjectTypes">
-    <End Role="SubjectTypes" Type="Self.SubjectTypes" Multiplicity="1" />
-    <End Role="MajorRelationships" Type="Self.MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SubjectTypes">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="SubjectTypeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_SubMajors">
-    <End Role="SubMajors" Type="Self.SubMajors" Multiplicity="0..1" />
-    <End Role="MajorRelationships" Type="Self.MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SubMajors">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="SubMajorID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -563,7 +445,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_StreamRelationships_SubjectGroupingsCredit">
+  <Association Name="FK_StreamRelationships_SubjectGroupings">
     <End Role="SubjectGroupings" Type="Self.SubjectGroupings" Multiplicity="0..1" />
     <End Role="StreamRelationships" Type="Self.StreamRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -599,7 +481,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupingRelationships_ChoiceBlocks">
+  <Association Name="FK_SubjectGroupingRelationships_ChoiceBlocks1">
     <End Role="ChoiceBlocks" Type="Self.ChoiceBlocks" Multiplicity="0..1" />
     <End Role="SubjectGroupingRelationships" Type="Self.SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -611,7 +493,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupings_Majors">
+  <Association Name="FK_SubjectGroupingRelationships_Majors">
     <End Role="Majors" Type="Self.Majors" Multiplicity="0..1" />
     <End Role="SubjectGroupingRelationships" Type="Self.SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -623,7 +505,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupings_Streams">
+  <Association Name="FK_SubjectGroupingRelationships_Streams">
     <End Role="Streams" Type="Self.Streams" Multiplicity="0..1" />
     <End Role="SubjectGroupingRelationships" Type="Self.SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -635,7 +517,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupings_SubjectGroupingsCredit">
+  <Association Name="FK_SubjectGroupingRelationships_SubjectGroupings">
     <End Role="SubjectGroupings" Type="Self.SubjectGroupings" Multiplicity="1" />
     <End Role="SubjectGroupingRelationships" Type="Self.SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -647,7 +529,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupings_Subjects">
+  <Association Name="FK_SubjectGroupingRelationships_Subjects">
     <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
     <End Role="SubjectGroupingRelationships" Type="Self.SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -659,7 +541,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupings_SubMajors">
+  <Association Name="FK_SubjectGroupingRelationships_SubMajors">
     <End Role="SubMajors" Type="Self.SubMajors" Multiplicity="0..1" />
     <End Role="SubjectGroupingRelationships" Type="Self.SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -695,7 +577,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubMajorRelationships_SubjectGroupingsCredit">
+  <Association Name="FK_SubMajorRelationships_SubjectGroupings">
     <End Role="SubjectGroupings" Type="Self.SubjectGroupings" Multiplicity="0..1" />
     <End Role="SubMajorRelationships" Type="Self.SubMajorRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -746,11 +628,9 @@
   <EntityContainer Name="MyCourseDBModelStoreContainer">
     <EntitySet Name="ChoiceBlockRelationships" EntityType="Self.ChoiceBlockRelationships" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChoiceBlocks" EntityType="Self.ChoiceBlocks" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="CourseMajorRelationship" EntityType="Self.CourseMajorRelationship" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CourseRelationships" EntityType="Self.CourseRelationships" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CourseTypes" EntityType="Self.CourseTypes" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="MajorRelationships" EntityType="Self.MajorRelationships" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Majors" EntityType="Self.Majors" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RequisiteRelationship" EntityType="Self.RequisiteRelationship" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RequisiteTypes" EntityType="Self.RequisiteTypes" Schema="dbo" store:Type="Tables" />
@@ -774,7 +654,7 @@
       <End Role="Streams" EntitySet="Streams" />
       <End Role="ChoiceBlockRelationships" EntitySet="ChoiceBlockRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_ChoiceBlockRelationships_SubjectGroupingsCredit" Association="Self.FK_ChoiceBlockRelationships_SubjectGroupingsCredit">
+    <AssociationSet Name="FK_ChoiceBlockRelationships_SubjectGroupings" Association="Self.FK_ChoiceBlockRelationships_SubjectGroupings">
       <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
       <End Role="ChoiceBlockRelationships" EntitySet="ChoiceBlockRelationships" />
     </AssociationSet>
@@ -786,14 +666,6 @@
       <End Role="SubMajors" EntitySet="SubMajors" />
       <End Role="ChoiceBlockRelationships" EntitySet="ChoiceBlockRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_CourseMajorRelationship_Courses" Association="Self.FK_CourseMajorRelationship_Courses">
-      <End Role="Courses" EntitySet="Courses" />
-      <End Role="CourseMajorRelationship" EntitySet="CourseMajorRelationship" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CourseMajorRelationship_Majors" Association="Self.FK_CourseMajorRelationship_Majors">
-      <End Role="Majors" EntitySet="Majors" />
-      <End Role="CourseMajorRelationship" EntitySet="CourseMajorRelationship" />
-    </AssociationSet>
     <AssociationSet Name="FK_CourseRelationships_ChoiceBlocks" Association="Self.FK_CourseRelationships_ChoiceBlocks">
       <End Role="ChoiceBlocks" EntitySet="ChoiceBlocks" />
       <End Role="CourseRelationships" EntitySet="CourseRelationships" />
@@ -802,11 +674,15 @@
       <End Role="Courses" EntitySet="Courses" />
       <End Role="CourseRelationships" EntitySet="CourseRelationships" />
     </AssociationSet>
+    <AssociationSet Name="FK_CourseRelationships_Majors" Association="Self.FK_CourseRelationships_Majors">
+      <End Role="Majors" EntitySet="Majors" />
+      <End Role="CourseRelationships" EntitySet="CourseRelationships" />
+    </AssociationSet>
     <AssociationSet Name="FK_CourseRelationships_Streams" Association="Self.FK_CourseRelationships_Streams">
       <End Role="Streams" EntitySet="Streams" />
       <End Role="CourseRelationships" EntitySet="CourseRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_CourseRelationships_SubjectGroupingsCredit" Association="Self.FK_CourseRelationships_SubjectGroupingsCredit">
+    <AssociationSet Name="FK_CourseRelationships_SubjectGroupings" Association="Self.FK_CourseRelationships_SubjectGroupings">
       <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
       <End Role="CourseRelationships" EntitySet="CourseRelationships" />
     </AssociationSet>
@@ -825,34 +701,6 @@
     <AssociationSet Name="FK_Courses_CourseTypes" Association="Self.FK_Courses_CourseTypes">
       <End Role="CourseTypes" EntitySet="CourseTypes" />
       <End Role="Courses" EntitySet="Courses" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_ChoiceBlocks" Association="Self.FK_MajorRelationships_ChoiceBlocks">
-      <End Role="ChoiceBlocks" EntitySet="ChoiceBlocks" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_Majors" Association="Self.FK_MajorRelationships_Majors">
-      <End Role="Majors" EntitySet="Majors" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_Streams" Association="Self.FK_MajorRelationships_Streams">
-      <End Role="Streams" EntitySet="Streams" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_SubjectGroupingsCredit" Association="Self.FK_MajorRelationships_SubjectGroupingsCredit">
-      <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_Subjects" Association="Self.FK_MajorRelationships_Subjects">
-      <End Role="Subjects" EntitySet="Subjects" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_SubjectTypes" Association="Self.FK_MajorRelationships_SubjectTypes">
-      <End Role="SubjectTypes" EntitySet="SubjectTypes" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_SubMajors" Association="Self.FK_MajorRelationships_SubMajors">
-      <End Role="SubMajors" EntitySet="SubMajors" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
     </AssociationSet>
     <AssociationSet Name="FK_RequisiteRelationship_RequisiteType" Association="Self.FK_RequisiteRelationship_RequisiteType">
       <End Role="RequisiteTypes" EntitySet="RequisiteTypes" />
@@ -878,7 +726,7 @@
       <End Role="Streams" EntitySet="Streams" />
       <End Role="StreamRelationships" EntitySet="StreamRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_StreamRelationships_SubjectGroupingsCredit" Association="Self.FK_StreamRelationships_SubjectGroupingsCredit">
+    <AssociationSet Name="FK_StreamRelationships_SubjectGroupings" Association="Self.FK_StreamRelationships_SubjectGroupings">
       <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
       <End Role="StreamRelationships" EntitySet="StreamRelationships" />
     </AssociationSet>
@@ -890,27 +738,27 @@
       <End Role="SubMajors" EntitySet="SubMajors" />
       <End Role="StreamRelationships" EntitySet="StreamRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupingRelationships_ChoiceBlocks" Association="Self.FK_SubjectGroupingRelationships_ChoiceBlocks">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_ChoiceBlocks1" Association="Self.FK_SubjectGroupingRelationships_ChoiceBlocks1">
       <End Role="ChoiceBlocks" EntitySet="ChoiceBlocks" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupings_Majors" Association="Self.FK_SubjectGroupings_Majors">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_Majors" Association="Self.FK_SubjectGroupingRelationships_Majors">
       <End Role="Majors" EntitySet="Majors" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupings_Streams" Association="Self.FK_SubjectGroupings_Streams">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_Streams" Association="Self.FK_SubjectGroupingRelationships_Streams">
       <End Role="Streams" EntitySet="Streams" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupings_SubjectGroupingsCredit" Association="Self.FK_SubjectGroupings_SubjectGroupingsCredit">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_SubjectGroupings" Association="Self.FK_SubjectGroupingRelationships_SubjectGroupings">
       <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupings_Subjects" Association="Self.FK_SubjectGroupings_Subjects">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_Subjects" Association="Self.FK_SubjectGroupingRelationships_Subjects">
       <End Role="Subjects" EntitySet="Subjects" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupings_SubMajors" Association="Self.FK_SubjectGroupings_SubMajors">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_SubMajors" Association="Self.FK_SubjectGroupingRelationships_SubMajors">
       <End Role="SubMajors" EntitySet="SubMajors" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
@@ -922,7 +770,7 @@
       <End Role="Streams" EntitySet="Streams" />
       <End Role="SubMajorRelationships" EntitySet="SubMajorRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubMajorRelationships_SubjectGroupingsCredit" Association="Self.FK_SubMajorRelationships_SubjectGroupingsCredit">
+    <AssociationSet Name="FK_SubMajorRelationships_SubjectGroupings" Association="Self.FK_SubMajorRelationships_SubjectGroupings">
       <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
       <End Role="SubMajorRelationships" EntitySet="SubMajorRelationships" />
     </AssociationSet>

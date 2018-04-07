@@ -3,11 +3,9 @@
   <EntityContainer Name="MyCourseDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ChoiceBlockRelationships" EntityType="MyCourseDBModel.ChoiceBlockRelationships" />
     <EntitySet Name="ChoiceBlocks" EntityType="MyCourseDBModel.ChoiceBlocks" />
-    <EntitySet Name="CourseMajorRelationship" EntityType="MyCourseDBModel.CourseMajorRelationship" />
     <EntitySet Name="CourseRelationships" EntityType="MyCourseDBModel.CourseRelationships" />
     <EntitySet Name="Courses" EntityType="MyCourseDBModel.Courses" />
     <EntitySet Name="CourseTypes" EntityType="MyCourseDBModel.CourseTypes" />
-    <EntitySet Name="MajorRelationships" EntityType="MyCourseDBModel.MajorRelationships" />
     <EntitySet Name="Majors" EntityType="MyCourseDBModel.Majors" />
     <EntitySet Name="RequisiteRelationship" EntityType="MyCourseDBModel.RequisiteRelationship" />
     <EntitySet Name="RequisiteTypes" EntityType="MyCourseDBModel.RequisiteTypes" />
@@ -31,7 +29,7 @@
       <End Role="Streams" EntitySet="Streams" />
       <End Role="ChoiceBlockRelationships" EntitySet="ChoiceBlockRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_ChoiceBlockRelationships_SubjectGroupingsCredit" Association="MyCourseDBModel.FK_ChoiceBlockRelationships_SubjectGroupingsCredit">
+    <AssociationSet Name="FK_ChoiceBlockRelationships_SubjectGroupings" Association="MyCourseDBModel.FK_ChoiceBlockRelationships_SubjectGroupings">
       <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
       <End Role="ChoiceBlockRelationships" EntitySet="ChoiceBlockRelationships" />
     </AssociationSet>
@@ -47,15 +45,11 @@
       <End Role="ChoiceBlocks" EntitySet="ChoiceBlocks" />
       <End Role="CourseRelationships" EntitySet="CourseRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_ChoiceBlocks" Association="MyCourseDBModel.FK_MajorRelationships_ChoiceBlocks">
-      <End Role="ChoiceBlocks" EntitySet="ChoiceBlocks" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
     <AssociationSet Name="FK_StreamRelationships_ChoiceBlocks" Association="MyCourseDBModel.FK_StreamRelationships_ChoiceBlocks">
       <End Role="ChoiceBlocks" EntitySet="ChoiceBlocks" />
       <End Role="StreamRelationships" EntitySet="StreamRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupingRelationships_ChoiceBlocks" Association="MyCourseDBModel.FK_SubjectGroupingRelationships_ChoiceBlocks">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_ChoiceBlocks1" Association="MyCourseDBModel.FK_SubjectGroupingRelationships_ChoiceBlocks1">
       <End Role="ChoiceBlocks" EntitySet="ChoiceBlocks" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
@@ -63,23 +57,19 @@
       <End Role="ChoiceBlocks" EntitySet="ChoiceBlocks" />
       <End Role="SubMajorRelationships" EntitySet="SubMajorRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_CourseMajorRelationship_Courses" Association="MyCourseDBModel.FK_CourseMajorRelationship_Courses">
-      <End Role="Courses" EntitySet="Courses" />
-      <End Role="CourseMajorRelationship" EntitySet="CourseMajorRelationship" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CourseMajorRelationship_Majors" Association="MyCourseDBModel.FK_CourseMajorRelationship_Majors">
-      <End Role="Majors" EntitySet="Majors" />
-      <End Role="CourseMajorRelationship" EntitySet="CourseMajorRelationship" />
-    </AssociationSet>
     <AssociationSet Name="FK_CourseRelationships_Courses" Association="MyCourseDBModel.FK_CourseRelationships_Courses">
       <End Role="Courses" EntitySet="Courses" />
+      <End Role="CourseRelationships" EntitySet="CourseRelationships" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseRelationships_Majors" Association="MyCourseDBModel.FK_CourseRelationships_Majors">
+      <End Role="Majors" EntitySet="Majors" />
       <End Role="CourseRelationships" EntitySet="CourseRelationships" />
     </AssociationSet>
     <AssociationSet Name="FK_CourseRelationships_Streams" Association="MyCourseDBModel.FK_CourseRelationships_Streams">
       <End Role="Streams" EntitySet="Streams" />
       <End Role="CourseRelationships" EntitySet="CourseRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_CourseRelationships_SubjectGroupingsCredit" Association="MyCourseDBModel.FK_CourseRelationships_SubjectGroupingsCredit">
+    <AssociationSet Name="FK_CourseRelationships_SubjectGroupings" Association="MyCourseDBModel.FK_CourseRelationships_SubjectGroupings">
       <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
       <End Role="CourseRelationships" EntitySet="CourseRelationships" />
     </AssociationSet>
@@ -99,31 +89,7 @@
       <End Role="CourseTypes" EntitySet="CourseTypes" />
       <End Role="Courses" EntitySet="Courses" />
     </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_Majors" Association="MyCourseDBModel.FK_MajorRelationships_Majors">
-      <End Role="Majors" EntitySet="Majors" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_Streams" Association="MyCourseDBModel.FK_MajorRelationships_Streams">
-      <End Role="Streams" EntitySet="Streams" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_SubjectGroupingsCredit" Association="MyCourseDBModel.FK_MajorRelationships_SubjectGroupingsCredit">
-      <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_Subjects" Association="MyCourseDBModel.FK_MajorRelationships_Subjects">
-      <End Role="Subjects" EntitySet="Subjects" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_SubjectTypes" Association="MyCourseDBModel.FK_MajorRelationships_SubjectTypes">
-      <End Role="SubjectTypes" EntitySet="SubjectTypes" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MajorRelationships_SubMajors" Association="MyCourseDBModel.FK_MajorRelationships_SubMajors">
-      <End Role="SubMajors" EntitySet="SubMajors" />
-      <End Role="MajorRelationships" EntitySet="MajorRelationships" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupings_Majors" Association="MyCourseDBModel.FK_SubjectGroupings_Majors">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_Majors" Association="MyCourseDBModel.FK_SubjectGroupingRelationships_Majors">
       <End Role="Majors" EntitySet="Majors" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
@@ -147,7 +113,7 @@
       <End Role="Streams" EntitySet="Streams" />
       <End Role="StreamRelationships" EntitySet="StreamRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_StreamRelationships_SubjectGroupingsCredit" Association="MyCourseDBModel.FK_StreamRelationships_SubjectGroupingsCredit">
+    <AssociationSet Name="FK_StreamRelationships_SubjectGroupings" Association="MyCourseDBModel.FK_StreamRelationships_SubjectGroupings">
       <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
       <End Role="StreamRelationships" EntitySet="StreamRelationships" />
     </AssociationSet>
@@ -159,7 +125,7 @@
       <End Role="SubMajors" EntitySet="SubMajors" />
       <End Role="StreamRelationships" EntitySet="StreamRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupings_Streams" Association="MyCourseDBModel.FK_SubjectGroupings_Streams">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_Streams" Association="MyCourseDBModel.FK_SubjectGroupingRelationships_Streams">
       <End Role="Streams" EntitySet="Streams" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
@@ -167,19 +133,19 @@
       <End Role="Streams" EntitySet="Streams" />
       <End Role="SubMajorRelationships" EntitySet="SubMajorRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupings_SubjectGroupingsCredit" Association="MyCourseDBModel.FK_SubjectGroupings_SubjectGroupingsCredit">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_SubjectGroupings" Association="MyCourseDBModel.FK_SubjectGroupingRelationships_SubjectGroupings">
       <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupings_Subjects" Association="MyCourseDBModel.FK_SubjectGroupings_Subjects">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_Subjects" Association="MyCourseDBModel.FK_SubjectGroupingRelationships_Subjects">
       <End Role="Subjects" EntitySet="Subjects" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubjectGroupings_SubMajors" Association="MyCourseDBModel.FK_SubjectGroupings_SubMajors">
+    <AssociationSet Name="FK_SubjectGroupingRelationships_SubMajors" Association="MyCourseDBModel.FK_SubjectGroupingRelationships_SubMajors">
       <End Role="SubMajors" EntitySet="SubMajors" />
       <End Role="SubjectGroupingRelationships" EntitySet="SubjectGroupingRelationships" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubMajorRelationships_SubjectGroupingsCredit" Association="MyCourseDBModel.FK_SubMajorRelationships_SubjectGroupingsCredit">
+    <AssociationSet Name="FK_SubMajorRelationships_SubjectGroupings" Association="MyCourseDBModel.FK_SubMajorRelationships_SubjectGroupings">
       <End Role="SubjectGroupings" EntitySet="SubjectGroupings" />
       <End Role="SubMajorRelationships" EntitySet="SubMajorRelationships" />
     </AssociationSet>
@@ -210,7 +176,7 @@
     <NavigationProperty Name="ChoiceBlocks" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_ChoiceBlocks" FromRole="ChoiceBlockRelationships" ToRole="ChoiceBlocks" />
     <NavigationProperty Name="ChoiceBlocks1" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_ChoiceBlocks1" FromRole="ChoiceBlockRelationships" ToRole="ChoiceBlocks" />
     <NavigationProperty Name="Streams" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_Streams" FromRole="ChoiceBlockRelationships" ToRole="Streams" />
-    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_SubjectGroupingsCredit" FromRole="ChoiceBlockRelationships" ToRole="SubjectGroupings" />
+    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_SubjectGroupings" FromRole="ChoiceBlockRelationships" ToRole="SubjectGroupings" />
     <NavigationProperty Name="Subjects" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_Subjects" FromRole="ChoiceBlockRelationships" ToRole="Subjects" />
     <NavigationProperty Name="SubMajors" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_SubMajors" FromRole="ChoiceBlockRelationships" ToRole="SubMajors" />
   </EntityType>
@@ -219,7 +185,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Version" Type="Int32" Nullable="false" />
+    <Property Name="Version" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Active" Type="Boolean" Nullable="false" />
     <Property Name="CreditPoints" Type="Int32" Nullable="false" />
@@ -229,39 +195,32 @@
     <NavigationProperty Name="ChoiceBlockRelationships" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_ChoiceBlocks" FromRole="ChoiceBlocks" ToRole="ChoiceBlockRelationships" />
     <NavigationProperty Name="ChoiceBlockRelationships1" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_ChoiceBlocks1" FromRole="ChoiceBlocks" ToRole="ChoiceBlockRelationships" />
     <NavigationProperty Name="CourseRelationships" Relationship="MyCourseDBModel.FK_CourseRelationships_ChoiceBlocks" FromRole="ChoiceBlocks" ToRole="CourseRelationships" />
-    <NavigationProperty Name="MajorRelationships" Relationship="MyCourseDBModel.FK_MajorRelationships_ChoiceBlocks" FromRole="ChoiceBlocks" ToRole="MajorRelationships" />
     <NavigationProperty Name="StreamRelationships" Relationship="MyCourseDBModel.FK_StreamRelationships_ChoiceBlocks" FromRole="ChoiceBlocks" ToRole="StreamRelationships" />
-    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_ChoiceBlocks" FromRole="ChoiceBlocks" ToRole="SubjectGroupingRelationships" />
+    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_ChoiceBlocks1" FromRole="ChoiceBlocks" ToRole="SubjectGroupingRelationships" />
     <NavigationProperty Name="SubMajorRelationships" Relationship="MyCourseDBModel.FK_SubMajorRelationships_ChoiceBlocks" FromRole="ChoiceBlocks" ToRole="SubMajorRelationships" />
-  </EntityType>
-  <EntityType Name="CourseMajorRelationship">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CourseID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="MajorID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Courses" Relationship="MyCourseDBModel.FK_CourseMajorRelationship_Courses" FromRole="CourseMajorRelationship" ToRole="Courses" />
-    <NavigationProperty Name="Majors" Relationship="MyCourseDBModel.FK_CourseMajorRelationship_Majors" FromRole="CourseMajorRelationship" ToRole="Majors" />
   </EntityType>
   <EntityType Name="CourseRelationships">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CourseID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MajorID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SubjectID" Type="Int32" />
-    <Property Name="ChoiceBlockID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="GroupID" Type="Int32" />
-    <Property Name="SubjectTypeID" Type="Int32" Nullable="false" />
-    <Property Name="Stage" Type="Int32" Nullable="false" />
-    <Property Name="Year" Type="Int32" Nullable="false" />
     <Property Name="StreamID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChoiceBlockID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SubMajorID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GroupID" Type="Int32" />
+    <Property Name="SubjectTypeID" Type="Int32" />
+    <Property Name="Stage" Type="Int32" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="HasTemplate" Type="Boolean" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="ChoiceBlocks" Relationship="MyCourseDBModel.FK_CourseRelationships_ChoiceBlocks" FromRole="CourseRelationships" ToRole="ChoiceBlocks" />
     <NavigationProperty Name="Courses" Relationship="MyCourseDBModel.FK_CourseRelationships_Courses" FromRole="CourseRelationships" ToRole="Courses" />
+    <NavigationProperty Name="Majors" Relationship="MyCourseDBModel.FK_CourseRelationships_Majors" FromRole="CourseRelationships" ToRole="Majors" />
     <NavigationProperty Name="Streams" Relationship="MyCourseDBModel.FK_CourseRelationships_Streams" FromRole="CourseRelationships" ToRole="Streams" />
-    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_CourseRelationships_SubjectGroupingsCredit" FromRole="CourseRelationships" ToRole="SubjectGroupings" />
+    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_CourseRelationships_SubjectGroupings" FromRole="CourseRelationships" ToRole="SubjectGroupings" />
     <NavigationProperty Name="Subjects" Relationship="MyCourseDBModel.FK_CourseRelationships_Subjects" FromRole="CourseRelationships" ToRole="Subjects" />
     <NavigationProperty Name="SubjectTypes" Relationship="MyCourseDBModel.FK_CourseRelationships_SubjectTypes" FromRole="CourseRelationships" ToRole="SubjectTypes" />
     <NavigationProperty Name="SubMajors" Relationship="MyCourseDBModel.FK_CourseRelationships_SubMajors" FromRole="CourseRelationships" ToRole="SubMajors" />
@@ -281,9 +240,6 @@
     <Property Name="Stages" Type="Int32" Nullable="false" />
     <Property Name="CourseTypeID" Type="Int32" Nullable="false" />
     <Property Name="CourseDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="HasTemplate" Type="Boolean" Nullable="false" />
-    <Property Name="HasMajor" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="CourseMajorRelationship" Relationship="MyCourseDBModel.FK_CourseMajorRelationship_Courses" FromRole="Courses" ToRole="CourseMajorRelationship" />
     <NavigationProperty Name="CourseRelationships" Relationship="MyCourseDBModel.FK_CourseRelationships_Courses" FromRole="Courses" ToRole="CourseRelationships" />
     <NavigationProperty Name="CourseTypes" Relationship="MyCourseDBModel.FK_Courses_CourseTypes" FromRole="Courses" ToRole="CourseTypes" />
   </EntityType>
@@ -296,28 +252,6 @@
     <Property Name="Abbreviation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Courses" Relationship="MyCourseDBModel.FK_Courses_CourseTypes" FromRole="CourseTypes" ToRole="Courses" />
   </EntityType>
-  <EntityType Name="MajorRelationships">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="MajorID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="SubjectID" Type="Int32" />
-    <Property Name="StreamID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="ChoiceBlockID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="GroupID" Type="Int32" />
-    <Property Name="SubjectTypeID" Type="Int32" Nullable="false" />
-    <Property Name="Stage" Type="Int32" Nullable="false" />
-    <Property Name="Year" Type="Int32" Nullable="false" />
-    <Property Name="SubMajorID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="ChoiceBlocks" Relationship="MyCourseDBModel.FK_MajorRelationships_ChoiceBlocks" FromRole="MajorRelationships" ToRole="ChoiceBlocks" />
-    <NavigationProperty Name="Majors" Relationship="MyCourseDBModel.FK_MajorRelationships_Majors" FromRole="MajorRelationships" ToRole="Majors" />
-    <NavigationProperty Name="Streams" Relationship="MyCourseDBModel.FK_MajorRelationships_Streams" FromRole="MajorRelationships" ToRole="Streams" />
-    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_MajorRelationships_SubjectGroupingsCredit" FromRole="MajorRelationships" ToRole="SubjectGroupings" />
-    <NavigationProperty Name="Subjects" Relationship="MyCourseDBModel.FK_MajorRelationships_Subjects" FromRole="MajorRelationships" ToRole="Subjects" />
-    <NavigationProperty Name="SubjectTypes" Relationship="MyCourseDBModel.FK_MajorRelationships_SubjectTypes" FromRole="MajorRelationships" ToRole="SubjectTypes" />
-    <NavigationProperty Name="SubMajors" Relationship="MyCourseDBModel.FK_MajorRelationships_SubMajors" FromRole="MajorRelationships" ToRole="SubMajors" />
-  </EntityType>
   <EntityType Name="Majors">
     <Key>
       <PropertyRef Name="ID" />
@@ -328,12 +262,11 @@
     <Property Name="Abbreviation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CreditPoints" Type="Int32" Nullable="false" />
     <Property Name="Active" Type="Boolean" Nullable="false" />
-    <Property Name="HasTemplate" Type="Boolean" Nullable="false" />
     <Property Name="MajorDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="VersionDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="CourseMajorRelationship" Relationship="MyCourseDBModel.FK_CourseMajorRelationship_Majors" FromRole="Majors" ToRole="CourseMajorRelationship" />
-    <NavigationProperty Name="MajorRelationships" Relationship="MyCourseDBModel.FK_MajorRelationships_Majors" FromRole="Majors" ToRole="MajorRelationships" />
-    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupings_Majors" FromRole="Majors" ToRole="SubjectGroupingRelationships" />
+    <Property Name="Stages" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CourseRelationships" Relationship="MyCourseDBModel.FK_CourseRelationships_Majors" FromRole="Majors" ToRole="CourseRelationships" />
+    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_Majors" FromRole="Majors" ToRole="SubjectGroupingRelationships" />
   </EntityType>
   <EntityType Name="RequisiteRelationship">
     <Key>
@@ -370,7 +303,7 @@
     <NavigationProperty Name="ChoiceBlocks" Relationship="MyCourseDBModel.FK_StreamRelationships_ChoiceBlocks" FromRole="StreamRelationships" ToRole="ChoiceBlocks" />
     <NavigationProperty Name="Streams" Relationship="MyCourseDBModel.FK_StreamRelationships_Streams" FromRole="StreamRelationships" ToRole="Streams" />
     <NavigationProperty Name="Streams1" Relationship="MyCourseDBModel.FK_StreamRelationships_Streams1" FromRole="StreamRelationships" ToRole="Streams" />
-    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_StreamRelationships_SubjectGroupingsCredit" FromRole="StreamRelationships" ToRole="SubjectGroupings" />
+    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_StreamRelationships_SubjectGroupings" FromRole="StreamRelationships" ToRole="SubjectGroupings" />
     <NavigationProperty Name="Subjects" Relationship="MyCourseDBModel.FK_StreamRelationships_Subjects" FromRole="StreamRelationships" ToRole="Subjects" />
     <NavigationProperty Name="SubMajors" Relationship="MyCourseDBModel.FK_StreamRelationships_SubMajors" FromRole="StreamRelationships" ToRole="SubMajors" />
   </EntityType>
@@ -388,10 +321,9 @@
     <Property Name="VersionDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ChoiceBlockRelationships" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_Streams" FromRole="Streams" ToRole="ChoiceBlockRelationships" />
     <NavigationProperty Name="CourseRelationships" Relationship="MyCourseDBModel.FK_CourseRelationships_Streams" FromRole="Streams" ToRole="CourseRelationships" />
-    <NavigationProperty Name="MajorRelationships" Relationship="MyCourseDBModel.FK_MajorRelationships_Streams" FromRole="Streams" ToRole="MajorRelationships" />
     <NavigationProperty Name="StreamRelationships" Relationship="MyCourseDBModel.FK_StreamRelationships_Streams" FromRole="Streams" ToRole="StreamRelationships" />
     <NavigationProperty Name="StreamRelationships1" Relationship="MyCourseDBModel.FK_StreamRelationships_Streams1" FromRole="Streams" ToRole="StreamRelationships" />
-    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupings_Streams" FromRole="Streams" ToRole="SubjectGroupingRelationships" />
+    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_Streams" FromRole="Streams" ToRole="SubjectGroupingRelationships" />
     <NavigationProperty Name="SubMajorRelationships" Relationship="MyCourseDBModel.FK_SubMajorRelationships_Streams" FromRole="Streams" ToRole="SubMajorRelationships" />
   </EntityType>
   <EntityType Name="SubjectGroupingRelationships">
@@ -405,12 +337,12 @@
     <Property Name="ChoiceBlockID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="StreamID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SubMajorID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="ChoiceBlocks" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_ChoiceBlocks" FromRole="SubjectGroupingRelationships" ToRole="ChoiceBlocks" />
-    <NavigationProperty Name="Majors" Relationship="MyCourseDBModel.FK_SubjectGroupings_Majors" FromRole="SubjectGroupingRelationships" ToRole="Majors" />
-    <NavigationProperty Name="Streams" Relationship="MyCourseDBModel.FK_SubjectGroupings_Streams" FromRole="SubjectGroupingRelationships" ToRole="Streams" />
-    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_SubjectGroupings_SubjectGroupingsCredit" FromRole="SubjectGroupingRelationships" ToRole="SubjectGroupings" />
-    <NavigationProperty Name="Subjects" Relationship="MyCourseDBModel.FK_SubjectGroupings_Subjects" FromRole="SubjectGroupingRelationships" ToRole="Subjects" />
-    <NavigationProperty Name="SubMajors" Relationship="MyCourseDBModel.FK_SubjectGroupings_SubMajors" FromRole="SubjectGroupingRelationships" ToRole="SubMajors" />
+    <NavigationProperty Name="ChoiceBlocks" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_ChoiceBlocks1" FromRole="SubjectGroupingRelationships" ToRole="ChoiceBlocks" />
+    <NavigationProperty Name="Majors" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_Majors" FromRole="SubjectGroupingRelationships" ToRole="Majors" />
+    <NavigationProperty Name="Streams" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_Streams" FromRole="SubjectGroupingRelationships" ToRole="Streams" />
+    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_SubjectGroupings" FromRole="SubjectGroupingRelationships" ToRole="SubjectGroupings" />
+    <NavigationProperty Name="Subjects" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_Subjects" FromRole="SubjectGroupingRelationships" ToRole="Subjects" />
+    <NavigationProperty Name="SubMajors" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_SubMajors" FromRole="SubjectGroupingRelationships" ToRole="SubMajors" />
   </EntityType>
   <EntityType Name="SubjectGroupings">
     <Key>
@@ -423,12 +355,11 @@
     <Property Name="ChoiceBlockPresent" Type="Boolean" Nullable="false" />
     <Property Name="StreamPresent" Type="Boolean" Nullable="false" />
     <Property Name="SubMajorPresent" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="ChoiceBlockRelationships" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_SubjectGroupingsCredit" FromRole="SubjectGroupings" ToRole="ChoiceBlockRelationships" />
-    <NavigationProperty Name="CourseRelationships" Relationship="MyCourseDBModel.FK_CourseRelationships_SubjectGroupingsCredit" FromRole="SubjectGroupings" ToRole="CourseRelationships" />
-    <NavigationProperty Name="MajorRelationships" Relationship="MyCourseDBModel.FK_MajorRelationships_SubjectGroupingsCredit" FromRole="SubjectGroupings" ToRole="MajorRelationships" />
-    <NavigationProperty Name="StreamRelationships" Relationship="MyCourseDBModel.FK_StreamRelationships_SubjectGroupingsCredit" FromRole="SubjectGroupings" ToRole="StreamRelationships" />
-    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupings_SubjectGroupingsCredit" FromRole="SubjectGroupings" ToRole="SubjectGroupingRelationships" />
-    <NavigationProperty Name="SubMajorRelationships" Relationship="MyCourseDBModel.FK_SubMajorRelationships_SubjectGroupingsCredit" FromRole="SubjectGroupings" ToRole="SubMajorRelationships" />
+    <NavigationProperty Name="ChoiceBlockRelationships" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_SubjectGroupings" FromRole="SubjectGroupings" ToRole="ChoiceBlockRelationships" />
+    <NavigationProperty Name="CourseRelationships" Relationship="MyCourseDBModel.FK_CourseRelationships_SubjectGroupings" FromRole="SubjectGroupings" ToRole="CourseRelationships" />
+    <NavigationProperty Name="StreamRelationships" Relationship="MyCourseDBModel.FK_StreamRelationships_SubjectGroupings" FromRole="SubjectGroupings" ToRole="StreamRelationships" />
+    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_SubjectGroupings" FromRole="SubjectGroupings" ToRole="SubjectGroupingRelationships" />
+    <NavigationProperty Name="SubMajorRelationships" Relationship="MyCourseDBModel.FK_SubMajorRelationships_SubjectGroupings" FromRole="SubjectGroupings" ToRole="SubMajorRelationships" />
   </EntityType>
   <EntityType Name="Subjects">
     <Key>
@@ -444,11 +375,10 @@
     <Property Name="VersionDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ChoiceBlockRelationships" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_Subjects" FromRole="Subjects" ToRole="ChoiceBlockRelationships" />
     <NavigationProperty Name="CourseRelationships" Relationship="MyCourseDBModel.FK_CourseRelationships_Subjects" FromRole="Subjects" ToRole="CourseRelationships" />
-    <NavigationProperty Name="MajorRelationships" Relationship="MyCourseDBModel.FK_MajorRelationships_Subjects" FromRole="Subjects" ToRole="MajorRelationships" />
     <NavigationProperty Name="RequisiteRelationship" Relationship="MyCourseDBModel.FK_RequisiteRelationship_Subjects" FromRole="Subjects" ToRole="RequisiteRelationship" />
     <NavigationProperty Name="RequisiteRelationship1" Relationship="MyCourseDBModel.FK_RequisiteRelationship_Subjects1" FromRole="Subjects" ToRole="RequisiteRelationship" />
     <NavigationProperty Name="StreamRelationships" Relationship="MyCourseDBModel.FK_StreamRelationships_Subjects" FromRole="Subjects" ToRole="StreamRelationships" />
-    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupings_Subjects" FromRole="Subjects" ToRole="SubjectGroupingRelationships" />
+    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_Subjects" FromRole="Subjects" ToRole="SubjectGroupingRelationships" />
     <NavigationProperty Name="SubMajorRelationships" Relationship="MyCourseDBModel.FK_SubMajorRelationships_Subjects" FromRole="Subjects" ToRole="SubMajorRelationships" />
   </EntityType>
   <EntityType Name="SubjectTypes">
@@ -459,7 +389,6 @@
     <Property Name="SubjectType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Abbreviation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CourseRelationships" Relationship="MyCourseDBModel.FK_CourseRelationships_SubjectTypes" FromRole="SubjectTypes" ToRole="CourseRelationships" />
-    <NavigationProperty Name="MajorRelationships" Relationship="MyCourseDBModel.FK_MajorRelationships_SubjectTypes" FromRole="SubjectTypes" ToRole="MajorRelationships" />
   </EntityType>
   <EntityType Name="SubMajorRelationships">
     <Key>
@@ -474,7 +403,7 @@
     <Property Name="ContentSubMajorID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ChoiceBlocks" Relationship="MyCourseDBModel.FK_SubMajorRelationships_ChoiceBlocks" FromRole="SubMajorRelationships" ToRole="ChoiceBlocks" />
     <NavigationProperty Name="Streams" Relationship="MyCourseDBModel.FK_SubMajorRelationships_Streams" FromRole="SubMajorRelationships" ToRole="Streams" />
-    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_SubMajorRelationships_SubjectGroupingsCredit" FromRole="SubMajorRelationships" ToRole="SubjectGroupings" />
+    <NavigationProperty Name="SubjectGroupings" Relationship="MyCourseDBModel.FK_SubMajorRelationships_SubjectGroupings" FromRole="SubMajorRelationships" ToRole="SubjectGroupings" />
     <NavigationProperty Name="Subjects" Relationship="MyCourseDBModel.FK_SubMajorRelationships_Subjects" FromRole="SubMajorRelationships" ToRole="Subjects" />
     <NavigationProperty Name="SubMajors" Relationship="MyCourseDBModel.FK_SubMajorRelationships_SubMajors" FromRole="SubMajorRelationships" ToRole="SubMajors" />
     <NavigationProperty Name="SubMajors1" Relationship="MyCourseDBModel.FK_SubMajorRelationships_SubMajors1" FromRole="SubMajorRelationships" ToRole="SubMajors" />
@@ -493,9 +422,8 @@
     <Property Name="SubMajorDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ChoiceBlockRelationships" Relationship="MyCourseDBModel.FK_ChoiceBlockRelationships_SubMajors" FromRole="SubMajors" ToRole="ChoiceBlockRelationships" />
     <NavigationProperty Name="CourseRelationships" Relationship="MyCourseDBModel.FK_CourseRelationships_SubMajors" FromRole="SubMajors" ToRole="CourseRelationships" />
-    <NavigationProperty Name="MajorRelationships" Relationship="MyCourseDBModel.FK_MajorRelationships_SubMajors" FromRole="SubMajors" ToRole="MajorRelationships" />
     <NavigationProperty Name="StreamRelationships" Relationship="MyCourseDBModel.FK_StreamRelationships_SubMajors" FromRole="SubMajors" ToRole="StreamRelationships" />
-    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupings_SubMajors" FromRole="SubMajors" ToRole="SubjectGroupingRelationships" />
+    <NavigationProperty Name="SubjectGroupingRelationships" Relationship="MyCourseDBModel.FK_SubjectGroupingRelationships_SubMajors" FromRole="SubMajors" ToRole="SubjectGroupingRelationships" />
     <NavigationProperty Name="SubMajorRelationships" Relationship="MyCourseDBModel.FK_SubMajorRelationships_SubMajors" FromRole="SubMajors" ToRole="SubMajorRelationships" />
     <NavigationProperty Name="SubMajorRelationships1" Relationship="MyCourseDBModel.FK_SubMajorRelationships_SubMajors1" FromRole="SubMajors" ToRole="SubMajorRelationships" />
   </EntityType>
@@ -535,7 +463,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ChoiceBlockRelationships_SubjectGroupingsCredit">
+  <Association Name="FK_ChoiceBlockRelationships_SubjectGroupings">
     <End Type="MyCourseDBModel.SubjectGroupings" Role="SubjectGroupings" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.ChoiceBlockRelationships" Role="ChoiceBlockRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -583,18 +511,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_MajorRelationships_ChoiceBlocks">
-    <End Type="MyCourseDBModel.ChoiceBlocks" Role="ChoiceBlocks" Multiplicity="0..1" />
-    <End Type="MyCourseDBModel.MajorRelationships" Role="MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ChoiceBlocks">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="ChoiceBlockID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_StreamRelationships_ChoiceBlocks">
     <End Type="MyCourseDBModel.ChoiceBlocks" Role="ChoiceBlocks" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.StreamRelationships" Role="StreamRelationships" Multiplicity="*" />
@@ -607,7 +523,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupingRelationships_ChoiceBlocks">
+  <Association Name="FK_SubjectGroupingRelationships_ChoiceBlocks1">
     <End Type="MyCourseDBModel.ChoiceBlocks" Role="ChoiceBlocks" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.SubjectGroupingRelationships" Role="SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -631,30 +547,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_CourseMajorRelationship_Courses">
-    <End Type="MyCourseDBModel.Courses" Role="Courses" Multiplicity="1" />
-    <End Type="MyCourseDBModel.CourseMajorRelationship" Role="CourseMajorRelationship" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Courses">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CourseMajorRelationship">
-        <PropertyRef Name="CourseID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CourseMajorRelationship_Majors">
-    <End Type="MyCourseDBModel.Majors" Role="Majors" Multiplicity="1" />
-    <End Type="MyCourseDBModel.CourseMajorRelationship" Role="CourseMajorRelationship" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Majors">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CourseMajorRelationship">
-        <PropertyRef Name="MajorID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_CourseRelationships_Courses">
     <End Type="MyCourseDBModel.Courses" Role="Courses" Multiplicity="1" />
     <End Type="MyCourseDBModel.CourseRelationships" Role="CourseRelationships" Multiplicity="*" />
@@ -664,6 +556,18 @@
       </Principal>
       <Dependent Role="CourseRelationships">
         <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseRelationships_Majors">
+    <End Type="MyCourseDBModel.Majors" Role="Majors" Multiplicity="0..1" />
+    <End Type="MyCourseDBModel.CourseRelationships" Role="CourseRelationships" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Majors">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CourseRelationships">
+        <PropertyRef Name="MajorID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -679,7 +583,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_CourseRelationships_SubjectGroupingsCredit">
+  <Association Name="FK_CourseRelationships_SubjectGroupings">
     <End Type="MyCourseDBModel.SubjectGroupings" Role="SubjectGroupings" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.CourseRelationships" Role="CourseRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -704,7 +608,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CourseRelationships_SubjectTypes">
-    <End Type="MyCourseDBModel.SubjectTypes" Role="SubjectTypes" Multiplicity="1" />
+    <End Type="MyCourseDBModel.SubjectTypes" Role="SubjectTypes" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.CourseRelationships" Role="CourseRelationships" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="SubjectTypes">
@@ -739,79 +643,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_MajorRelationships_Majors">
-    <End Type="MyCourseDBModel.Majors" Role="Majors" Multiplicity="1" />
-    <End Type="MyCourseDBModel.MajorRelationships" Role="MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Majors">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="MajorID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_Streams">
-    <End Type="MyCourseDBModel.Streams" Role="Streams" Multiplicity="0..1" />
-    <End Type="MyCourseDBModel.MajorRelationships" Role="MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Streams">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="StreamID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_SubjectGroupingsCredit">
-    <End Type="MyCourseDBModel.SubjectGroupings" Role="SubjectGroupings" Multiplicity="0..1" />
-    <End Type="MyCourseDBModel.MajorRelationships" Role="MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SubjectGroupings">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="GroupID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_Subjects">
-    <End Type="MyCourseDBModel.Subjects" Role="Subjects" Multiplicity="0..1" />
-    <End Type="MyCourseDBModel.MajorRelationships" Role="MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Subjects">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="SubjectID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_SubjectTypes">
-    <End Type="MyCourseDBModel.SubjectTypes" Role="SubjectTypes" Multiplicity="1" />
-    <End Type="MyCourseDBModel.MajorRelationships" Role="MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SubjectTypes">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="SubjectTypeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MajorRelationships_SubMajors">
-    <End Type="MyCourseDBModel.SubMajors" Role="SubMajors" Multiplicity="0..1" />
-    <End Type="MyCourseDBModel.MajorRelationships" Role="MajorRelationships" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SubMajors">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MajorRelationships">
-        <PropertyRef Name="SubMajorID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SubjectGroupings_Majors">
+  <Association Name="FK_SubjectGroupingRelationships_Majors">
     <End Type="MyCourseDBModel.Majors" Role="Majors" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.SubjectGroupingRelationships" Role="SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -883,7 +715,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_StreamRelationships_SubjectGroupingsCredit">
+  <Association Name="FK_StreamRelationships_SubjectGroupings">
     <End Type="MyCourseDBModel.SubjectGroupings" Role="SubjectGroupings" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.StreamRelationships" Role="StreamRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -919,7 +751,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupings_Streams">
+  <Association Name="FK_SubjectGroupingRelationships_Streams">
     <End Type="MyCourseDBModel.Streams" Role="Streams" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.SubjectGroupingRelationships" Role="SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -943,7 +775,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupings_SubjectGroupingsCredit">
+  <Association Name="FK_SubjectGroupingRelationships_SubjectGroupings">
     <End Type="MyCourseDBModel.SubjectGroupings" Role="SubjectGroupings" Multiplicity="1" />
     <End Type="MyCourseDBModel.SubjectGroupingRelationships" Role="SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -955,7 +787,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupings_Subjects">
+  <Association Name="FK_SubjectGroupingRelationships_Subjects">
     <End Type="MyCourseDBModel.Subjects" Role="Subjects" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.SubjectGroupingRelationships" Role="SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -967,7 +799,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubjectGroupings_SubMajors">
+  <Association Name="FK_SubjectGroupingRelationships_SubMajors">
     <End Type="MyCourseDBModel.SubMajors" Role="SubMajors" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.SubjectGroupingRelationships" Role="SubjectGroupingRelationships" Multiplicity="*" />
     <ReferentialConstraint>
@@ -979,7 +811,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubMajorRelationships_SubjectGroupingsCredit">
+  <Association Name="FK_SubMajorRelationships_SubjectGroupings">
     <End Type="MyCourseDBModel.SubjectGroupings" Role="SubjectGroupings" Multiplicity="0..1" />
     <End Type="MyCourseDBModel.SubMajorRelationships" Role="SubMajorRelationships" Multiplicity="*" />
     <ReferentialConstraint>

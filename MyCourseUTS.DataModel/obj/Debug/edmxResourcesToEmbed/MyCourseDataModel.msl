@@ -28,36 +28,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CourseMajorRelationship">
-      <EntityTypeMapping TypeName="MyCourseDBModel.CourseMajorRelationship">
-        <MappingFragment StoreEntitySet="CourseMajorRelationship">
-          <ScalarProperty Name="MajorID" ColumnName="MajorID" />
-          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="CourseRelationships">
       <EntityTypeMapping TypeName="MyCourseDBModel.CourseRelationships">
         <MappingFragment StoreEntitySet="CourseRelationships">
-          <ScalarProperty Name="SubMajorID" ColumnName="SubMajorID" />
-          <ScalarProperty Name="StreamID" ColumnName="StreamID" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="HasTemplate" ColumnName="HasTemplate" />
           <ScalarProperty Name="Year" ColumnName="Year" />
           <ScalarProperty Name="Stage" ColumnName="Stage" />
           <ScalarProperty Name="SubjectTypeID" ColumnName="SubjectTypeID" />
           <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="SubMajorID" ColumnName="SubMajorID" />
           <ScalarProperty Name="ChoiceBlockID" ColumnName="ChoiceBlockID" />
+          <ScalarProperty Name="StreamID" ColumnName="StreamID" />
           <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="MajorID" ColumnName="MajorID" />
           <ScalarProperty Name="CourseID" ColumnName="CourseID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Courses">
       <EntityTypeMapping TypeName="MyCourseDBModel.Courses">
         <MappingFragment StoreEntitySet="Courses">
-          <ScalarProperty Name="HasMajor" ColumnName="HasMajor" />
-          <ScalarProperty Name="HasTemplate" ColumnName="HasTemplate" />
           <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
           <ScalarProperty Name="CourseTypeID" ColumnName="CourseTypeID" />
           <ScalarProperty Name="Stages" ColumnName="Stages" />
@@ -81,28 +73,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MajorRelationships">
-      <EntityTypeMapping TypeName="MyCourseDBModel.MajorRelationships">
-        <MappingFragment StoreEntitySet="MajorRelationships">
-          <ScalarProperty Name="SubMajorID" ColumnName="SubMajorID" />
-          <ScalarProperty Name="Year" ColumnName="Year" />
-          <ScalarProperty Name="Stage" ColumnName="Stage" />
-          <ScalarProperty Name="SubjectTypeID" ColumnName="SubjectTypeID" />
-          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-          <ScalarProperty Name="ChoiceBlockID" ColumnName="ChoiceBlockID" />
-          <ScalarProperty Name="StreamID" ColumnName="StreamID" />
-          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
-          <ScalarProperty Name="MajorID" ColumnName="MajorID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Majors">
       <EntityTypeMapping TypeName="MyCourseDBModel.Majors">
         <MappingFragment StoreEntitySet="Majors">
+          <ScalarProperty Name="Stages" ColumnName="Stages" />
           <ScalarProperty Name="VersionDescription" ColumnName="VersionDescription" />
           <ScalarProperty Name="MajorDescription" ColumnName="MajorDescription" />
-          <ScalarProperty Name="HasTemplate" ColumnName="HasTemplate" />
           <ScalarProperty Name="Active" ColumnName="Active" />
           <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
           <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />

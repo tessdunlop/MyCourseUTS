@@ -8,41 +8,37 @@
     <div id="container" style="padding: 0% 10% 0% 10%;">
         <br />
         <br />
+         <div id="preview" class="row"></div>
+
         <div class="row">
             <div class="col-md">
-                <div class="btn-group btn-group-toggle" data-toggle="buttons" id="menuTabs">
-                    <label class="btn" style="background-color: #2478fc; color: white" id="course">
-                        <input type="radio" name="course" id="btnCourse" checked onclick="handleCourse();" />
-                        Course
-                   
-                    </label>
-                    <label class="btn" style="background-color: lightskyblue" id="major">
-                        <input type="radio" name="major" id="btnMajor" onclick="handleMajor();" />
-                        Major
-                    </label>
-                    <label class="btn" style="background-color: lightskyblue" id="submajor">
-                        <input type="radio" name="major" id="btnSubMajor" onclick="handleSubMajor();" />
-                        Sub-Major
-                   
-                    </label>
-                    <label class="btn" style="background-color: lightskyblue" id="stream">
-                        <input type="radio" name="stream" id="btnStream" onclick="handleStream();" />
-                        Stream                   
-                   
-                    </label>
-                    <label class="btn" style="background-color: lightskyblue" id="choiceblock">
-                        <input type="radio" name="choiceblock" id="btnChoiceBlock" onclick="handleChoiceBlock();" />
-                        Choice Block
-                   
-                    </label>
-                    <label class="btn" style="background-color: lightskyblue" id="subject">
-                        <input type="radio" name="subject" id="btnSubject" onclick="handleSubject();" />
-                        Subject  
-                   
-                    </label>
 
-                </div>
+               
+               <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a id="course" class="nav-link active" data-toggle="pill" href="#" onclick="handleCourse();">Course</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="major" class="nav-link" data-toggle="pill" href="#" onclick="handleMajor();">Major</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="submajor" class="nav-link" data-toggle="pill" href="#" onclick="handleSubMajor();">Sub-Major</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="stream" class="nav-link" data-toggle="pill" href="#" onclick="handleStream();">Stream</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="choiceblock" class="nav-link" data-toggle="pill" href="#" onclick="handleChoiceBlock();">Choice Block</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="subject" class="nav-link" data-toggle="pill" href="#" onclick="handleSubject();">Subject</a>
+                    </li>
+                </ul>
+
             </div>
+
+        </div>
+        <div class="row">
             <div class="col-md" style="text-align: right">
                 <h1 style="text-shadow: 1px 1px 1px #2478fc; color: lightskyblue; font-size: 50px">UTS:my<b>Course</b></h1>
             </div>
@@ -71,7 +67,7 @@
         <div id="addCourseFormDiv" style="display: none">
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Course Name</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelCourseName">Course Name</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="courseName" class="form-control" style="width: 60%;" />
@@ -81,7 +77,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Course Identification</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelCourseId">Course Identification</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="courseId" class="form-control" style="width: 60%;" />
@@ -110,7 +106,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Course Abbreviation</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelCourseAbbreviation">Course Abbreviation</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="courseAbb" class="form-control" style="width: 60%;" />
@@ -130,7 +126,7 @@
             </div>
             <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Number of Years</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelCourseYears">Number of Years</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="courseYears" class="form-control" style="width: 60%;" oninput="checkYearValue(this.value);" />
@@ -140,7 +136,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Number of Stages</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelCourseStages">Number of Stages</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="courseStages" class="form-control" style="width: 60%;" oninput="checkStageValue(this.value);" />
@@ -150,7 +146,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Credit Points</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelCourseCredit">Credit Points</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="courseCredit" class="form-control" style="width: 60%;" />
@@ -160,10 +156,10 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Version</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelCourseVersion">Version</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
-                    <input type="text" id="courseVersion" class="form-control" style="width: 60%;" />
+                    <input type="number" id="courseVersion" class="form-control" style="width: 60%;" />
                 </div>
                 <br />
                 <br />
@@ -220,7 +216,7 @@
         <div id="addMajorFormDiv" style="display: none">
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Major Name</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelMajorName">Major Name</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="majorName" class="form-control" style="width: 60%;" />
@@ -230,7 +226,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Major Identification</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelMajorId">Major Identification</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="majorId" class="form-control" style="width: 60%;" />
@@ -240,7 +236,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Major Abbreviation</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelMajorAbbreviation">Major Abbreviation</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="majorAbb" class="form-control" style="width: 60%;" />
@@ -260,7 +256,7 @@
             </div>
             <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Number of Stages</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelMajorStages">Number of Stages</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="majorStages" class="form-control" style="width: 60%;" oninput="checkStageValue(this.value);" />
@@ -270,7 +266,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Credit Points</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelMajorCredit">Credit Points</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="majorCredit" class="form-control" style="width: 60%;" />
@@ -280,10 +276,10 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Version</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelMajorVersion">Version</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
-                    <input type="text" id="majorVersion" class="form-control" style="width: 60%;" />
+                    <input type="number" id="majorVersion" class="form-control" style="width: 60%;" />
                 </div>
                 <br />
                 <br />
@@ -355,7 +351,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p id="streamNameTitle"><b>Stream Name</b><b style="color: red; font-size: large"> *</b></p>
+                    <p id="labelStreamName"><b>Stream Name</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="streamName" class="form-control" style="width: 60%;" />
@@ -365,7 +361,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p id="streamIDTitle"><b>Stream Identification</b><b style="color: red; font-size: large"> *</b></p>
+                    <p id="labelStreamId"><b>Stream Identification</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="streamId" class="form-control" style="width: 60%;" />
@@ -375,7 +371,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p id="streamAbbreviationTitle"><b>Stream Abbreviation</b><b style="color: red; font-size: large"> *</b></p>
+                    <p id="labelStreamAbbreviation"><b>Stream Abbreviation</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="streamAbb" class="form-control" style="width: 60%;" />
@@ -404,7 +400,7 @@
             </div>
             <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Credit Points</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelStreamCredit">Credit Points</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="streamCredit" class="form-control" style="width: 60%;" />
@@ -414,10 +410,10 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Version</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelStreamVersion">Version</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
-                    <input type="text" id="streamVersion" class="form-control" style="width: 60%;" />
+                    <input type="number" id="streamVersion" class="form-control" style="width: 60%;" />
                 </div>
                 <br />
                 <br />
@@ -451,7 +447,7 @@
         <div id="addSubjectFormDiv" style="display: none">
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Subject Name</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelSubjectName">Subject Name</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="subjectName" class="form-control" style="width: 60%;" />
@@ -461,7 +457,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Subject Identification</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelSubjectId">Subject Identification</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="subjectId" class="form-control" style="width: 60%;" />
@@ -471,7 +467,7 @@
             </div>
             <div class="row">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Subject Abbreviation</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelSubjectAbbreviation">Subject Abbreviation</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="text" id="subjectAbb" class="form-control" style="width: 60%;" />
@@ -491,7 +487,7 @@
             </div>
             <div class="row" style="padding-top: 8px">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Credit Points</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelSubjectCredit">Credit Points</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
                     <input type="number" id="subjectCredit" class="form-control" style="width: 60%;" />
@@ -501,10 +497,10 @@
             </div>
             <div class="row" style="padding-top: 3px;">
                 <div class="col-sm" style="text-align: right">
-                    <p><b>Version</b><b style="color: red; font-size: large"> *</b></p>
+                    <p><b id="labelSubjectVersion">Version</b><b style="color: red; font-size: large"> *</b></p>
                 </div>
                 <div class="col-sm">
-                    <input type="text" id="subjectVersion" class="form-control" style="width: 60%;" />
+                    <input type="number" id="subjectVersion" class="form-control" style="width: 60%;" />
                 </div>
                 <br />
                 <br />
@@ -573,7 +569,7 @@
         <br />
 
 
-<%--                        <button type="button" class="btn btn-large btn-primary" data-toggle="confirmation"
+        <%--                        <button type="button" class="btn btn-large btn-primary" data-toggle="confirmation"
                     data-btn-ok-label="Continue" data-btn-ok-class="btn-success"
                     data-btn-ok-icon-class="material-icons" data-btn-ok-icon-content="check"
                     data-btn-cancel-label="Stoooop!" data-btn-cancel-class="btn-danger"
@@ -604,4 +600,3 @@
     </div>
 
 </asp:Content>
-
