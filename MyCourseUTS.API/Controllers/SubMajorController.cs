@@ -86,7 +86,16 @@ namespace MyCourseUTS.API.Controllers
             return listofSubMajor;
         }
 
-
+        //http://mycourseuts.azurewebsites.net/services/api/submajor/getsubmajorrelationship?submajorID=SMJ02015
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<SubMajorRelationships> GetDataModelSubMajorRelationship(string subMajorID)
+        {
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubMajorRelationships.Include("Subjects").Include("SubMajors").Include("Streams").Include("ChoiceBlocks").Include("SubjectGroupings")
+                        where c.SubMajorID.Equals(subMajorID)
+                        select c;
+          return query.ToList();
+        }
 
 
 

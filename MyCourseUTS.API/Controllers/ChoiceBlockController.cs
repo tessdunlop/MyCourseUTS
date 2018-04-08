@@ -86,6 +86,17 @@ namespace MyCourseUTS.API.Controllers
             return listofChoiceBlock;
         }
 
+        //http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblockrelationship?choiceblockid=CBK90009
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<ChoiceBlockRelationships> GetDataModelChoiceBlockRelationship(string choiceBlockID)
+        {
+            var context = new MyCourseDBEntities();
+            var query = from c in context.ChoiceBlockRelationships.Include("Subjects").Include("SubMajors").Include("Streams").Include("ChoiceBlocks").Include("SubjectGroupings")
+                        where c.ChoiceBlockID.Equals(choiceBlockID)
+                        select c;
+            return query.ToList();
+        }
+
 
 
 

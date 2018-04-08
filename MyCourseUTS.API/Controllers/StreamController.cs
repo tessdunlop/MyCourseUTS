@@ -86,6 +86,17 @@ namespace MyCourseUTS.API.Controllers
             return listofStream;
         }
 
+        //http://mycourseuts.azurewebsites.net/services/api/stream/getstreamrelationship?streamID=STM90068
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<StreamRelationships> GetDataModelStreamRelationship(string streamID)
+        {
+            var context = new MyCourseDBEntities();
+            var query = from c in context.StreamRelationships.Include("Subjects").Include("SubMajors").Include("Streams").Include("ChoiceBlocks").Include("SubjectGroupings")
+                        where c.StreamID.Equals(streamID)
+                        select c;
+            return query.ToList();
+        }
+
 
 
 

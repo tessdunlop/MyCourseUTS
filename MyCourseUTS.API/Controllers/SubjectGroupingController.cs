@@ -46,6 +46,8 @@ namespace MyCourseUTS.API.Controllers
             return subjectGroup;
         }
 
+
+
         //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/GetSubjectGroupings?subjectgroupingID=4
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubjectGrouping> GetSubjectGroupings(string subjectGroupingID)
@@ -81,6 +83,17 @@ namespace MyCourseUTS.API.Controllers
                 listofSubjectGroup.Add(EntityMappingManager.MapSubjectGroupingRelationshipContent(c));
             }
             return listofSubjectGroup;
+        }
+
+        //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/GetSubjectGroupingRelationship?subjectgroupingID=100
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<DataModel.SubjectGroupingRelationships> GetDataModelSubjectGroupingRelationship(string subjectGroupingID)
+        {
+            var context = new MyCourseDBEntities();
+            var query = from c in context.SubjectGroupingRelationships.Include("Subjects").Include("ChoiceBlocks").Include("SubjectGroupings").Include("Majors").Include("Streams").Include("SubMajors")
+                        where c.GroupID.ToString().Equals(subjectGroupingID)
+                        select c;
+            return query.ToList();
         }
 
 

@@ -63,6 +63,16 @@ namespace MyCourseUTS.API.Controllers
             return listOfRequisites;
         }
 
+        //http://mycourseuts.azurewebsites.net/services/api/subject/getsubjectrequisite?subjectid=13992
+        public List<DataModel.RequisiteRelationship> GetDataModelSubjectRequisite(int subjectID)
+        {
+            var context = new MyCourseDBEntities();
+            var query = from c in context.RequisiteRelationship.Include("RequisiteTypes").Include("Subjects")
+                        where c.SubjectID.Equals(subjectID)
+                        select c;
+            return query.ToList();           
+        }
+
         //http://mycourseuts.azurewebsites.net/services/api/subject/getsubjects?value=139
         public List<Subject> GetSubjects(string value)
         {
