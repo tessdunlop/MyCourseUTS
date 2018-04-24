@@ -245,6 +245,24 @@
   <ItemGroup>
     <Folder Include="Scripts\bootstrap4\fonts\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyCourseUTS.API\MyCourseUTS.API.csproj">
+      <Project>{a556722a-502d-4e98-8577-3cba575dffcd}</Project>
+      <Name>MyCourseUTS.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyCourseUTS.DataModel\MyCourseUTS.DataModel.csproj">
+      <Project>{0afeba99-9c57-445e-964d-46ea0984abb6}</Project>
+      <Name>MyCourseUTS.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyCourseUTS.Entity\MyCourseUTS.Entity.csproj">
+      <Project>{da69c258-4108-44f5-93ac-5742e2844cb8}</Project>
+      <Name>MyCourseUTS.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyCourseUTS.Manager\MyCourseUTS.Manager.csproj">
+      <Project>{ca4db6e8-62ad-47ed-9dac-d27ee5c16373}</Project>
+      <Name>MyCourseUTS.Manager</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
