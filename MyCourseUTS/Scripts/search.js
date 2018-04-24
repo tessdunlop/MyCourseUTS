@@ -797,21 +797,23 @@ function generatePDF(courseID, majorID) {
     else {
         url = "http://mycourseuts.azurewebsites.net/Services/api/pdf/getpdf?courseID=" + courseID + "&majorID=" + majorID;
     }
-    $.ajax({
-        url: url,
-        type: 'GET',
-        success: function (response) {
-            console.log("template generated");
-        },
-        error: function (xhr, status, error) {
-            console.log(xhr);
-            console.log(status);
-            console.log(error);
+    window.open(url);
+    //$.ajax({
+    //    url: url,
+    //    type: 'GET',
+    //    success: function (response) {
+    //        console.log(response);
+    //        console.log("template generated");
+    //    },
+    //    error: function (xhr, status, error) {
+    //        console.log(xhr);
+    //        console.log(status);
+    //        console.log(error);
 
 
-            alert("There was an issue generating pdf");
-        }
-    });
+    //        alert("There was an issue generating pdf");
+    //    }
+    //});
 }
 
 
@@ -996,51 +998,51 @@ function hoverOn(e, item, id) {
 
         if (type == "SMJ") {
             data = getSubMajorRelationship(id);
-            content += "Contents of Sub-Major:</u></b></div><br/>";
+            content += "Contents of Sub-Major:</u></b></div><br/><ul>";
         }
         else if (type == "STM") {
             data = getStreamRelationship(id);
-            content += "Contents of Stream:</u></b></div><br/>";
+            content += "Contents of Stream:</u></b></div><br/<ul>>";
         }
         else if (type == "CBK") {
             data = getChoiceBlockRelationship(id);
-            content += "Contents of Choice Block:</u></b></div><br/>";
+            content += "Contents of Choice Block:</u></b></div><br/><ul>";
         }
         else if (id.length < 4) {
             data = getSubjectGroupingRelationship(id);
-            content += "Contents of Choice:</u></b></div><br/>";
+            content += "Contents of Choice:</u></b></div><br/><ul>";
         }
         else {
             data = getSubjectRequisites(id);
-            content += "Subject Pre-Requisites:</u></b></div><br/>";
+            content += "Subject Pre-Requisites:</u></b></div><br/><ul>";
         }
 
 
         for (var i = 0; i < data.length; i++) {
             if (data[i].ContentStream != null) {
-                content += "<div>" + data[i].ContentStream.Name + " - " + data[i].ContentStream.ID + "</div>";
+                content += "<div><li>" + data[i].ContentStream.Name + " - " + data[i].ContentStream.ID + "</li></div>";
             }
             if (data[i].ContentSubMajor != null) {
-                content += "<div>" + data[i].ContentSubMajor.Name + " - " + data[i].ContentSubMajor.ID + "</div>";
+                content += "<div><li>" + data[i].ContentSubMajor.Name + " - " + data[i].ContentSubMajor.ID + "</li></div>";
             }
             if (data[i].ContentChoiceBlock != null) {
-                content += "<div>" + data[i].ContentChoiceBlock.Name + " - " + data[i].ContentChoiceBlock.ID + "</div>";
+                content += "<div><li>" + data[i].ContentChoiceBlock.Name + " - " + data[i].ContentChoiceBlock.ID + "</li></div>";
             }
             if (data[i].ContentSubjectGrouping != null) {
                 if (data[i].ContentSubjectGrouping.ID != id) {
                     var grouping = getSubjectGroupingRelationship(data[i].ContentSubjectGrouping.ID);
                     for (var x = 0; x < grouping.length; x++) {
                         if (grouping[x].ContentStream != null) {
-                            content += "<div>" + grouping[x].ContentStream.Name + " - " + grouping[x].ContentStream.ID + "</div>";
+                            content += "<div><li>" + grouping[x].ContentStream.Name + " - " + grouping[x].ContentStream.ID + "</li></div>";
                         }
                         else if (grouping[x].ContentSubMajor != null) {
-                            content += "<div>" + grouping[x].ContentSubMajor.Name + " - " + grouping[x].ContentSubMajor.ID + "</div>";
+                            content += "<div><li>" + grouping[x].ContentSubMajor.Name + " - " + grouping[x].ContentSubMajor.ID + "</li></div>";
                         }
                         else if (grouping[x].ContentChoiceBlock != null) {
-                            content += "<div>" + grouping[x].ContentChoiceBlock.Name + " - " + grouping[x].ContentChoiceBlock.ID + "</div>";
+                            content += "<div><li>" + grouping[x].ContentChoiceBlock.Name + " - " + grouping[x].ContentChoiceBlock.ID + "</li></div>";
                         }
                         else if (grouping[x].Subject != null) {
-                            content += "<div>" + grouping[x].Subject.Name + " - " + grouping[x].Subject.ID + "</div>";
+                            content += "<div><li>" + grouping[x].Subject.Name + " - " + grouping[x].Subject.ID + "</li></div>";
                         }
                     }
                 }
@@ -1048,18 +1050,18 @@ function hoverOn(e, item, id) {
             if (data[i].Subject != null) {
                 if (data[i].Requisite != null) {
                     if (data[i].RequisiteType.ID == 1) {//Prereqs only
-                        content += "<div>" + data[i].Requisite.Name + " - " + data[i].Requisite.ID + "</div><br/>";
+                        content += "<div><li>" + data[i].Requisite.Name + " - " + data[i].Requisite.ID + "</li></div><br/>";
                     }
                 }
                 else {
-                    content += "<div>" + data[i].Subject.Name + " - " + data[i].Subject.ID + "</div><br/>";
+                    content += "<div><li>" + data[i].Subject.Name + " - " + data[i].Subject.ID + "</li></div><br/>";
                 }
             }
         }
-        //content += "</div>";
+        content += "</ul>";
 
         var compareStart = "<div id='hover' style='text-align: center;'><b><u>";
-        var compareEnd = ":</u></b></div><br/>";
+        var compareEnd = ":</u></b></div><br/><ul></ul>";
 
         if (!(content == compareStart + "Contents of Sub-Major" + compareEnd || content == compareStart + "Contents of Choice Block" + compareEnd || content == compareStart + "Contents of Stream" + compareEnd || content == compareStart + "Contents of Choice" + compareEnd || content == compareStart + "Subject Pre-Requisites" + compareEnd)) {
             var preview = document.getElementById("preview");
@@ -2451,7 +2453,7 @@ function refreshTemplate() {
         }
 
         var y = 0;
-        accordion.innerHTML += "<button id='button" + y + "' type='button' style='background-color:lightskyblue; color: black' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + selectedData.ID + " - " + selectedData.Name + "</button><div id='" + y + "' class=' w3-hide'><div id='input" + selectedData.ID + "'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white'><i class='fa fa-plus'></i></button ></div></div></div><div class='row' id='body" + y + "'></div><br/><p style='text-align:right;'>Last Updated: " + updated + "</p><br/><button id='" + selectedData.ID + "' type='button' class='btn' style='float: right;' onclick='downloadPDF(this.id)'>Download PDF</button></div>";
+        accordion.innerHTML += "<button id='button" + y + "' type='button' style='background-color:lightskyblue; color: black' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + selectedData.ID + " - " + selectedData.Name + "</button><div id='" + y + "' class=' w3-hide'><div id='input" + selectedData.ID + "'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white'><i class='fa fa-plus'></i></button ></div></div></div><div class='row' id='body" + y + "'></div><br/><p style='text-align:right;'>Last Updated: " + updated + "</p><br/><button id='" + selectedData.ID + "' type='button' class='btn' style='float: right;' onclick='generatePDF(\"" + selectedData.ID + "\")'>Download PDF</button></div>";
         populateSubjectTypeDropdown(y);
         var space = document.getElementById("body" + y);
         for (var x = 1; x < totalStages + 1; x++) {

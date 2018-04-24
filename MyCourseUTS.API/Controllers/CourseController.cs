@@ -184,7 +184,8 @@ namespace MyCourseUTS.API.Controllers
                         CourseRelationships newRow = new CourseRelationships();
                         newRow.CourseID = rel.Course.ID;
                         newRow.DateUpdated = DateTime.Now;
-                        newRow.HasTemplate = rel.HasTemplate;
+                        bool template = false;
+                        //newRow.HasTemplate = rel.HasTemplate;
                         if (rel.Stage != null)
                         {
                             newRow.Stage = rel.Stage;
@@ -196,6 +197,7 @@ namespace MyCourseUTS.API.Controllers
                         if (rel.SubjectType != null)
                         {
                             newRow.SubjectTypeID = rel.SubjectType.ID;
+                            template = true;
                         }
 
                         if (rel.Subject != null)
@@ -222,6 +224,7 @@ namespace MyCourseUTS.API.Controllers
                         {
                             newRow.MajorID = rel.Major.ID;
                         }
+                        newRow.HasTemplate = template;
 
                         context.CourseRelationships.Add(newRow);
                         context.SaveChanges();

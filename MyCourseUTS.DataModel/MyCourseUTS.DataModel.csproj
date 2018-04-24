@@ -31,6 +31,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>DataModel.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Carbon.Data.Protection, Version=0.16.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Carbon.Data.Protection.0.16.0\lib\netstandard2.0\Carbon.Data.Protection.dll</HintPath>
@@ -171,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="DataModel.snk" />
     <None Include="MyCourseDataModel.edmx.diagram">
       <DependentUpon>MyCourseDataModel.edmx</DependentUpon>
     </None>

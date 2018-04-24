@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <%-- <div class="container" id="container" style=" background-color:pink">--%>
-    <div id="container" style="padding: 0% 10% 0% 10%;">
+    <div id="container">
         <br />
         <br />
          <div id="preview" class="row"></div>
@@ -53,7 +53,7 @@
                 <input id="searchBar" name="searchBar" type="text" class="form-control typeahead" placeholder="Search Courses" oninput="handleSearch(this.value);" />
             </div>
             <div class="col-sm-1" style="text-align: right; width: 20%; padding-bottom: 12px" id="addDiv">
-                <button id="btnAdd" type="button" class="btn btn-lg" onclick="handleAdd();" style="background-color: lightskyblue; color: #2478fc"><i class="fa fa-plus"></i></button>
+                <button id="btnAdd" type="button" class="btn btn-lg" onclick="handleAdd();"><i class="fa fa-plus"></i></button>
             </div>
         </div>
 

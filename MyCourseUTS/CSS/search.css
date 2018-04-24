@@ -1,4 +1,11 @@
-﻿﻿#loading {
+﻿html, body {
+    overflow: auto;
+    min-width: 1600px;
+    padding: 0% 10% 0% 5%;
+}
+
+
+#loading {
     position: absolute;
     width: 80%;
     height: 50%;
@@ -6,15 +13,23 @@
     display: none;
 }
 
+
 #preview {
     position: absolute;
     z-index: 999;
     display: none;
     background-color: whitesmoke;
+    border: 1px solid black;
     border-radius: 20px;
     padding: 10px 10px 0px 10px;
 }
 
+#btnAdd {
+    background-color: lightskyblue; 
+    color: #2478fc;
+    display:block;
+    position:absolute;
+}
 
 
 html {
