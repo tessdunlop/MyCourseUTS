@@ -246,6 +246,10 @@
     <Folder Include="Scripts\bootstrap4\fonts\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyCourseUTS.API\MyCourseUTS.API.csproj">
+      <Project>{a556722a-502d-4e98-8577-3cba575dffcd}</Project>
+      <Name>MyCourseUTS.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyCourseUTS.Entity\MyCourseUTS.Entity.csproj">
       <Project>{da69c258-4108-44f5-93ac-5742e2844cb8}</Project>
       <Name>MyCourseUTS.Entity</Name>
