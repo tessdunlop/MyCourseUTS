@@ -1,7 +1,7 @@
 ﻿html, body {
-    overflow: auto;
-    min-width: 1600px;
-    padding: 0% 10% 0% 5%;
+    /*overflow: auto;*/
+    min-width: 1150px;
+    padding: 0% 4% 0% 4%;
 }
 
 

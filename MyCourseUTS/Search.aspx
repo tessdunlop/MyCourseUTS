@@ -52,7 +52,7 @@
             <div class="col-sm-11" id="searchDiv" style="width: 100%; padding-top: 12px">
                 <input id="searchBar" name="searchBar" type="text" class="form-control typeahead" placeholder="Search Courses" oninput="handleSearch(this.value);" />
             </div>
-            <div class="col-sm-1" style="text-align: right; width: 20%; padding-bottom: 12px" id="addDiv">
+            <div class="col-sm-1" style="text-align: right; width: 20%; padding-bottom: 12px; padding-left: 40px;" id="addDiv">
                 <button id="btnAdd" type="button" class="btn btn-lg" onclick="handleAdd();"><i class="fa fa-plus"></i></button>
             </div>
         </div>

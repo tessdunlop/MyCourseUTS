@@ -2435,7 +2435,7 @@ function refreshTemplate() {
             populateSubjectTypeDropdown(y);
             var space = document.getElementById("body" + y);
             for (var x = 1; x < totalStages + 1; x++) {
-                space.innerHTML += "<div class='col-sm'><u><h4><center>Stage " + x + "</center></h4></u><br /><div id='stageHeading" + x + y + "'></div></div>";
+                space.innerHTML += "<div class='col-sm' style='padding:0'><u><h4><center>Stage " + x + "</center></h4></u><br /><div id='stageHeading" + x + y + "'></div></div>";
             }
         }
         populateExistingTimetable(totalStages, "majors");
@@ -2457,7 +2457,7 @@ function refreshTemplate() {
         populateSubjectTypeDropdown(y);
         var space = document.getElementById("body" + y);
         for (var x = 1; x < totalStages + 1; x++) {
-            space.innerHTML += "<div class='col-sm'><u><h4><center>Stage " + x + "</center></h4></u><br /><div id='stageHeading" + x + y + "'></div></div>";
+            space.innerHTML += "<div class='col-sm' style='padding:0'><u><h4><center>Stage " + x + "</center></h4></u><br /><div id='stageHeading" + x + y + "'></div></div>";
         }
         populateExistingTimetable(totalStages, "course");
     }
@@ -2544,7 +2544,9 @@ function pushToTemplate(x, y, i) {
             colour = mele;
         }
 
-        var string = "<div onmouseover='hoverOn(event, this, \"" + id + "\");' onmouseout='hoverOff();' id='" + template[i].ID + "'onclick='removeSubject(this.id);' ><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>";
+        //var string = "<div onmouseover='hoverOn(event, this, \"" + id + "\");' onmouseout='hoverOff();' id='" + template[i].ID + "'onclick='removeSubject(this.id);' ><div class='row' style='height: 30px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>";
+        var string = "<div onmouseover='hoverOn(event, this, \"" + id + "\");' onmouseout='hoverOff();' id='" + template[i].ID + "'onclick='removeSubject(this.id);'  style='height: 140px; border: thin solid black; font-size:8pt; background-color: " + colour + ";' class='col text-center'><center><p><b>" + name + " </b><br/>" + credit + "<br/>" + id + "<br/>" + type + "</p></center></div>";
+
         column.innerHTML += string;
 
         //$("#item" + id).attr("disabled", "disabled").off("click");
@@ -2758,7 +2760,9 @@ function addToTimetable(majorNumber) {
     for (var i = 1; i < stages + 1; i++) {
         if (stage == i) {
             var column = document.getElementById("stageHeading" + i + majorNumber);
-            var string = "<div id='" + itemID + "' onclick='removeSubject(this.id);' onmouseover='hoverOn(event, this, " + id + ");' onmouseout='hoverOff();'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
+            var string = "<div  id='" + itemID + "' onclick='removeSubject(this.id);' onmouseover='hoverOn(event, this, " + id + ");' onmouseout='hoverOff();'  style='height: 140px;  font-size:8pt; border: thin solid black; background-color: " + colour + ";' class='col text-center'><center><p><b>" + name + " </b><br/>" + credit + "<br/>" + id + "<br/>" + type + "</p></center></div>";
+
+                //"<div id='" + itemID + "' onclick='removeSubject(this.id);' onmouseover='hoverOn(event, this, " + id + ");' onmouseout='hoverOff();' style='font-size:8pt'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
             column.innerHTML += string;
             $("#" + itemID).attr("disabled", "disabled").off("click");
         }
