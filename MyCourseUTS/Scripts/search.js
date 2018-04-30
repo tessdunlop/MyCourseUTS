@@ -647,6 +647,7 @@ function addChoiceBlockRelationship(id, item) {
     });
 }
 function addStreamRelationship(id, item) {
+    console.log(item);
     var url = "http://mycourseuts.azurewebsites.net/Services/api/stream/poststreamrelationship?streamID=" + id;
     $.ajax({
         url: url,
@@ -798,22 +799,6 @@ function generatePDF(courseID, majorID) {
         url = "http://mycourseuts.azurewebsites.net/Services/api/pdf/getpdf?courseID=" + courseID + "&majorID=" + majorID;
     }
     window.open(url);
-    //$.ajax({
-    //    url: url,
-    //    type: 'GET',
-    //    success: function (response) {
-    //        console.log(response);
-    //        console.log("template generated");
-    //    },
-    //    error: function (xhr, status, error) {
-    //        console.log(xhr);
-    //        console.log(status);
-    //        console.log(error);
-
-
-    //        alert("There was an issue generating pdf");
-    //    }
-    //});
 }
 
 
@@ -884,7 +869,7 @@ function clearFields() {
     document.getElementById("courseVersionDescription").value = "";
     document.getElementById("courseDescription").value = "";
     document.getElementById("majorInput").value = "";
-    document.getElementById("majorInput").style.display = "none";
+    //document.getElementById("majorInput").style.display = "none";
 
     //major
     document.getElementById("majorName").value = "";
@@ -913,7 +898,7 @@ function clearFields() {
     document.getElementById("streamStatusActive").checked = true;
     document.getElementById("streamStatusInActive").checked = false;
     document.getElementById("streamSubjectInput").value = "";
-    document.getElementById("streamSubjectInput").style.display = "none";
+   // document.getElementById("streamSubjectInput").style.display = "none";
 
     //subject
     document.getElementById("subjectName").value = "";
@@ -931,9 +916,9 @@ function clearFields() {
     document.getElementById("subjectAntiReqInput").value = "";
     document.getElementById("subjectCoReqInput").value = "";
     document.getElementById("subjectPreReqInput").value = "";
-    document.getElementById("subjectAntiReqInput").style.display = "none";
-    document.getElementById("subjectCoReqInput").style.display = "none";
-    document.getElementById("subjectPreReqInput").style.display = "none";
+    //document.getElementById("subjectAntiReqInput").style.display = "none";
+    //document.getElementById("subjectCoReqInput").style.display = "none";
+    //document.getElementById("subjectPreReqInput").style.display = "none";
 
     document.getElementById("streamSubjectList").innerHTML = "";
     document.getElementById("subjectPreReq").innerHTML = "";
@@ -955,6 +940,7 @@ function clearFields() {
     template = [];
     nextAvailableID = 0;
     relationships = [];
+    majorsList = [];
 
     //handleEdit();
 }
@@ -985,8 +971,15 @@ function hide() {
     document.getElementById('updateButtonDiv').style.display = "none";
     document.getElementById('accordion').style.display = "none";
     //document.getElementById('subjectAddDisable').style.display = "none";
+    document.getElementById("courseViewMode").style.display = "none";
+    document.getElementById("courseEditMode").style.display = "none";
+    document.getElementById("majorViewMode").style.display = "none";
+    document.getElementById("majorEditMode").style.display = "none";
+    document.getElementById("choiceViewMode").style.display = "none";
+    document.getElementById("choiceEditMode").style.display = "none";
+    document.getElementById("subjectViewMode").style.display = "none";
+    document.getElementById("subjectEditMode").style.display = "none";
 }
-
 
 
 function hoverOn(e, item, id) {
@@ -1211,7 +1204,7 @@ function populateStmCbkSmjSubjects(id) {
         data = getChoiceBlockRelationship(id);
         title = "ChoiceBlock";
     }
-    relationships = data;
+    //relationships = data;
 
     var list = document.getElementById("streamSubjectList");
     var searchBar = document.getElementById("streamSubjectInput");
@@ -1379,6 +1372,7 @@ function handlePreRequisiteListPush(term) {
             }));
         },
         select: function (event, ui) {
+            event.preventDefault();
             var a = document.createElement("a");
             var subReq = document.getElementById("subjectPreReq");
             a.setAttribute('id', ui.item.value);
@@ -1396,6 +1390,7 @@ function handlePreRequisiteListPush(term) {
             });
 
             //console.log(relationships);
+            $(this).val('');
         }
 
     });
@@ -1414,6 +1409,7 @@ function handleAntiRequisiteListPush(term) {
             }));
         },
         select: function (event, ui) {
+            event.preventDefault();
             var a = document.createElement("a");
             var subReq = document.getElementById("subjectAntiReq");
             a.setAttribute('id', ui.item.value);
@@ -1431,6 +1427,7 @@ function handleAntiRequisiteListPush(term) {
             });
 
             //console.log(relationships);
+            $(this).val('');
         }
 
     });
@@ -1449,6 +1446,8 @@ function handleCoRequisiteListPush(term) {
             }));
         },
         select: function (event, ui) {
+            event.preventDefault();
+           
             var a = document.createElement("a");
             var subReq = document.getElementById("subjectCoReq");
             a.setAttribute('id', ui.item.value);
@@ -1464,7 +1463,7 @@ function handleCoRequisiteListPush(term) {
                 "Requisite": { "ID": ui.item.value },
                 "RequisiteType": { "ID": 3 }
             });
-
+            $(this).val('');
             //console.log(relationships);
         }
 
@@ -1483,6 +1482,8 @@ function handleStmCbkSmjListPush(term) {
             }));
         },
         select: function (event, ui) {
+            event.preventDefault();
+
             nextAvailableID++;
             var subjectList = document.getElementById("streamSubjectList");
             var a = document.createElement("a");
@@ -1494,86 +1495,196 @@ function handleStmCbkSmjListPush(term) {
             document.getElementById("streamSubjectInput").value = "";
 
             var type = (ui.item.value).toString().substring(0, 3);
-            var title;
             if (selected == "submajor") {
-                title = "SubMajor";
+                if (type == "SMJ") {
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "SubMajor": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": { "ID": ui.item.value },
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": null
+                    });
+                }
+                else if (type == "STM") {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "SubMajor": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": { "ID": ui.item.value }
+                    });
+                }
+                else if (type == "CBK") {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "SubMajor": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": { "ID": ui.item.value },
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": null
+                    });
+                }
+                else if (ui.item.value.length < 4) {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "SubMajor": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": { "ID": ui.item.value },
+                        "ContentStream": null
+                    });
+                }
+                else {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "SubMajor": { "ID": selectedData.ID },
+                        "Subject": { "ID": ui.item.value },
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": null
+                    });
+                }
             }
             else if (selected == "stream") {
-                title = "Stream";
+                if (type == "SMJ") {
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "Stream": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": { "ID": ui.item.value },
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": null
+                    });
+                }
+                else if (type == "STM") {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "Stream": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": { "ID": ui.item.value }
+                    });
+                }
+                else if (type == "CBK") {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "Stream": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": { "ID": ui.item.value },
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": null
+                    });
+                }
+                else if (ui.item.value.length < 4) {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "Stream": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": { "ID": ui.item.value },
+                        "ContentStream": null
+                    });
+                }
+                else {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "Stream": { "ID": selectedData.ID },
+                        "Subject": { "ID": ui.item.value },
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": null
+                    });
+                }
             }
             else if (selected == "choiceblock") {
-                title = "ChoiceBlock";
+                if (type == "SMJ") {
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "ChoiceBlock": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": { "ID": ui.item.value },
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": null
+                    });
+                }
+                else if (type == "STM") {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "ChoiceBlock": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": { "ID": ui.item.value }
+                    });
+                }
+                else if (type == "CBK") {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "ChoiceBlock": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": { "ID": ui.item.value },
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": null
+                    });
+                }
+                else if (ui.item.value.length < 4) {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "ChoiceBlock": { "ID": selectedData.ID },
+                        "Subject": null,
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": { "ID": ui.item.value },
+                        "ContentStream": null
+                    });
+                }
+                else {
+
+                    relationships.push({
+                        "ID": nextAvailableID,
+                        "ChoiceBlock": { "ID": selectedData.ID },
+                        "Subject": { "ID": ui.item.value },
+                        "ContentChoiceBlock": null,
+                        "ContentSubMajor": null,
+                        "ContentSubjectGrouping": null,
+                        "ContentStream": null
+                    });
+                }
             }
 
-            if (type == "SMJ") {
-                relationship.push({
-                    "ID": nextAvailableID,
-                    title: { "ID": selectedData.ID },
-                    "Subject": null,
-                    "ContentChoiceBlock": null,
-                    "ContentSubMajor": { "ID": ui.item.value },
-                    "Stream": null,
-                    "ContentSubjectGrouping": null,
-                    "ContentStream": { "ID": data[i].ContentStream.ID }
-                });
-            }
-            else if (type == "STM") {
-
-                relationship.push({
-                    "ID": nextAvailableID,
-                    title: { "ID": selectedData.ID },
-                    "Subject": null,
-                    "ContentChoiceBlock": null,
-                    "ContentSubMajor": null,
-                    "Stream": { "ID": ui.item.value },
-                    "ContentSubjectGrouping": null,
-                    "ContentStream": { "ID": data[i].ContentStream.ID }
-                });
-            }
-            else if (type == "CBK") {
-
-                relationship.push({
-                    "ID": nextAvailableID,
-                    title: { "ID": selectedData.ID },
-                    "Subject": null,
-                    "ContentChoiceBlock": { "ID": ui.item.value },
-                    "ContentSubMajor": null,
-                    "Stream": null,
-                    "ContentSubjectGrouping": null,
-                    "ContentStream": { "ID": data[i].ContentStream.ID }
-                });
-            }
-            else if (ui.item.value.length < 4) {
-
-                relationship.push({
-                    "ID": nextAvailableID,
-                    title: { "ID": selectedData.ID },
-                    "Subject": null,
-                    "ContentChoiceBlock": null,
-                    "ContentSubMajor": null,
-                    "Stream": null,
-                    "ContentSubjectGrouping": { "ID": ui.item.value },
-                    "ContentStream": { "ID": data[i].ContentStream.ID }
-                });
-            }
-            else {
-
-                relationship.push({
-                    "ID": nextAvailableID,
-                    title: { "ID": selectedData.ID },
-                    "Subject": { "ID": ui.item.value },
-                    "ContentChoiceBlock": null,
-                    "ContentSubMajor": null,
-                    "Stream": null,
-                    "ContentSubjectGrouping": null,
-                    "ContentStream": { "ID": data[i].ContentStream.ID }
-                });
-            }
+            
 
             console.log(relationships);
 
             //need to check if its stm etc
-
+            $(this).val('');
 
         }
     });
@@ -1593,33 +1704,56 @@ function handleMajorListPush(term) {
             }));
         },
         select: function (event, ui) {
-            var exists = 0;
-            for (var x = 0; x < majorsList.length; x++) {
-                if (ui.item.value == majorsList[x].ID) {
-                    exists = 1;
+            event.preventDefault();
+
+            var name = document.getElementById("courseName").value;
+            var id = document.getElementById("courseId").value;
+            var abbreviation = document.getElementById("courseAbb").value;
+            var description = document.getElementById("courseDescription").value;
+            var years = document.getElementById("courseYears").value;
+            var stages = document.getElementById("courseStages").value;
+            var creditPoints = document.getElementById("courseCredit").value;
+            var version = document.getElementById("courseVersion").value;
+            
+            if (checkIfValid("Course", name, id, abbreviation, years, stages, creditPoints, version)) {
+                var exists = 0;
+                for (var x = 0; x < majorsList.length; x++) {
+                    if (ui.item.value == majorsList[x].ID) {
+                        exists = 1;
+                    }
                 }
-            }
-            if (exists == 0) {
-                majorsList.push(getMajor(ui.item.value));
-            }
-            template.push({
-                "ID": ui.item.value,
-                "Course": { "ID": document.getElementById("courseId").value },
-                "Major": { "ID": ui.item.value },
-                "Subject": null,
-                "ChoiceBlock": null,
-                "SubMajor": null,
-                "Stream": null,
-                "SubjectGrouping": null,
-                "SubjectType": null,
-                "Stage": null,
-                "Year": null,
-                "HasTemplate": false
-            });
-            refreshTemplate();
+                if (exists == 0) {
+                    majorsList.push(getMajor(ui.item.value));
+                }
+                template.push({
+                    "ID": ui.item.value,
+                    "Course": { "ID": document.getElementById("courseId").value },
+                    "Major": { "ID": ui.item.value },
+                    "Subject": null,
+                    "ChoiceBlock": null,
+                    "SubMajor": null,
+                    "Stream": null,
+                    "SubjectGrouping": null,
+                    "SubjectType": null,
+                    "Stage": null,
+                    "Year": null,
+                    "HasTemplate": false
+                });
+                refreshTemplate();
+                
             //some refresh to add this to the list
+            }
+            else {
+                alert("Please enter valid Course information before adding a major");
+            }
+
+            //$("#majorInput").val("");
+            //document.getElementById("majorInput").value = "";
+            $(this).val('');
         }
+       
     });
+    
 }
 function removeFromList(id) {
     var listElement = document.getElementById(id);
@@ -1669,20 +1803,25 @@ function handleSearch(term) {
             }));
         },
         select: function (event, ui) {
+            document.getElementById("introViewMode").style.display = "none";
             disableMenuBar(true);
             document.getElementById("addDiv").style.display = "none";
             document.getElementById('searchDiv').style.display = "none";
             document.getElementById("btnSave").disabled = true;
             document.getElementById("btnDelete").disabled = true;
-            document.getElementById('updateButtonDiv').style.display = "block";
+            document.getElementById('updateButtonDiv').style.display = "flex";
             if (selected == "course") {
                 selectedData = getCourse(ui.item.value);
                 handleViewEditCourse(selectedData);
+                document.getElementById("courseViewMode").style.display = "block";
+                document.getElementById("courseEditMode").style.display = "none";
                 //console.log(selectedData);
             }
             else if (selected == "major") {
                 selectedData = getMajor(ui.item.value);
                 handleViewEditMajor(selectedData);
+                document.getElementById("majorViewMode").style.display = "block";
+                document.getElementById("majorEditMode").style.display = "none";
                 //console.log(selectedData);
             }
             else if (selected == "submajor" || selected == "stream" || selected == "choiceblock") {
@@ -1699,11 +1838,15 @@ function handleSearch(term) {
                     //console.log(selectedData);
                 }
                 handleViewEditStreamSubChoice(selectedData);
+                document.getElementById("choiceViewMode").style.display = "block";
+                document.getElementById("choiceEditMode").style.display = "none";
             }
             else if (selected == "subject") {
                 selectedData = getSubject(ui.item.value);
                 handleViewEditSubject(selectedData);
                 //console.log(selectedData);
+                document.getElementById("subjectViewMode").style.display = "block";
+                document.getElementById("subjectEditMode").style.display = "none";
             }
         }
     });
@@ -1748,7 +1891,7 @@ function handleSubjectStageInput(term) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END HANDLES INPUT EVENTS
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////FUNCTIONS TO EDIT/VIEW OBJECTS
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////FUNCTIONS TO EDIT/loaVIEW OBJECTS
 function handleViewEditCourse(data) {
 
     document.getElementById("courseName").value = data.Name;
@@ -1871,7 +2014,7 @@ function handleViewEditStreamSubChoice(data) {
     document.getElementById("streamDescription").readOnly = true;
     document.getElementById("streamStatusActive").disabled = true;
     document.getElementById("streamStatusInActive").disabled = true;
-    document.getElementById("streamSubjectInput").style.display = "none";
+    document.getElementById("streamSubjectInput").readOnly = true;
     populateStmCbkSmjSubjects(data.ID);
 
     document.getElementById('addStreamFormDiv').style.display = "block";
@@ -1949,10 +2092,10 @@ function handleViewEditSubject(data) {
     document.getElementById("subjectDescription").readOnly = true;
     document.getElementById("subjectPreReq").readOnly = true;
     document.getElementById("subjectAntiReq").readOnly = true;
-    document.getElementById("subjectAntiReqInput").style.display = "none";
     document.getElementById("subjectCoReq").readOnly = true;
-    document.getElementById("subjectCoReqInput").style.display = "none";
-    document.getElementById("subjectPreReqInput").style.display = "none";
+    document.getElementById("subjectAntiReqInput").readOnly = "true";
+    document.getElementById("subjectCoReqInput").readOnly = "true";
+    document.getElementById("subjectPreReqInput").readOnly = "true";
 
     document.getElementById('addSubjectFormDiv').style.display = "block";
 }
@@ -2081,29 +2224,37 @@ function handleSubject() {
 //this handles the adding to the form
 function handleAdd() {
     addVisible = true;
+    document.getElementById("introViewMode").style.display = "none";
     document.getElementById("subMajorOption").disabled = false;
     document.getElementById("streamOption").disabled = false;
     document.getElementById("choiceBlockOption").disabled = false;
     //document.getElementById('searchDiv').style.display = "none";
     //document.getElementById('addDiv').style.display = "none";
+    handleEdit(true);
 
     if (selected == "course") {
         handleCourse();
+        document.getElementById("courseEditMode").style.display = "block";
     }
-    else if (selected == "major") {
+    else if (selected == "major") {       
         handleMajor();
+        document.getElementById("majorEditMode").style.display = "block";
     }
-    else if (selected == "stream") {
+    else if (selected == "stream") {     
         handleStream();
+        document.getElementById("choiceEditMode").style.display = "block";
     }
     else if (selected == "submajor") {
         handleSubMajor();
+        document.getElementById("choiceEditMode").style.display = "block";
     }
     else if (selected == "choiceblock") {
         handleChoiceBlock();
+        document.getElementById("choiceEditMode").style.display = "block";
     }
     else if (selected == "subject") {
         handleSubject();
+        document.getElementById("subjectEditMode").style.display = "block";
     }
 }
 //this controls the cancel button, and clears everything back to default
@@ -2122,6 +2273,11 @@ function handleCancel() {
     document.getElementById('updateButtonDiv').style.display = "none";
     document.getElementById('submitButtonDiv').style.display = "none";
     document.getElementById("searchBar").focus();
+
+    document.getElementById("btnEdit").style.display = "block";
+    document.getElementById("btnCancel").style.display = "block";
+    document.getElementById("btnSave").style.display = "none";
+    document.getElementById("btnDelete").style.display = "none";
 
     $("#loading").hide();
 }
@@ -2198,7 +2354,7 @@ function handleSave() {
                         "Active": status, "CreditPoints": creditPoints
                     };
                     addStream(item);
-                    addStreamRelationship(relationships);
+                    addStreamRelationship(selectedData.ID, relationships);
                 }
                 else if (selected == "choiceblock") {
                     var item = {
@@ -2207,7 +2363,7 @@ function handleSave() {
                         "Active": status, "CreditPoints": creditPoints
                     };
                     addChoiceBlock(item);
-                    addChoiceBlockRelationship(relationships);
+                    addChoiceBlockRelationship(selectedData.ID, relationships);
                 }
                 else if (selected == "submajor") {
                     var item = {
@@ -2216,7 +2372,7 @@ function handleSave() {
                         "Active": status, "CreditPoints": creditPoints
                     };
                     addSubMajor(item);
-                    addSubMajorRelationship(relationships);
+                    addSubMajorRelationship(selectedData.ID, relationships);
                 }
                 handleCancel();
             }
@@ -2247,99 +2403,122 @@ function handleSave() {
     }
 }
 //this controls the edit button, and allows the user to make edits to the object
-function handleEdit() {
+function handleEdit(newAddition) {
+    newAddition = newAddition || false; 
+
     document.getElementById("btnEdit").disabled = true;
     edit = true;
-    var preList = document.getElementById("subjectPreReq");
-    var preItems = preList.getElementsByTagName("a");
-    for (var i = 0; i < preItems.length; i++) {
-        $("#" + preItems[i].id).removeClass("disabled");
-    }
-    var antiList = document.getElementById("subjectAntiReq");
-    var antiItems = antiList.getElementsByTagName("a");
-    for (var i = 0; i < antiItems.length; i++) {
-        $("#" + antiItems[i].id).removeClass("disabled");
-    }
-    var CoList = document.getElementById("subjectCoReq");
-    var CoItems = CoList.getElementsByTagName("a");
-    for (var i = 0; i < CoItems.length; i++) {
-        $("#" + CoItems[i].id).removeClass("disabled");
-    }
-    var streamSubjectList = document.getElementById("streamSubjectList");
-    var items = streamSubjectList.getElementsByTagName("a");
-    for (var i = 0; i < items.length; i++) {
-        $("#" + items[i].id).removeClass("disabled");
-    }
 
     document.getElementById("btnSave").disabled = false;
     document.getElementById("btnDelete").disabled = false;
 
-    document.getElementById("courseName").readOnly = false;
-    document.getElementById("courseId").readOnly = false;
-    document.getElementById("courseType").disabled = false;
-    document.getElementById("courseAbb").readOnly = false;
-    document.getElementById("courseYears").readOnly = false;
-    document.getElementById("courseStages").readOnly = false;
-    document.getElementById("courseCredit").readOnly = false;
-    document.getElementById("courseVersion").readOnly = false;
-    document.getElementById("courseVersionDescription").readOnly = false;
-    document.getElementById("courseDescription").readOnly = false;
-    document.getElementById("courseStatusActive").disabled = false;
-    document.getElementById("courseStatusInActive").disabled = false;
-    document.getElementById("majorInput").disabled = false;
-
-
-    document.getElementById("majorName").readOnly = false;
-    document.getElementById("majorId").readOnly = false;
-    document.getElementById("majorAbb").readOnly = false;
-    document.getElementById("majorVersion").readOnly = false;
-    document.getElementById("majorStages").readOnly = false;
-    document.getElementById("majorCredit").readOnly = false;
-    document.getElementById("majorVersionDescription").readOnly = false;
-    document.getElementById("majorDescription").readOnly = false;
-    document.getElementById("majorStatusActive").disabled = false;
-    document.getElementById("majorStatusInActive").disabled = false;
-
-
-    document.getElementById("streamName").readOnly = false;
-    document.getElementById("streamId").readOnly = false;
-    document.getElementById("streamAbb").readOnly = false;
-    document.getElementById("streamVersion").readOnly = false;
-    document.getElementById("streamCredit").readOnly = false;
-    document.getElementById("streamVersionDescription").readOnly = false;
-    document.getElementById("streamDescription").readOnly = false;
-    document.getElementById("streamStatusActive").disabled = false;
-    document.getElementById("streamStatusInActive").disabled = false;
-
-    document.getElementById("subjectName").readOnly = false;
-    document.getElementById("subjectId").readOnly = false;
-    document.getElementById("subjectAbb").readOnly = false;
-    document.getElementById("subjectCredit").readOnly = false;
-    document.getElementById("subjectVersion").readOnly = false;
-    document.getElementById("subjectStatusActive").disabled = false;
-    document.getElementById("subjectStatusInActive").disabled = false;
-    document.getElementById("subjectVersionDescription").readOnly = false;
-    document.getElementById("subjectDescription").readOnly = false;
-    document.getElementById("subjectPreReq").readOnly = false;
-    document.getElementById("subjectAntiReq").readOnly = false;
-    document.getElementById("subjectCoReq").readOnly = false;
-
-    document.getElementById("subjectCoReqInput").style.display = "block";
-    document.getElementById("subjectAntiReqInput").style.display = "block";
-    document.getElementById("subjectPreReqInput").style.display = "block";
-    document.getElementById("majorInput").style.display = "block";
-    document.getElementById("streamSubjectInput").style.display = "block";
+    document.getElementById("btnEdit").style.display = "none";
+    document.getElementById("btnCancel").style.display = "block";
+    document.getElementById("btnSave").style.display = "block";
+    document.getElementById("btnDelete").style.display = "block";
 
     if (selected == "course") {
-        if (majorsList.length != 0) {
-            for (var i = 0; i < majorsList.length; i++) {
-                document.getElementById("input" + majorsList[i].ID).style.display = "block";
-                document.getElementById("remove" + majorsList[i].ID).style.display = "block";
+        document.getElementById("courseName").readOnly = false;
+        document.getElementById("courseId").readOnly = false;
+        document.getElementById("courseType").disabled = false;
+        document.getElementById("courseAbb").readOnly = false;
+        document.getElementById("courseYears").readOnly = false;
+        document.getElementById("courseStages").readOnly = false;
+        document.getElementById("courseCredit").readOnly = false;
+        document.getElementById("courseVersion").readOnly = false;
+        document.getElementById("courseVersionDescription").readOnly = false;
+        document.getElementById("courseDescription").readOnly = false;
+        document.getElementById("courseStatusActive").disabled = false;
+        document.getElementById("courseStatusInActive").disabled = false;
+        document.getElementById("majorInput").disabled = false;
+        document.getElementById("majorInput").style.display = "block";
+        document.getElementById("courseViewMode").style.display = "none";
+        document.getElementById("courseEditMode").style.display = "block";
+
+        if (newAddition == false) {
+            if (majorsList.length != 0) {
+                for (var i = 0; i < majorsList.length; i++) {
+                    document.getElementById("input" + majorsList[i].ID).style.display = "block";
+                    document.getElementById("remove" + majorsList[i].ID).style.display = "block";
+                }
+            }
+            else {
+                document.getElementById("input" + selectedData.ID).style.display = "block";
             }
         }
-        else {
-            document.getElementById("input" + selectedData.ID).style.display = "block";
+    }
+    else if (selected == "major") {
+        document.getElementById("majorViewMode").style.display = "none";
+        document.getElementById("majorEditMode").style.display = "block";
+
+        document.getElementById("majorName").readOnly = false;
+        document.getElementById("majorId").readOnly = false;
+        document.getElementById("majorAbb").readOnly = false;
+        document.getElementById("majorVersion").readOnly = false;
+        document.getElementById("majorStages").readOnly = false;
+        document.getElementById("majorCredit").readOnly = false;
+        document.getElementById("majorVersionDescription").readOnly = false;
+        document.getElementById("majorDescription").readOnly = false;
+        document.getElementById("majorStatusActive").disabled = false;
+        document.getElementById("majorStatusInActive").disabled = false;
+    }
+    else if (selected == "subject") {
+        document.getElementById("subjectViewMode").style.display = "none";
+        document.getElementById("subjectEditMode").style.display = "block";
+
+        var preList = document.getElementById("subjectPreReq");
+        var preItems = preList.getElementsByTagName("a");
+        for (var i = 0; i < preItems.length; i++) {
+            $("#" + preItems[i].id).removeClass("disabled");
         }
+        var antiList = document.getElementById("subjectAntiReq");
+        var antiItems = antiList.getElementsByTagName("a");
+        for (var i = 0; i < antiItems.length; i++) {
+            $("#" + antiItems[i].id).removeClass("disabled");
+        }
+        var CoList = document.getElementById("subjectCoReq");
+        var CoItems = CoList.getElementsByTagName("a");
+        for (var i = 0; i < CoItems.length; i++) {
+            $("#" + CoItems[i].id).removeClass("disabled");
+        }
+
+        document.getElementById("subjectName").readOnly = false;
+        document.getElementById("subjectId").readOnly = false;
+        document.getElementById("subjectAbb").readOnly = false;
+        document.getElementById("subjectCredit").readOnly = false;
+        document.getElementById("subjectVersion").readOnly = false;
+        document.getElementById("subjectStatusActive").disabled = false;
+        document.getElementById("subjectStatusInActive").disabled = false;
+        document.getElementById("subjectVersionDescription").readOnly = false;
+        document.getElementById("subjectDescription").readOnly = false;
+        document.getElementById("subjectPreReq").readOnly = false;
+        document.getElementById("subjectAntiReq").readOnly = false;
+        document.getElementById("subjectCoReq").readOnly = false;
+
+        document.getElementById("subjectCoReqInput").readOnly = false;
+        document.getElementById("subjectAntiReqInput").readOnly = false;
+        document.getElementById("subjectPreReqInput").readOnly = false;
+    }
+    else {
+        document.getElementById("choiceViewMode").style.display = "none";
+        document.getElementById("choiceEditMode").style.display = "block";
+
+        var streamSubjectList = document.getElementById("streamSubjectList");
+        var items = streamSubjectList.getElementsByTagName("a");
+        for (var i = 0; i < items.length; i++) {
+            $("#" + items[i].id).removeClass("disabled");
+        }
+
+        document.getElementById("streamName").readOnly = false;
+        document.getElementById("streamId").readOnly = false;
+        document.getElementById("streamAbb").readOnly = false;
+        document.getElementById("streamVersion").readOnly = false;
+        document.getElementById("streamCredit").readOnly = false;
+        document.getElementById("streamVersionDescription").readOnly = false;
+        document.getElementById("streamDescription").readOnly = false;
+        document.getElementById("streamStatusActive").disabled = false;
+        document.getElementById("streamStatusInActive").disabled = false;
+        document.getElementById("streamSubjectInput").readOnly = false;
     }
 }
 //This deletes an item from the database ie subject, course etc 
@@ -2412,6 +2591,7 @@ function mapCourseRelationships() {
 }
 
 function refreshTemplate() {
+    //document.getElementById("majorInput").value = "";
     var totalStages = +document.getElementById("courseStages").value;
     console.log(template);
     var accordion = document.getElementById("accordion");
@@ -2420,7 +2600,8 @@ function refreshTemplate() {
     var updated;
     if (majorsList.length != 0) {
         for (var y = 0; y < majorsList.length; y++) {
-
+            var name = majorsList[y].Name;
+            var id = majorsList[y].ID
             for (var x = 0; x < template.length; x++) {
                 if (majorsList[y].ID == template[x].Major.ID) {
                     updated = template[x].DateUpdated;
@@ -2430,8 +2611,13 @@ function refreshTemplate() {
             if (updated == null) {
                 updated = "now";
             }
-
-            accordion.innerHTML += "<button id='button" + y + "' type='button' style='background-color:lightskyblue; color: black' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + majorsList[y].ID + " - " + majorsList[y].Name + "</button><div id='" + y + "' class=' w3-hide'><div id='input" + majorsList[y].ID + "'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white'><i class='fa fa-plus'></i></button ></div></div></div><div class='row' id='body" + y + "'></div><br/><p style='text-align:right;'>Last Updated: " + updated + "</p><br/><center><button id='remove" + majorsList[y].ID + "' style='text-align:center;' class='btn btn-danger' type='button' onclick='removeMajor(this.id);'>Remove " + majorsList[y].Name + " from " + selectedData.Name + "</button></center><br/><button id='" + majorsList[y].ID + "' type='button' class='btn' style='float: right;' onclick='generatePDF(\"" + selectedData.ID + "\" , \"" + majorsList[y].ID + "\")'>Download PDF</button><br/><br/></div>";
+            if (selectedData == null) {
+                accordion.innerHTML += "<button id='button" + y + "' type='button' style='background-color:lightskyblue; color: black' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + id + " - " + name + "</button><div id='" + y + "' class=' w3-hide'><div id='input" + id + "'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white'><i class='fa fa-plus'></i></button ></div></div></div><div class='row' id='body" + y + "'></div><br/><p style='text-align:right;'>Last Updated: " + updated + "</p><br/><center><button id='remove" + id + "' style='text-align:center;' class='btn btn-danger' type='button' onclick='removeMajor(this.id);'>Remove " + name + " from " + document.getElementById("courseName").value + "</button></center><br/><br/></div>";
+            }
+            else {
+                accordion.innerHTML += "<button id='button" + y + "' type='button' style='background-color:lightskyblue; color: black' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + id + " - " + name + "</button><div id='" + y + "' class=' w3-hide'><div id='input" + id + "'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white'><i class='fa fa-plus'></i></button ></div></div></div><div class='row' id='body" + y + "'></div><br/><p style='text-align:right;'>Last Updated: " + updated + "</p><br/><center><button id='remove" + id + "' style='text-align:center;' class='btn btn-danger' type='button' onclick='removeMajor(this.id);'>Remove " + name + " from " + selectedData.Name + "</button></center><br/><button id='" + id + "' type='button' class='btn' style='float: right;' onclick='generatePDF(\"" + selectedData.ID + "\" , \"" + id + "\")'>Download PDF</button><br/><br/></div>";
+            }
+            //accordion.innerHTML += "<button id='button" + y + "' type='button' style='background-color:lightskyblue; color: black' onclick='showAccordion(" + y + ")' class='w3-btn w3-block'>" + majorsList[y].ID + " - " + majorsList[y].Name + "</button><div id='" + y + "' class=' w3-hide'><div id='input" + majorsList[y].ID + "'><div class='row' ><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject or Group</b></p></div> <div class='col' style='padding-top: 12px'> <input id='subjectAddInput" + y + "' name='searchBar' type='text' class='form-control typeahead' placeholder='Subject, CBK, SMJ or STM' oninput='handleSubjectInput(this.value, " + y + ");' style='width: 100%;' /></div> <div class='col' style='text-align: center;'></div> </div > <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Subject Type</b></p></div><div class='col' style='padding-top: 12px'><select id='subjectTypeDropDown" + y + "' class='form-control' style='width: 100%; height: 100%'> </select> </div> <div class='col' style='text-align: center;'></div></div> <div class='row'><div class='col' style='text-align: right; padding-top: 12px'><p><b>Stage</b></p></div> <div class='col' style='padding-top: 12px''><input id='subjectStageInput" + y + "' name='searchBar' type='number' class='form-control typeahead' style='width: 100%;' oninput='handleSubjectStageInput(this.value)' /> </div> <div class='col' style='text-align: left; padding-bottom: 30px'><button id='btnTimetableAdd' type='button' class='btn btn-lg' onclick='addToTimetable(" + y + ");' style='background-color: green; color: white'><i class='fa fa-plus'></i></button ></div></div></div><div class='row' id='body" + y + "'></div><br/><p style='text-align:right;'>Last Updated: " + updated + "</p><br/><center><button id='remove" + majorsList[y].ID + "' style='text-align:center;' class='btn btn-danger' type='button' onclick='removeMajor(this.id);'>Remove " + majorsList[y].Name + " from " + selectedData.Name + "</button></center><br/><button id='" + majorsList[y].ID + "' type='button' class='btn' style='float: right;' onclick='generatePDF(\"" + selectedData.ID + "\" , \"" + majorsList[y].ID + "\")'>Download PDF</button><br/><br/></div>";
             populateSubjectTypeDropdown(y);
             var space = document.getElementById("body" + y);
             for (var x = 1; x < totalStages + 1; x++) {
@@ -2805,20 +2991,27 @@ function showAccordion(id) {
 function removeMajor(majorID) {
     console.log(majorID);
     console.log(majorsList);
+    console.log(template);
     majorID = majorID.slice(6);
-    alert(majorID);
-    for (var i = 0; i < majorsList.length; i++) {
-        if (majorsList[i].ID == majorID) {
-            majorsList.splice(i, 1);
-            for (var x = 0; x < template.length; x++) {
-                if (template[x].Major.ID == majorID) {
-                    template.splice(x, 1);
+    var confirmDelete = confirm("Are you sure you want to remove " + majorID + " from this course?");
+
+    if (confirmDelete) {
+        for (var i = 0; i < majorsList.length; i++) {
+            if (majorsList[i].ID == majorID) {
+                majorsList.splice(i, 1);
+                var length = template.length;
+                for (var x = 0; x < length; x++) {
+                    for (var y = 0; y < template.length; y++) {
+                        if (template[y].Major.ID == majorID) {
+                            template.splice(y, 1);
+                        }
+                    }
                 }
             }
         }
+        console.log(template);
+        refreshTemplate();
     }
-    console.log(majorsList);
-    refreshTemplate();
 }
 
 

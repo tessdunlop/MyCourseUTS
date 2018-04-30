@@ -13,7 +13,6 @@
     display: none;
 }
 
-
 #preview {
     position: absolute;
     z-index: 999;
@@ -21,15 +20,51 @@
     background-color: whitesmoke;
     border: 1px solid black;
     border-radius: 20px;
-    padding: 10px 10px 0px 10px;
+    padding: 10px 10px 10px 10px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.editMode {
+    background-color: lightskyblue;
+    border: 1px solid #2478fc;
+    padding:10px;
+    display:none;
+}
+
+.viewMode {
+    border: 1px solid #2478fc;
+    padding: 10px;
+    display: none;
 }
 
 #btnAdd {
-    background-color: lightskyblue; 
+    background-color: white;
+    font-size: 30pt;
+    padding: 0;
+    padding-left: 40px;
     color: #2478fc;
-    display:block;
-    position:absolute;
 }
+
+#updateButtonDiv {
+    display: none; 
+    text-align:right;
+    float:right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 html {

@@ -8,13 +8,13 @@
     <div id="container">
         <br />
         <br />
-         <div id="preview" class="row"></div>
+        <div id="preview" class="row"></div>
 
         <div class="row">
             <div class="col-md">
 
-               
-               <ul class="nav nav-pills">
+
+                <ul class="nav nav-pills">
                     <li class="nav-item">
                         <a id="course" class="nav-link active" data-toggle="pill" href="#" onclick="handleCourse();">Course</a>
                     </li>
@@ -46,13 +46,23 @@
         <br />
         <br />
 
-
+        <div id="introViewMode" style="display: block" class="viewMode">
+            <b>PLEASE READ:</b>
+            <br />
+            <br />
+            <ul style="font-size: 12px;">
+                <li>From the menu select the item type that you would like to add or search for</li>
+                <li>If you would like to add, hit the plus button on the right hand side of the screen</li>
+                <li>If you would like to search, start typinn in the search bar and select the item from the drop down. Note: please allow a few seconds after selecting your item for it to appear on the page</li>
+            </ul>
+        </div>
+        <br />
 
         <div class="row">
             <div class="col-sm-11" id="searchDiv" style="width: 100%; padding-top: 12px">
                 <input id="searchBar" name="searchBar" type="text" class="form-control typeahead" placeholder="Search Courses" oninput="handleSearch(this.value);" />
             </div>
-            <div class="col-sm-1" style="text-align: right; width: 20%; padding-bottom: 12px; padding-left: 40px;" id="addDiv">
+            <div class="col-sm-1 float-right" id="addDiv" style="text-align: right;">
                 <button id="btnAdd" type="button" class="btn btn-lg" onclick="handleAdd();"><i class="fa fa-plus"></i></button>
             </div>
         </div>
@@ -64,6 +74,109 @@
 
         <div id="loading"></div>
 
+
+
+        <div id="courseViewMode" class="viewMode">
+            <b>VIEW MODE:</b>
+            <br />
+            <br />
+            <ul style="font-size: 12px;">
+                <li>Here you can view the Course information</li>
+                <li>You can expand and collapse the Course/Major template information by selecting the Course/Major you want to view in the list below</li>
+                <li>Hovering over a subject will display the requisite information</li>
+                <li>Hovering over a subject grouping will display its contents</li>
+                <li>The cancel button will take you back to the search bar home page</li>
+            </ul>
+        </div>
+        <div class="editMode" id="courseEditMode">
+            <b>EDIT MODE:</b>
+            <br />
+            <br />
+            <ul style="font-size: 12px;">
+                <li>You can edit the course information</li>
+                <li>You can delete the entire course and its information</li>
+                <li>To add a major search for it in the Majors input bar and select the major you want to add (it will be pushed to the list below which you can expand to view)</li>
+                <li>To delete a major, expand the major you want to delete and hit the “Delete Major” button at the bottom</li>
+                <li>To add a subject to a course or major template, expand the course or major from the list below, enter the subjects, choice block, sub major or stream from the input bar, select the subject type and where you want that subject to sit in the template then press the plus button to add</li>
+                <li>To delete a subject simply click on the subject within the template and it will be removed</li>
+                <li>Please make sure you have filled in the mandatory information before adding Majors to the Course</li>
+                <li>Please note that a save is required before changes can be seen in the PDF generation</li>
+                <li>To discard all changes simply hit the cancel button</li>
+                <li>The save button will update all the data within the page including template and course information that you have not touched.</li>
+                <li>DO NOT go back, refresh or close the page while saving as this could risk losing all the course data </li>
+            </ul>
+        </div>
+
+        <div id="majorViewMode" class="viewMode">
+            <%--View Mode: —> turn off when edit button is pressed--%>
+            <b>VIEW MODE:</b>
+            <br />
+            <br />
+            <ul style="font-size: 12px;">
+                <li>Here you can view the Major information</li>
+            </ul>
+
+            <%--Edit Mode: —> turn on when edit button is pressed--%>
+        </div>
+        <div id="majorEditMode" class="editMode">
+            <b>EDIT MODE:</b>
+            <br />
+            <br />
+            <ul style="font-size: 12px;">
+                <li>You can edit the major information</li>
+                <li>You can delete the entire major and its information</li>
+                <li>DO NOT go back, refresh or close the page while saving as this could risk losing all the major data </li>
+            </ul>
+        </div>
+
+        <div id="choiceViewMode" class="viewMode">
+            <%--View Mode: —> turn off when edit button is pressed--%>
+            <b>VIEW MODE:</b>
+            <br />
+            <br />
+            <ul style="font-size: 12px;">
+                <li>Here you can view the Subject grouping information</li>
+            </ul>
+
+            <%--Edit Mode: —> turn on when edit button is pressed--%>
+        </div>
+        <div id="choiceEditMode" class="editMode">
+            <b>EDIT MODE:</b>
+            <br />
+            <br />
+            <ul style="font-size: 12px;">
+                <li>You can edit the subject grouping information</li>
+                <li>You can delete the entire group and its information</li>
+                <li>To add to the contents of the group (either subject, CBK, STM, or SMJ) type what you want to add in the contents input field and then select the item to add it to the list</li>
+                <li>DO NOT go back, refresh or close the page while saving as this could risk losing all the subject data </li>
+            </ul>
+        </div>
+
+        <div id="subjectViewMode" class="viewMode">
+            <%--View Mode: —> turn off when edit button is pressed--%>
+            <b>VIEW MODE:</b>
+            <br />
+            <br />
+            <ul style="font-size: 12px;">
+                <li>Here you can view the Subject information</li>
+            </ul>
+
+            <%--Edit Mode: —> turn on when edit button is pressed--%>
+        </div>
+        <div class="editMode" id="subjectEditMode" class="editMode">
+            <b>EDIT MODE:</b>
+            <br />
+            <br />
+            <ul style="font-size: 12px;">
+                <li>You can edit the subject information</li>
+                <li>You can delete the entire subject and its information</li>
+                <li>To add a requisite search for the subject in the appropriate input field and then select the subject to push to the appropriate list</li>
+                <li>DO NOT go back, refresh or close the page while saving as this could risk losing all the subject data </li>
+            </ul>
+        </div>
+
+        <br />
+        <br />
         <div id="addCourseFormDiv" style="display: none">
             <div class="row">
                 <div class="col-sm" style="text-align: right">
@@ -85,14 +198,7 @@
                 <br />
                 <br />
             </div>
-            <div class="row" style="padding-bottom: 8px">
-                <div class="col-sm" style="text-align: right">
-                    <p><b>Majors</b></p>
-                </div>
-                <div class="col-sm">
-                    <input id="majorInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Majors belonging to this course" oninput="handleMajorListPush(this.value);" style="width: 60%;" />
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-sm" style="text-align: right">
                     <p><b>Course Type</b><b style="color: red; font-size: large"> *</b></p>
@@ -186,6 +292,14 @@
                 </div>
                 <br />
                 <br />
+            </div>
+            <div class="row" style="padding-bottom: 8px">
+                <div class="col-sm" style="text-align: right">
+                    <p><b>Majors</b></p>
+                </div>
+                <div class="col-sm">
+                    <input id="majorInput" name="searchBar" type="text" class="form-control typeahead" placeholder="Add Majors belonging to this course" oninput="handleMajorListPush(this.value);" style="width: 60%;" />
+                </div>
             </div>
             <%--            <div class="row">
                 <div class="col-sm" style="text-align: right; padding-top: 10px;">
@@ -556,9 +670,6 @@
         </div>
 
 
-
-
-
         <div id="accordion" style="text-align: center;">
         </div>
 
@@ -568,23 +679,14 @@
         <br />
         <br />
 
+        <div class="row" id="updateButtonDiv">
+            <%--<div class="col-md" style="text-align: right">--%>
 
-        <%--                        <button type="button" class="btn btn-large btn-primary" data-toggle="confirmation"
-                    data-btn-ok-label="Continue" data-btn-ok-class="btn-success"
-                    data-btn-ok-icon-class="material-icons" data-btn-ok-icon-content="check"
-                    data-btn-cancel-label="Stoooop!" data-btn-cancel-class="btn-danger"
-                    data-btn-cancel-icon-class="material-icons" data-btn-cancel-icon-content="close"
-                    data-title="Is it ok?" data-content="This might be dangerous">
-                    Confirmation
-                </button>--%>
-
-        <div class="row" id="updateButtonDiv" style="display: none">
-            <div class="col-md" style="text-align: right">
-                <button id="btnEdit" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button>
-                <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Save</button>
-                <button id="btnDelete" type="button" class="btn btn-lg" onclick="handleDelete();" style="background-color: red; color: white">Delete</button>
-                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: darkgrey; color: white">Cancel</button>
-            </div>
+            <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white; display: none;">Save</button>
+            <button id="btnDelete" type="button" class="btn btn-lg" onclick="handleDelete();" style="background-color: red; color: white; display: none;">Delete</button>
+            <button id="btnEdit" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button>
+            <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: darkgrey; color: white">Cancel</button>
+            <%--</div>--%>
         </div>
 
         <div class="row" id="submitButtonDiv" style="display: none">

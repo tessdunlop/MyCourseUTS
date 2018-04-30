@@ -68,10 +68,19 @@ namespace MyCourseUTS.API.Controllers
                 }
             }
 
+            bool hasTemplate = false;
+            foreach (var c in course)
+            {
+                if (c.HasTemplate == true)
+                {
+                    hasTemplate = true;
+                }
+            }
+
             DataTable table = new DataTable();
             DataColumn column;
             DataRow row;
-            if (course[0].HasTemplate == true)
+            if (hasTemplate == true)
             {              
                 int count = 0;
 
@@ -365,8 +374,8 @@ namespace MyCourseUTS.API.Controllers
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
                 document.Open();
 
-                Font bodyFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-                Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA, 14, Font.BOLD);
+                Font bodyFont = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+                Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA, 10, Font.BOLD);
 
                 //if(course.Count != 0) { 
                 PdfPTable pdfTable = new PdfPTable(table.Columns.Count);
