@@ -5,13 +5,14 @@
 }
 
 
-#loading {
+/*#loading {
     position: absolute;
     width: 80%;
     height: 50%;
     background: url('ajax-loader.gif') no-repeat center center;
     display: none;
-}
+    z-index:3;
+}*/
 
 #preview {
     position: absolute;

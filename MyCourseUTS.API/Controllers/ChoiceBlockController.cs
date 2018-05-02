@@ -15,6 +15,10 @@ namespace MyCourseUTS.API.Controllers
 {
     public class ChoiceBlockController : ApiController
     {
+        /// <summary>
+        /// API used to retrieve all of the choice blocks
+        /// </summary>
+        /// <returns></returns>
         //http://mycourseuts.azurewebsites.net/services/api/choiceblock/getallchoiceblocks
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<ChoiceBlock> GetAllChoiceBlocks()
@@ -34,6 +38,11 @@ namespace MyCourseUTS.API.Controllers
             return listOfCBK;
         }
 
+        /// <summary>
+        /// API used to retrieve one choice block based on the ID
+        /// </summary>
+        /// <param name="choiceBlockID"></param>
+        /// <returns></returns>
         //http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblock?choiceblockid=CBK90009
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public ChoiceBlock GetChoiceBlock (string choiceBlockID)
@@ -47,6 +56,11 @@ namespace MyCourseUTS.API.Controllers
             return choiceBlock;
         }
 
+        /// <summary>
+        /// API used to retrieve all choice blocks that contain a given term within name, ID and abbreviation
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         //http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblocks?value=CBK90
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<ChoiceBlock> GetChoiceBlocks(string value)
@@ -67,6 +81,11 @@ namespace MyCourseUTS.API.Controllers
             return listOfChoiceBlock;
         }
 
+        /// <summary>
+        /// API used to retrieve the choice block relationships
+        /// </summary>
+        /// <param name="choiceBlockID"></param>
+        /// <returns></returns>
         //http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblockrelationship?choiceblockid=CBK90009
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<ChoiceBlockRelationship> GetChoiceBlockRelationship(string choiceBlockID)
@@ -86,6 +105,11 @@ namespace MyCourseUTS.API.Controllers
             return listofChoiceBlock;
         }
 
+        /// <summary>
+        /// API used to retrieve all of the choiceblock relationships and return a data model object (rather than entity)
+        /// </summary>
+        /// <param name="choiceBlockID"></param>
+        /// <returns></returns>
         //http://mycourseuts.azurewebsites.net/services/api/choiceblock/getchoiceblockrelationship?choiceblockid=CBK90009
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<ChoiceBlockRelationships> GetDataModelChoiceBlockRelationship(string choiceBlockID)
@@ -97,11 +121,10 @@ namespace MyCourseUTS.API.Controllers
             return query.ToList();
         }
 
-
-
-
-
-
+        /// <summary>
+        /// API used to add a new choice block
+        /// </summary>
+        /// <param name="choiceblock"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/choiceblock/postchoiceblock
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostChoiceBlock([FromBody]ChoiceBlock choiceblock)
@@ -139,9 +162,10 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
-
-
-
+        /// <summary>
+        /// API used to delete a choice block and its relationships
+        /// </summary>
+        /// <param name="choiceBlockID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/choiceblock/deletechoiceblock?choiceblockID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteChoiceBlock(string choiceBlockID)
@@ -161,29 +185,10 @@ namespace MyCourseUTS.API.Controllers
             context.SaveChanges();
         }
 
-
-
-        ////http://mycourseuts.azurewebsites.net/Services/api/major/DeleteMajorRelationship?choiceblockID=xxx
-        //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        //public void DeleteMajorRelationship(string choiceBlockID)
-        //{
-        //    List<DataModel.MajorRelationships> major;
-        //    var context = new MyCourseDBEntities();
-        //    var query = from c in context.MajorRelationships
-        //                where c.ChoiceBlocks.ID.Equals(choiceBlockID)
-        //                select c;
-        //    major = query.ToList();
-
-        //    if (major.Count != 0)
-        //    {
-        //        foreach (var row in major)
-        //        {
-        //            context.MajorRelationships.Remove(row);
-        //            context.SaveChanges();
-        //        }
-        //    }
-        //}
-
+        /// <summary>
+        /// API used to delete choice block relationships
+        /// </summary>
+        /// <param name="choiceBlockID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/major/deletechoiceblockIDrelationship?choiceblockID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteChoiceBlockRelationship(string choiceBlockID)
@@ -204,6 +209,10 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
+        /// <summary>
+        /// API used to delete subject grouping relationships that contain a particular choice block
+        /// </summary>
+        /// <param name="choiceBlockID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteSubjectGroupingRelationship?choiceblockID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteSubjectGroupingRelationship(string choiceBlockID)
@@ -224,6 +233,10 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
+        /// <summary>
+        /// API used to delete choice block from all streams that contain it
+        /// </summary>
+        /// <param name="choiceBlockID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteStreamRelationshipRelationship?choiceblockID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteStreamRelationship(string choiceBlockID)
@@ -243,6 +256,11 @@ namespace MyCourseUTS.API.Controllers
                 }
             }
         }
+
+        /// <summary>
+        /// API used to delete choice block from all sub majors that contain it
+        /// </summary>
+        /// <param name="choiceBlockID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteSubMajorRelationship?choiceblockID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteSubMajorRelationship(string choiceBlockID)
@@ -262,6 +280,11 @@ namespace MyCourseUTS.API.Controllers
                 }
             }
         }
+
+        /// <summary>
+        /// API used to delete choice block from all courses that contain it
+        /// </summary>
+        /// <param name="choiceBlockID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteCourseRelationship?choiceblockID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteCourseRelationship(string choiceBlockID)
@@ -282,7 +305,11 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
-
+        /// <summary>
+        /// API used to add new choiceblock relationships
+        /// </summary>
+        /// <param name="choiceBlockID"></param>
+        /// <param name="relationships"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/major/PostChoiceBlockRelationship?choiceblockID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostChoiceBlockRelationship(string choiceBlockID, [FromBody]List<ChoiceBlockRelationship> relationships)

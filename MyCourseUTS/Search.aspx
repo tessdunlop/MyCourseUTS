@@ -5,6 +5,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <%-- <div class="container" id="container" style=" background-color:pink">--%>
+    <%--<div id="loading">
+    </div>--%>
     <div id="container">
         <br />
         <br />
@@ -72,7 +74,7 @@
             </div>
         </div>
 
-        <div id="loading"></div>
+        <%--<div id="loading"></div>--%>
 
 
 

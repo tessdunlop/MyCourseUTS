@@ -15,6 +15,10 @@ namespace MyCourseUTS.API.Controllers
 {
     public class SubjectGroupingController : ApiController
     {
+        /// <summary>
+        /// API used to retrieve all subject groupings
+        /// </summary>
+        /// <returns>List of Subject Groupings</returns>
         //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/getallsubjectgroupings
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubjectGrouping> GetAllSubjectGroupings()
@@ -33,6 +37,11 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubjectGroupings;
         }
 
+        /// <summary>
+        /// API used to retrieve the subject grouping based on the ID
+        /// </summary>
+        /// <param name="subjectGroupingID"></param>
+        /// <returns>Subject Groupings</returns>
         //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/GetSubjectGrouping?subjectgroupingID=4
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public SubjectGrouping GetSubjectGrouping(int subjectGroupingID)
@@ -47,7 +56,11 @@ namespace MyCourseUTS.API.Controllers
         }
 
 
-
+        /// <summary>
+        /// API used to retrieve a list of subject grouping based on the term entered
+        /// </summary>
+        /// <param name="subjectGroupingID"></param>
+        /// <returns></returns>
         //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/GetSubjectGroupings?subjectgroupingID=4
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubjectGrouping> GetSubjectGroupings(string subjectGroupingID)
@@ -66,6 +79,11 @@ namespace MyCourseUTS.API.Controllers
             return listOfSubjectGroup;
         }
 
+        /// <summary>
+        /// API used to retrieve the subject grouping relationships
+        /// </summary>
+        /// <param name="subjectGroupingID"></param>
+        /// <returns></returns>
         //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/GetSubjectGroupingRelationship?subjectgroupingID=100
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<SubjectGroupingRelationship> GetSubjectGroupingRelationship(string subjectGroupingID)
@@ -85,6 +103,11 @@ namespace MyCourseUTS.API.Controllers
             return listofSubjectGroup;
         }
 
+        /// <summary>
+        /// API used to retrieve the subject grouping relationships as data model object (not entity)
+        /// </summary>
+        /// <param name="subjectGroupingID"></param>
+        /// <returns></returns>
         //http://mycourseuts.azurewebsites.net/services/api/subjectgrouping/GetSubjectGroupingRelationship?subjectgroupingID=100
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<DataModel.SubjectGroupingRelationships> GetDataModelSubjectGroupingRelationship(string subjectGroupingID)
@@ -98,25 +121,10 @@ namespace MyCourseUTS.API.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        /// <summary>
+        /// API used to add a new subject grouping
+        /// </summary>
+        /// <param name="subjectGrouping"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/postsubjectgrouping
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostSubjectGrouping([FromBody]SubjectGrouping subjectGrouping)
@@ -154,7 +162,10 @@ namespace MyCourseUTS.API.Controllers
 
 
 
-
+        /// <summary>
+        /// API used to delete a subject grouping
+        /// </summary>
+        /// <param name="groupID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/deletesubjectgrouping?groupID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteSubjectGrouping(string groupID)
@@ -176,27 +187,10 @@ namespace MyCourseUTS.API.Controllers
 
 
 
-        ////http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/DeleteMajorRelationship?groupID=xxx
-        //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        //public void DeleteMajorRelationship(string groupID)
-        //{
-        //    List<DataModel.MajorRelationships> major;
-        //    var context = new MyCourseDBEntities();
-        //    var query = from c in context.MajorRelationships
-        //                where c.SubjectGroupings.ID.Equals(groupID)
-        //                select c;
-        //    major = query.ToList();
-
-        //    if (major.Count != 0)
-        //    {
-        //        foreach (var row in major)
-        //        {
-        //            context.MajorRelationships.Remove(row);
-        //            context.SaveChanges();
-        //        }
-        //    }
-        //}
-
+        /// <summary>
+        /// API used to delete subject grouping from all choice blocks that contain it
+        /// </summary>
+        /// <param name="groupID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/deletechoiceblockIDrelationship?groupID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteChoiceBlockRelationship(string groupID)
@@ -217,6 +211,10 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
+        /// <summary>
+        /// API used to delete subject grouping relationships
+        /// </summary>
+        /// <param name="groupID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/DeleteSubjectGroupingRelationship?groupID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteSubjectGroupingRelationship(string groupID)
@@ -237,6 +235,10 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
+        /// <summary>
+        /// API used to delete subject groupings from all streams that contain it
+        /// </summary>
+        /// <param name="groupID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/DeleteStreamRelationshipRelationship?groupID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteStreamRelationship(string groupID)
@@ -256,6 +258,11 @@ namespace MyCourseUTS.API.Controllers
                 }
             }
         }
+
+        /// <summary>
+        /// API used to delete subject groupings from all sub majors that contain it
+        /// </summary>
+        /// <param name="groupID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/DeleteSubMajorRelationship?groupID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteSubMajorRelationship(string groupID)
@@ -275,6 +282,11 @@ namespace MyCourseUTS.API.Controllers
                 }
             }
         }
+
+        /// <summary>
+        /// API used to delete subject groupings from all courses that contain it
+        /// </summary>
+        /// <param name="groupID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/DeleteCourseRelationship?groupID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteCourseRelationship(string groupID)
@@ -295,7 +307,11 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
-
+        /// <summary>
+        /// API used to add new subject relationships 
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <param name="relationships"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/subjectgrouping/PostsubjectgroupingRelationship?groupID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostSubjectGroupingRelationship(string groupID, [FromBody]List<SubjectGroupingRelationship> relationships)

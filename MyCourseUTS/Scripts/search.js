@@ -26,112 +26,10 @@ var nextAvailableID = 0;
 var relationships = [];
 var majorsList = [];
 
+var wait = true;
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////START OF API CALLS
-function getAllCourses() {
-    var url = "http://mycourseuts.azurewebsites.net/services/api/course/getallcourses";
-    var data;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        async: false,
-        success: function (response) {
-            //console.log(response);
-            data = response;
-        },
-        error: function () {
-            alert("There was an issue retrieving the list of courses");
-        }
-    });
-    return data;
-}
-function getAllMajors() {
-    var url = "http://mycourseuts.azurewebsites.net/services/api/major/getallmajors";
-    var data;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        async: false,
-        success: function (response) {
-            //console.log(response);
-            data = response;
-        },
-        error: function () {
-            alert("There was an issue retrieving the list of majors");
-        }
-    });
-    return data;
-}
-function getAllSubMajors() {
-    var url = "http://mycourseuts.azurewebsites.net/services/api/submajor/getallsubmajors";
-    var data;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        async: false,
-        success: function (response) {
-            //console.log(response);
-            data = response;
-        },
-        error: function () {
-            alert("There was an issue retrieving the list of submajors");
-        }
-    });
-    return data;
-}
-function getAllStreams() {
-    var url = "http://mycourseuts.azurewebsites.net/services/api/stream/getallstreams";
-    var data;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        async: false,
-        success: function (response) {
-            //console.log(response);
-            data = response;
-        },
-        error: function () {
-            alert("There was an issue retrieving the list of streams");
-        }
-    });
-    return data;
-}
-function getAllChoiceBlocks() {
-
-    var url = "http://mycourseuts.azurewebsites.net/services/api/choiceblock/getallchoiceblocks";
-    var data;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        async: false,
-        success: function (response) {
-            //console.log(response);
-            data = response;
-        },
-        error: function () {
-            alert("There was an issue retrieving the list of choice blocks");
-        }
-    });
-    return data;
-}
-function getAllSubjects() {
-    var url = "http://mycourseuts.azurewebsites.net/services/api/subject/getallsubjects";
-    var data;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        async: false,
-        success: function (response) {
-            //console.log(response);
-            data = response;
-        },
-        error: function () {
-            alert("There was an issue retrieving the list of subjects");
-        }
-    });
-    return data;
-}
-
 function getCourseTypes() {
     var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcoursetypes";
     var data;
@@ -518,12 +416,18 @@ function addCourse(item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
             //document.getElementById("loading").style.display = "none";
+            //wait = false;
+            //document.getElementById("container").style.display = "block";
+            //document.getElementById("loading").style.display = "none";
+            //$("#loading").hide();
+            //$("#container").show();
+            addCourseRelationship(item.ID, template);
         },
         error: function () {
             alert("There was an issue adding course");
@@ -535,7 +439,7 @@ function addMajor(item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
@@ -551,11 +455,12 @@ function addChoiceBlock(item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            addChoiceBlockRelationship(item.ID, relationships);
         },
         error: function () {
             alert("There was an issue adding choice block");
@@ -567,11 +472,12 @@ function addStream(item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            addStreamRelationship(item.ID, relationships);
         },
         error: function () {
             alert("There was an issue adding stream");
@@ -583,11 +489,12 @@ function addSubMajor(item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            addSubMajorRelationship(item.ID, relationships);
         },
         error: function () {
             alert("There was an issue adding sub major");
@@ -599,11 +506,12 @@ function addSubject(item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            addSubjectRequisitesRelationship(item.ID, relationships);
         },
         error: function () {
             alert("There was an issue adding subject");
@@ -618,11 +526,12 @@ function addCourseRelationship(id, item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            wait = false;
         },
         error: function () {
             alert("There was an issue adding course relationship");
@@ -635,7 +544,7 @@ function addChoiceBlockRelationship(id, item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
@@ -652,7 +561,7 @@ function addStreamRelationship(id, item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
@@ -668,7 +577,7 @@ function addSubMajorRelationship(id, item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
@@ -684,7 +593,7 @@ function addSubjectRequisitesRelationship(id, item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
@@ -701,7 +610,7 @@ function deleteCourse(id) {
     $.ajax({
         url: url,
         type: 'DELETE',
-        async: false,
+        async: true,
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
@@ -716,7 +625,7 @@ function deleteMajor(id) {
     $.ajax({
         url: url,
         type: 'DELETE',
-        async: false,
+        async: true,
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
@@ -731,7 +640,7 @@ function deleteChoiceBlock(id) {
     $.ajax({
         url: url,
         type: 'DELETE',
-        async: false,
+        async: true,
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
@@ -746,7 +655,7 @@ function deleteStream(id) {
     $.ajax({
         url: url,
         type: 'DELETE',
-        async: false,
+        async: true,
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
@@ -761,7 +670,7 @@ function deleteSubMajor(id) {
     $.ajax({
         url: url,
         type: 'DELETE',
-        async: false,
+        async: true,
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
@@ -776,7 +685,7 @@ function deleteSubject(id) {
     $.ajax({
         url: url,
         type: 'DELETE',
-        async: false,
+        async: true,
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
@@ -898,7 +807,7 @@ function clearFields() {
     document.getElementById("streamStatusActive").checked = true;
     document.getElementById("streamStatusInActive").checked = false;
     document.getElementById("streamSubjectInput").value = "";
-   // document.getElementById("streamSubjectInput").style.display = "none";
+    // document.getElementById("streamSubjectInput").style.display = "none";
 
     //subject
     document.getElementById("subjectName").value = "";
@@ -1447,7 +1356,7 @@ function handleCoRequisiteListPush(term) {
         },
         select: function (event, ui) {
             event.preventDefault();
-           
+
             var a = document.createElement("a");
             var subReq = document.getElementById("subjectCoReq");
             a.setAttribute('id', ui.item.value);
@@ -1679,7 +1588,7 @@ function handleStmCbkSmjListPush(term) {
                 }
             }
 
-            
+
 
             console.log(relationships);
 
@@ -1714,7 +1623,7 @@ function handleMajorListPush(term) {
             var stages = document.getElementById("courseStages").value;
             var creditPoints = document.getElementById("courseCredit").value;
             var version = document.getElementById("courseVersion").value;
-            
+
             if (checkIfValid("Course", name, id, abbreviation, years, stages, creditPoints, version)) {
                 var exists = 0;
                 for (var x = 0; x < majorsList.length; x++) {
@@ -1740,8 +1649,8 @@ function handleMajorListPush(term) {
                     "HasTemplate": false
                 });
                 refreshTemplate();
-                
-            //some refresh to add this to the list
+
+                //some refresh to add this to the list
             }
             else {
                 alert("Please enter valid Course information before adding a major");
@@ -1751,9 +1660,9 @@ function handleMajorListPush(term) {
             //document.getElementById("majorInput").value = "";
             $(this).val('');
         }
-       
+
     });
-    
+
 }
 function removeFromList(id) {
     var listElement = document.getElementById(id);
@@ -2228,19 +2137,17 @@ function handleAdd() {
     document.getElementById("subMajorOption").disabled = false;
     document.getElementById("streamOption").disabled = false;
     document.getElementById("choiceBlockOption").disabled = false;
-    //document.getElementById('searchDiv').style.display = "none";
-    //document.getElementById('addDiv').style.display = "none";
     handleEdit(true);
 
     if (selected == "course") {
         handleCourse();
         document.getElementById("courseEditMode").style.display = "block";
     }
-    else if (selected == "major") {       
+    else if (selected == "major") {
         handleMajor();
         document.getElementById("majorEditMode").style.display = "block";
     }
-    else if (selected == "stream") {     
+    else if (selected == "stream") {
         handleStream();
         document.getElementById("choiceEditMode").style.display = "block";
     }
@@ -2259,7 +2166,6 @@ function handleAdd() {
 }
 //this controls the cancel button, and clears everything back to default
 function handleCancel() {
-    $("#loading").show();
     edit = false;
     disableMenuBar(false);
     addVisible = false;
@@ -2278,15 +2184,17 @@ function handleCancel() {
     document.getElementById("btnCancel").style.display = "block";
     document.getElementById("btnSave").style.display = "none";
     document.getElementById("btnDelete").style.display = "none";
-
-    $("#loading").hide();
 }
 //this controls the save button, and updates the changes to the database
 function handleSave() {
     var confirmSave = confirm("Are you sure you want to save?");
     if (confirmSave) {
         var valid = true;
-        //NEED TO ADD LOADING FUNCTIONALITY HERE
+
+        document.getElementById("btnSave").disabled = true;
+        document.getElementById("btnDelete").disabled = true;
+        document.getElementById("btnCancel").disabled = true;
+
         if (selected == "course") {
             var name = document.getElementById("courseName").value;
             var id = document.getElementById("courseId").value;
@@ -2301,14 +2209,12 @@ function handleSave() {
             var status = document.getElementById("courseStatusActive").checked;
 
             if (checkIfValid("Course", name, id, abbreviation, years, stages, creditPoints, version)) {
-                $("#loading").show();
                 var item = {
                     "ID": id, "Name": name, "Abbreviation": abbreviation, "CourseDescription": description,
                     "Years": years, "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
                     "CourseType": { "ID": typeID }, "Active": status
                 };
                 addCourse(item);
-                addCourseRelationship(id, template);
                 handleCancel();
             }
         }
@@ -2325,7 +2231,6 @@ function handleSave() {
             var hasTemplate = document.getElementById("includeMajorTemplate").checked;
 
             if (checkIfValid("Course", name, id, abbreviation, "0", stages, creditPoints, version)) {
-                $("#loading").show();
                 var item = {
                     "ID": id, "Name": name, "Abbreviation": abbreviation, "MajorDescription": description,
                     "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
@@ -2346,7 +2251,6 @@ function handleSave() {
             var status = document.getElementById("streamStatusActive").checked;
 
             if (checkIfValid("Stream", name, id, abbreviation, "0", "0", creditPoints, version)) {
-                $("#loading").show();
                 if (selected == "stream") {
                     var item = {
                         "ID": id, "Name": name, "Abbreviation": abbreviation, "StreamDescription": description,
@@ -2354,7 +2258,6 @@ function handleSave() {
                         "Active": status, "CreditPoints": creditPoints
                     };
                     addStream(item);
-                    addStreamRelationship(selectedData.ID, relationships);
                 }
                 else if (selected == "choiceblock") {
                     var item = {
@@ -2363,7 +2266,6 @@ function handleSave() {
                         "Active": status, "CreditPoints": creditPoints
                     };
                     addChoiceBlock(item);
-                    addChoiceBlockRelationship(selectedData.ID, relationships);
                 }
                 else if (selected == "submajor") {
                     var item = {
@@ -2372,7 +2274,6 @@ function handleSave() {
                         "Active": status, "CreditPoints": creditPoints
                     };
                     addSubMajor(item);
-                    addSubMajorRelationship(selectedData.ID, relationships);
                 }
                 handleCancel();
             }
@@ -2389,22 +2290,23 @@ function handleSave() {
             var status = document.getElementById("subjectStatusActive").checked;
 
             if (checkIfValid("Subject", name, id, abbreviation, "0", "0", creditPoints, version)) {
-                $("#loading").show();
                 var item = {
                     "ID": id, "Name": name, "Abbreviation": abbreviation, "SubjectDescription": description,
                     "Version": version, "VersionDescription": versionDescription,
                     "Active": status, "CreditPoints": creditPoints
                 };
                 addSubject(item);
-                addSubjectRequisitesRelationship(id, relationships);
                 handleCancel();
             }
         }
+        document.getElementById("btnSave").disabled = false;
+        document.getElementById("btnDelete").disabled = false;
+        document.getElementById("btnCancel").disabled = false;
     }
 }
 //this controls the edit button, and allows the user to make edits to the object
 function handleEdit(newAddition) {
-    newAddition = newAddition || false; 
+    newAddition = newAddition || false;
 
     document.getElementById("btnEdit").disabled = true;
     edit = true;
@@ -2525,7 +2427,6 @@ function handleEdit(newAddition) {
 function handleDelete() {
     var confirmDelete = confirm("Are you sure you want to delete?");
     if (confirmDelete) {
-        document.getElementById("loading").style.display = "block";
         if (selected == "course") {
             deleteCourse(selectedData.ID);
         }
@@ -2948,7 +2849,7 @@ function addToTimetable(majorNumber) {
             var column = document.getElementById("stageHeading" + i + majorNumber);
             var string = "<div  id='" + itemID + "' onclick='removeSubject(this.id);' onmouseover='hoverOn(event, this, " + id + ");' onmouseout='hoverOff();'  style='height: 140px;  font-size:8pt; border: thin solid black; background-color: " + colour + ";' class='col text-center'><center><p><b>" + name + " </b><br/>" + credit + "<br/>" + id + "<br/>" + type + "</p></center></div>";
 
-                //"<div id='" + itemID + "' onclick='removeSubject(this.id);' onmouseover='hoverOn(event, this, " + id + ");' onmouseout='hoverOff();' style='font-size:8pt'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
+            //"<div id='" + itemID + "' onclick='removeSubject(this.id);' onmouseover='hoverOn(event, this, " + id + ");' onmouseout='hoverOff();' style='font-size:8pt'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
             column.innerHTML += string;
             $("#" + itemID).attr("disabled", "disabled").off("click");
         }
@@ -3015,5 +2916,19 @@ function removeMajor(majorID) {
 }
 
 
-
+//$(document).ready(function () {
+//    $("#loading").hide();
+//    $(document).ajaxStart(function () {
+//        //$("#container").hide();
+//        $("#loading").show();
+//        //$("#loading").css("display", "block");
+//        //document.getElementById("loading").style.display = "block";
+//        //document.getElementById("container").style.display = "none";
+//    }).ajaxStop(function () {
+//        //$("#loading").css("display", "none");
+//        $("#loading").hide();
+//        //document.getElementById("loading").style.display = "none";
+//        //document.getElementById("container").style.display = "block";
+//    });
+//});
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////All TEMPLATE FUNCTIONS

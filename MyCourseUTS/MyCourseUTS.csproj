@@ -150,6 +150,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\XmlDocument.xml" />
     <Content Include="CSS\ajax-loader.gif" />
     <Content Include="CSS\font-awesome.min.css" />
     <Content Include="CSS\fontawesome.min.css" />

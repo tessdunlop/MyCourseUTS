@@ -18,8 +18,12 @@ namespace MyCourseUTS.API.Controllers
 {
     public class CourseController : ApiController
     {
+        /// <summary>
+        /// API used to retrieve all of the courses
+        /// </summary>
+        /// <returns></returns>
         //http://mycourseuts.azurewebsites.net/services/api/course/getallcourses
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]        
         public List<Course> GetAllCourses()
         {
             List<Courses> courses;
@@ -37,6 +41,11 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourses;
         }
 
+        /// <summary>
+        /// API used to retrieve a particular course based on the ID
+        /// </summary>
+        /// <param name="courseID"></param>
+        /// <returns></returns>
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         //http://mycourseuts.azurewebsites.net/services/api/course/getcourse?courseID=C04273
         public Course GetCourse(string courseID)
@@ -50,6 +59,11 @@ namespace MyCourseUTS.API.Controllers
             return course;
         }
 
+        /// <summary>
+        /// API used to retrieve all courses that contain a term from the name, ID, or abbreviation
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         //http://mycourseuts.azurewebsites.net/services/api/course/getcourses?value=bsc
         public List<Course> GetCourses(string value)
@@ -70,6 +84,11 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourses;
         }
 
+        /// <summary>
+        /// API used to retrieve all of a particular courses relationships
+        /// </summary>
+        /// <param name="courseID"></param>
+        /// <returns></returns>
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         //http://mycourseuts.azurewebsites.net/services/api/course/getcourserelationship?courseID=C10143
         public List<CourseRelationship> GetCourseRelationship(string courseID)
@@ -89,7 +108,10 @@ namespace MyCourseUTS.API.Controllers
             return listOfCourse;
         }
 
-
+        /// <summary>
+        /// API used to retrieve all of the course types available
+        /// </summary>
+        /// <returns></returns>
         //http://mycourseuts.azurewebsites.net/services/api/course/getcoursetypes
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Entity.CourseTypes> GetCourseTypes()
@@ -109,7 +131,10 @@ namespace MyCourseUTS.API.Controllers
         }
 
 
-        //DONE
+        /// <summary>
+        /// API used to save a course to the database
+        /// </summary>
+        /// <param name="course"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/course/postcourse
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostCourse([FromBody]Course course)
@@ -153,7 +178,10 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
-        //DONE
+        /// <summary>
+        /// API used to delete a course and its relationships from the database
+        /// </summary>
+        /// <param name="courseID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/course/deletecourse?courseID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteCourse(string courseID)
@@ -168,7 +196,11 @@ namespace MyCourseUTS.API.Controllers
             context.SaveChanges();
         }
 
-        //DONE
+        /// <summary>
+        /// API used to add a particular courses relationships
+        /// </summary>
+        /// <param name="courseID"></param>
+        /// <param name="relationships"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/course/postcourserelationship?courseID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void PostCourseRelationship(string courseID, [FromBody]List<CourseRelationship> relationships)
@@ -234,7 +266,10 @@ namespace MyCourseUTS.API.Controllers
             }
         }
 
-        //DONE
+        /// <summary>
+        /// API used to delete a particular courses relationships
+        /// </summary>
+        /// <param name="courseID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/course/deletecourserelationship?courseID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteCourseRelationship(string courseID)
