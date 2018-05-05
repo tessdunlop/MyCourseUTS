@@ -2820,6 +2820,7 @@ function handleDelete() {
 //this function removes the changes and refreshes the item in view mode
 function handleCancel() {
     removeValidation();
+    window.scrollTo(0, 0);
     if (selected == "course") {
         handleViewEditCourse(selectedData);
     }
@@ -2827,7 +2828,7 @@ function handleCancel() {
         handleViewEditMajor(selectedData);
     }
     else if (selected == "stream" || selected == "submajor" || selected == "choiceblock") {
-        handleViewEditStreamSubChoicedid(selectedData);
+        handleViewEditStreamSubChoice(selectedData);
     }
     else if (selected == "subject") {
         handleViewEditSubject(selectedData);

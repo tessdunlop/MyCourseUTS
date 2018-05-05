@@ -695,7 +695,7 @@
         <div class="row" id="submitButtonDiv" style="display: none">
             <div class="col-md" style="text-align: right">
                 <button id="btnSubmit" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Submit</button>
-                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleBack();" style="background-color: red; color: white">Back</button>
+                <button id="btnBack" type="button" class="btn btn-lg" onclick="handleBack();" style="background-color: red; color: white">Back</button>
             </div>
         </div>
         <br />
