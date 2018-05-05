@@ -106,7 +106,7 @@ namespace MyCourseUTS.API.Controllers
 
         //http://mycourseuts.azurewebsites.net/Services/api/submajor/postsubmajor
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostSubMajor([FromBody]SubMajor subMajor)
+        public string PostSubMajor([FromBody]SubMajor subMajor)
         {
             var context = new MyCourseDBEntities();
             var query = from c in context.SubMajors
@@ -139,6 +139,7 @@ namespace MyCourseUTS.API.Controllers
                 context.SubMajors.Add(newRow);
                 context.SaveChanges();
             }
+            return subMajor.ID + " - " + subMajor.Name + " was successfully saved";
         }
 
 
@@ -287,7 +288,7 @@ namespace MyCourseUTS.API.Controllers
 
         //http://mycourseuts.azurewebsites.net/Services/api/submajor/PostsubmajorRelationship?submajorID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostSubMajorRelationship(string submajorID, [FromBody]List<SubMajorRelationship> relationships)
+        public string PostSubMajorRelationship(string submajorID, [FromBody]List<SubMajorRelationship> relationships)
         {
             var context = new MyCourseDBEntities();
 
@@ -337,6 +338,8 @@ namespace MyCourseUTS.API.Controllers
                 }
                 scope.Complete();
             }
+            return "success";
         }
+        
     }
 }

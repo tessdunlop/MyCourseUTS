@@ -28,6 +28,7 @@ var majorsList = [];
 
 var wait = true;
 
+var disabled;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////START OF API CALLS
 function getCourseTypes() {
@@ -401,7 +402,7 @@ function getSubjectGroupingRelationship(id) {
     return data;
 }
 
-function addCourse(item) {
+function addCourse(item, items) {
     var url = "http://mycourseuts.azurewebsites.net/Services/api/course/postcourse";
     $.ajax({
         url: url,
@@ -411,19 +412,19 @@ function addCourse(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            //document.getElementById("loading").style.display = "none";
-            //wait = false;
-            //document.getElementById("container").style.display = "block";
-            //document.getElementById("loading").style.display = "none";
-            //$("#loading").hide();
-            //$("#container").show();
-            addCourseRelationship(item.ID, template);
+            if (addCourseRelationship(item.ID, items) == "success") {
+                window.setTimeout(function () {
+                    addSaveMessage(response);
+                }, 1000);
+                
+            }
         },
         error: function () {
             alert("There was an issue adding course");
         }
     });
 }
+
 function addMajor(item) {
     var url = "http://mycourseuts.azurewebsites.net/Services/api/major/postmajor";
     $.ajax({
@@ -452,7 +453,11 @@ function addChoiceBlock(item, items) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            addChoiceBlockRelationship(item.ID, items);
+            if (addChoiceBlockRelationship(item.ID, items) == "success") {
+                window.setTimeout(function () {
+                    addSaveMessage(response);
+                }, 1000);
+            }
         },
         error: function () {
             alert("There was an issue adding choice block");
@@ -469,7 +474,11 @@ function addStream(item, items) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            addStreamRelationship(item.ID, items);
+            if (addStreamRelationship(item.ID, items) == "success") {
+                window.setTimeout(function () {
+                    addSaveMessage(response);
+                }, 1000);
+            }
         },
         error: function () {
             alert("There was an issue adding stream");
@@ -486,14 +495,18 @@ function addSubMajor(item, items) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            addSubMajorRelationship(item.ID, items);
+            if (addSubMajorRelationship(item.ID, items) == "success") {
+                window.setTimeout(function () {
+                    addSaveMessage(response);
+                }, 1000);
+            }
         },
         error: function () {
             alert("There was an issue adding sub major");
         }
     });
 }
-function addSubject(item) {
+function addSubject(item, items) {
     var url = "http://mycourseuts.azurewebsites.net/Services/api/subject/postsubject";
     $.ajax({
         url: url,
@@ -503,7 +516,11 @@ function addSubject(item) {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            addSubjectRequisitesRelationship(item.ID, relationships);
+            if (addSubjectRequisitesRelationship(item.ID, items) == "success") {
+                window.setTimeout(function () {
+                    addSaveMessage(response);
+                }, 1000);
+            }
         },
         error: function () {
             alert("There was an issue adding subject");
@@ -515,84 +532,46 @@ function addSubject(item) {
 function addCourseRelationship(id, item) {
 
     var url = "http://mycourseuts.azurewebsites.net/Services/api/course/postcourserelationship?courseID=" + id;
-    $.ajax({
-        url: url,
-        type: 'POST',
-        async: true,
-        data: JSON.stringify(item),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (response) {
-        },
-        error: function () {
-            alert("There was an issue adding course relationship");
-        }
-    });
+    var response = addRelationshipAJAX(url, item);
+    return response;
 }
 function addChoiceBlockRelationship(id, item) {
     var url = "http://mycourseuts.azurewebsites.net/Services/api/choiceblock/postchoiceblockrelationship?choiceblockID=" + id;
-    $.ajax({
-        url: url,
-        type: 'POST',
-        async: true,
-        data: JSON.stringify(item),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (response) {
-        },
-        error: function () {
-            alert("There was an issue adding choice block relationship");
-        }
-    });
+    return addRelationshipAJAX(url, item);
 }
 function addStreamRelationship(id, item) {
     var url = "http://mycourseuts.azurewebsites.net/Services/api/stream/poststreamrelationship?streamID=" + id;
-    $.ajax({
-        url: url,
-        type: 'POST',
-        async: true,
-        data: JSON.stringify(item),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (response) {
-        },
-        error: function () {
-            alert("There was an issue adding stream relationship");
-        }
-    });
+    return addRelationshipAJAX(url, item);
 }
 function addSubMajorRelationship(id, item) {
     console.log(item);
     var url = "http://mycourseuts.azurewebsites.net/Services/api/submajor/postsubmajorrelationship?submajorID=" + id;
-    $.ajax({
-        url: url,
-        type: 'POST',
-        async: true,
-        data: JSON.stringify(item),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (response) {
-        },
-        error: function () {
-            alert("There was an issue adding sub major relationship");
-        }
-    });
+    return addRelationshipAJAX(url, item);
 }
 function addSubjectRequisitesRelationship(id, item) {
-    var url = "http://mycourseuts.azurewebsites.net/Services/api/subject/PostRequisiteRelationship?subjectID=" + id;
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/subject/PostRequisiteRelationship?subjectID=" + id;  
+    return addRelationshipAJAX(url, item);
+}
+
+
+function addRelationshipAJAX(url, item) {
+    var result = "fail";
     $.ajax({
         url: url,
         type: 'POST',
-        async: true,
+        async: false,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
-        success: function (response) {
+        success: function (response) {           
+            result = response;
         },
         error: function () {
-            alert("There was an issue adding requisite relationship");
+            alert("There was an issue adding "+item.Name+" relationship");
         }
     });
+    console.log("result " +result);
+    return result;
 }
 
 function deleteCourse(id) {
@@ -703,6 +682,17 @@ function generatePDF(courseID, majorID) {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AESTHETICS
+function addSaveMessage(message) {
+    //saveAlert
+    var id = "alert";
+    $("#saveAlert").append('<div style="display:none;" class="alert alert-warning" id="' + id + '">' + '<button type="button" class="close" data-dismiss="alert">' + '×</button>' + message + '</div>');
+    $("#" + id).fadeIn(5000);
+    window.setTimeout(function () {
+        $("#" + id).fadeTo(300, 0.5).slideUp(2000, function () {
+            $("#" + id).alert('close');
+        });
+    }, 1000);
+}
 function populateCourseTypeDropdown() {
     var select = document.getElementById("courseType");
     var data = getCourseTypes();
@@ -731,20 +721,34 @@ window.onload = function () {
 }
 function disableMenuBar(option) {
     if (option == true) {
-        document.getElementById("course").disabled = true;
-        document.getElementById("major").disabled = true;
-        document.getElementById("submajor").disabled = true;
-        document.getElementById("stream").disabled = true;
-        document.getElementById("choiceblock").disabled = true;
-        document.getElementById("subject").disabled = true;
+        disabled = true;
+        var c = document.getElementById("course");//.disabled = true;
+        c.classList.add("disabled");
+        var m = document.getElementById("major");//.disabled = true;
+        m.classList.add("disabled");
+        var sm = document.getElementById("submajor");//.disabled = true;
+        sm.classList.add("disabled");
+        var st = document.getElementById("stream");//.disabled = true;
+        st.classList.add("disabled");
+        var cb = document.getElementById("choiceblock");//.disabled = true;
+        cb.classList.add("disabled");
+        var s = document.getElementById("subject");//.disabled = true;
+        s.classList.add("disabled");
     }
     else if (option == false) {
-        document.getElementById("course").disabled = false;
-        document.getElementById("major").disabled = false;
-        document.getElementById("submajor").disabled = false;
-        document.getElementById("stream").disabled = false;
-        document.getElementById("choiceblock").disabled = false;
-        document.getElementById("subject").disabled = false;
+        disabled = false;
+        var c = document.getElementById("course");//.disabled = true;
+        c.classList.remove("disabled");
+        var m = document.getElementById("major");//.disabled = true;
+        m.classList.remove("disabled");
+        var sm = document.getElementById("submajor");//.disabled = true;
+        sm.classList.remove("disabled");
+        var st = document.getElementById("stream");//.disabled = true;
+        st.classList.remove("disabled");
+        var cb = document.getElementById("choiceblock");//.disabled = true;
+        cb.classList.remove("disabled");
+        var s = document.getElementById("subject");//.disabled = true;
+        s.classList.remove("disabled");
     }
 
 }
@@ -2023,6 +2027,8 @@ function handleSearch(term) {
             }));
         },
         select: function (event, ui) {
+
+
             document.getElementById("introViewMode").style.display = "none";
             disableMenuBar(true);
             document.getElementById("addDiv").style.display = "none";
@@ -2344,115 +2350,128 @@ function handleViewEditSubject(data) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////TAB BUTTON FUNCTIONS
 //Displays the course form
 function handleCourse() {
-    selected = "course";
-    document.getElementById('searchBar').value = "";
-    $("#course").tab('show');
-    //refreshNavColours();
-    //document.getElementById("course").style.backgroundColor = selectedBlue;
-    //document.getElementById("course").style.color = "white";
-    document.getElementsByName('searchBar')[0].placeholder = "Search Courses";
-    if (addVisible == true) {
-        hide();
-        document.getElementById('addCourseFormDiv').style.display = "block";
-        document.getElementById('submitButtonDiv').style.display = "block";
-        //document.getElementById('nextButtonDiv').style.display = "block";
+    if (!disabled) {
+        selected = "course";
+        document.getElementById('searchBar').value = "";
+        $("#course").tab('show');
+        //refreshNavColours();
+        //document.getElementById("course").style.backgroundColor = selectedBlue;
+        //document.getElementById("course").style.color = "white";
+        document.getElementsByName('searchBar')[0].placeholder = "Search Courses";
+        if (addVisible == true) {
+            hide();
+            document.getElementById('addCourseFormDiv').style.display = "block";
+            document.getElementById('submitButtonDiv').style.display = "block";
+            //document.getElementById('nextButtonDiv').style.display = "block";
+        }
+        document.getElementById("searchBar").focus();
     }
-    document.getElementById("searchBar").focus();
 }
 //displays the major form
 function handleMajor() {
-    selected = "major";
-    document.getElementById('searchBar').value = "";
-    //refreshNavColours();
-    //document.getElementById("major").style.backgroundColor = selectedBlue;
-    //document.getElementById("major").style.color = "white";
-    document.getElementsByName('searchBar')[0].placeholder = "Search Majors";
-    if (addVisible == true) {
-        hide();
-        document.getElementById('addMajorFormDiv').style.display = "block";
-        document.getElementById('submitButtonDiv').style.display = "block";
-        //document.getElementById('backButtonDiv').style.display = "block";
+    if (!disabled) {
+        selected = "major";
+        document.getElementById('searchBar').value = "";
+        //refreshNavColours();
+        //document.getElementById("major").style.backgroundColor = selectedBlue;
+        //document.getElementById("major").style.color = "white";
+        document.getElementsByName('searchBar')[0].placeholder = "Search Majors";
+        if (addVisible == true) {
+            hide();
+            document.getElementById('addMajorFormDiv').style.display = "block";
+            document.getElementById('submitButtonDiv').style.display = "block";
+            //document.getElementById('backButtonDiv').style.display = "block";
+        }
+        document.getElementById("searchBar").focus();
     }
-    document.getElementById("searchBar").focus();
 }
 //displays the stream form
 function handleStream() {
-    selected = "stream";
-    document.getElementById('searchBar').value = "";
-    document.getElementById("streamOption").checked = true;
-    document.getElementById("labelStreamName").innerHTML = "<b>Stream Name</b><b style='color: red; font-size:large'> *</b>";
-    document.getElementById("labelStreamId").innerHTML = "<b>Stream Indentification</b><b style='color: red; font-size:large'> *</b>";
-    document.getElementById("labelStreamAbbreviation").innerHTML = "<b>Stream Abbreviation</b><b style='color: red; font-size:large'> *</b>";
-    document.getElementById("streamDescriptionTitle").innerHTML = "<b>Stream Description</b>";
-    //refreshNavColours();
-    //document.getElementById("stream").style.backgroundColor = selectedBlue;
-    // document.getElementById("stream").style.color = "white";
-    document.getElementsByName('searchBar')[0].placeholder = "Search Streams";
+    if (!disabled) {
+        console.log("handle stream");
+        selected = "stream";
+        document.getElementById('searchBar').value = "";
+        document.getElementById("streamOption").checked = true;
+        document.getElementById("labelStreamName").innerHTML = "<b>Stream Name</b><b style='color: red; font-size:large'> *</b>";
+        document.getElementById("labelStreamId").innerHTML = "<b>Stream Indentification</b><b style='color: red; font-size:large'> *</b>";
+        document.getElementById("labelStreamAbbreviation").innerHTML = "<b>Stream Abbreviation</b><b style='color: red; font-size:large'> *</b>";
+        document.getElementById("streamDescriptionTitle").innerHTML = "<b>Stream Description</b>";
+        //refreshNavColours();
+        //document.getElementById("stream").style.backgroundColor = selectedBlue;
+        // document.getElementById("stream").style.color = "white";
+        document.getElementsByName('searchBar')[0].placeholder = "Search Streams";
 
-    if (addVisible == true) {
-        hide();
-        document.getElementById('addStreamFormDiv').style.display = "block";
-        document.getElementById('submitButtonDiv').style.display = "block";
-        //document.getElementById('backButtonDiv').style.display = "block";
+        if (addVisible == true) {
+            hide();
+            document.getElementById('addStreamFormDiv').style.display = "block";
+            document.getElementById('submitButtonDiv').style.display = "block";
+            //document.getElementById('backButtonDiv').style.display = "block";
+        }
+        document.getElementById("searchBar").focus();
     }
-    document.getElementById("searchBar").focus();
 }
 function handleSubMajor() {
-    selected = "submajor";
-    document.getElementById('searchBar').value = "";
-    document.getElementById("subMajorOption").checked = true
-    document.getElementById("labelStreamName").innerHTML = "<b>Sub-Major Name</b><b style='color: red; font-size:large'> *</b>";
-    document.getElementById("labelStreamId").innerHTML = "<b>Sub-Major Identification</b><b style='color: red; font-size:large'> *</b>";
-    document.getElementById("labelStreamAbbreviation").innerHTML = "<b>Sub-Major Abbreviation</b><b style='color: red; font-size:large'> *</b>";
-    document.getElementById("streamDescriptionTitle").innerHTML = "<b>Sub-Major Description</b>";
-    //refreshNavColours();
-    //document.getElementById("submajor").style.backgroundColor = selectedBlue;
-    //document.getElementById("submajor").style.color = "white";
-    document.getElementsByName('searchBar')[0].placeholder = "Search Sub-Majors";
+    if (!disabled) {
+        selected = "submajor";
+        document.getElementById('searchBar').value = "";
+        document.getElementById("subMajorOption").checked = true
+        document.getElementById("labelStreamName").innerHTML = "<b>Sub-Major Name</b><b style='color: red; font-size:large'> *</b>";
+        document.getElementById("labelStreamId").innerHTML = "<b>Sub-Major Identification</b><b style='color: red; font-size:large'> *</b>";
+        document.getElementById("labelStreamAbbreviation").innerHTML = "<b>Sub-Major Abbreviation</b><b style='color: red; font-size:large'> *</b>";
+        document.getElementById("streamDescriptionTitle").innerHTML = "<b>Sub-Major Description</b>";
+        //refreshNavColours();
+        //document.getElementById("submajor").style.backgroundColor = selectedBlue;
+        //document.getElementById("submajor").style.color = "white";
+        document.getElementsByName('searchBar')[0].placeholder = "Search Sub-Majors";
 
-    if (addVisible == true) {
-        hide();
-        document.getElementById('addStreamFormDiv').style.display = "block";
-        document.getElementById('submitButtonDiv').style.display = "block";
-        //document.getElementById('backButtonDiv').style.display = "block";
+        if (addVisible == true) {
+            hide();
+            document.getElementById('addStreamFormDiv').style.display = "block";
+            document.getElementById('submitButtonDiv').style.display = "block";
+            //document.getElementById('backButtonDiv').style.display = "block";
+        }
+        document.getElementById("searchBar").focus();
     }
-    document.getElementById("searchBar").focus();
 }
 function handleChoiceBlock() {
-    selected = "choiceblock";
-    document.getElementById('searchBar').value = "";
-    document.getElementById("choiceBlockOption").checked = true
-    document.getElementById("labelStreamName").innerHTML = "<b>Choice Block Name</b><b style='color: red; font-size:large'> *</b>";
-    document.getElementById("labelStreamId").innerHTML = "<b>Choice Block Identification</b><b style='color: red; font-size:large'> *</b>";
-    document.getElementById("labelStreamAbbreviation").innerHTML = "<b>Choice Block Abbreviation</b><b style='color: red; font-size:large'> *</b>";
-    document.getElementById("streamDescriptionTitle").innerHTML = "<b>Choice Block Description</b>";
-    // refreshNavColours();
-    //document.getElementById("choiceblock").style.backgroundColor = selectedBlue;
-    //document.getElementById("choiceblock").style.color = "white";
-    document.getElementsByName('searchBar')[0].placeholder = "Search Choice Blocks";
+    if (!disabled) {
+        selected = "choiceblock";
+        document.getElementById('searchBar').value = "";
+        document.getElementById("choiceBlockOption").checked = true
+        document.getElementById("labelStreamName").innerHTML = "<b>Choice Block Name</b><b style='color: red; font-size:large'> *</b>";
+        document.getElementById("labelStreamId").innerHTML = "<b>Choice Block Identification</b><b style='color: red; font-size:large'> *</b>";
+        document.getElementById("labelStreamAbbreviation").innerHTML = "<b>Choice Block Abbreviation</b><b style='color: red; font-size:large'> *</b>";
+        document.getElementById("streamDescriptionTitle").innerHTML = "<b>Choice Block Description</b>";
+        // refreshNavColours();
+        //document.getElementById("choiceblock").style.backgroundColor = selectedBlue;
+        //document.getElementById("choiceblock").style.color = "white";
+        document.getElementsByName('searchBar')[0].placeholder = "Search Choice Blocks";
 
-    if (addVisible == true) {
-        hide();
-        document.getElementById('addStreamFormDiv').style.display = "block";
-        document.getElementById('submitButtonDiv').style.display = "block";
-        //document.getElementById('backButtonDiv').style.display = "block";
+        if (addVisible == true) {
+            hide();
+            document.getElementById('addStreamFormDiv').style.display = "block";
+            document.getElementById('submitButtonDiv').style.display = "block";
+            //document.getElementById('backButtonDiv').style.display = "block";
+        }
+        document.getElementById("searchBar").focus();
     }
-    document.getElementById("searchBar").focus();
 }
 //displays the subject form
 function handleSubject() {
-    selected = "subject";
-    document.getElementById('searchBar').value = "";
-    //refreshNavColours();
-    //document.getElementById("subject").style.backgroundColor = selectedBlue;
-    //document.getElementById("subject").style.color = "white";
-    document.getElementsByName('searchBar')[0].placeholder = "Search Subjects";
-    if (addVisible == true) {
-        hide();
-        document.getElementById('addSubjectFormDiv').style.display = "block";
-        document.getElementById('submitButtonDiv').style.display = "block";
+    if (!disabled) {
+        selected = "subject";
+        document.getElementById('searchBar').value = "";
+        //refreshNavColours();
+        //document.getElementById("subject").style.backgroundColor = selectedBlue;
+        //document.getElementById("subject").style.color = "white";
+        document.getElementsByName('searchBar')[0].placeholder = "Search Subjects";
+        if (addVisible == true) {
+            hide();
+            document.getElementById('addSubjectFormDiv').style.display = "block";
+            document.getElementById('submitButtonDiv').style.display = "block";
+        }
+        document.getElementById("searchBar").focus();
     }
-    document.getElementById("searchBar").focus();
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END TAB BUTTON FUNCTIONS
 
@@ -2494,8 +2513,8 @@ function handleAdd() {
         document.getElementById("subjectEditMode").style.display = "block";
     }
 }
-//this controls the cancel button, and clears everything back to default
-function handleCancel() {
+//this controls the back button, and clears everything back to default
+function handleBack() {
     edit = false;
     disableMenuBar(false);
     addVisible = false;
@@ -2511,6 +2530,7 @@ function handleCancel() {
     document.getElementById("searchBar").focus();
 
     document.getElementById("btnEdit").style.display = "block";
+    document.getElementById("btnBack").style.display = "block";
     document.getElementById("btnCancel").style.display = "block";
     document.getElementById("btnSave").style.display = "none";
     document.getElementById("btnDelete").style.display = "none";
@@ -2523,6 +2543,7 @@ function handleSave() {
         window.scrollTo(0, 0);
         document.getElementById("btnSave").disabled = true;
         document.getElementById("btnDelete").disabled = true;
+        document.getElementById("btnBack").disabled = true;
         document.getElementById("btnCancel").disabled = true;
 
         if (selected == "course") {
@@ -2544,9 +2565,10 @@ function handleSave() {
                     "Years": years, "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
                     "CourseType": { "ID": typeID }, "Active": status
                 };                
-                addCourse(item);
-                removeValidation();
-                handleViewEditCourse(item);
+                addCourse(item, template);
+                //removeValidation();
+                //handleViewEditCourse(item);
+                handleBack();
             }
         }
         else if (selected == "major") {
@@ -2567,8 +2589,9 @@ function handleSave() {
                     "Active": status
                 };
                 addMajor(item); 
-                removeValidation();
-                handleViewEditMajor(item);
+                //removeValidation();
+                //handleViewEditMajor(item);
+                handleBack();
             }
         }
         else if (selected == "stream" || selected == "choiceblock" || selected == "submajor") {
@@ -2611,8 +2634,9 @@ function handleSave() {
                 }
                 relationships = [];
                 document.getElementById("streamSubjectList").innerHTML = "";
-                removeValidation();
-                handleViewEditStreamSubChoice(item);
+                //removeValidation();
+                //handleViewEditStreamSubChoice(item);
+                handleBack();
             }
         }
 
@@ -2632,17 +2656,19 @@ function handleSave() {
                     "Version": version, "VersionDescription": versionDescription,
                     "Active": status, "CreditPoints": creditPoints
                 };
-                addSubject(item);
+                addSubject(item, relationships);
                 relationships = [];
                 document.getElementById("subjectPreReq").innerHTML = "";
                 document.getElementById("subjectAntiReq").innerHTML = "";
                 document.getElementById("subjectCoReq").innerHTML = "";
-                removeValidation();
-                handleViewEditSubject(item);
+                //removeValidation();
+                //handleViewEditSubject(item);
+                handleBack();
             }
         }
         document.getElementById("btnSave").disabled = false;
         document.getElementById("btnDelete").disabled = false;
+        document.getElementById("btnBack").disabled = false;
         document.getElementById("btnCancel").disabled = false;
     }
 }
@@ -2657,6 +2683,7 @@ function handleEdit(newAddition) {
     document.getElementById("btnDelete").disabled = false;
 
     document.getElementById("btnEdit").style.display = "none";
+    document.getElementById("btnBack").style.display = "block";
     document.getElementById("btnCancel").style.display = "block";
     document.getElementById("btnSave").style.display = "block";
     document.getElementById("btnDelete").style.display = "block";
@@ -2787,8 +2814,25 @@ function handleDelete() {
         else if (selected == "subject") {
             deleteSubject(selectedData.ID);
         }
-        handleCancel();
+        handleBack();
     }
+}
+//this function removes the changes and refreshes the item in view mode
+function handleCancel() {
+    removeValidation();
+    if (selected == "course") {
+        handleViewEditCourse(selectedData);
+    }
+    else if (selected == "major") {
+        handleViewEditMajor(selectedData);
+    }
+    else if (selected == "stream" || selected == "submajor" || selected == "choiceblock") {
+        handleViewEditStreamSubChoicedid(selectedData);
+    }
+    else if (selected == "subject") {
+        handleViewEditSubject(selectedData);
+    }
+    
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END ALL BUTTONS
 

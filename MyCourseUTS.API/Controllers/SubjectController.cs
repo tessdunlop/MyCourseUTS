@@ -121,7 +121,7 @@ namespace MyCourseUTS.API.Controllers
 
         //http://mycourseuts.azurewebsites.net/Services/api/subject/postsubject
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostSubject([FromBody]Subject subject)
+        public string PostSubject([FromBody]Subject subject)
         {
             var context = new MyCourseDBEntities();
             var query = from c in context.Subjects
@@ -154,6 +154,7 @@ namespace MyCourseUTS.API.Controllers
                 context.Subjects.Add(newRow);
                 context.SaveChanges();
             }
+            return subject.ID + " - " + subject.Name + " was successfully saved";
         }
 
 
@@ -181,7 +182,7 @@ namespace MyCourseUTS.API.Controllers
 
         //http://mycourseuts.azurewebsites.net/Services/api/subject/PostRequisiteRelationship?subjectID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostRequisiteRelationship(int subjectID, [FromBody]List<Entity.RequisiteRelationship> relationships)
+        public string PostRequisiteRelationship(int subjectID, [FromBody]List<Entity.RequisiteRelationship> relationships)
         {
 
             var context = new MyCourseDBEntities();
@@ -211,6 +212,7 @@ namespace MyCourseUTS.API.Controllers
                 }
                 scope.Complete();
             }
+            return "success";
 
         }
 

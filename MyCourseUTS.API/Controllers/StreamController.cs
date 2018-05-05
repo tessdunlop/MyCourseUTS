@@ -121,7 +121,7 @@ namespace MyCourseUTS.API.Controllers
 
         //http://mycourseuts.azurewebsites.net/Services/api/stream/poststream
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostStream([FromBody]Stream stream)
+        public string PostStream([FromBody]Stream stream)
         {
             var context = new MyCourseDBEntities();
             var query = from c in context.Streams
@@ -154,6 +154,7 @@ namespace MyCourseUTS.API.Controllers
                 context.Streams.Add(newRow);
                 context.SaveChanges();
             }
+            return stream.ID + " - " + stream.Name + " was successfully saved";
         }
 
 
@@ -302,7 +303,7 @@ namespace MyCourseUTS.API.Controllers
 
         //http://mycourseuts.azurewebsites.net/Services/api/stream/PostStreamRelationship?streamID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostStreamRelationship(string streamID, [FromBody]List<StreamRelationship> relationships)
+        public string PostStreamRelationship(string streamID, [FromBody]List<StreamRelationship> relationships)
         {
             var context = new MyCourseDBEntities();
             List<DataModel.StreamRelationships> group;
@@ -350,6 +351,7 @@ namespace MyCourseUTS.API.Controllers
                 }
                 scope.Complete();
             }
+            return "success";
         }
     }
 }

@@ -127,7 +127,7 @@ namespace MyCourseUTS.API.Controllers
         /// <param name="choiceblock"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/choiceblock/postchoiceblock
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostChoiceBlock([FromBody]ChoiceBlock choiceblock)
+        public string PostChoiceBlock([FromBody]ChoiceBlock choiceblock)
         {
             var context = new MyCourseDBEntities();
             var query = from c in context.ChoiceBlocks
@@ -160,6 +160,7 @@ namespace MyCourseUTS.API.Controllers
                 context.ChoiceBlocks.Add(newRow);
                 context.SaveChanges();
             }
+            return choiceblock.ID + " - " + choiceblock.Name + " was successfully saved";
         }
 
         /// <summary>

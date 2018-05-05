@@ -4,15 +4,29 @@
     padding: 0% 4% 0% 4%;
 }
 
+/*.ui-autocomplete-loading {
+    background: url('ajax-loader.gif') no-repeat center center;
+}*/
 
-/*#loading {
+.btn {
+margin:0px 1px 0px 1px;
+
+}
+
+#alert {
+    background-color: rgb(36, 120, 252, 0.5);
+    color: #2478fc;
+    /*opacity:0.4;*/
+}
+
+#loading {
     position: absolute;
     width: 80%;
     height: 50%;
     background: url('ajax-loader.gif') no-repeat center center;
     display: none;
-    z-index:3;
-}*/
+    z-index: 3;
+}
 
 #preview {
     position: absolute;

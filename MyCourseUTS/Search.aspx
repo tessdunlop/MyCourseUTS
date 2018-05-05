@@ -5,8 +5,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <%-- <div class="container" id="container" style=" background-color:pink">--%>
-    <%--<div id="loading">
-    </div>--%>
+    <div id="loading">
+    </div>
     <div id="container">
         <br />
         <br />
@@ -16,7 +16,7 @@
             <div class="col-md">
 
 
-                <ul class="nav nav-pills">
+                <ul id="nav" class="nav nav-pills">
                     <li class="nav-item">
                         <a id="course" class="nav-link active" data-toggle="pill" href="#" onclick="handleCourse();">Course</a>
                     </li>
@@ -55,7 +55,7 @@
             <ul style="font-size: 12px;">
                 <li>From the menu select the item type that you would like to add or search for</li>
                 <li>If you would like to add, hit the plus button on the right hand side of the screen</li>
-                <li>If you would like to search, start typinn in the search bar and select the item from the drop down. Note: please allow a few seconds after selecting your item for it to appear on the page</li>
+                <li>If you would like to search, start typing in the search bar and select the item from the drop down. Note: please allow a few seconds after selecting your item for it to appear on the page</li>
             </ul>
         </div>
         <br />
@@ -684,23 +684,28 @@
         <div class="row" id="updateButtonDiv">
             <%--<div class="col-md" style="text-align: right">--%>
 
-            <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white; display: none;">Save</button>
-            <button id="btnDelete" type="button" class="btn btn-lg" onclick="handleDelete();" style="background-color: red; color: white; display: none;">Delete</button>
-            <button id="btnEdit" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button>
-            <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: darkgrey; color: white">Cancel</button>
+            <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white; display: none;">Save</button> 
+            <button id="btnDelete" type="button" class="btn btn-lg" onclick="handleDelete();" style="background-color: red; color: white; display: none;">Delete</button> 
+            <button id="btnEdit" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button> 
+            <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: darkgrey; color: white">Cancel</button> 
+            <button id="btnBack" type="button" class="btn btn-lg" onclick="handleBack();" style="background-color: darkgrey; color: white">Back</button> 
             <%--</div>--%>
         </div>
 
         <div class="row" id="submitButtonDiv" style="display: none">
             <div class="col-md" style="text-align: right">
                 <button id="btnSubmit" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Submit</button>
-                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
+                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleBack();" style="background-color: red; color: white">Back</button>
             </div>
         </div>
         <br />
         <br />
         <br />
         <br />
+
+
+
+        <div id="saveAlert"></div>
     </div>
 
 </asp:Content>

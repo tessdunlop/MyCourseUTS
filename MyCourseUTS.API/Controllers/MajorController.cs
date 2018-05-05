@@ -72,7 +72,7 @@ namespace MyCourseUTS.API.Controllers
 
         //http://mycourseuts.azurewebsites.net/Services/api/major/postmajor
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostMajor([FromBody]Major major)
+        public string PostMajor([FromBody]Major major)
         {
             var context = new MyCourseDBEntities();
             var query = from c in context.Majors
@@ -107,6 +107,7 @@ namespace MyCourseUTS.API.Controllers
                 context.Majors.Add(newRow);
                 context.SaveChanges();
             }
+            return major.ID + " - " + major.Name + " was successfully saved";
         }
 
 

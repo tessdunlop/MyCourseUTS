@@ -137,7 +137,7 @@ namespace MyCourseUTS.API.Controllers
         /// <param name="course"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/course/postcourse
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostCourse([FromBody]Course course)
+        public string PostCourse([FromBody]Course course)
         {
             var context = new MyCourseDBEntities();
             var query = from c in context.Courses.Include("CourseTypes")
@@ -176,6 +176,7 @@ namespace MyCourseUTS.API.Controllers
                 context.Courses.Add(newRow);
                 context.SaveChanges();
             }
+            return course.ID + " - " + course.Name + " was successfully saved";
         }
 
         /// <summary>
@@ -203,7 +204,7 @@ namespace MyCourseUTS.API.Controllers
         /// <param name="relationships"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/course/postcourserelationship?courseID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void PostCourseRelationship(string courseID, [FromBody]List<CourseRelationship> relationships)
+        public string PostCourseRelationship(string courseID, [FromBody]List<CourseRelationship> relationships)
         {
             if (relationships != null)
             {
@@ -262,8 +263,11 @@ namespace MyCourseUTS.API.Controllers
                         context.SaveChanges();
                     }
                     scope.Complete();
+                   
                 }
+                
             }
+            return "success";
         }
 
         /// <summary>
