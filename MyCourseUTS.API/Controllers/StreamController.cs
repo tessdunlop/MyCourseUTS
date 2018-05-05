@@ -307,7 +307,7 @@ namespace MyCourseUTS.API.Controllers
             var context = new MyCourseDBEntities();
             List<DataModel.StreamRelationships> group;
             var query = from c in context.StreamRelationships
-                        where c.Streams.ID.Equals(streamID) 
+                        where c.StreamID.Equals(streamID) 
                         select c;
             group = query.ToList();
             if (group.Count != 0)

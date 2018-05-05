@@ -293,7 +293,7 @@ namespace MyCourseUTS.API.Controllers
 
             List<DataModel.SubMajorRelationships> group;
             var query = from c in context.SubMajorRelationships
-                        where c.SubMajors.ID.Equals(submajorID) 
+                        where c.SubMajorID.Equals(submajorID) 
                         select c;
             group = query.ToList();
             if (group.Count != 0)

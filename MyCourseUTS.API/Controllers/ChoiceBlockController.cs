@@ -168,6 +168,8 @@ namespace MyCourseUTS.API.Controllers
         /// <param name="choiceBlockID"></param>
         //http://mycourseuts.azurewebsites.net/Services/api/choiceblock/deletechoiceblock?choiceblockID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [HttpDelete]
+        [AcceptVerbs("GET", "POST", "DELETE")]
         public void DeleteChoiceBlock(string choiceBlockID)
         {
             DeleteChoiceBlockRelationship(choiceBlockID);
@@ -189,8 +191,10 @@ namespace MyCourseUTS.API.Controllers
         /// API used to delete choice block relationships
         /// </summary>
         /// <param name="choiceBlockID"></param>
-        //http://mycourseuts.azurewebsites.net/Services/api/major/deletechoiceblockIDrelationship?choiceblockID=xxx
+        //http://mycourseuts.azurewebsites.net/Services/api/choiceblock/deletechoiceblockrelationship?choiceblockID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [HttpDelete]
+        [AcceptVerbs("GET", "POST", "DELETE")]
         public void DeleteChoiceBlockRelationship(string choiceBlockID)
         {
             List<DataModel.ChoiceBlockRelationships> cbk;
@@ -213,7 +217,7 @@ namespace MyCourseUTS.API.Controllers
         /// API used to delete subject grouping relationships that contain a particular choice block
         /// </summary>
         /// <param name="choiceBlockID"></param>
-        //http://mycourseuts.azurewebsites.net/Services/api/major/DeleteSubjectGroupingRelationship?choiceblockID=xxx
+        //http://mycourseuts.azurewebsites.net/Services/api/choiceblock/DeleteSubjectGroupingRelationship?choiceblockID=xxx
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void DeleteSubjectGroupingRelationship(string choiceBlockID)
         {
@@ -317,7 +321,7 @@ namespace MyCourseUTS.API.Controllers
             var context = new MyCourseDBEntities();
             List<DataModel.ChoiceBlockRelationships> cbk;
             var query = from c in context.ChoiceBlockRelationships
-                        where c.ChoiceBlocks.ID.Equals(choiceBlockID) 
+                        where c.ChoiceBlockID.Equals(choiceBlockID) 
                         select c;
             cbk = query.ToList();
             if (cbk.Count != 0)
