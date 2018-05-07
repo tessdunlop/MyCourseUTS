@@ -416,7 +416,7 @@ function addCourse(item, items) {
                 window.setTimeout(function () {
                     addSaveMessage(response);
                 }, 1000);
-                
+
             }
         },
         error: function () {
@@ -549,7 +549,7 @@ function addSubMajorRelationship(id, item) {
     return addRelationshipAJAX(url, item);
 }
 function addSubjectRequisitesRelationship(id, item) {
-    var url = "http://mycourseuts.azurewebsites.net/Services/api/subject/PostRequisiteRelationship?subjectID=" + id;  
+    var url = "http://mycourseuts.azurewebsites.net/Services/api/subject/PostRequisiteRelationship?subjectID=" + id;
     return addRelationshipAJAX(url, item);
 }
 
@@ -563,14 +563,14 @@ function addRelationshipAJAX(url, item) {
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
-        success: function (response) {           
+        success: function (response) {
             result = response;
         },
         error: function () {
-            alert("There was an issue adding "+item.Name+" relationship");
+            alert("There was an issue adding " + item.Name + " relationship");
         }
     });
-    console.log("result " +result);
+    console.log("result " + result);
     return result;
 }
 
@@ -1162,7 +1162,7 @@ function populateStmCbkSmjSubjects(id) {
                             "ContentChoiceBlock": null,
                             "ContentSubMajor": null,
                             "ContentSubjectGrouping": null,
-                            "ContentStream": {"ID":grouping[x].ContentStream.ID}
+                            "ContentStream": { "ID": grouping[x].ContentStream.ID }
                         });
 
                         var a = document.createElement("a");
@@ -1249,7 +1249,7 @@ function populateStmCbkSmjSubjects(id) {
         }
     }
     else if (selected == "stream") {
-        
+
         data = getStreamRelationship(id);
         for (var i = 0; i < data.length; i++) {
             counterID++;
@@ -1335,7 +1335,7 @@ function populateStmCbkSmjSubjects(id) {
                             "ContentChoiceBlock": null,
                             "ContentSubMajor": null,
                             "ContentSubjectGrouping": null,
-                            "ContentStream": {"ID": grouping[x].ContentStream.ID}
+                            "ContentStream": { "ID": grouping[x].ContentStream.ID }
                         });
                         var a = document.createElement("a");
                         a.setAttribute('id', counterID);
@@ -1367,7 +1367,7 @@ function populateStmCbkSmjSubjects(id) {
                             "Stream": { "ID": document.getElementById("streamId").value },
                             "Subject": null,
                             "ContentChoiceBlock": { "ID": grouping[x].ContentChoiceBlock.ID },
-                            "ContentSubMajor": null,  
+                            "ContentSubMajor": null,
                             "ContentSubjectGrouping": null,
                             "ContentStream": null
                         });
@@ -1420,7 +1420,7 @@ function populateStmCbkSmjSubjects(id) {
         }
     }
     else if (selected == "choiceblock") {
-        
+
         data = getChoiceBlockRelationship(id);
         for (var i = 0; i < data.length; i++) {
             counterID++;
@@ -1493,7 +1493,7 @@ function populateStmCbkSmjSubjects(id) {
 
             }
             else if (data[i].ContentSubjectGrouping != null) {
-                
+
                 //Do a call to get all the subjects within this subject grouping
                 var grouping = getSubjectGroupingRelationship(data[i].ContentSubjectGrouping.ID);
                 for (var x = 0; x < grouping.length; x++) {
@@ -1592,7 +1592,7 @@ function populateStmCbkSmjSubjects(id) {
     }
 
     console.log(relationships);
- 
+
 }
 
 function handlePreRequisiteListPush(term) {
@@ -1914,7 +1914,7 @@ function handleStmCbkSmjListPush(term) {
             console.log(relationships);
         }
     });
-    
+
 }
 function handleMajorListPush(term) {
     var data = new Array();
@@ -2058,7 +2058,7 @@ function handleSearch(term) {
             }
             else if (selected == "subject") {
                 selectedData = getSubject(ui.item.value);
-                handleViewEditSubject(selectedData);   
+                handleViewEditSubject(selectedData);
             }
         }
     });
@@ -2235,6 +2235,9 @@ function handleViewEditMajor(data) {
     document.getElementById('addMajorFormDiv').style.display = "block";
 }
 function handleViewEditStreamSubChoice(data) {
+    relationships = [];
+    document.getElementById("streamSubjectList").innerHTML = "";
+
     disableMenuBar(true);
     document.getElementById("choiceEditMode").style.display = "none";
     document.getElementById("choiceViewMode").style.display = "block";
@@ -2518,7 +2521,25 @@ function handleBack() {
     edit = false;
     disableMenuBar(false);
     addVisible = false;
-    handleCourse();
+    if (selected == "course") {
+        handleCourse();
+    }
+    else if (selected == "major") {
+        handleMajor();
+    }
+    else if (selected == "stream") {
+        handleStream();
+    }
+    else if (selected == "choiceblock") {
+        handleChoiceBlock();
+    }
+    else if (selected == "submajor") {
+        handleSubMajor();
+    }
+    else if (selected == "subject") {
+        handleSubject();
+    }
+
     clearFields();
     hide();
     removeValidation();
@@ -2564,7 +2585,7 @@ function handleSave() {
                     "ID": id, "Name": name, "Abbreviation": abbreviation, "CourseDescription": description,
                     "Years": years, "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
                     "CourseType": { "ID": typeID }, "Active": status
-                };                
+                };
                 addCourse(item, template);
                 //removeValidation();
                 //handleViewEditCourse(item);
@@ -2588,7 +2609,7 @@ function handleSave() {
                     "Stages": stages, "CreditPoints": creditPoints, "Version": version, "VersionDescription": versionDescription,
                     "Active": status
                 };
-                addMajor(item); 
+                addMajor(item);
                 //removeValidation();
                 //handleViewEditMajor(item);
                 handleBack();
@@ -2629,8 +2650,8 @@ function handleSave() {
                         "Version": version, "VersionDescription": versionDescription,
                         "Active": status, "CreditPoints": creditPoints
                     };
-                    
-                    addSubMajor(item, relationships);                    
+
+                    addSubMajor(item, relationships);
                 }
                 relationships = [];
                 document.getElementById("streamSubjectList").innerHTML = "";
@@ -2833,7 +2854,7 @@ function handleCancel() {
     else if (selected == "subject") {
         handleViewEditSubject(selectedData);
     }
-    
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END ALL BUTTONS
 
