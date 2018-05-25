@@ -47,6 +47,16 @@
         </div>
         <br />
         <br />
+        <div class="row btnEditGroup" id="updateButtonDivTop" style="display:none">
+            <button id="btnSaveTop" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white; display: none;">Save</button> 
+            <button id="btnDeleteTop" type="button" class="btn btn-lg" onclick="handleDelete();" style="background-color: red; color: white; display: none;">Delete</button> 
+            <button id="btnEditTop" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button> 
+            <button id="btnResetTop" type="button" class="btn btn-lg" onclick="handleReset();" style="background-color: darkgrey; color: white">Reset</button> 
+            <button id="btnCancelTop" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: darkgrey; color: white">Cancel</button> 
+        </div>
+
+        <br />
+        <br />
 
         <div id="introViewMode" style="display: block" class="viewMode">
             <b>PLEASE READ:</b>
@@ -681,21 +691,18 @@
         <br />
         <br />
 
-        <div class="row" id="updateButtonDiv">
-            <%--<div class="col-md" style="text-align: right">--%>
-
+        <div class="row btnEditGroup" id="updateButtonDiv" style="display:none">
             <button id="btnSave" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white; display: none;">Save</button> 
             <button id="btnDelete" type="button" class="btn btn-lg" onclick="handleDelete();" style="background-color: red; color: white; display: none;">Delete</button> 
             <button id="btnEdit" type="button" class="btn btn-lg" onclick="handleEdit();" style="background-color: #2478fc; color: white">Edit</button> 
+            <button id="btnReset" type="button" class="btn btn-lg" onclick="handleReset();" style="background-color: darkgrey; color: white">Reset</button> 
             <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: darkgrey; color: white">Cancel</button> 
-            <button id="btnBack" type="button" class="btn btn-lg" onclick="handleBack();" style="background-color: darkgrey; color: white">Back</button> 
-            <%--</div>--%>
         </div>
 
         <div class="row" id="submitButtonDiv" style="display: none">
             <div class="col-md" style="text-align: right">
-                <button id="btnSubmit" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Submit</button>
-                <button id="btnBack" type="button" class="btn btn-lg" onclick="handleBack();" style="background-color: red; color: white">Back</button>
+                <button id="btnSubmit" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Reset</button>
+                <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
             </div>
         </div>
         <br />

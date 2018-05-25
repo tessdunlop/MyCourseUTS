@@ -60,11 +60,14 @@ margin:0px 1px 0px 1px;
     color: #2478fc;
 }
 
-#updateButtonDiv {
+.btnEditGroup {
     display: none; 
     text-align:right;
     float:right;
+    padding-right:1%;
 }
+
+
 
 
 

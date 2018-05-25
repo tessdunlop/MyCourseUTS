@@ -14,6 +14,7 @@ var STMRel;
 
 var edit = false;
 
+
 var cor = "#bbd2f7";
 var pp = "#d3bbf7";
 var maj = "#f7bbbb";
@@ -63,6 +64,110 @@ function getSubjectTypes() {
     });
     return data;
 }
+
+function getAllCourses() {
+    var url = "http://mycourseuts.azurewebsites.net/services/api/course/getAllcourses";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the course");
+        }
+    });
+    return data;
+}
+function getAllMajors() {
+    var url = "http://mycourseuts.azurewebsites.net/services/api/major/getAllmajors";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the major");
+        }
+    });
+    return data;
+}
+function getAllSubMajors() {
+    var url = "http://mycourseuts.azurewebsites.net/services/api/submajor/getallsubmajors";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the submajor");
+        }
+    });
+    return data;
+}
+function getAllStreams() {
+    var url = "http://mycourseuts.azurewebsites.net/services/api/stream/getallstreams";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the stream");
+        }
+    });
+    return data;
+}
+function getAllChoiceBlocks() {
+    var url = "http://mycourseuts.azurewebsites.net/services/api/choiceblock/getallchoiceblocks";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the choice block");
+        }
+    });
+    return data;
+}
+function getAllSubjects() {
+    var url = "http://mycourseuts.azurewebsites.net/services/api/subject/getallsubjects";
+    var data;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            data = response;
+        },
+        error: function () {
+            alert("There was an issue retrieving the subject");
+        }
+    });
+    return data;
+}
+
 
 function getCourse(id) {
     var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcourse?courseID=" + id;
@@ -316,6 +421,12 @@ function getListItem(term) {
     return data;
 }
 
+//$(document).ajaxStart(function () {
+//    $("#loading").show();
+//}).ajaxStop(function () {
+//    $("#loading").hide();
+//});
+
 function getCourseRelationship(id) {
     var url = "http://mycourseuts.azurewebsites.net/services/api/course/getcourserelationship?courseID=" + id;
     var data;
@@ -324,7 +435,6 @@ function getCourseRelationship(id) {
         type: 'GET',
         async: false,
         success: function (response) {
-            //console.log(response);
             data = response;
         },
         error: function () {
@@ -403,6 +513,7 @@ function getSubjectGroupingRelationship(id) {
 }
 
 function addCourse(item, items) {
+    console.log(items);
     var url = "http://mycourseuts.azurewebsites.net/Services/api/course/postcourse";
     $.ajax({
         url: url,
@@ -555,6 +666,7 @@ function addSubjectRequisitesRelationship(id, item) {
 
 
 function addRelationshipAJAX(url, item) {
+    console.log(item);
     var result = "fail";
     $.ajax({
         url: url,
@@ -682,6 +794,24 @@ function generatePDF(courseID, majorID) {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AESTHETICS
+
+
+function hideSaveDelete() {
+    document.getElementById("btnSave").style.display = "none";
+    document.getElementById("btnSaveTop").style.display = "none";
+    document.getElementById("btnDelete").style.display = "none";
+    document.getElementById("btnDeleteTop").style.display = "none";
+    document.getElementById("btnEdit").style.display = "block";
+    document.getElementById("btnEdit").disabled = false;
+    document.getElementById("btnEditTop").style.display = "block";
+    document.getElementById("btnEditTop").disabled = false;
+}
+
+
+
+
+
+
 function addSaveMessage(message) {
     //saveAlert
     var id = "alert";
@@ -699,7 +829,7 @@ function populateCourseTypeDropdown() {
     for (var i = 0; i < data.length; i++) {
         var option = document.createElement("option");
         option.value = data[i].ID;
-        option.text = data[i].Abbreviation;
+        option.text = data[i].CourseType;
         select.add(option, null);
     }
 }
@@ -710,7 +840,7 @@ function populateSubjectTypeDropdown(number) {
     for (var i = 0; i < data.length; i++) {
         var option = document.createElement("option");
         option.value = data[i].ID;
-        option.text = data[i].Abbreviation;
+        option.text = data[i].SubjectType;
         select.add(option, null);
     }
 
@@ -870,6 +1000,7 @@ function hide() {
     //document.getElementById('subjectListDiv').style.display = "none";
     document.getElementById('submitButtonDiv').style.display = "none";
     document.getElementById('updateButtonDiv').style.display = "none";
+    document.getElementById('updateButtonDivTop').style.display = "none";
     document.getElementById('accordion').style.display = "none";
     //document.getElementById('subjectAddDisable').style.display = "none";
     document.getElementById("courseViewMode").style.display = "none";
@@ -2017,7 +2148,9 @@ function handleSearch(term) {
     else if (selected == "subject") {
         data = getSubjects(term);
     }
+    //setTimeout(
     $("#searchBar").autocomplete({
+
         source: function (request, response) {
             response($.map(data, function (value, key) {
                 return {
@@ -2027,15 +2160,17 @@ function handleSearch(term) {
             }));
         },
         select: function (event, ui) {
-
-
+            //$("#loading").show();
             document.getElementById("introViewMode").style.display = "none";
             disableMenuBar(true);
             document.getElementById("addDiv").style.display = "none";
             document.getElementById('searchDiv').style.display = "none";
             document.getElementById("btnSave").disabled = true;
+            document.getElementById("btnSaveTop").disabled = true;
             document.getElementById("btnDelete").disabled = true;
+            document.getElementById("btnDeleteTop").disabled = true;
             document.getElementById('updateButtonDiv').style.display = "flex";
+            document.getElementById('updateButtonDivTop').style.display = "flex";
             if (selected == "course") {
                 selectedData = getCourse(ui.item.value);
                 handleViewEditCourse(selectedData);
@@ -2061,7 +2196,7 @@ function handleSearch(term) {
                 handleViewEditSubject(selectedData);
             }
         }
-    });
+    });//, 20000);
 }
 function handleSubjectInput(term, number) {
     var data = getListItem(term);
@@ -2165,10 +2300,7 @@ function handleViewEditCourse(data) {
     disableMenuBar(true);
     document.getElementById("courseEditMode").style.display = "none";
     document.getElementById("courseViewMode").style.display = "block";
-    document.getElementById("btnSave").style.display = "none";
-    document.getElementById("btnDelete").style.display = "none";
-    document.getElementById("btnEdit").style.display = "block";
-    document.getElementById("btnEdit").disabled = false;
+    hideSaveDelete();
 
     document.getElementById("courseName").value = data.Name;
     document.getElementById("courseId").value = data.ID;
@@ -2202,16 +2334,13 @@ function handleViewEditCourse(data) {
     }
 
 
-
+    //$("#loading").hide();
 }
 function handleViewEditMajor(data) {
     disableMenuBar(true);
     document.getElementById("majorEditMode").style.display = "none";
     document.getElementById("majorViewMode").style.display = "block";
-    document.getElementById("btnSave").style.display = "none";
-    document.getElementById("btnDelete").style.display = "none";
-    document.getElementById("btnEdit").style.display = "block";
-    document.getElementById("btnEdit").disabled = false;
+    hideSaveDelete();
     majorDisable();
 
     document.getElementById("majorName").value = data.Name;
@@ -2241,10 +2370,7 @@ function handleViewEditStreamSubChoice(data) {
     disableMenuBar(true);
     document.getElementById("choiceEditMode").style.display = "none";
     document.getElementById("choiceViewMode").style.display = "block";
-    document.getElementById("btnSave").style.display = "none";
-    document.getElementById("btnDelete").style.display = "none";
-    document.getElementById("btnEdit").style.display = "block";
-    document.getElementById("btnEdit").disabled = false;
+    hideSaveDelete();
 
     if (selected == "submajor") {
         document.getElementById("subMajorOption").checked = true;
@@ -2278,15 +2404,18 @@ function handleViewEditStreamSubChoice(data) {
     document.getElementById('addStreamFormDiv').style.display = "block";
 }
 function handleViewEditSubject(data) {
+    relationships = [];
+    document.getElementById("subjectPreReq").innerHTML = "";
+    document.getElementById("subjectAntiReq").innerHTML = "";
+    document.getElementById("subjectCoReq").innerHTML = "";
+
     disableMenuBar(true);
     var reqs = getSubjectRequisites(data.ID);
     relationships = reqs;
     document.getElementById("subjectEditMode").style.display = "none";
     document.getElementById("subjectViewMode").style.display = "block";
-    document.getElementById("btnSave").style.display = "none";
-    document.getElementById("btnDelete").style.display = "none";
-    document.getElementById("btnEdit").style.display = "block";
-    document.getElementById("btnEdit").disabled = false;
+    hideSaveDelete();
+    
     document.getElementById("subjectName").value = data.Name;
     document.getElementById("subjectId").value = data.ID;
     document.getElementById("subjectAbb").value = data.Abbreviation;
@@ -2517,44 +2646,52 @@ function handleAdd() {
     }
 }
 //this controls the back button, and clears everything back to default
-function handleBack() {
-    edit = false;
-    disableMenuBar(false);
-    addVisible = false;
-    if (selected == "course") {
-        handleCourse();
+function handleCancel(save) {
+    if (save != "save") {
+        var confirmBack = confirm("Are you sure you want to cancel?");
     }
-    else if (selected == "major") {
-        handleMajor();
-    }
-    else if (selected == "stream") {
-        handleStream();
-    }
-    else if (selected == "choiceblock") {
-        handleChoiceBlock();
-    }
-    else if (selected == "submajor") {
-        handleSubMajor();
-    }
-    else if (selected == "subject") {
-        handleSubject();
-    }
+    
+    if (confirmBack) {
+        edit = false;
+        disableMenuBar(false);
+        addVisible = false;
+        if (selected == "course") {
+            handleCourse();
+        }
+        else if (selected == "major") {
+            handleMajor();
+        }
+        else if (selected == "stream") {
+            handleStream();
+        }
+        else if (selected == "choiceblock") {
+            handleChoiceBlock();
+        }
+        else if (selected == "submajor") {
+            handleSubMajor();
+        }
+        else if (selected == "subject") {
+            handleSubject();
+        }
 
-    clearFields();
-    hide();
-    removeValidation();
-    document.getElementById('btnEdit').disabled = false;
-    document.getElementById('searchDiv').style.display = "block";
-    document.getElementById('addDiv').style.display = "block";
-    document.getElementById('updateButtonDiv').style.display = "none";
-    document.getElementById('submitButtonDiv').style.display = "none";
-    document.getElementById("searchBar").focus();
+        clearFields();
+        hide();
+        removeValidation();
+        hideSaveDelete();
 
-    document.getElementById("btnEdit").style.display = "block";
-    document.getElementById("btnBack").style.display = "block";
-    document.getElementById("btnCancel").style.display = "block";
-    document.getElementById("btnSave").style.display = "none";
-    document.getElementById("btnDelete").style.display = "none";
+        document.getElementById('searchDiv').style.display = "block";
+        document.getElementById('addDiv').style.display = "block";
+        document.getElementById('updateButtonDiv').style.display = "none";
+        document.getElementById('updateButtonDivTop').style.display = "none";
+        document.getElementById('submitButtonDiv').style.display = "none";
+        document.getElementById("searchBar").focus();
+
+        document.getElementById("btnCancel").style.display = "block";
+        document.getElementById("btnCancelTop").style.display = "block";
+        document.getElementById("btnReset").style.display = "block";
+        document.getElementById("btnResetTop").style.display = "block";
+        hideSaveDelete();
+    }
 }
 //this controls the save button, and updates the changes to the database
 function handleSave() {
@@ -2563,9 +2700,13 @@ function handleSave() {
         var valid = true;
         window.scrollTo(0, 0);
         document.getElementById("btnSave").disabled = true;
+        document.getElementById("btnSaveTop").disabled = true;
         document.getElementById("btnDelete").disabled = true;
-        document.getElementById("btnBack").disabled = true;
+        document.getElementById("btnDeleteTop").disabled = true;
         document.getElementById("btnCancel").disabled = true;
+        document.getElementById("btnReset").disabled = true;
+        document.getElementById("btnCancelTop").disabled = true;
+        document.getElementById("btnResetTop").disabled = true;
 
         if (selected == "course") {
             var name = document.getElementById("courseName").value;
@@ -2589,7 +2730,7 @@ function handleSave() {
                 addCourse(item, template);
                 //removeValidation();
                 //handleViewEditCourse(item);
-                handleBack();
+                handleCancel("save");
             }
         }
         else if (selected == "major") {
@@ -2612,7 +2753,7 @@ function handleSave() {
                 addMajor(item);
                 //removeValidation();
                 //handleViewEditMajor(item);
-                handleBack();
+                handleCancel("save");
             }
         }
         else if (selected == "stream" || selected == "choiceblock" || selected == "submajor") {
@@ -2657,7 +2798,7 @@ function handleSave() {
                 document.getElementById("streamSubjectList").innerHTML = "";
                 //removeValidation();
                 //handleViewEditStreamSubChoice(item);
-                handleBack();
+                handleCancel("save");
             }
         }
 
@@ -2684,13 +2825,17 @@ function handleSave() {
                 document.getElementById("subjectCoReq").innerHTML = "";
                 //removeValidation();
                 //handleViewEditSubject(item);
-                handleBack();
+                handleCancel("save");
             }
         }
         document.getElementById("btnSave").disabled = false;
+        document.getElementById("btnSaveTop").disabled = false;
         document.getElementById("btnDelete").disabled = false;
-        document.getElementById("btnBack").disabled = false;
+        document.getElementById("btnDeleteTop").disabled = false;
         document.getElementById("btnCancel").disabled = false;
+        document.getElementById("btnReset").disabled = false;
+        document.getElementById("btnCancelTop").disabled = false;
+        document.getElementById("btnResetTop").disabled = false;
     }
 }
 //this controls the edit button, and allows the user to make edits to the object
@@ -2698,16 +2843,25 @@ function handleEdit(newAddition) {
     newAddition = newAddition || false;
 
     document.getElementById("btnEdit").disabled = true;
+    document.getElementById("btnEditTop").disabled = true;
     edit = true;
 
+
     document.getElementById("btnSave").disabled = false;
+    document.getElementById("btnSaveTop").disabled = false;
     document.getElementById("btnDelete").disabled = false;
+    document.getElementById("btnDeleteTop").disabled = false;
 
     document.getElementById("btnEdit").style.display = "none";
-    document.getElementById("btnBack").style.display = "block";
+    document.getElementById("btnEditTop").style.display = "none";
     document.getElementById("btnCancel").style.display = "block";
+    document.getElementById("btnReset").style.display = "block";
+    document.getElementById("btnCancelTop").style.display = "block";
+    document.getElementById("btnResetTop").style.display = "block";
     document.getElementById("btnSave").style.display = "block";
+    document.getElementById("btnSaveTop").style.display = "block";
     document.getElementById("btnDelete").style.display = "block";
+    document.getElementById("btnDeleteTop").style.display = "block";
 
     if (selected == "course") {
         document.getElementById("courseName").readOnly = false;
@@ -2815,7 +2969,7 @@ function handleEdit(newAddition) {
 }
 //This deletes an item from the database ie subject, course etc 
 function handleDelete() {
-    var confirmDelete = confirm("Are you sure you want to delete?");
+    var confirmDelete = confirm("Are you sure you want to delete " + selectedData.Name + "?");
     if (confirmDelete) {
         if (selected == "course") {
             deleteCourse(selectedData.ID);
@@ -2835,26 +2989,28 @@ function handleDelete() {
         else if (selected == "subject") {
             deleteSubject(selectedData.ID);
         }
-        handleBack();
+        handleCancel("save");
     }
 }
 //this function removes the changes and refreshes the item in view mode
-function handleCancel() {
-    removeValidation();
-    window.scrollTo(0, 0);
-    if (selected == "course") {
-        handleViewEditCourse(selectedData);
+function handleReset() {
+    var confirmCancel = confirm("Are you sure you want to undo changes?");
+    if (confirmCancel) {
+        removeValidation();
+        window.scrollTo(0, 0);
+        if (selected == "course") {
+            handleViewEditCourse(selectedData);
+        }
+        else if (selected == "major") {
+            handleViewEditMajor(selectedData);
+        }
+        else if (selected == "stream" || selected == "submajor" || selected == "choiceblock") {
+            handleViewEditStreamSubChoice(selectedData);
+        }
+        else if (selected == "subject") {
+            handleViewEditSubject(selectedData);
+        }
     }
-    else if (selected == "major") {
-        handleViewEditMajor(selectedData);
-    }
-    else if (selected == "stream" || selected == "submajor" || selected == "choiceblock") {
-        handleViewEditStreamSubChoice(selectedData);
-    }
-    else if (selected == "subject") {
-        handleViewEditSubject(selectedData);
-    }
-
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END ALL BUTTONS
 
@@ -2883,8 +3039,9 @@ function mapCourseRelationships() {
     template = [];
     majorsList = [];
     template = getCourseRelationship(selectedData.ID);
+    var tempLength = template.length;
     var exists;
-    for (var i = 0; i < template.length; i++) {
+    for (var i = 0; i < tempLength; i++) {
         if (template[i].Major != null) {
             exists = 0;
             for (var x = 0; x < majorsList.length; x++) {
@@ -2906,11 +3063,14 @@ function refreshTemplate() {
     accordion.innerHTML = "";
     accordion.style.display = "block";
     var updated;
+    var majLength = majorsList.length;
+    console.log(majLength);
+    var tempLength = template.length;
     if (majorsList.length != 0) {
-        for (var y = 0; y < majorsList.length; y++) {
+        for (var y = 0; y < majLength; y++) {
             var name = majorsList[y].Name;
             var id = majorsList[y].ID
-            for (var x = 0; x < template.length; x++) {
+            for (var x = 0; x < tempLength; x++) {
                 if (majorsList[y].ID == template[x].Major.ID) {
                     updated = template[x].DateUpdated;
                 }
@@ -2983,6 +3143,7 @@ function pushToTemplate(x, y, i) {
     var type;
     var colour;
     var credit;
+    //console.log(template);
 
     if (template[i].Stage == x) {
         if (template[i].Stream != null) {
@@ -3037,10 +3198,9 @@ function pushToTemplate(x, y, i) {
         }
 
         //var string = "<div onmouseover='hoverOn(event, this, \"" + id + "\");' onmouseout='hoverOff();' id='" + template[i].ID + "'onclick='removeSubject(this.id);' ><div class='row' style='height: 30px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>";
-        var string = "<div onmouseover='hoverOn(event, this, \"" + id + "\");' onmouseout='hoverOff();' id='" + template[i].ID + "'onclick='removeSubject(this.id);'  style='height: 140px; border: thin solid black; font-size:8pt; background-color: " + colour + ";' class='col text-center'><center><p><b>" + name + " </b><br/>" + credit + "<br/>" + id + "<br/>" + type + "</p></center></div>";
+        var string = "<div onclick='removeSubject(" + template[i].ID + ");' onmouseover='hoverOn(event, this, \"" + id + "\");' onmouseout='hoverOff();' id='" + template[i].ID + "' style='height: 140px; border: thin solid black; font-size:8pt; background-color: " + colour + ";' class='col text-center'><center><p><b>" + name + " </b><br/>" + credit + "<br/>" + id + "<br/>" + type + "</p></center></div>";
 
         column.innerHTML += string;
-
         //$("#item" + id).attr("disabled", "disabled").off("click");
     }
 }
@@ -3059,7 +3219,6 @@ function addToTimetable(majorNumber) {
     var itemID = id + majorNumber;//probably need to change this later cause issue if there are two of the same subjects in the same timetable
 
     var typeChecker = id.toString().substring(0, 3);
-
 
 
     if (majorsList.length == 0) {
@@ -3251,7 +3410,8 @@ function addToTimetable(majorNumber) {
     for (var i = 1; i < stages + 1; i++) {
         if (stage == i) {
             var column = document.getElementById("stageHeading" + i + majorNumber);
-            var string = "<div  id='" + itemID + "' onclick='removeSubject(this.id);' onmouseover='hoverOn(event, this, " + id + ");' onmouseout='hoverOff();'  style='height: 140px;  font-size:8pt; border: thin solid black; background-color: " + colour + ";' class='col text-center'><center><p><b>" + name + " </b><br/>" + credit + "<br/>" + id + "<br/>" + type + "</p></center></div>";
+            //var string = "<div  id='" + itemID + "' onclick='removeSubject(this.id);' onmouseover='hoverOn(event, this, " + id + ");' onmouseout='hoverOff();'  style='height: 140px;  font-size:8pt; border: thin solid black; background-color: " + colour + ";' class='col text-center'><center><p><b>" + name + " </b><br/>" + credit + "<br/>" + id + "<br/>" + type + "</p></center></div>";
+            var string = "<div  onclick='removeSubject(this.id);'  id='" + itemID + "' onmouseover='hoverOn(event, this, " + id + ");' onmouseout='hoverOff();'  style='height: 140px;  font-size:8pt; border: thin solid black; background-color: " + colour + ";' class='col text-center'><center><p><b>" + name + " </b><br/>" + credit + "<br/>" + id + "<br/>" + type + "</p></center></div>";
 
             //"<div id='" + itemID + "' onclick='removeSubject(this.id);' onmouseover='hoverOn(event, this, " + id + ");' onmouseout='hoverOff();' style='font-size:8pt'><div class='row' style='height: 60px; border-top: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p><b>" + name + " </b>" + credit + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + id + "</p></div></div><div class='row' style='border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><p>" + type + "</p></div></div><div class='row' style='border-bottom: thin solid black; border-left: thin solid black; border-right: thin solid black; background-color: " + colour + ";'><div class='col text-center'><br /><br /></div></div></div>"
             column.innerHTML += string;
