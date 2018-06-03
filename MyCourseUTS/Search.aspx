@@ -701,7 +701,7 @@
 
         <div class="row" id="submitButtonDiv" style="display: none">
             <div class="col-md" style="text-align: right">
-                <button id="btnSubmit" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Reset</button>
+                <button id="btnSubmit" type="button" class="btn btn-lg" onclick="handleSave();" style="background-color: green; color: white">Submit</button>
                 <button id="btnCancel" type="button" class="btn btn-lg" onclick="handleCancel();" style="background-color: red; color: white">Cancel</button>
             </div>
         </div>
