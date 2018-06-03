@@ -671,7 +671,7 @@ function addRelationshipAJAX(url, item) {
     $.ajax({
         url: url,
         type: 'POST',
-        async: false,
+        async: true,
         data: JSON.stringify(item),
         contentType: "application/json",
         dataType: "json",
@@ -2651,7 +2651,7 @@ function handleCancel(save) {
         var confirmBack = confirm("Are you sure you want to cancel?");
     }
     
-    if (confirmBack) {
+    if (confirmBack || save == "save") {
         edit = false;
         disableMenuBar(false);
         addVisible = false;
@@ -3388,22 +3388,22 @@ function addToTimetable(majorNumber) {
     }
 
 
-    if (type == "COR") {
+    if (type == "Core") {
         colour = cor;
     }
-    else if (type == "PP") {
+    else if (type == "Practice Program") {
         colour = pp;
     }
-    else if (type == "MAJ") {
+    else if (type == "Major") {
         colour = maj;
     }
-    else if (type == "ELE") {
+    else if (type == "Elective") {
         colour = ele;
     }
-    else if (type == "CDS") {
+    else if (type == "Combined Degree Subject") {
         colour = cds;
     }
-    else if (type == "MELE") {
+    else if (type == "Major Elective") {
         colour = mele;
     }
 
